@@ -14,3 +14,1004 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
+
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-lato: Lato;
+  --font-montserrat: Montserrat;
+
+  /* font sizes */
+  --font-size-2xs: 11px;
+  --font-size-xs: 13px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 17px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 19px;
+  --font-size-3xl: 21px;
+  --font-size-4xl: 23px;
+  --font-size-5xl: 24px;
+  --font-size-6xl: 25px;
+  --font-size-7xl: 27px;
+  --font-size-8xl: 31px;
+  --font-size-9xl: 33px;
+  --font-size-10xl: 38px;
+
+  /* Colors */
+  --color-whitesmoke-100: #f8f8f8;
+  --color-whitesmoke-200: rgba(248, 248, 248, 0.5);
+  --color-whitesmoke-300: rgba(248, 248, 248, 0.53);
+  --color-gray-100: rgba(0, 0, 0, 0.28);
+  --color-gray-200: rgba(0, 0, 0, 0.39);
+  --color-gray-300: rgba(0, 0, 0, 0.56);
+  --color-gray-400: rgba(0, 0, 0, 0.33);
+  --color-gray-500: rgba(0, 0, 0, 0.47);
+  --color-gray-600: rgba(0, 0, 0, 0.43);
+  --color-gray-700: rgba(0, 0, 0, 0.03);
+  --color-black: #000;
+  --color-dimgray-100: rgba(97, 95, 95, 0.69);
+  --color-dimgray-200: rgba(97, 95, 95, 0.17);
+  --color-dimgray-300: rgba(97, 95, 95, 0.75);
+  --color-dimgray-400: rgba(97, 95, 95, 0.91);
+  --color-dimgray-500: rgba(97, 95, 95, 0.33);
+  --color-red: rgba(253, 15, 0, 0.78);
+  --color-white: #fff;
+  --color-darkslategray-100: rgba(48, 58, 79, 0.63);
+
+  /* border radiuses */
+  --br-2xs: 4px;
+  --br-xs: 5px;
+  --br-sm: 9px;
+  --br-md: 10px;
+  --br-lg: 15px;
+  --br-xl: 16px;
+  --br-2xl: 49px;
+}
+
+@media (orientation: portrait) {
+  .Laptops_container {
+    column-gap: 0px;
+  }
+
+  .PO_desc {
+    font-size: 12px;
+  }
+
+  /* For align items responsively vertically too */
+
+  .Login_Details {
+    margin-top: 30px;
+  }
+
+  .User_Type_Enter_Details {
+    margin-top: 200px;
+  }
+  .product_name {
+    font-size: 0.8125rem;
+  }
+}
+
+/* ------ Payment Modal Responsive --------- */
+
+.paycard-container,
+.paycash_container,
+.ach_pay_container {
+  width: 465px;
+}
+
+/* your css rules for ipad portrait */
+
+/* @media all and (device-width: 2048px) and (device-height: 2732px) and (orientation:portrait) { */
+/* .ipad-portrait { color: red; } */
+
+/* your css rules for ipad landscape */
+/* @media all and (device-width: 1024px) and (device-height: 768px) and (orientation:landscape) { */
+/* .ipad-landscape { color: blue; }  */
+/* } */
+
+/* ====================================================================================================================== */
+
+/*  ------------------------- Portrait Mode Tablets Ipads --------------------*/
+
+@media (min-width: 768px) and (max-width: 992px) {
+  /* styles for medium devices */
+
+  .Login_Details {
+    margin: auto;
+    align-self: center;
+    width: 100%;
+  }
+
+  .Easyology_Details {
+    /* display: none; */
+  }
+
+  /* ------------------------------- Dashbaord Items ----------------------------- */
+
+  .Laptops_container {
+    column-gap: 2px;
+    /* flex-basis: auto; */
+  }
+
+  .card_item {
+    padding: 15px 15px;
+    width: 16%;
+  }
+
+  .weeklySales {
+    margin-top: 30px;
+  }
+}
+
+/* ----------------------------- Purchase Order Responsive ------------------------------- */
+
+.PO_NO,
+.vendor_name,
+.company_name {
+  font-size: 18px;
+  font-weight: 510px;
+}
+
+.PO_NO > span {
+  font-size: 20px;
+}
+
+.generation_product {
+  font-size: 15px;
+  line-height: 17px;
+}
+
+.product_name {
+  font-size: 0.8125rem;
+  /* line-height: 17px; */
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  /* styles for large devices */
+  /* .main_container { */
+  /* display: none; */
+  /* }  */
+
+  /* .Laptops_container { */
+  /* column-gap: 38px; */
+  /* } */
+  /* .card_item { */
+  /* padding: 15px 15px; */
+  /* width: 18%; */
+  /* } */
+}
+
+
+
+
+
+/* -------------------------- Height Wise Responsivess ------------------ */
+
+@media all and (max-device-height: 768px)  and (orientation: landscape){
+  .sidebar {
+    /* display: none; */
+  }
+
+  .lineUnderProduct {
+
+    margin-top: 20px;
+
+    }
+
+    .acountDetails {
+      margin-top: 25px;
+
+    }
+
+
+  /* I */
+  /* your css rules for ipad landscape */
+}
+
+/* ================================================================================================================= */
+
+/* ----------- Mera Device width is 1366px and height is 625px --------- */
+
+/* ----- Media Queires For Small Height Laptops ( Mininum 768 ) height------- */
+
+@media only screen and (min-width: 800px) and (min-height: 768px) and (max-height: 889px) {
+  /* ----------------- Login Page Responsive -------------- */
+  .container_details_Login {
+    margin: 10%;
+  }
+  .welcome_msg {
+    font-size: 50px;
+    margin-left: 40px;
+    /* text-align: center; */
+    /* margin-right: 50px ; */
+  }
+
+  .Logo_title > * {
+    margin-top: 3%;
+  }
+
+  .Logo_title > img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .User_Type_Enter_Details {
+    margin-top: 30px;
+  }
+
+  .easyology_header {
+    font-size: 300%;
+  }
+
+  .background_red_image > img {
+    margin-top: 3%;
+  }
+
+  /* ------------------- Side Bar Responsive ------------------ */
+
+  .main_container {
+    display: grid;
+    grid-template-columns: 100px auto;
+  }
+
+  .container_main {
+    width: 100px;
+  }
+
+  .icon {
+    margin-bottom: 30px;
+    /* width: 35px; */
+    /* height:35px */
+  }
+
+  /* ------------------ Invoice Calculator ------------------------ */
+
+  .invoice-container {
+    width: 400px;
+  }
+  .menu {
+    margin-right: 40px;
+  }
+
+  .hold {
+    width: 160px !important;
+    /* height: 30px; */
+  }
+
+  .invoice-no {
+    font-size: 20px;
+  }
+}
+
+/* ----- Media Queires For Small Height ( Min 600 height - Max 767) Laptops ------- */
+
+@media only screen and (min-width: 800px) and (min-height: 600px) and (max-height: 760px) {
+  .signIn-container {
+    /* display: none; */
+  }
+  .container_details_Login {
+    margin: 6%;
+    margin-left: 10%;
+  }
+  .User_Type_Enter_Details {
+    /* margin-top: 0px; */
+  }
+  .welcome_msg {
+    font-size: 36px;
+    margin-left: 80px;
+    /* text-align: center; */
+    /* margin-right: 50px ; */
+  }
+
+  .Logo_title > * {
+    margin-top: 0%;
+  }
+
+  .Logo_title > img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .Login_msg {
+    font-size: 22px;
+  }
+
+  .User_Type_Enter_Details {
+    margin-top: 30px;
+  }
+
+  .user_type {
+    font-size: 24px;
+  }
+  .login_inputs {
+    /* margin-bottom: 10px; */
+    margin-bottom: 15px;
+  }
+
+  .login_easyology {
+    margin: 20px;
+    margin-top: 20px;
+  }
+
+  .login_btn {
+    margin-top: 5px;
+  }
+
+  .login_button {
+    width: 201px;
+    height: 50px;
+  }
+
+  .background_red_image {
+    /* background: #FF0000; */
+    width: 100%;
+    height: 35vh;
+  }
+
+  .easyology_header {
+    font-size: 180%;
+  }
+
+  .background_red_image > img {
+    margin-top: 2%;
+  }
+
+  .container_easyology_welcome {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 20px;
+    margin-top: 70px;
+  }
+
+  /* ------------------- Side Bar Responsive ------------------ */
+
+  .main_container {
+    display: grid;
+    grid-template-columns: 100px auto;
+  }
+
+  .container_main {
+    width: 100px;
+  }
+
+  .icon {
+    margin-bottom: 20px;
+
+    width: 35px;
+    height: 35px;
+  }
+
+  /* ------------------ Invoice Calculator ------------------------ */
+
+  /* ------------------ Invoice Calculator ------------------------ */
+
+  .invoice-container {
+    width: 400px;
+  }
+  /* .menu { */
+  /* margin-right: 40px; */
+  /* } */
+
+  .hold {
+    width: 130px;
+    height: 25px;
+  }
+
+  .invoice-no {
+    font-size: 22px;
+  }
+
+  .customer_type {
+    font-size: 0.8rem;
+  }
+  .search-parent {
+    margin-right: 0px;
+  }
+
+  .search-customer-invoice {
+    height: 26px;
+    border-radius: 7px;
+  }
+
+  .promo-parent {
+    margin-top: 10px;
+  }
+  .promo-input {
+    height: 22px;
+
+  }
+  .product-input {
+    height: 25px;
+
+  }
+
+  .product_invoice_data {
+    margin-top: 0px;
+  }
+
+  .product_invoice_headers div > p {
+    font-size: 17px;
+  }
+
+  .product_id {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  .product_images {
+    width: 38px;
+    height: 45.25px;
+    border-radius: 8px;
+  }
+
+  .productDesc {
+    font-size: 13px;
+  }
+  
+  .amountData {
+    font-size: 14px;
+    line-height: normal;
+
+  }
+  .salesTax > p {
+    font-size: 16px;
+
+  }
+
+  .qty_select {
+    width: 30px;
+    height: 24px;
+    font-size: 14px;
+  }
+
+  .lineUnderProduct {
+    margin-top: 0;
+  }
+
+  .acountDetails {
+    margin-top: 30px;
+    margin-bottom: 0px;
+  }
+  .TotalamountData, .Totalamount { 
+    font-size:1.3rem ;
+    line-height: 15px;
+  }
+
+  .footer > button {
+
+    width: 95px;
+    height:34px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+
+
+  }
+}
+
+/* -------------------- Media Queires For Ipads ------------------------------------------------- */
+
+/* iPad Mini (all generations): */
+/* Portrait: 768px x 1024px (min-width: 768px) and (max-width: 1024px) */
+/* Landscape: 1024px x 768px (min-width: 1024px) and (max-width: 1366px) */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  /* styles for portrait mode on iPad Air 2 */
+
+  .signIn-container {
+    /* display: none; */
+  }
+
+  .container_details_Login {
+    width: 400px;
+    /* border: 2px solid rgb(22, 216, 22); */
+    margin: 1%;
+    margin-top: 4rem;
+  }
+  .welcome_msg {
+    /* font-size: 30px ; */
+    font-size: 2.5rem;
+    /* text-align: center; */
+    margin-left: 1rem;
+  }
+
+  .Logo_title > * {
+    margin-top: 2%;
+  }
+
+  .Logo_title > img {
+    width: 67px;
+    height: 67px;
+  }
+
+  .login_inputs {
+    width: 360px;
+    height: 31px;
+  }
+
+  .User_Type_Enter_Details {
+    margin-top: 140px;
+  }
+
+  .background_red_image > img {
+    /* margin-top: 15%; */
+
+    margin-top: 32%;
+    width: 79.52px;
+    height: 62px;
+  }
+  .background_red_image > * {
+    margin-left: 30px;
+    margin-top: 0px;
+  }
+
+  .easyology_header {
+    font-size: 200%;
+  }
+
+  .app_slogan {
+    font-size: 18px;
+  }
+
+  /* --------------------- Main Page Section --------------- */
+
+  .main_container {
+    display: grid;
+    grid-template-columns: 100px auto;
+  }
+
+  .container_main {
+    width: 100px;
+  }
+
+  /* .product_invoice_headers div >p { */
+  /*  */
+  /* } */
+}
+
+/* iPad (all generations except Mini): */
+/* Portrait: 768px x 1024px (min-width: 768px) and (max-width: 1024px) */
+/* Landscape: 1024px x 768px (min-width: 1024px) and (max-width: 1366px) */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  .User_Type_Enter_Details {
+    /* margin-top: 100px; */
+  }
+}
+
+/* iPad Pro 10.5": */
+/* Portrait: 834px x 1112px (min-width: 834px) and (max-width: 1112px) */
+/* Landscape: 1112px x 834px (min-width: 1112px) and (max-width: 1366px) */
+
+@media only screen and (min-device-width: 820px) and (max-device-width: 1112px) and (orientation: portrait) {
+  /* styles for portrait mode on iPad Air 2 */
+
+  .signIn-container {
+    /* display: none; */
+  }
+
+  .User_Type_Enter_Details {
+    margin-top: 200px;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
+  /* styles for landscape mode on iPad Air 2 */
+
+  .signIn-container {
+    /* display: none; */
+  }
+}
+
+/* iPad Pro 11": */
+/* Portrait: 834px x 1194px (min-width: 834px) and (max-width: 1194px) */
+/* Landscape: 1194px x 834px (min-width: 1194px) and (max-width: 1668px) */
+
+/* iPad Pro 12.9": */
+/* Portrait: 1024px x 1366px (min-width: 1024px) and (max-width: 1366px) */
+/* Landscape: 1366px x 1024px (min-width: 1366px) */
+
+@media all and (min-device-width: 767px) and (min-device-height: 1024px) and (orientation: portrait) {
+  .signIn-container {
+    /* display: none; */
+  }
+
+  .login_btn {
+    width: 305px;
+  }
+  /* your css rules for ipad portrait */
+}
+
+
+/* @media all and (min-device-width: 2038px) and (max-device-height: 1536px) and (orientation:portrait) { */
+/*  */
+/* .signIn-container { */
+/* display: none; */
+/* } */
+/*  */
+/* } */
+
+
+
+/* ---------------------------------  768 - 992 --------------------------------------- */
+
+/* ! --------------------------------- Working On This Now ------------------------------------------------------ */
+
+@media (min-width: 620px) and (max-width: 760px) and (orientation:portrait) {
+  .main_container {
+    display: grid;
+    grid-template-columns: 80px auto;
+  }
+  .easyology_logo {
+    width: 50px;
+    height: 50px;
+    
+  }
+
+  .container_main {
+    width: 70px;
+  }
+
+  .icon {
+    margin-bottom: 20px;
+
+    width: 30px;
+    height: 30px;
+  }
+
+  .product_name {
+    font-size: 0.7rem;
+    /* line-height: 12px; */
+}
+  
+  .right_icons{
+    display:none;
+  }
+
+  .amount_inv_details, .paid_amount, .due_date {
+    font-size: 0.8rem;
+
+  }
+  .amount_inv_details > span {
+    font-size: 0.8rem;
+
+  }
+
+  .price_view_details {
+
+    font-size: 1rem;
+  }
+  .generation_product {
+    font-size: 11px;
+    line-height: 14px;
+}
+.paid_amount > span, .due_date > span {
+  font-size: 0.8rem;
+  line-height:15px
+}
+.view-btn {
+  width: 60px;
+  font-size: 1rem;
+}
+
+}
+
+
+
+
+@media (min-width: 768px) and (max-width: 850px) {
+
+  /* ------------- Dashboard -------------------- */
+  .main_container {
+    display: grid;
+    grid-template-columns: 100px auto;
+  }
+
+  .container_main {
+    width: 100px;
+  }
+
+  .header_name {
+    width: 158px;
+    height: 40px;
+    font-size: 2rem;
+
+  }
+  .input_container {
+    margin-right: 30px;
+
+  }
+  .input_header_compo {
+    width: 195px;
+  }
+
+  .icon {
+    margin-bottom: 20px;
+
+    width: 35px;
+    height: 35px;
+  }
+
+  .icons_side {
+    margin-left: 5px;
+    margin-right: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
+
+
+
+  .header_PO {
+    font-size: 2rem;
+  }
+
+  .PO_InvoiceDetailsBox {
+    margin-top: 20px;
+
+  }
+  .sidebar {
+    /* display: none; */
+
+    /* width: 100px; */
+  }
+
+  /* .main_container { */
+    /* display: grid; */
+    /* grid-template-columns: 100px auto; */
+/*  */
+  /* } */
+
+ 
+  .signIn-container {
+    /* display: none; */
+  }
+
+  /* ------ Login ----- */
+  .container_details_Login {
+    margin-left: 6%;
+    width: 340px;
+  }
+
+  .welcome_msg {
+    width: 23.06rem;
+    font-size: 2.75rem;
+  }
+
+  .login_inputs {
+    width: 300px;
+  }
+
+  .background_red_image > * {
+    margin-left: 15px;
+    margin-top: 0px;
+  }
+
+  .Purchase_online > img {
+    margin-right: 15%;
+  }
+
+  /* ----------- Dashboard -----------------------------  */
+
+  .Laptops_container {
+    column-gap: 0px;
+    /* flex-basis: auto; */
+  }
+  .right_icons {
+    /* visibility: hidden; */
+    /* display: none; */
+}
+
+/* -------------- PO Responsiveness ------------------ */
+
+.PO_NO, .vendor_name, .company_name {
+  font-size: 14px;
+  width: inherit;
+  height: inherit;
+  /* margin-left: 0px; */
+
+}
+
+.amount_inv_details, .paid_amount, .due_date , .product_name {
+  font-size: 11px;
+  /* line-height: 13px; */
+}
+
+
+.amount_inv_details > span , .paid_amount > span, .due_date > span {
+  font-size: 0.7rem;
+
+}
+
+
+
+.price_view_details {
+  font-size: 1.2rem;
+  line-height: 15px;
+}
+.view-btn {
+  width: 80px;
+  font-size: 1rem;
+}
+
+ /* ------------------- Add PO --------------- */
+
+ .add_purchaseorder_container {
+  margin-left: 40px;
+  margin-right: 0px;
+  margin-top: 3.5%;
+}
+
+.add_purchase_inputs {
+  width: 250px;
+  height: 45px;
+}
+.plus_icon_category {
+  width: 20px;
+  height: 20px;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  width: 262px;
+    height: 102px;
+    font-size: 1rem;
+
+}
+.submit_btn, .submit_text {
+    margin-left: 20%;
+}
+
+}
+
+@media (min-width: 851px) and (max-width: 992px) {
+ 
+  .signIn-container {
+    /* display: none; */
+  }
+
+  .welcome_msg {
+    margin-left: 60px;
+  }
+
+  .container_details_Login {
+    margin-left: 6%;
+  }
+
+  .container_details_Login {
+    width: 370px;
+  }
+
+  .login_inputs {
+    width: 320px;
+  }
+
+  .enter_details,
+  .app_slogan {
+    margin-top: 0;
+  }
+
+  .enter_details {
+    font-size: 1.25rem;
+  }
+
+  .Purchase_online > img {
+    margin-right: 15%;
+  }
+
+  .login_btn {
+    width: 330px;
+  }
+  .login_button {
+    width: 160px;
+  }
+
+  .easylogogyWelcome {
+    font-size: 2rem;
+    line-height: 35px;
+  }
+
+  .easyology_desc {
+    font-size: 0.8rem;
+    line-height: 21px;
+  }
+  .app_slogan {
+    font-size: 1.1rem;
+  }
+
+  html {
+    /* font-size: 12px; */
+  }
+
+
+  .icons_side {
+    margin-left: 15px;
+    margin-right: 20px;
+    width: 28px;
+    height: 28px;
+
+  }
+
+  
+
+  /* ------------ PO Responsive ---------------- */
+
+  .PO_NO, .vendor_name, .company_name {
+    font-size: 16px;
+
+  }
+  .amount_inv_details, .paid_amount, .due_date , .product_name {
+    font-size: 13px;
+  }
+
+  .amount_inv_details > span , .paid_amount > span, .due_date > span {
+    font-size: 0.9rem;
+
+  }
+
+  .price_view_details {
+    font-size: 1.5rem
+  }
+
+  .view-btn {
+    width: 120px;
+  }
+
+
+  /* ------------------- Add PO --------------- */
+
+  .add_purchaseorder_container {
+    margin-left: 40px;
+    margin-right: 0px;
+    margin-top: 3.5%;
+}
+
+.add_purchase_inputs {
+  width: 310px;
+  height: 45px;
+
+}
+
+
+}
+
+/* -------------------------- Ipad Tabs Portrait Mode ----------------- */
+
+@media (min-width: 889px) and (orientation: portrait) {
+  .signIn-container {
+    /* display: none; */
+  }
+
+  .welcome_msg {
+    margin-left: 5px;
+
+    font-size: 3.3rem;
+    line-height: 0px;
+    height: 20px;
+  }
+
+  .background_red_image > img {
+    /* margin-top: 40px; */
+    margin-top: 23%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

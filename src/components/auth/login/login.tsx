@@ -1,10 +1,10 @@
 import React from "react";
-import Login_Icon from "../../images/Login_Icon.png";
-import Shop from "../../images/shop.png";
-import Purchase_online from "../../images/Purchase_online.png";
+import Login_Icon from "../../../assets/images/login/Login_Icon.png";
+import Shop from "../../../assets/icons/shop.png";
+import Purchase_online from "../../../assets/images/login/Purchase_online.png";
 import { NavLink, useNavigate, Link } from "react-router-dom";
-import "./SignIn.css";
-import "../../MediaQueries.css/MediaQueries.css";
+import "./login.scss";
+// import "../../MediaQueries.css/MediaQueries.css";
 
 const Login = () => {
   const navigateHome = useNavigate();
@@ -14,9 +14,9 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="_signin">
       {/* ------ Sign Container ---------- */}
-      <div className="signIn-container">
+      <div className = 'signIn-container'>
         {/* ------- Left Side Login Details ------ */}
 
         <div className="Login_Details">
@@ -39,14 +39,14 @@ const Login = () => {
 
             <div className="form_login">
               <form className="login_easyology">
-                <label htmlFor="" className="login_labels">
+                {/* <label htmlFor="" className="login_labels">
                   Select Type
                 </label>
 
                 <select name="" id="" className="login_inputs">
                   <option value="admin">Administrator</option>
                   <option value="employee">Employee</option>
-                </select>
+                </select> */}
 
                 {/*   <input
                   type="email"
@@ -115,7 +115,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

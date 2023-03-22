@@ -1,0 +1,3 @@
+Dashboard
+Colors used in the dashboard ( for red: FD0F00,78%. for black:00000,100%. for the background of the screen: F8F8F8 100%. for grey used in content: 615F5F, 75%. for grey in the drop-down box: fill: F8F8F8 100% and stroke:00000, 39%. for dropdown: 615f5f 91%)
+

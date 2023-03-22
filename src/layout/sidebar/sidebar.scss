@@ -1,0 +1,78 @@
+.container_main {
+ 
+    width: 142px;
+    height: 1024px;
+    
+    min-height: 100vh;
+    
+    background: #FFFFFF;
+    border: 0.5px solid rgba(0, 0, 0, 0.43);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 49px 0px 0px 49px;
+    /* overflow: hidden; */
+    
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    bottom: 0;
+    }
+    
+    
+    .routes {
+        display: flex;
+        flex-direction: column;
+        /* margin: 20px; */
+        margin-top: 45px;
+    }
+    
+    .nav_data {
+        display: flex;
+        /* align-items: center; */
+        align-items: center;
+        /* justify-content: space-between; */
+        /* margin: auto; */
+        margin-top: 8px;
+    
+    }
+    
+    
+    .nav_data>div {
+        margin: 10px;
+        text-decoration:none;
+    }
+    
+    
+    .icon {
+        margin: auto;
+        /* margin-top: 5px; */
+        margin-bottom: 40px;
+        /* margin-top: 20px; */
+        color: #FD0F00;   
+        /* margin: 15px; */
+    }
+    
+    .home {
+        display: flex;
+    }
+    .easyology_logo{
+        margin: auto;
+        /* margin-left: 40px; */
+        margin-top: 30px;
+    }
+    
+    
+    .link_text {
+      
+        width: 213.93px;
+        height: 23.03px;
+      
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 27px;
+        line-height: 32px;
+    
+        color: #000000;
+        text-decoration:none;
+        /* display: none; */
+    }
