@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { Layout, Menu, theme } from "antd";
+import Header from "./header/header";
+import { siderbarData } from "./sidebar/sidebar-mock-data";
+import { logoIcon } from "../assets/icons";
+import Sidebar from "./sidebar/sidebar";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -6,12 +11,11 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
-import Header from "./header/header";
+import { Link, Outlet } from "react-router-dom";
 
 const { Sider, Content } = Layout;
 
-const MainLayout: React.FC = () => {
+const MainLayout: React.FC<any> = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -19,33 +23,47 @@ const MainLayout: React.FC = () => {
 
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">logo</div>
+      <Sider
+        width={245}
+        style={{
+          background: "white",
+          height: "100vh",
+          // overflow: "hidden",
+        }}
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+      >
+        <div className="flex gap-4 items-center p-3">
+          <img className="w-16" src={logoIcon} alt="logo" />
+          {!collapsed && (
+            <span className="text-3xl primary-color">Easyology</span>
+          )}
+        </div>
         <Menu
+          className="font-semibold"
           theme="light"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
-            },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
-            },
-          ]}
-        />
+        >
+          {siderbarData.map((data) => (
+            <Menu.Item key={data.key} icon={data.icon}>
+              <Link to={`${data.path}`}>{data.label}</Link>
+            </Menu.Item>
+          ))}
+        </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header />
+        <div className="flex">
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+            {
+              className: "trigger",
+              onClick: () => setCollapsed(!collapsed),
+            }
+          )}
+          <Header />
+        </div>
         <Content
           style={{
             margin: "24px 16px",
@@ -54,7 +72,7 @@ const MainLayout: React.FC = () => {
             background: colorBgContainer,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
