@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import Login from "../components/auth/login/login";
+import NotFound from "../components/auth/not-found/not-found";
 import CashChecker from "../components/cash-checker/cash-checker";
 import DailyLedger from "../components/daily-ledger/daily-ledger";
 import Dashboard from "../components/dashboard/dashboard";
@@ -35,9 +36,9 @@ export const routes: any = [
       { path: ROUTE_CONSTANTS.SUPPORT, element: <Support /> },
     ],
   },
-  // {
-  //   path: ROUTE_CONSTANTS.DASHBOARD,
-  //   element: <MainLayout children={<Dashboard />} />,
-  // },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
   ,
 ];
