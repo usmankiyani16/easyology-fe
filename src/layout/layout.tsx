@@ -3,14 +3,7 @@ import { Layout, Menu, theme } from "antd";
 import Header from "./header/header";
 import { siderbarData } from "./sidebar/sidebar-mock-data";
 import { logoIcon } from "../assets/icons";
-import Sidebar from "./sidebar/sidebar";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
 
 const { Sider, Content } = Layout;
@@ -66,10 +59,10 @@ const MainLayout: React.FC<any> = () => {
         </div>
         <Content
           style={{
-            margin: "24px 16px",
+            // margin: "24px 16px",
             padding: 24,
             minHeight: 280,
-            background: colorBgContainer,
+            // background: colorBgContainer,
           }}
         >
           <Outlet />

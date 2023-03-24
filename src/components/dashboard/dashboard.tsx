@@ -1,9 +1,11 @@
-import React from "react";
-import MainLayout from "../../layout/layout";
+
+import DashboardTabs from "./tabs/tabs";
 
 const Dashboard = () => {
   return (
-    <div>dashboard</div>
+    <div>
+      <DashboardTabs />
+    </div>
   );
 };
 
