@@ -9,15 +9,15 @@ export const theme = {
     // colorTextBase: "#264653",
   },
   components: {
-    // Button: {
-    //   borderRadius: 2,
-    //   controlHeight: 40,
-    //   controlHeightLG: 48,
-    //   controlHeightSM: 24,
-    //   paddingContentHorizontal: 35,
-    //   fontSize: 16,
-    //   colorPrimaryHover: "none",
-    // },
+    Button: {
+      borderRadius: 10,
+      controlHeight: 40,
+      controlHeightLG: 48,
+      controlHeightSM: 24,
+      paddingContentHorizontal: 35,
+      fontSize: 16,
+      colorPrimaryHover: "none",
+    },
     Input: {
       controlHeight: 45,
       controlHeightLG: 45,
