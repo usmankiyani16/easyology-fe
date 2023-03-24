@@ -7,6 +7,7 @@ import { theme } from "./theme/theme";
 import './sass/common.scss';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+// import "antd/dist/antd.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
