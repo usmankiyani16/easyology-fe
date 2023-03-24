@@ -1,10 +1,12 @@
-import React from 'react'
-//dashboard
-// next
+
+import DashboardTabs from "./tabs/tabs";
+
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <div>
+      <DashboardTabs />
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

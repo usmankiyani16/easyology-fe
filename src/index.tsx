@@ -6,17 +6,21 @@ import { ConfigProvider } from "antd";
 import { theme } from "./theme/theme";
 import './sass/common.scss';
 import { BrowserRouter } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+// import "antd/dist/antd.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ConfigProvider theme={theme}>
-        <App />
-      </ConfigProvider>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <ConfigProvider theme={theme}>
+          <App />
+        </ConfigProvider>
+      </BrowserRouter>
+    </RecoilRoot>
   </React.StrictMode>
 );
 
