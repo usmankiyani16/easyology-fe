@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-const baseURL = "https://example.com/api";
+const baseURL =
+  "https://s2yibo3yne.execute-api.us-east-1.amazonaws.com/production/api";
 
 const api: AxiosInstance = axios.create({
   baseURL,
@@ -8,18 +9,18 @@ const api: AxiosInstance = axios.create({
 
 // Authorization header with the access token
 api.interceptors.request.use(
-    (config) => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      }
-      return config;
-    },
-    (error) => {
-      console.error('Error sending request:', error);
-      return Promise.reject(error);
+  (config) => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
-  );
+    return config;
+  },
+  (error) => {
+    console.error("Error sending request:", error);
+    return Promise.reject(error);
+  }
+);
 
 export const request = async <T = any>(
   config: AxiosRequestConfig
