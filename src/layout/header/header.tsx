@@ -1,10 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   cart2Icon,
   cartIcon,
   downloadIcon,
   profileIcon,
-} from "../../assets/icons";
+} 
+from "../../assets/icons";
 
 const Header = () => {
   return (
@@ -12,7 +13,7 @@ const Header = () => {
       <div className="flex gap-4 w-1/3">
         <img src={profileIcon} />
         <div className="flex flex-col justify-center">
-          <span className="primary-color text-2xl">Easyology</span>
+          <div className='_title'><span className="primary-color text-2xl">Easyology</span></div>
           <span>date</span>
         </div>
       </div>
