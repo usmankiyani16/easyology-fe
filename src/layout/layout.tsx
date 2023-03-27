@@ -21,6 +21,7 @@ const MainLayout: React.FC<any> = () => {
         style={{
           background: "white",
           height: "100vh",
+        
           // overflow: "hidden",
         }}
         trigger={null}
