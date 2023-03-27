@@ -14,6 +14,7 @@ import Support from "../components/support/support";
 import MainLayout from "../layout/layout";
 import { ROUTE_CONSTANTS } from "./route-constants";
 
+// eslint-disable-next-line no-sparse-arrays
 export const routes: any = [
   {
     path: ROUTE_CONSTANTS.SLASH,

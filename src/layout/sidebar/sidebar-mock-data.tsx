@@ -9,8 +9,10 @@ import {
   purchaseOrderIcon,
   settingsIcon,
   supportIcon,
+  
 } from "../../assets/icons";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
+import './sidebar.scss'
 
 export const siderbarData = [
   {
