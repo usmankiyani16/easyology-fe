@@ -1,22 +1,22 @@
-._easyology_sidebar{
-    font-family:'Lato'
+._easyology_sidebar {
+  font-family: "Lato";
 }
 
-.ant-menu-title-content{
-    font-family: 'Lato';
-    font-size: 18px;
-    line-height: 32px;
-
-    
-   
+.ant-menu-title-content {
+  font-family: "Lato";
+  font-size: 18px;
+  line-height: 32px;
 }
-//  Margin in Sidebar Sections 
+//  Margin in Sidebar Sections
 
-:where(.css-dev-only-do-not-override-129l3nd).ant-menu-inline .ant-menu-item {
-    margin-top: 10px;
+.ant-menu-inline .ant-menu-item {
+  margin-top: 10px;
 }
 
-// Margin in Sidebar Labels 
-:where(.css-dev-only-do-not-override-129l3nd).ant-menu-inline.ant-menu-root .ant-menu-item >.ant-menu-title-content, :where(.css-dev-only-do-not-override-129l3nd).ant-menu-inline.ant-menu-root .ant-menu-submenu-title >.ant-menu-title-content{
-    margin-left: 20px;
+// Margin in Sidebar Labels
+.ant-menu-inline.ant-menu-root .ant-menu-item > .ant-menu-title-content,
+.ant-menu-inline.ant-menu-root
+  .ant-menu-submenu-title
+  > .ant-menu-title-content {
+  margin-left: 20px;
 }

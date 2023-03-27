@@ -1,5 +1,15 @@
-:where(.css-dev-only-do-not-override-129l3nd).ant-tabs {
+// Tabs Margin
 
-    margin-top: 10px;
-    margin-left: 15px;
+.ant-tabs {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+// Tabs Sizing
+.ant-tabs-tab-btn {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 23px;
+  color: #000000;
 }
