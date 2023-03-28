@@ -11,5 +11,6 @@ export const ROUTE_CONSTANTS = {
   PURCHASE_ORDER: "purchase-order",
   SETTINGS: "settings",
   SUPPORT: "support",
-  ADD_PURCHASE_ORDER:"add-purchase-order"
+  ADD_PURCHASE_ORDER:"add-purchase-order",
+  ADMIN_DASHBOARD: "admin-dashboard",
 };

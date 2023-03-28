@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu } from "antd";
 import Header from "./header/header";
 import { siderbarData } from "./sidebar/sidebar-mock-data";
 import { logoIcon } from "../assets/icons";
@@ -10,9 +10,6 @@ const { Sider, Content } = Layout;
 
 const MainLayout: React.FC<any> = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   return (
     <Layout>
@@ -31,7 +28,9 @@ const MainLayout: React.FC<any> = () => {
         <div className="flex gap-4 items-center p-3">
           <img className="w-16" src={logoIcon} alt="logo" />
           {!collapsed && (
-            <span className="_easyology_sidebar text-3xl primary-color">Easyology</span>
+            <span className="_easyology_sidebar text-3xl primary-color">
+              Easyology
+            </span>
           )}
         </div>
         <Menu
@@ -39,7 +38,6 @@ const MainLayout: React.FC<any> = () => {
           theme="light"
           mode="inline"
           defaultSelectedKeys={["1"]}
-
         >
           {siderbarData.map((data) => (
             <Menu.Item key={data.key} icon={data.icon}>
