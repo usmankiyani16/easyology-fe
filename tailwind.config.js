@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     screens: {
-      xs: "340px", // => @media (min-width: 640px) { ... }
+      xs: "340px", // => @media (min-width: 340px) { ... }
       sm: "640px", // => @media (min-width: 640px) { ... }
       md: "768px", // => @media (min-width: 768px) { ... }
       lg: "1024px", // => @media (min-width: 1024px) { ... }
@@ -14,7 +14,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#FD0F00', // Replace with your desired primary color
+        primary: '#FD0F00'
       },
 
     },
