@@ -16,7 +16,8 @@ export const theme = {
       controlHeightSM: 24,
       paddingContentHorizontal: 35,
       fontSize: 16,
-      colorPrimaryHover: "none",
+      // colorPrimary: "red",
+      // colorPrimaryHover: "none",
     },
     Input: {
       controlHeight: 45,
@@ -25,7 +26,6 @@ export const theme = {
       colorBorder: "#A0A3BD",
       borderRadius: 3,
     },
-    // Typography: { colorTextHeading: "#14142B" },
     Tabs: {
       colorPrimaryHover: "none",
     },

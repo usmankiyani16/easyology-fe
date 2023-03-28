@@ -21,3 +21,7 @@ code {
 .primary-color{
   color: #FD0F00;
 }
+.ant-btn-primary{
+  color:white;
+  background-color: #FD0F00;
+}
