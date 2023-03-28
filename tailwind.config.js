@@ -4,7 +4,20 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    screens: {
+      xs: "340px", // => @media (min-width: 640px) { ... }
+      sm: "640px", // => @media (min-width: 640px) { ... }
+      md: "768px", // => @media (min-width: 768px) { ... }
+      lg: "1024px", // => @media (min-width: 1024px) { ... }
+      xl: "1280px", // => @media (min-width: 1280px) { ... }
+      "2xl": "1536px", // => @media (min-width: 1536px) { ... }
+    },
+    extend: {
+      colors: {
+        primary: '#FD0F00', // Replace with your desired primary color
+      },
+
+    },
   },
   plugins: [],
 }
