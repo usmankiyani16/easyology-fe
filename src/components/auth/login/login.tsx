@@ -1,19 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./login.scss";
 import Login_Logo from "../../../assets/icons/layout/Login_Logo.png";
 import easyology_logo from "../../../assets/icons/layout/easyology_logo.png";
 import cart from "../../../assets/images/Purchase online.png";
 
 import { Form, Input, Button, Checkbox } from "antd";
+import { useNavigate } from "react-router-dom";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
+// enum role=['admin', 'user']
+const roles = [
+  { email: "test@mail.com", password: "1234", role: "admin" },
+  { email: "test1@mail.com", password: "1234", role: "user" },
+];
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
+  useEffect(() => {
+    if (role === "admin") {
+      navigate("/admin-dashboard");
+    } else if (role === "user") {
+      navigate("/dashboard");
+    }
+  }, [role]);
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+    const user = roles.find(
+      (user) => user.email === values.email && user.password === values.password
+    );
+    if (user) {
+      let obj = {
+        email: values.email,
+        password: values.password,
+        role: user.role,
+        accessToken: "65151d",
+      };
+      localStorage.setItem("user", JSON.stringify(obj));
+      if (user.role === "admin") {
+        navigate("/admin-dashboard");
+      } else if (user.role === "user") {
+        navigate("/dashboard");
+      }
+    }
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <>
       <div className="_main-container">
@@ -72,7 +104,7 @@ const Login = () => {
             >
               <Form.Item
                 label="Email"
-                name="user_email"
+                name="email"
                 rules={[
                   {
                     required: true,
