@@ -8,6 +8,7 @@ import History from "../components/history/history";
 import MonthlyReports from "../components/monthly-reports/monthly-reports";
 import Notification from "../components/notification/notification";
 import Payments from "../components/payments/payments";
+import AddPO from "../components/purchase-order/addpo";
 import PurchaseOrder from "../components/purchase-order/purchase-order";
 import Settings from "../components/settings/settings";
 import Support from "../components/support/support";
@@ -35,6 +36,8 @@ export const routes: any = [
       { path: ROUTE_CONSTANTS.PURCHASE_ORDER, element: <PurchaseOrder /> },
       { path: ROUTE_CONSTANTS.SETTINGS, element: <Settings /> },
       { path: ROUTE_CONSTANTS.SUPPORT, element: <Support /> },
+      { path: ROUTE_CONSTANTS.ADD_PURCHASE_ORDER, element: <AddPO />  },
+
     ],
   },
   {

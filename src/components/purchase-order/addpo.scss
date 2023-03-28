@@ -1,0 +1,27 @@
+._input , .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+
+    display: flex;
+    align-items: center;
+    // width: 326px;
+height: 40px;
+
+
+background: #FDFDFD;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
+    width:300px;
+    background: #FDFDFD;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+::placeholder {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.8rem;
+    line-height: 19px;
+    color: #b9b7b7;
+}

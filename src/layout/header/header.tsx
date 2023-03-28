@@ -5,22 +5,17 @@ import {
   downloadIcon,
   profileIcon,
 } from "../../assets/icons";
-import { AudioOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { Input, Space } from 'antd';
 import './header.scss'
 
 
 
+
+
 const { Search } = Input;
 
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1890ff',
-    }}
-  />
-);
+
 
 const onSearch = (value: string) => console.log(value);
 
@@ -28,12 +23,11 @@ const onSearch = (value: string) => console.log(value);
 
 const Header = () => {
 
-   // Getting Current Date
+  // Getting Current Date
 
-   const current = new Date();
-   const date = `${current.getDate()}/${
-     current.getMonth() + 1
-   }/${current.getFullYear()}`;
+  const current = new Date();
+  const date = `${current.getDate()}/${current.getMonth() + 1
+    }/${current.getFullYear()}`;
 
 
   return (
@@ -48,16 +42,11 @@ const Header = () => {
       <div className="w-1/3">
 
 
-      <Space direction="vertical">
-   
-    <Search placeholder="input search text" onSearch={onSearch} enterButton />
-  
-  </Space>
+        <Space direction="vertical">
 
+          <Search placeholder="input search text" onSearch={onSearch} enterButton />
 
-
-
-
+        </Space>
 
       </div>
       <div className="flex justify-end gap-9 ml-auto">
