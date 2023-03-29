@@ -18,10 +18,17 @@ code {
 .ant-menu-item-selected{
   color:#FD0F00 !important
 }
-.primary-color{
+._primary-color{
   color: #FD0F00;
 }
 .ant-btn-primary{
   color:white;
   background-color: #FD0F00;
+}
+
+h1{
+  font-size:16px
+}
+h2{
+  font-size:34px
 }

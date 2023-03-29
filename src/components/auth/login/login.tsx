@@ -6,41 +6,47 @@ import cart from "../../../assets/images/Purchase online.png";
 
 import { Form, Input, Button, Checkbox } from "antd";
 import { useNavigate } from "react-router-dom";
+import { UserRole } from "../../../utils/interfaces";
+import { useRecoilState } from "recoil";
+import { authState } from "../../../store/auth.store";
+import { post } from "../../../utils/api/api";
 
-// enum role=['admin', 'user']
-const roles = [
-  { email: "test@mail.com", password: "1234", role: "admin" },
-  { email: "test1@mail.com", password: "1234", role: "user" },
-];
 
 const Login = () => {
+  const [auth, setAuth] = useRecoilState(authState);
   const navigate = useNavigate();
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   useEffect(() => {
-    if (role === "admin") {
+    if (role === UserRole.ADMIN) {
       navigate("/admin-dashboard");
-    } else if (role === "user") {
+    } else if (role && role !== UserRole.ADMIN) {
       navigate("/dashboard");
     }
   }, [role]);
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log("Success:", values);
-    const user = roles.find(
-      (user) => user.email === values.email && user.password === values.password
-    );
-    if (user) {
-      let obj = {
+    try {
+      const response = await post("/user/sign-in", {
         email: values.email,
         password: values.password,
-        role: user.role,
-        accessToken: "65151d",
+      });
+      setAuth(response);
+      console.log("response", response);
+      let obj = {
+        data: response?.data,
+        token: response?.token,
+        email: response?.data?.email,
+        role: response?.data?.role,
+        accessToken: response?.token?.AccessToken,
       };
       localStorage.setItem("user", JSON.stringify(obj));
-      if (user.role === "admin") {
+      if (obj?.role === UserRole.ADMIN) {
         navigate("/admin-dashboard");
-      } else if (user.role === "user") {
+      } else {
         navigate("/dashboard");
       }
+    } catch (error) {
+      console.log("error", error);
     }
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -101,10 +107,8 @@ const Login = () => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
-              
             >
               <Form.Item
-              
                 label="Email"
                 name="email"
                 rules={[
@@ -114,8 +118,8 @@ const Login = () => {
                     message: "Required Field",
                   },
                   {
-                    type: 'email'
-                  }
+                    type: "email",
+                  },
                 ]}
                 hasFeedback
               >
@@ -125,8 +129,8 @@ const Login = () => {
               <Form.Item
                 label="Password"
                 name="password"
-                required tooltip="This is a required field"
-
+                required
+                tooltip="This is a required field"
                 rules={[
                   {
                     required: true,

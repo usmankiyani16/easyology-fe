@@ -1,5 +1,5 @@
 import React from "react";
-import POCard from "./po-card";
+import POCard from "./po-card/po-card";
 
 const PurchaseOrder = () => {
   return (

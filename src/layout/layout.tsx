@@ -18,7 +18,7 @@ const MainLayout: React.FC<any> = () => {
         style={{
           background: "white",
           height: "100vh",
-        
+
           // overflow: "hidden",
         }}
         trigger={null}
@@ -28,7 +28,7 @@ const MainLayout: React.FC<any> = () => {
         <div className="flex gap-4 items-center p-3">
           <img className="w-16" src={logoIcon} alt="logo" />
           {!collapsed && (
-            <span className="_easyology_sidebar text-3xl primary-color">
+            <span className="_easyology_sidebar text-3xl _primary-color">
               Easyology
             </span>
           )}

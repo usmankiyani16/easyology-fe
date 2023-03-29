@@ -29,5 +29,6 @@ export const theme = {
     Tabs: {
       colorPrimaryHover: "none",
     },
+    
   },
 };
