@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import Login from "../components/auth/login/login";
 import NotFound from "../components/auth/not-found/not-found";
 import RequireAuth from "../components/auth/RequireAuth";
+import Unauthorized from "../components/auth/unauthorized/unauthorized";
 import CashChecker from "../components/cash-checker/cash-checker";
 import DailyLedger from "../components/daily-ledger/daily-ledger";
 import MonthlyReports from "../components/monthly-reports/monthly-reports";
@@ -13,6 +14,7 @@ import PurchaseOrder from "../components/purchase-order/purchase-order";
 import Settings from "../components/settings/settings";
 import Support from "../components/support/support";
 import MainLayout from "../layout/layout";
+import { UserRole } from "../utils/interfaces";
 import { ROUTE_CONSTANTS } from "./route-constants";
 
 //<img src={LoadingSvg} height={200} width={200} alt="LoadingSvg" />
@@ -40,9 +42,9 @@ const AdminDashboardLazy = Loadable(
 
 const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
 let path = "";
-if (role === "admin") {
+if (role === UserRole.ADMIN) {
   path = "/admin-dashboard";
-} else if (role === "user") {
+} else {
   path = "/dashboard";
 }
 
@@ -68,7 +70,7 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.DASHBOARD,
         element: (
-          <RequireAuth allowedRoles={["user"]}>
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
             <DashboardLazy />
           </RequireAuth>
         ),
@@ -76,7 +78,7 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.HISTORY,
         element: (
-          <RequireAuth allowedRoles={["user"]}>
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
             <HistoryLazy />
           </RequireAuth>
         ),
@@ -89,9 +91,12 @@ export const routes: any = [
       { path: ROUTE_CONSTANTS.PURCHASE_ORDER, element: <PurchaseOrder /> },
       { path: ROUTE_CONSTANTS.SETTINGS, element: <Settings /> },
       { path: ROUTE_CONSTANTS.SUPPORT, element: <Support /> },
-      { path: ROUTE_CONSTANTS.ADD_PURCHASE_ORDER, element: <AddPO />  },
-
+      { path: ROUTE_CONSTANTS.ADD_PURCHASE_ORDER, element: <AddPO /> },
     ],
+  },
+  {
+    path: ROUTE_CONSTANTS.UNAUTHORIZED,
+    element: <Unauthorized />,
   },
   {
     path: "*",
