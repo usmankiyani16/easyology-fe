@@ -11,11 +11,6 @@ import { useRecoilState } from "recoil";
 import { authState } from "../../../store/auth.store";
 import { post } from "../../../utils/api/api";
 
-// enum role=['admin', 'user']
-const roles = [
-  { email: "test@mail.com", password: "1234", role: "admin" },
-  { email: "test1@mail.com", password: "1234", role: "user" },
-];
 
 const Login = () => {
   const [auth, setAuth] = useRecoilState(authState);
