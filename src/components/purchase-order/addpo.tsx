@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import add_category from '../../assets/icons/layout/plus_icon.png'
+import add_vendor from '../../assets/icons/layout/add.png'
 import { PlusOutlined } from "@ant-design/icons";
 import "./addpo.scss";
 import {
@@ -6,17 +8,13 @@ import {
   Input,
   Button,
   Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Checkbox,
+ 
+
+ 
   Upload,
 } from "antd";
 
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -28,7 +26,9 @@ const onFinishFailed = (errorInfo: any) => {
 const AddPO = () => {
   return (
     <div>
-      <h1 className="mt-4 text-[2rem]">Purchase Order</h1>
+      <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
+
+      {/* Add PO Form  */}
 
       <Form
         // labelCol={{ span: 4 }}
@@ -41,6 +41,7 @@ const AddPO = () => {
         className="mt-4"
       >
         <div className="_parent_form grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto">
+
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">
@@ -56,7 +57,8 @@ const AddPO = () => {
                   message: "Required Field",
                 },
                 {
-                  type: "string",
+                  pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
+                  message: "Special characters not allowed",
                 },
               ]}
             >
@@ -76,7 +78,8 @@ const AddPO = () => {
                 },
               ]}
             >
-              <Input className="_input" placeholder="Enter Product Price" />
+              {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
+              <Input className="_input" placeholder="$0.00" />
             </Form.Item>
             <Form.Item
               label="Thresh"
@@ -94,7 +97,10 @@ const AddPO = () => {
                 },
               ]}
             >
-              <Select className="_input select_input" placeholder="Select Thresh">
+              <Select
+                className="_input select_input"
+                placeholder="Select Thresh"
+              >
                 <Select.Option value="15 days">15 days</Select.Option>
                 <Select.Option value="30 days">30 days</Select.Option>
                 <Select.Option value="45 days">45 days</Select.Option>
@@ -105,13 +111,8 @@ const AddPO = () => {
               label="Upload"
               valuePropName="fileList"
               className="mt-[50px] ant-col-30"
-
             >
-              <Upload
-                action="/upload.do"
-                listType="picture-card"
-
-              >
+              <Upload action="/upload.do" listType="picture-card">
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload Image</div>
@@ -122,38 +123,25 @@ const AddPO = () => {
             <Form.Item
               label="Product IMEI Number"
               name="IMEI Number"
-              required
-              tooltip="This is a required field"
               rules={[
                 {
-                  // type: 'number'
+                  pattern: new RegExp("^\\d{15}$"),
+                  message: "Only digits (15) allowed",
                 },
               ]}
             >
               <Input className="_input" placeholder="Enter Product IMEI" />
             </Form.Item>
 
-            <Form.Item
-              label="Product Description"
-              name="Product Description"
-              required
-              tooltip="This is a required field"
-              rules={[
-                {
-                  // type: 'number'
-                },
-              ]}
-            >
+            <Form.Item label="Product Description" name="Product Description">
               <Input
                 className="_input"
                 placeholder="Enter Product Description"
               />
             </Form.Item>
-
-
           </div>
 
-          {/*----------------- Grid 2 ---------------------------- */}
+          {/*----------------------- Grid 2 ---------------------------- */}
 
           <div className="_grid2_fields">
             <Form.Item
@@ -167,10 +155,16 @@ const AddPO = () => {
                   // type: 'email',
                   message: "Required Field",
                 },
+                {
+                  pattern: new RegExp(/^[0-9]*$/),
+                  message: "Only Numeric Value Allowed",
+                },
               ]}
             >
               <Input className="_input" placeholder="Enter Product Quality" />
+              
             </Form.Item>
+            
 
             <Form.Item
               label="Category"
@@ -194,14 +188,15 @@ const AddPO = () => {
               </Select>
             </Form.Item>
 
+            
+
             <Form.Item
               label="Color"
               name="Product Color"
-              required
-              tooltip="This is a required field"
               rules={[
                 {
-                  // type: 'number'
+                  pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
+                  message: "Special characters not allowed",
                 },
               ]}
             >
@@ -210,48 +205,26 @@ const AddPO = () => {
             <Form.Item
               label="Product Size"
               name="Pruduct Size"
-              required
-              tooltip="This is a required field"
               rules={[
                 {
-                  type: "string",
+                  pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
+                  message: "Special characters not allowed",
                 },
               ]}
             >
               <Input className="_input" placeholder="Specify Size" />
             </Form.Item>
 
-            {/* *!-------------------- Yaha s karna hai aaagy kaaaam ------------------------- */}
-
-            <Form.Item
-              label="Product Type"
-              name="Pruduct Type"
-              required
-              tooltip="This is a required field"
-              rules={[
-                {
-                  type: "string",
-                },
-              ]}
-            >
+            <Form.Item label="Product Type" name="Pruduct Type">
               <Input className="_input" placeholder="Specify Product Type" />
             </Form.Item>
 
-            <Form.Item
-              label="Product Serial #"
-              name="Pruduct Serial #"
-              required
-              tooltip="This is a required field"
-              rules={[
-                {
-                  type: "string",
-                },
-              ]}
-            >
+            <Form.Item label="Product Serial #" name="Pruduct Serial #">
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
 
             <Form.Item
+            
               label="Select Vendor"
               name="Select Vendor"
               required
@@ -272,48 +245,28 @@ const AddPO = () => {
                 <Select.Option value="Hasan">Hasan</Select.Option>
                 <Select.Option value="Ahmed">Ahmed</Select.Option>
               </Select>
+              <img src={add_vendor} alt="" />
             </Form.Item>
 
-
+            
           </div>
-
-
-
         </div>
 
         <div className="_btn-footer flex justify-between mt-8">
-
           <div className="_import_btn">
-            <Form.Item
-
-            >
-              <Button type="primary">
-                Import
-              </Button>
+            <Form.Item>
+              <Button type="primary">Import</Button>
             </Form.Item>
-
           </div>
 
-
-
           <div className="_submit_btn mr-16">
-            <Form.Item
-
-            >
+            <Form.Item>
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
-
           </div>
-
-
-
         </div>
-
-        <button>
-          ignore this button
-        </button>
       </Form>
     </div>
   );

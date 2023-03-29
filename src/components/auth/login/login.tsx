@@ -110,13 +110,14 @@ const Login = () => {
                 rules={[
                   {
                     required: true,
-                    type: "email",
-                    message: "Please correct email!",
+              
+                    message: "Required Field",
                   },
                   {
                     type: 'email'
                   }
                 ]}
+                hasFeedback
               >
                 <Input />
               </Form.Item>
@@ -133,8 +134,9 @@ const Login = () => {
                     message: "Please input your password!",
                   },
                 ]}
+                hasFeedback
               >
-                <Input.Password />
+                <Input.Password/>
               </Form.Item>
 
               <Form.Item

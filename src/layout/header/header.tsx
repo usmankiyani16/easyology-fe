@@ -1,4 +1,5 @@
 import React from "react";
+import scanner from '../../assets/icons/layout/scanner.png'
 import {
   cart2Icon,
   cartIcon,
@@ -7,7 +8,10 @@ import {
 } from "../../assets/icons";
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, Space } from 'antd';
+
+
 import './header.scss'
+
 
 
 
@@ -39,20 +43,28 @@ const Header = () => {
           <span className='_current_date'>{date}</span>
         </div>
       </div>
-      <div className="w-1/3">
+      <div className="w-1/3r flex items-center">
 
 
-        <Space direction="vertical">
+       {/*  <Space direction="vertical">
 
           <Search placeholder="input search text" onSearch={onSearch} enterButton />
 
-        </Space>
+        </Space> */}
+
+        <div>
+
+      <Input type='search' placeholder="Search by product name" prefix={<SearchOutlined />} className='w-60 rounded text-md' />
+      </div>
+      <div className="ml-2">
+      <img src={scanner} alt="Product Scanner" />
+      </div>
 
       </div>
       <div className="flex justify-end gap-9 ml-auto">
-        <img className="w-7 h-7" src={cartIcon} alt="cart" />
-        <img className="w-7 h-7" src={downloadIcon} alt="download" />
-        <img className="w-7 h-7" src={cart2Icon} alt="cart" />
+        <img className="w-7 h-7 cursor-pointer" src={cartIcon} alt="cart" />
+        <img className="w-7 h-7 cursor-pointer" src={downloadIcon} alt="download" />
+        <img className="w-7 h-7 cursor-pointer" src={cart2Icon} alt="cart" />
       </div>
     </div>
   );
