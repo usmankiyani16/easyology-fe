@@ -1,4 +1,5 @@
 import React from "react";
+import { purchaseOrders } from "./mock-data/po-data";
 import POCard from "./po-card/po-card";
 
 const PurchaseOrder = () => {
@@ -8,7 +9,7 @@ const PurchaseOrder = () => {
         <h1>Purchase Order</h1>
         <div>icon</div>
       </div>
-      <POCard/>
+      <POCard purchaseOrders={purchaseOrders}/>
     </div>
   );
 };
