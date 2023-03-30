@@ -1,9 +1,12 @@
 import { Button, Card } from "antd";
 import "./po-card.scss";
 
+
+
+
 const POCard = () => {
   return (
-    <Card className="_po-card">
+    <Card className="_po-card mt-4">
       <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
         <div className="flex flex-col _border-r pr-7 mr-7">
           <div className="flex text-xl gap-4">

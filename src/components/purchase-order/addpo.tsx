@@ -155,13 +155,10 @@ const AddPO = () => {
                   // type: 'email',
                   message: "Required Field",
                 },
-                {
-                  pattern: new RegExp(/^[0-9]*$/),
-                  message: "Only Numeric Value Allowed",
-                },
+              
               ]}
             >
-              <Input className="_input" placeholder="Enter Product Quality" />
+              <Input className="_input" placeholder="Enter Product Quality" type="number"/>
               
             </Form.Item>
             

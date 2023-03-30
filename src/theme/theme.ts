@@ -24,7 +24,7 @@ export const theme = {
       controlHeightLG: 45,
       controlHeightSM: 38,
       colorBorder: "#A0A3BD",
-      borderRadius: 3,
+      borderRadius: 10,
     },
     Tabs: {
       colorPrimaryHover: "none",

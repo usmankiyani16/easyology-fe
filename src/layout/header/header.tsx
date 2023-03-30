@@ -19,9 +19,8 @@ const Header = () => {
   // Getting Current Date
 
   const current = new Date();
-  const date = `${current.getDate()}/${
-    current.getMonth() + 1
-  }/${current.getFullYear()}`;
+  const date = `${current.getDate()}/${current.getMonth() + 1
+    }/${current.getFullYear()}`;
 
   return (
     <div className="flex justify-between items-center w-full pt-3 px-5">
@@ -34,7 +33,7 @@ const Header = () => {
           <span className="_current_date">{date}</span>
         </div>
       </div>
-      <div className="w-1/3">
+      {/*  <div className="w-1/3">
         <Space direction="vertical">
           <Search
             placeholder="input search text"
@@ -42,7 +41,23 @@ const Header = () => {
             enterButton
           />
         </Space>
+      </div> */}
+
+      <div className="w-1/3r flex items-center">
+
+
+
+        <div>
+
+          <Input type='search' placeholder="Search by product name" prefix={<SearchOutlined />} className='w-60 h-8' />
+        </div>
+        <div className="ml-2">
+          <img src={scanner} alt="Product Scanner" />
+        </div>
+
       </div>
+
+
       <div className="flex justify-end gap-9 ml-auto">
         <img className="w-7 h-7 cursor-pointer" src={cartIcon} alt="cart" />
         <img className="w-7 h-7 cursor-pointer" src={downloadIcon} alt="download" />
