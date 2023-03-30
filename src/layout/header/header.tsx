@@ -7,6 +7,7 @@ import {
 } from "../../assets/icons";
 
 const Header = () => {
+  
   return (
     <div className="flex justify-between items-center w-full pt-3 px-5">
       <div className="flex gap-4 w-1/3">

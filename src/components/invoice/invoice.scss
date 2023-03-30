@@ -1,0 +1,408 @@
+.invoice{ 
+    .container{
+        background-color: rgba(255, 255, 255, 1);
+        border: 2px solid rgba(228, 223, 223, 1); 
+        height: 40%;
+        width:28.26rem;
+        margin-left: 61%;
+        border-radius:49px;
+        margin-top: -6rem;
+        padding-bottom: 3%;
+       
+       
+    }
+
+    /*  ---------------top-------------- */
+    .printicon{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 3%;
+
+      /*   margin-left: 19rem;
+        margin-top: 1rem;
+        width: 1.75rem;
+        height: 1.75rem; */
+        
+    }
+   .entendbtn{
+align-self: start;
+   }
+
+    .onholdbtn{
+        padding-right: 3%;
+       
+    }
+    .onhold{
+        border: 1px solid rgb(212, 209, 209); 
+        /* height: 3%; */
+        width: 4.92rem;
+        border-radius:4px;
+        background-color: rgba(246, 246, 246, 1);
+     /*    margin-left: 22rem;
+        margin-top: -1.5rem; */
+        color: rgba(0, 0, 0, 1);
+        justify-content: center;
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        display: flex;
+     }
+     .onhold:hover{
+        background-color: rgba(253, 15, 0, 0.78);
+        color: rgba(255, 255, 255, 1);
+     }
+   .onhold>.number{
+    color: red;
+   
+   }
+   .onhold>.number:hover{
+    color: black;
+   }
+
+   .printbtn{
+    padding-left: 53%;
+   }
+   .extendbtn{
+    padding-left: 3%;
+   }
+
+       /* ------------title and search--------------- */
+   .title_search{
+    display: flex;
+   }
+   .head{
+
+    width: 14rem;
+   }
+   
+   .head>h1{
+    margin-left: 1rem;
+    margin-top:1rem;
+    color: rgba(0, 0, 0, 1);
+    justify-content: center;
+    font-family: "Lato";
+    font-weight: 600;
+    font-size: 29px;
+    width: 14rem;
+   }
+   .h2_h3{
+    display: flex;
+    margin-top:0rem;
+    margin-left: 1rem;
+    font-size: 16px;
+    width: 14rem;
+   }
+   .h2_h3>h2{
+    color:rgba(253, 15, 0, 0.78) ;
+  
+   }
+   .h2_h3>h3{
+    color: rgba(0, 0, 0, 1);
+   }
+   
+   
+   .searchbar{
+    border: 1px solid rgba(166, 163, 163, 1); 
+    height: 1.86rem;
+    width:9.04rem;
+    margin-left:2rem;
+    border-radius:9px;
+    margin-top: 2rem;
+   }
+  
+   
+  
+.searchicon{
+    margin-left: 2.5rem;
+    margin-top: -1.3rem;
+   } 
+   .adduser{
+    margin-left: 11.5rem;
+    margin-top: -1.3rem;
+   }
+
+    /*  ------------promo and product---------------- */
+   .productID{
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-end;
+   padding-top: 3%;
+   }
+   .product::placeholder{
+    font-size: 13px;
+   }
+.product{
+    padding-right: 2%;
+}
+   .product>input{
+    border: 1px solid rgba(166, 163, 163, 1); 
+    height: 1.86rem;
+    width:6.18rem;
+    border-radius:9px;
+   }
+   .producticon{
+    margin-top: 4%;
+   } 
+   .QRicon{
+    padding-right: 4%;
+   } 
+.promocode{
+    padding-right: 0%;
+}
+   .promocode>input{
+    border: 1px solid rgba(166, 163, 163, 1); 
+    height: 1.56rem;
+    width:5.32rem;
+    border-radius:5px;
+   }
+
+   .applybtn{
+    padding-right: 35%;
+    padding-left: 2%;
+   }
+   .applybtn>button{
+    border: 1px solid rgba(166, 163, 163, 1); 
+    height: 1rem;
+    width:2.16rem;
+    border-radius:3px;
+    font-size: 8px;
+    color: rgba(253, 15, 0, 0.78);
+   }
+
+   
+ /*  -----------item_Qty_Price---------------- */
+
+
+
+   .item_Qty_Price{
+    color: rgba(0, 0, 0, 1);
+    font-family: "Lato";
+    font-weight: 600;
+    font-size: 23px;
+    width: 14rem;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 2%;
+   }
+   .item_Qty_Price>h3{
+   padding-right: 5%;
+   }
+   .item_Qty_Price>h2{
+    padding-right: 12%;
+   }
+   .item_Qty_Price>h1{
+    padding-right: 48.6%;
+   }
+  
+
+   /*  -----------item_first row---------------- */
+.item_first_row>h1{
+    color: rgba(141, 141, 141, 1);
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 16px;
+    padding-left: 3%;
+
+}
+.first_row{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 4%;
+}
+.first_row>img{
+    padding-left: 3%;
+}
+.first_row>h2{
+    width: 24%;
+    padding-left: 4%;
+}
+
+.first_row_price{
+    padding-left: 12.6%;
+}
+.first_row_price>h2{
+    color: rgba(97, 95, 95, 1);
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.first_row_price>h3{
+    color: rgba(0, 0, 0, 1);
+    font-family: "Lato";
+    font-weight: 600;
+    font-size: 18px; 
+}
+.first_row_quantity{
+    padding-left: 23%;
+    height: 3%;
+}
+.first_row_quantity>select{
+    background-color:rgba(248, 248, 248, 1);
+    border: 1px solid rgba(136, 136, 136, 1);
+    border-radius: 5px;  
+}
+.line{
+ width: 96%;
+    padding-left: 3%;
+    padding-bottom: 3%;
+}
+
+/*  -----------item_second_row---------------- */
+
+.item_second_row>h1{
+    color: rgba(141, 141, 141, 1);
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 16px;
+    padding-left: 3%;
+}
+.second_row{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 4%;
+}
+.second_row>img{
+    padding-left: 3%;
+}
+.second_row>h2{
+    width: 25%;
+    padding-left: 4%;
+}
+.second_row_price{
+    padding-left: 12.6%;
+}
+.second_row_price>h2{
+    color: rgba(97, 95, 95, 1);
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 14px;
+}
+.second_row_price>h3{
+    color: rgba(0, 0, 0, 1);
+    font-family: "Lato";
+    font-weight: 600;
+    font-size: 18px; 
+}
+.second_row_quantity{
+    padding-left: 21.9%;
+    height: 3%;
+}
+.second_row_quantity>select{
+    background-color:rgba(248, 248, 248, 1);
+    border: 1px solid rgba(136, 136, 136, 1);
+    border-radius: 5px;  
+}
+
+/*  -----------item_third_row---------------- */
+.item_third_row>h1{
+    color: rgba(141, 141, 141, 1);
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 16px;
+    padding-left: 3%;
+}
+.third_row{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 4%;
+}
+.third_row>img{
+    padding-left: 3%;
+}
+.third_row>h2{
+    width: 24%;
+    padding-left: 4%;
+}
+.third_row_price{
+    padding-left: 12.6%;
+}
+.third_row_price>h2{
+    color: rgba(97, 95, 95, 1);
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 14px;
+}
+.third_row_price>h3{
+    color: rgba(0, 0, 0, 1);
+    font-family: "Lato";
+    font-weight: 600;
+    font-size: 18px; 
+}
+.third_row_quantity{
+    padding-left: 22.9%;
+    height: 3%;
+}
+.third_row_quantity>select{
+    background-color:rgba(248, 248, 248, 1);
+    border: 1px solid rgba(136, 136, 136, 1);
+    border-radius: 5px;  
+}
+
+/*  ----------last_row---------------- */
+
+.last_row{
+    display: flex;
+}
+.last_row_title{
+    padding-left: 3%;
+}
+.last_row_title>h3{
+    color: rgba(97, 95, 95, 1);
+    font-family: "Lato";
+}
+.last_row_price{
+padding-left: 55%;
+
+}
+.last_row_price>h1{
+    padding-left: 28%;
+}
+.last_row_price>h2{
+    padding-left: 37%;
+}
+.last_row_price>h3{
+    padding-left: 45%;
+}
+.last_row_title>h4{
+    color: rgba(255, 55, 43, 1);
+    font-family: "Lato";
+    font-weight: 600;
+    font-size: 20px;
+    padding-top: 16%;
+    
+
+}
+
+
+.last_row_price>h4{
+    color: rgba(0, 0, 0, 1);
+    font-family: "Lato";
+    font-weight: 600;
+    font-size: 20px;
+    padding-top: 16%;
+   
+    width: 90px;
+}
+.invoicebutn{
+    display: flex;
+    justify-content: center;
+    padding-top:4% ;
+    justify-content: space-around;
+}
+.invoicebutn>button{
+    background-color:rgba(248, 248, 248, 1);
+    border-radius: 10px;
+    width: 22%;
+   padding-top: 1%;
+   padding-bottom: 1%;
+   border: 1px solid rgba(97, 95, 95, 1) ;
+}
+.invoicebutn>button:hover{
+    background-color:rgba(255, 55, 43, 1);
+}
+}
