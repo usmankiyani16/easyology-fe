@@ -10,7 +10,7 @@ const api: AxiosInstance = axios.create({
 // Authorization header with the access token
 api.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("accessToken");
+  const { accessToken }: any = JSON.parse(localStorage.getItem("user") || "{}");
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }

@@ -9,7 +9,7 @@ import Laptop from '../../assets/images/laptop_img.png'
 import './invoice.scss'
 
 
-const invoice = () => {
+const Invoice = () => {
     
   return (
     <div className='invoice'>
@@ -181,4 +181,4 @@ const invoice = () => {
   );
 };
 
-export default invoice;
+export default Invoice;
