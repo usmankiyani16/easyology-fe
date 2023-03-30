@@ -1,20 +1,10 @@
-import React from "react";
-import add_category from '../../assets/icons/layout/plus_icon.png'
-import add_vendor from '../../assets/icons/layout/add.png'
+import React, { useState } from "react";
+import add_category from "../../assets/icons/layout/plus_icon.png";
+import add_vendor from "../../assets/icons/layout/add.png";
 import { PlusOutlined } from "@ant-design/icons";
 import "./addpo.scss";
-import {
-  Form,
-  Input,
-  Button,
-  Select,
- 
-
- 
-  Upload,
-} from "antd";
-
-
+import { Form, Input, Button, Select, Upload } from "antd";
+import AddVendorModal from "../Modals/add-po-modals/add-vendor-modal";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -24,11 +14,13 @@ const onFinishFailed = (errorInfo: any) => {
 };
 
 const AddPO = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div>
       <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
 
       {/* Add PO Form  */}
+      <AddVendorModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
 
       <Form
         // labelCol={{ span: 4 }}
@@ -41,7 +33,6 @@ const AddPO = () => {
         className="mt-4"
       >
         <div className="_parent_form grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto">
-
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">
@@ -155,13 +146,14 @@ const AddPO = () => {
                   // type: 'email',
                   message: "Required Field",
                 },
-              
               ]}
             >
-              <Input className="_input" placeholder="Enter Product Quality" type="number"/>
-              
+              <Input
+                className="_input"
+                placeholder="Enter Product Quality"
+                type="number"
+              />
             </Form.Item>
-            
 
             <Form.Item
               label="Category"
@@ -184,8 +176,6 @@ const AddPO = () => {
                 <Select.Option value="Ipads">Ipads</Select.Option>
               </Select>
             </Form.Item>
-
-            
 
             <Form.Item
               label="Color"
@@ -221,7 +211,6 @@ const AddPO = () => {
             </Form.Item>
 
             <Form.Item
-            
               label="Select Vendor"
               name="Select Vendor"
               required
@@ -242,10 +231,8 @@ const AddPO = () => {
                 <Select.Option value="Hasan">Hasan</Select.Option>
                 <Select.Option value="Ahmed">Ahmed</Select.Option>
               </Select>
-              <img src={add_vendor} alt="" />
+              <img onClick={() => setModalOpen(true)} src={add_vendor} alt="" />
             </Form.Item>
-
-            
           </div>
         </div>
 

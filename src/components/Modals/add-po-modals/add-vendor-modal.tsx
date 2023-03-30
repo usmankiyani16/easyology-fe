@@ -10,8 +10,7 @@ const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
 
-const AddVendorModal = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+const AddVendorModal: React.FC<any> = ({ modalOpen, setModalOpen }) => {
 
   return (
     <>
@@ -23,7 +22,7 @@ const AddVendorModal = () => {
 
         <Form
           // labelCol={{ span: 4 }}
-        //   wrapperCol={{ span: 14 }}
+          //   wrapperCol={{ span: 14 }}
           layout="vertical"
           // style={{ maxWidth:  }}
           onFinish={onFinish}
@@ -31,7 +30,6 @@ const AddVendorModal = () => {
           autoComplete="off"
         >
           <div className="_vendor_container grid grid-cols-2 gap-8">
-
             {/* --------------------- Grid 1 in Form------------------------ */}
 
             <div className="_grid1_vendor">
@@ -46,7 +44,6 @@ const AddVendorModal = () => {
 
                     message: "Required Field",
                   },
-                
                 ]}
               >
                 <Input className="h-[40px]" placeholder="Enter User Name" />
@@ -62,13 +59,11 @@ const AddVendorModal = () => {
 
                     message: "Required Field",
                   },
-                
                 ]}
               >
                 <Input className="h-[40px]" placeholder="Enter company Name" />
               </Form.Item>
             </div>
-
 
             {/* ------------------------- Grid 2 in Form --------------------------- */}
 
@@ -85,12 +80,11 @@ const AddVendorModal = () => {
                     message: "Required Field",
                   },
                   {
-                    type:"email" 
-                  }
-                 
+                    type: "email",
+                  },
                 ]}
               >
-                <Input className="h-[40px]" placeholder="ABC@gmail.com"/>
+                <Input className="h-[40px]" placeholder="ABC@gmail.com" />
               </Form.Item>
 
               <Form.Item
@@ -104,37 +98,35 @@ const AddVendorModal = () => {
 
                     message: "Required Field",
                   },
-                 
-               
                 ]}
               >
                 <Input className="h-[40px]" placeholder="1234-1234-1234" />
               </Form.Item>
             </div>
           </div>
-          
+
           <Form.Item
-                label="Company Address"
-                name="Company Address"
-                required
-                tooltip="This is a required field"
-                rules={[
-                  {
-                    required: true,
+            label="Company Address"
+            name="Company Address"
+            required
+            tooltip="This is a required field"
+            rules={[
+              {
+                required: true,
 
-                    message: "Required Field",
-                  },
-                  
-                ]}
-              >
-                <Input className="h-[40px]" placeholder="Street # 4, Clock tower  2nd floor near hens toy shop. TX"/>
-              </Form.Item>
-
+                message: "Required Field",
+              },
+            ]}
+          >
+            <Input
+              className="h-[40px]"
+              placeholder="Street # 4, Clock tower  2nd floor near hens toy shop. TX"
+            />
+          </Form.Item>
 
           <div className="flex justify-center">
             <Form.Item>
-
-        {/* ----------------- Button -------------------------- */}
+              {/* ----------------- Button -------------------------- */}
 
               <Button
                 type="primary"

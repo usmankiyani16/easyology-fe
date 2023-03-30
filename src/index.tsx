@@ -19,13 +19,7 @@ root.render(
   <RecoilRoot>
     <BrowserRouter>
       <ConfigProvider theme={theme}>
-        {/* <App /> */}
-        {/* <Profilemodal /> */}
-
-        {/* <AddCategoryModal /> */}
-
-        {<AddVendorModal />}
-
+        <App />
       </ConfigProvider>
     </BrowserRouter>
   </RecoilRoot>
