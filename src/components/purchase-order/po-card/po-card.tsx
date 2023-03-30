@@ -1,14 +1,37 @@
 import { Button, Card } from "antd";
+import { useEffect, useState } from "react";
 import { capitalize } from "../../../utils/functions/functions";
 import "./po-card.scss";
 
 const POCard: React.FC<any> = ({ purchaseOrders }) => {
+  const [applyBorder, setApplyBorder] = useState(false);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > 880) {
+        setApplyBorder(true);
+      } else {
+        setApplyBorder(false);
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div className="flex flex-col gap-4">
       {purchaseOrders.map((data: any) => (
         <Card key={data?.key} className="_po-card">
           <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
-            <div className="flex flex-col justify-between _border-r pr-7 mr-7">
+            <div
+              className={`flex flex-col justify-between${
+                applyBorder ? " _border-r" : ""
+              } pr-7 mr-7`}
+            >
               <div className="flex text-lg gap-4">
                 <span className="font-medium">PO Number:</span>
                 <span className="font-semibold _primary-color">
@@ -22,7 +45,11 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 </span>
               </div>
             </div>
-            <div className="flex flex-col justify-between _border-r pr-7 mr-7">
+            <div
+              className={`flex flex-col justify-between${
+                applyBorder ? " _border-r" : ""
+              } pr-7 mr-7`}
+            >
               {data?.products?.slice(0, 3).map((prod: any, index: number) => (
                 <div key={index} className="flex text-lg gap-4">
                   <span className="font-medium">x{prod?.quantity}</span>

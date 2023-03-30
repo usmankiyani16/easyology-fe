@@ -10,10 +10,13 @@ import { UserRole } from "../../../utils/interfaces";
 import { useRecoilState } from "recoil";
 import { authState } from "../../../store/auth.store";
 import { post } from "../../../utils/api/api";
-
+import { loadingState } from "../../../store/loading-store";
+import Loader from "../../common/loader/loader";
 
 const Login = () => {
   const [auth, setAuth] = useRecoilState(authState);
+  const [loading, setLoading] = useRecoilState(loadingState);
+
   const navigate = useNavigate();
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
   useEffect(() => {
@@ -26,6 +29,7 @@ const Login = () => {
   const onFinish = async (values: any) => {
     console.log("Success:", values);
     try {
+      setLoading(true);
       const response = await post("/user/sign-in", {
         email: values.email,
         password: values.password,
@@ -54,6 +58,7 @@ const Login = () => {
   };
   return (
     <>
+      {loading && <Loader />}
       <div className="_main-container">
         <div className="_top-container grid grid-cols-2">
           <div className="_welcome_back text-center">

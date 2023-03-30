@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import { FC, lazy, LazyExoticComponent, Suspense } from "react";
 import { Navigate } from "react-router-dom";
 import Login from "../components/auth/login/login";
@@ -22,11 +23,8 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
   (
     <Suspense
       fallback={
-        <div
-          className="d-flex justify-center align-center"
-          style={{ height: "80vh" }}
-        >
-          Loading . . .{" "}
+        <div className="flex items-center justify-center">
+          <Spin size="large" />
         </div>
       }
     >
@@ -35,7 +33,27 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
   );
 
 const DashboardLazy = Loadable(lazy(() => import("../pages/dashboard/index")));
+const PurchaseOrderLazy = Loadable(
+  lazy(() => import("../pages/purchase-order/index"))
+);
+
 const HistoryLazy = Loadable(lazy(() => import("../pages/history/index")));
+const PaymentsLazy = Loadable(lazy(() => import("../pages/payments/index")));
+const SettingsLazy = Loadable(lazy(() => import("../pages/settings/index")));
+const MonthlyReportsLazy = Loadable(
+  lazy(() => import("../pages/monthly-reports/index"))
+);
+const DailyLedgerLazy = Loadable(
+  lazy(() => import("../pages/daily-ledger/index"))
+);
+const CashCheckLazy = Loadable(
+  lazy(() => import("../pages/cash-checker/index"))
+);
+const NotificatiosLazy = Loadable(
+  lazy(() => import("../pages/notifications/index"))
+);
+const SupportLazy = Loadable(lazy(() => import("../pages/support/index")));
+
 const AdminDashboardLazy = Loadable(
   lazy(() => import("../pages/admin/dashboard/index"))
 );
@@ -83,15 +101,78 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
-      { path: ROUTE_CONSTANTS.CASH_CHECKER, element: <CashChecker /> },
-      { path: ROUTE_CONSTANTS.DAILY_LEDGER, element: <DailyLedger /> },
-      { path: ROUTE_CONSTANTS.MONTHLY_REPORTS, element: <MonthlyReports /> },
-      { path: ROUTE_CONSTANTS.NOTIFICATION, element: <Notification /> },
-      { path: ROUTE_CONSTANTS.PAYMENTS, element: <Payments /> },
-      { path: ROUTE_CONSTANTS.PURCHASE_ORDER, element: <PurchaseOrder /> },
-      { path: ROUTE_CONSTANTS.SETTINGS, element: <Settings /> },
-      { path: ROUTE_CONSTANTS.SUPPORT, element: <Support /> },
-      { path: ROUTE_CONSTANTS.ADD_PURCHASE_ORDER, element: <AddPO /> },
+      {
+        path: ROUTE_CONSTANTS.PURCHASE_ORDER,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <PurchaseOrderLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.CASH_CHECKER,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <CashCheckLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.DAILY_LEDGER,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <CashCheckLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <MonthlyReportsLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.NOTIFICATION,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <NotificatiosLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.PAYMENTS,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <PaymentsLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.SETTINGS,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <SettingsLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.SUPPORT,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <SupportLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.ADD_PURCHASE_ORDER,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <AddPO />
+          </RequireAuth>
+        ),
+      },
     ],
   },
   {
