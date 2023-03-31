@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "/src/sass/_variables.scss";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -15,13 +17,15 @@ code {
     monospace;
 }
 
-.ant-menu-item-selected{
-  color:#FD0F00 !important
+.ant-menu-item-selected {
+  color: $primary-color !important
 }
-._primary-color{
-  color: #FD0F00;
+
+._primary-color {
+  color: $primary-color;
 }
-.ant-btn-primary{
-  color:white;
-  background-color: #FD0F00;
+
+.ant-btn-primary {
+  color: white;
+  background-color: $primary-color;
 }
