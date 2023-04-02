@@ -8,9 +8,9 @@ import { Form, Input, Button, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserRole } from "../../../utils/interfaces";
 import { useRecoilState } from "recoil";
-import { authState } from "../../../store/auth.store";
-import { post } from "../../../utils/api/api";
-import { loadingState } from "../../../store/loading-store";
+import { authState } from "../../../store/auth/auth.store";
+import { postApi } from "../../../utils/api/api";
+import { loadingState } from "../../../store/loader/loader.store";
 import Loader from "../../common/loader/loader";
 import { Toast } from "../../common/toast/toast";
 
@@ -30,7 +30,7 @@ const Login = () => {
   const onFinish = async (values: any) => {
     try {
       setLoading(true);
-      const response = await post("/user/sign-in", {
+      const response = await postApi("/user/sign-in", {
         email: values.email,
         password: values.password,
       });
