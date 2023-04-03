@@ -6,6 +6,7 @@ import ExtendBtn from '../../assets/icons/layout/extendbtn.png'
 import Laptop from '../../assets/images/laptop_img.png'
 
 
+
 import './invoice.scss'
 
 
@@ -16,7 +17,7 @@ const Invoice = () => {
         <div className='container'>
                      {/*  ---------------top-------------- */}
 
-                     <div className='printicon'>
+            <div className='printicon'>
            <div className='extendbtn'> <img src={ExtendBtn} /></div>
                 <div className='printbtn'><img src={printIcon}  /></div>
             <div className='onholdbtn'>
@@ -40,7 +41,8 @@ const Invoice = () => {
             </div>
 
             <div className='search'>
-                <input className='searchbar' placeholder='    ...Search Customer'/>
+                
+                <input className='searchbar' placeholder='Search Customer'/>
                 <img className='searchicon' src={searchIcon}/>
                 <img className='adduser' src={AddUser}/>
             </div>
@@ -51,12 +53,11 @@ const Invoice = () => {
         <div className='productID'> 
             <div className='promocode'> <input placeholder=' Promo Code'/></div>
             <div className='applybtn'> <button>Apply</button></div>
-            
-            <div className='product'> 
            {/*  <img className='producticon' src={searchIcon}/> */}
-            <input  placeholder='   .. Product ID'/></div>
-                <img className='QRicon' src={QRicon}/> 
-            </div>
+            <input  type='search' className='product' placeholder='Product ID'/>
+
+            <img className='QRicon' src={QRicon}/> 
+        </div>
             
         
 

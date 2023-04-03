@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { FC, useState } from "react";
 import scanner from '../../assets/icons/layout/scanner.png'
 import {
   cart2Icon,
@@ -9,21 +10,29 @@ import {
 import { SearchOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import "./header.scss";
+import Invoice from '../../components/invoice/invoice'
+import { Button, Drawer } from 'antd';
+
 
 
 const { Search } = Input;
 
 const onSearch = (value: string) => console.log(value);
 
-const Header = () => {
-  // Getting Current Date
+const Header: FC<any> = () => {
 
+  
+  // Getting Current Date
+  const [open, setOpen] = useState(false);
+  const showInvoice = () => {setOpen(true);};
+  const onClose = () => {setOpen(false);};
   const current = new Date();
   const date = `${current.getDate()}/${current.getMonth() + 1
     }/${current.getFullYear()}`;
 
   return (
     <div className="flex justify-between items-center w-full pt-3 px-5">
+      
       <div className="flex gap-4 w-1/3">
         <img src={profileIcon} />
         <div className="flex flex-col justify-center">
@@ -57,11 +66,15 @@ const Header = () => {
 
       </div>
 
-
+     
       <div className="flex justify-end gap-9 ml-auto">
-        <img className="w-7 h-7 cursor-pointer" src={cartIcon} alt="cart" />
+      
+        <img  className="w-7 h-7 cursor-pointer"  src={cartIcon} alt="cart" onClick={showInvoice} />
+        <Drawer  className="drawer" placement="right" onClose={onClose} open={open}>
+        <Invoice/>
+      </Drawer>
         <img className="w-7 h-7 cursor-pointer" src={downloadIcon} alt="download" />
-        <img className="w-7 h-7 cursor-pointer" src={cart2Icon} alt="cart" />
+        <img className="w-7 h-7 cursor-pointer" src={cart2Icon} alt="cart2" />
       </div>
     </div>
   );

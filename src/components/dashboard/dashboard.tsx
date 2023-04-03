@@ -4,7 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { loadingState } from "../../store/loading-store";
 import { useEffect } from "react";
 import { authState } from "../../store/auth.store";
-import Invoice from "../invoice/invoice";
+
 
 const Dashboard = () => {
   const setLoading = useSetRecoilState(loadingState);
@@ -19,8 +19,8 @@ const Dashboard = () => {
   }, []);
   return (
     <div>
-      {/* <DashboardTabs /> */}
-      <Invoice/>
+      <DashboardTabs />
+      
     </div>
   );
 };
