@@ -3,7 +3,8 @@ import { Layout, Menu } from "antd";
 import Header from "./header/header";
 import { siderbarData } from "./sidebar/sidebar-mock-data";
 import { logoIcon } from "../assets/icons";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import sidebar_icon from '../assets/icons/layout/sidebar_icon.png';
+import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
 
 const { Sider, Content } = Layout;
@@ -14,6 +15,7 @@ const MainLayout: React.FC<any> = () => {
   return (
     <Layout>
       <Sider
+       
         width={245}
         style={{
           background: "white",
@@ -34,6 +36,7 @@ const MainLayout: React.FC<any> = () => {
           )}
         </div>
         <Menu
+          
           className="font-semibold mt-3"
           theme="light"
           mode="inline"
@@ -48,14 +51,18 @@ const MainLayout: React.FC<any> = () => {
       </Sider>
       <Layout className="site-layout">
         <div className="flex">
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+        {React.createElement(
+    
+     
+            collapsed ? 'img' : 'img',
             {
-              className: "trigger",
+              src : sidebar_icon ,
+              className: "trigger _logo_menu",
               onClick: () => setCollapsed(!collapsed),
             }
           )}
           <Header />
+  
         </div>
         <Content
           style={{
