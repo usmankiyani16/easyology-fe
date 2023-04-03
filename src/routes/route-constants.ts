@@ -14,4 +14,5 @@ export const ROUTE_CONSTANTS = {
   SUPPORT: "support",
   ADD_PURCHASE_ORDER: "add-purchase-order",
   ADMIN_DASHBOARD: "admin-dashboard",
+  RECENT_INVOICES: "recent-invoices",
 };

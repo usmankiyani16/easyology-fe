@@ -3,7 +3,7 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
-const authState = atom({
+export const authState = atom({
   key: "auth",
   // @ts-ignore
   default: JSON.parse(localStorage.getItem("user")),
@@ -17,4 +17,3 @@ const authState = atom({
 //   effects_UNSTABLE: [persistAtom],
 // });
 
-export { authState };
