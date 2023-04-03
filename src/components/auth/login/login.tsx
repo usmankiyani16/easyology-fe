@@ -4,14 +4,15 @@ import Login_Logo from "../../../assets/icons/layout/Login_Logo.png";
 import easyology_logo from "../../../assets/icons/layout/easyology_logo.png";
 import cart from "../../../assets/images/Purchase online.png";
 
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserRole } from "../../../utils/interfaces";
 import { useRecoilState } from "recoil";
-import { authState } from "../../../store/auth.store";
-import { post } from "../../../utils/api/api";
-import { loadingState } from "../../../store/loading-store";
+import { authState } from "../../../store/auth/auth.store";
+import { postApi } from "../../../utils/api/api";
+import { loadingState } from "../../../store/loader/loader.store";
 import Loader from "../../common/loader/loader";
+import { Toast } from "../../common/toast/toast";
 
 const Login = () => {
   const [auth, setAuth] = useRecoilState(authState);
@@ -27,27 +28,30 @@ const Login = () => {
     }
   }, [role]);
   const onFinish = async (values: any) => {
-    console.log("Success:", values);
     try {
       setLoading(true);
-      const response = await post("/user/sign-in", {
+      const response = await postApi("/user/sign-in", {
         email: values.email,
         password: values.password,
       });
-      setAuth(response);
-      console.log("response", response);
-      let obj = {
-        data: response?.data,
-        token: response?.token,
-        email: response?.data?.email,
-        role: response?.data?.role,
-        accessToken: response?.token?.AccessToken,
-      };
-      localStorage.setItem("user", JSON.stringify(obj));
-      if (obj?.role === UserRole.ADMIN) {
-        navigate("/admin-dashboard");
+      if (response?.message) {
+        setLoading(false);
+        Toast(response?.message, "error");
       } else {
-        navigate("/dashboard");
+        setAuth(response);
+        let obj = {
+          data: response?.data,
+          token: response?.token,
+          email: response?.data?.email,
+          role: response?.data?.role,
+          accessToken: response?.token?.AccessToken,
+        };
+        localStorage.setItem("user", JSON.stringify(obj));
+        if (obj?.role === UserRole.ADMIN) {
+          navigate("/admin-dashboard");
+        } else {
+          navigate("/dashboard");
+        }
       }
     } catch (error) {
       console.log("error", error);
@@ -119,7 +123,7 @@ const Login = () => {
                 rules={[
                   {
                     required: true,
-              
+
                     message: "Required Field",
                   },
                   {
@@ -145,7 +149,7 @@ const Login = () => {
                 ]}
                 hasFeedback
               >
-                <Input.Password/>
+                <Input.Password />
               </Form.Item>
 
               <Form.Item

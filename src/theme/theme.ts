@@ -20,8 +20,8 @@ export const theme = {
       // colorPrimaryHover: "none",
     },
     Input: {
-      controlHeight: 45,
-      controlHeightLG: 45,
+      controlHeight: 40,
+      controlHeightLG: 40,
       controlHeightSM: 38,
       colorBorder: "#A0A3BD",
       borderRadius: 10,

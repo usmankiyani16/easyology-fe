@@ -22,14 +22,14 @@ api.interceptors.request.use(
   }
 );
 
-export const request = async <T = any>(
+export const requestApi = async <T = any>(
   config: AxiosRequestConfig
 ): Promise<T> => {
   const response: AxiosResponse<T> = await api.request<T>(config);
   return response.data;
 };
 
-export const get = async <T = any>(
+export const getApi = async <T = any>(
   url: string,
   config?: AxiosRequestConfig
 ): Promise<T> => {
@@ -37,7 +37,7 @@ export const get = async <T = any>(
   return response.data;
 };
 
-export const post = async <T = any>(
+export const postApi = async <T = any>(
   url: string,
   data?: any,
   config?: AxiosRequestConfig
@@ -46,7 +46,7 @@ export const post = async <T = any>(
   return response.data;
 };
 
-export const put = async <T = any>(
+export const putApi = async <T = any>(
   url: string,
   data?: any,
   config?: AxiosRequestConfig
@@ -55,7 +55,7 @@ export const put = async <T = any>(
   return response.data;
 };
 
-export const patch = async <T = any>(
+export const patchApi = async <T = any>(
   url: string,
   data?: any,
   config?: AxiosRequestConfig
@@ -64,7 +64,7 @@ export const patch = async <T = any>(
   return response.data;
 };
 
-export const del = async <T = any>(
+export const delApi = async <T = any>(
   url: string,
   config?: AxiosRequestConfig
 ): Promise<T> => {

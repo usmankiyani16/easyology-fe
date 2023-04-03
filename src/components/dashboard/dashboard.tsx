@@ -1,16 +1,21 @@
 import DashboardTabs from "./tabs/tabs";
 import "./dashboard.scss";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { loadingState } from "../../store/loading-store";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { loadingState } from "../../store/loader/loader.store";
 import { useEffect } from "react";
-import { authState } from "../../store/auth.store";
+import { authState } from "../../store/auth/auth.store";
+import {
+  categoriesSelector,
+  categoriesState,
+} from "../../store/categories/categories.store";
 
 const Dashboard = () => {
   const setLoading = useSetRecoilState(loadingState);
 
   const auth = useRecoilValue(authState);
 
-  console.log(auth);
+
+  console.log({ auth });
 
   // use effect to change loading state
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { loadingState } from "../../../store/loading-store";
+import { loadingState } from "../../../store/loader/loader.store";
 
 const AdminDashboard = () => {
   const setLoading = useSetRecoilState(loadingState);

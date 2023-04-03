@@ -58,6 +58,10 @@ const AdminDashboardLazy = Loadable(
   lazy(() => import("../pages/admin/dashboard/index"))
 );
 
+const RecentInvoicesLazy = Loadable(
+  lazy(() => import("../pages/recent-invoices/index"))
+);
+
 const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
 let path = "";
 if (role === UserRole.ADMIN) {
@@ -121,7 +125,7 @@ export const routes: any = [
         path: ROUTE_CONSTANTS.DAILY_LEDGER,
         element: (
           <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
-            <CashCheckLazy />
+            <DailyLedgerLazy />
           </RequireAuth>
         ),
       },
@@ -170,6 +174,14 @@ export const routes: any = [
         element: (
           <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
             <AddPO />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.RECENT_INVOICES,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <RecentInvoicesLazy />
           </RequireAuth>
         ),
       },

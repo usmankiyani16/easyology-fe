@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import '../dashboard.scss'
 import React from "react";
-import { addIcon, laptopImg } from "../../../assets/images";
+import { addIcon } from "../../../assets/images";
 
 const CardComponent: React.FC<any> = ({ label, img }) => (
   <Card style={{ width: "10.688rem", height: "12.063rem" }}>
