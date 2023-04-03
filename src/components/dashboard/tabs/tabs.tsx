@@ -2,16 +2,10 @@ import React, { Children } from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import CommonTab from "./common-tab";
-import {
-  airpodsData,
-  iPadsData,
-  laptopData,
-  macbooksData,
-  mobileAccessoriesData,
-  mobileData,
-} from "./tabs-mock-data";
+import { laptopData } from "./tabs-mock-data";
 import { useRecoilValue } from "recoil";
 import { categoriesSelector } from "../../../store/categories/categories.store";
+import { capitalize } from "../../../utils/functions/functions";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -22,7 +16,7 @@ const DashboardTabs: React.FC = () => {
   console.log(productsAndCategories);
   const products = productsAndCategories.map((data: any) => ({
     key: data?._id,
-    label: data?.name,
+    label: capitalize(data?.name),
     children: <CommonTab data={laptopData} />,
   }));
 

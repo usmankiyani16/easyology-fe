@@ -25,6 +25,14 @@ code {
   color: $primary-color;
 }
 
+._bg-primary-color {
+  background-color: $primary-color;
+}
+
+._white-color {
+  color: $white-color;
+}
+
 .ant-btn-primary {
   color: $white-color;
   background-color: $primary-color;
