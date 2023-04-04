@@ -17,7 +17,6 @@ import {
 } from "antd";
 import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
-import Highlighter from "react-highlight-words";
 import PreviewMax from "./preview-max";
 
 interface DataType {
@@ -166,17 +165,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
+     
   });
 
   const columns: ColumnsType<DataType> = [
@@ -222,7 +211,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
   };
 
   return (
-    <>
+    <div>
       <PreviewMax
         previewMaxmodalOpen={previewMaxmodalOpen}
         setPreviewMaxModalOpen={setPreviewMaxModalOpen}
@@ -255,9 +244,9 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
             <p className="_modal_para">
               Vendor Name :{" "}
               <span className="text-stone-400 font-bold ml-2">
-                {" "}
+             
                 ABC Company
-              </span>{" "}
+              </span>
             </p>
             <p className="_modal_para">
               PO Number : <span className="text-red-500 ml-4"> #456 </span>
@@ -315,7 +304,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
           </Form.Item>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 

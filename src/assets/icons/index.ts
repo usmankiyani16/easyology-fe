@@ -1,4 +1,4 @@
-export const logoIcon = require("./layout/logo.png");
+export const logoIcon = require("./layout/easyology.png");
 export const dashboardIcon = require("./layout/dashboard.png");
 export const purchaseOrderIcon = require("./layout/purchase-order.png");
 export const historyIcon = require("./layout/history.png");

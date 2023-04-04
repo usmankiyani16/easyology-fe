@@ -24,13 +24,17 @@ const Header = () => {
   return (
     <>
       <div className="flex justify-between items-center w-full pt-3 px-5">
-        <div className="flex gap-4 w-1/3">
+        <div className="flex gap-2 w-1/3">
+          <div>
           <img
             src={profileIcon}
             alt="profileIcon"
-            className="cursor-pointer"
+            className="cursor-pointer w-8 h-8"
             onClick={() => setProfileModalOpen(true)}
           />
+          <p className="_profile">Profile</p>
+          </div>
+
           <div className="flex flex-col justify-center">
             <span className="_header_easyology _primary-color text-2xl">
               Easyology

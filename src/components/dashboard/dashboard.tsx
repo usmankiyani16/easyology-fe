@@ -22,7 +22,7 @@ const Dashboard = () => {
     setLoading(false);
   }, []);
   return (
-    <div>
+    <div className="_dashboard_wrap">
       <DashboardTabs />
     </div>
   );

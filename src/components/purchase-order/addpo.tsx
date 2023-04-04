@@ -22,7 +22,7 @@ const AddPO = () => {
   const [catmodalOpen, setCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
   return (
-    <div>
+    <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
         <div>
           <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
@@ -89,8 +89,8 @@ const AddPO = () => {
               <Input className="_input" placeholder="$0.00" type="number"/>
             </Form.Item>
             <Form.Item
-              label="Thresh"
-              name="Select Thresh"
+              label="Threshold"
+              name="Select Threshold"
               required
               tooltip="This is a required field"
               rules={[
@@ -189,7 +189,7 @@ const AddPO = () => {
 
 
 
-              <Select className="_input" placeholder="Add or Select Category">
+              <Select className="_input w-24" placeholder="Add or Select Category">
                 <Select.Option value="Laptops">Laptops</Select.Option>
                 <Select.Option value="Mobile Phones">
                   Mobile Phones
@@ -238,7 +238,7 @@ const AddPO = () => {
             </Form.Item>
 
            
-
+            <div>
            
 
             <Form.Item
@@ -257,7 +257,7 @@ const AddPO = () => {
                 },
               ]}
             >
-              <Select className="_input" placeholder="Select Thresh">
+              <Select className="_input" placeholder="Select Vendor">
                 <Select.Option value="Ali Raza">Ali Raza</Select.Option>
                 <Select.Option value="Hasan">Hasan</Select.Option>
                 <Select.Option value="Ahmed">Ahmed</Select.Option>
@@ -266,7 +266,8 @@ const AddPO = () => {
      
        
             
-            <img onClick={() => setVendorModalOpen(true)} src={add_vendor} className="cursor-pointer" alt="Add Vendor Icon" />
+            <img onClick={() => setVendorModalOpen(true)} src={add_vendor} className="_img_align cursor-pointer" alt="Add Vendor Icon" />
+            </div>
           
             </div>
           </div>

@@ -232,14 +232,19 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
       {
    
       title: "Are you sure, you want to delete this Product?",
+      centered:true,
       okText: "Yes",
       okType: "danger",
       onOk: () => {
         setDataSource((pre) => {
           return pre.filter((product) => product.id !== record.id);
         });
+        
       },
+     
+
     });
+   
   };
   const onEditProduct = (record: React.SetStateAction<any>) => {
     setIsEditing(true);
@@ -251,7 +256,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
   };
 
   return (
-    <>
+    <div>
 
     {/* ---------------- Model for Products ----------------- */}
 
@@ -338,7 +343,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
               />
               
               
-              <label className="_label_input text-5xl" htmlFor="">Product</label>
+              <label className="_label_input" htmlFor="">Product</label>
               <Input
                 value={editingProduct?.product}
                 onChange={(e) => {
@@ -404,7 +409,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
           </div>
         </Modal>
       </Modal>
-    </>
+    </div>
   );
 };
 

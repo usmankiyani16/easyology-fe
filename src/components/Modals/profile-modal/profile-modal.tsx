@@ -3,6 +3,7 @@ import "../modals.scss";
 
 import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import profileupload from '../../../assets/icons/layout/profile-upload.png'
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -15,6 +16,7 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
   return (
     <>
       <Modal
+        width='372px'
         footer={false}
         centered
         open={profilemodalOpen}
@@ -44,8 +46,10 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
               className="ml-4"
             >
               <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload Image</div>
+                {/* <PlusOutlined /> */}
+                {/* <div style={{ marginTop: 8 }}>Upload Image</div> */}
+                <img src={profileupload} alt="" />
+
               </div>
             </Upload>
           </Form.Item>
@@ -68,7 +72,7 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
             ]}
           >
             <Input
-              className="h-[40px] w-[200px] ml-[10px]"
+              className="_input_username  h-[31px] w-[128px] ml-[10px]"
               placeholder="Enter Username"
             />
           </Form.Item>

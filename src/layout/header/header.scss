@@ -4,7 +4,7 @@
 //     height:32px
 // }
 
-._current_date {
+._current_date, ._profile {
     font-family: 'Lato';
     font-style: normal;
     font-weight: 500;
@@ -12,7 +12,12 @@
     // line-height: 26px;
     color: rgba(0, 0, 0, 0.47);
 }
+._profile{
+    font-size: 12px;
+    text-align: center;
 
-.ant-input-affix-wrapper {
-    padding: 0.5px 6px;
 }
+
+// .ant-input-affix-wrapper {
+//     padding: 0.5px 6px;
+// }
