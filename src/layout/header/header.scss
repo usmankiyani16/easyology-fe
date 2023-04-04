@@ -12,6 +12,46 @@
     // line-height: 26px;
     color: rgba(0, 0, 0, 0.47);
 }
-.ant-drawer-header ant-drawer-header-close-only{
-  
+.drawer{
+    .ant-drawer {
+    display: none;
+    overflow: none;
+    }
+    .anticon{
+        display: none;
+    }
+  .ant-drawer-header{
+        display: none;
+    }
+    .ant-drawer-header-title{
+        display: none;
+    }
+   .ant-drawer-content{
+    height: 0px;
+    width: 0px;
+    overflow:none ;
+   }
+   .ant-drawer-body{
+    padding:0%;
+   }
+    .ant-drawer.ant-drawer-body{
+        overflow: none;
+    }
+.ant-drawer-wrapper-body{
+   height: none;
+  }
+    .ant-drawer-content{
+        height: none;
+    
+    }
+    .ant-drawer-body{
+        overflow: none;
+        height: none;
+        width: none;
+        overflow: none;
+        
+    }
+    .ant-drawer-content-wrapper{
+        bottom: none;
+    }
 }

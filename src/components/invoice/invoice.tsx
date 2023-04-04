@@ -4,7 +4,8 @@ import AddUser from '../../assets/icons/layout/adduser.png'
 import QRicon from '../../assets/icons/layout/QR.png'
 import ExtendBtn from '../../assets/icons/layout/extendbtn.png'
 import Laptop from '../../assets/images/laptop_img.png'
-
+import { Input, Space } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 
 import './invoice.scss'
@@ -42,8 +43,8 @@ const Invoice = () => {
 
             <div className='search'>
                 
-                <input className='searchbar' placeholder='Search Customer'/>
-                <img className='searchicon' src={searchIcon}/>
+                
+                <Input type='search' placeholder="Search Customer" prefix={<SearchOutlined />} className='searchbar'/>
                 <img className='adduser' src={AddUser}/>
             </div>
         </div>
@@ -51,10 +52,9 @@ const Invoice = () => {
            {/*  ------------promo and product---------------- */}
            
         <div className='productID'> 
-            <div className='promocode'> <input placeholder=' Promo Code'/></div>
+            <div className='promocode'> <Input type='search' placeholder="Promo Code"  /></div>
             <div className='applybtn'> <button>Apply</button></div>
-           {/*  <img className='producticon' src={searchIcon}/> */}
-            <input  type='search' className='product' placeholder='Product ID'/>
+            <Input type='search' placeholder="Product ID" prefix={<SearchOutlined />} className='product' />
 
             <img className='QRicon' src={QRicon}/> 
         </div>
