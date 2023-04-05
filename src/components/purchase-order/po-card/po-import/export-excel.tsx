@@ -11,7 +11,7 @@ const ExportExcel = ({excelData, fileName}:any)=> {
 
     // ------------------- Data Export in Excel Compoent Logic -------------------------------
 
-    const exportToExcel = async () => {
+    const exportToExcel = async (fileName:string) => {
         const ws = XLSX.utils.json_to_sheet(excelData)
         const wb = {Sheets : {'data': ws}, SheetNames: ['data']};
         const excelBuffer = XLSX.write(wb, {bookType: 'xlsx' , type:'array'});
