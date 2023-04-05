@@ -12,7 +12,7 @@ const onFinishFailed = (errorInfo: any) => {
 
 const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
   return (
-    <>
+    <div className="_modal_wrap">
       
       <Modal
         footer={false}
@@ -66,7 +66,7 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
           </div>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 };
 

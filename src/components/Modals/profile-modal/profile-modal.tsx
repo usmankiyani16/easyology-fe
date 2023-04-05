@@ -14,7 +14,7 @@ const onFinishFailed = (errorInfo: any) => {
 
 const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) => {
   return (
-    <>
+    <div className="_modal_wrap">
       <Modal
         width='372px'
         footer={false}
@@ -44,6 +44,8 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
               action="/upload.do"
               listType="picture-card"
               className="ml-4"
+              multiple={false}
+              maxCount={1}
             >
               <div>
                 {/* <PlusOutlined /> */}
@@ -78,7 +80,7 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -15,7 +15,7 @@ const AddVendorModal: React.FC<any> = ({
   setVendorModalOpen,
 }) => {
   return (
-    <>
+    <div className="_modal_wrap">
 
       <Modal
         footer={false}
@@ -145,7 +145,7 @@ const AddVendorModal: React.FC<any> = ({
           </div>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 };
 

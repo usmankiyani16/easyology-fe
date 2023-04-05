@@ -6,6 +6,7 @@ import "./po-card.scss";
 const POCard: React.FC<any> = ({ purchaseOrders }) => {
   const [applyBorder, setApplyBorder] = useState(false);
 
+
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 880) {
@@ -79,7 +80,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
               <span className="font-semibold text-3xl	 _primary-color">
                 {data?.totalAmount}$
               </span>
-              <Button className=""> View</Button>
+              <Button className="">View</Button>
             </div>
           </div>
         </Card>

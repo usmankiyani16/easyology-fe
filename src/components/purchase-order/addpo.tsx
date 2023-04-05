@@ -8,6 +8,7 @@ import { Form, Input, Button, Select, Upload } from "antd";
 import AddVendorModal from "../Modals/add-po-modals/add-vendor-modal";
 import AddCategoryModal from "../Modals/add-po-modals/add-cat-modal";
 import PreviewModal from "../Modals/add-po-modals/preview-product-modal";
+import Importmodal from "../Modals/add-po-modals/import-modal";
 
 
 const onFinish = (values: any) => {
@@ -21,6 +22,7 @@ const AddPO = () => {
   const [vendormodalOpen, setVendorModalOpen] = useState(false);
   const [catmodalOpen, setCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
+  const [importModalOpen , setImportModalOpen] = useState(false);
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
@@ -36,6 +38,7 @@ const AddPO = () => {
       <AddVendorModal vendormodalOpen={vendormodalOpen} setVendorModalOpen={setVendorModalOpen} />
       <AddCategoryModal catmodalOpen={catmodalOpen} setCatModalOpen={setCatModalOpen}/>
       <PreviewModal previewmodalOpen={previewmodalOpen} setPreviewModalOpen={setPreviewModalOpen}/>
+      <Importmodal importModalOpen={importModalOpen} setImportModalOpen={setImportModalOpen}  />
       
 
       <Form
@@ -117,9 +120,10 @@ const AddPO = () => {
             <Form.Item
               label="Upload"
               valuePropName="fileList"
-              className="mt-[32px]"
+              className="mt-[28px]"
             >
-              <Upload action="/upload.do" listType="picture-card">
+              <Upload action="/upload.do" listType="picture-card"  multiple={false}
+              maxCount={1}>
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload Image</div>
@@ -276,7 +280,7 @@ const AddPO = () => {
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn">
             <Form.Item className="mb-0">
-              <Button type="primary">Import</Button>
+              <Button type="primary" onClick={() => setImportModalOpen(true)}>Import</Button>
               
             </Form.Item>
             <p className="_import_btn_msg">Import product category</p>

@@ -19,6 +19,11 @@ import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
 import PreviewMax from "./preview-max";
 
+import { Checkbox } from 'antd';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+
+
+
 interface DataType {
   key: string;
   id: string;
@@ -209,9 +214,12 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(date, dateString);
   };
+  const onChangeCheckBox = (e: CheckboxChangeEvent) => {
+    console.log(`checked = ${e.target.checked}`);
+    }
 
   return (
-    <div>
+    <div className="_modal_wrap">
       <PreviewMax
         previewMaxmodalOpen={previewMaxmodalOpen}
         setPreviewMaxModalOpen={setPreviewMaxModalOpen}
@@ -275,13 +283,12 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
             <div>
               <p className="_payment_header">Payment Method</p>
             </div>
-            <div className="flex gap-6 items-center">
-              <img src={unchecked} alt="" className="w-4 h-4  cursor-pointer" />
-              <p>Partial</p>
+            <div className="flex items-center">
+              <Checkbox onChange={onChangeCheckBox } className="mr-24"><p>Partial</p></Checkbox>
             </div>
             <div className="flex gap-6 items-center">
-              <img src={unchecked} alt="" className="w-4 h-4 cursor-pointer" />
-              <p>Fully Paid</p>
+       
+             <Checkbox onChange={onChangeCheckBox}> <p>Fully Paid</p> </Checkbox>
             </div>
           </div>
 

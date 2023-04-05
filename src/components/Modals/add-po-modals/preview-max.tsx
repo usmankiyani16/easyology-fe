@@ -256,7 +256,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
   };
 
   return (
-    <div>
+    <div className="_modal_wrap">
 
     {/* ---------------- Model for Products ----------------- */}
 
@@ -309,8 +309,6 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
         <Modal
           centered
           width="1200px"
-      
-          title="Edit This Product"
           visible={isEditing}
           okText="Save"
           onCancel={() => {
@@ -330,7 +328,9 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
           }}
           destroyOnClose={true}
         >
-          <div className="grid grid-cols-2 gap-16">
+          <h3 className="_modal_header">Edit Product</h3>
+          
+          <div className="grid grid-cols-2 gap-16 mt-6">
             <div>
               <label className="_label_input" htmlFor="">Seriol No</label>
               <Input
