@@ -3,6 +3,11 @@ import "../modals.scss";
 
 import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import profileupload from '../../../assets/icons/layout/profile-upload.png'
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { authState } from "../../../store/auth/auth.store";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -11,17 +16,27 @@ const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
 
-const Profilemodal = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+const Profilemodal: React.FC<any> = ({ profilemodalOpen, setProfileModalOpen, }) => {
+  const navigate = useNavigate()
+  const setAuthState = useSetRecoilState(authState);
 
+  const logOut = () => {
+    localStorage.removeItem('user')
+    setAuthState(null)
+    navigate(ROUTE_CONSTANTS.LOGIN)
+  }
   return (
     <>
-      <Button type="primary" onClick={() => setModalOpen(true)}>
-        Profile Modal
-      </Button>
-      <Modal centered open={modalOpen} onCancel={() => setModalOpen(false)}>
-        <h3 className="text-center text-2xl">Profile</h3>
-
+      <Modal
+        width='372px'
+        footer={false}
+        centered
+        open={profilemodalOpen}
+        onCancel={() => setProfileModalOpen(false)}
+        destroyOnClose={true}
+      >
+        <span onClick={() => logOut()} className="_modal_logout">Logout</span>{" "}
+        <h3 className="_modal_header">Profile</h3>
         <Form
           // labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
@@ -43,8 +58,10 @@ const Profilemodal = () => {
               className="ml-4"
             >
               <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload Image</div>
+                {/* <PlusOutlined /> */}
+                {/* <div style={{ marginTop: 8 }}>Upload Image</div> */}
+                <img src={profileupload} alt="" />
+
               </div>
             </Upload>
           </Form.Item>
@@ -60,13 +77,16 @@ const Profilemodal = () => {
 
                 message: "Required Field",
               },
-             /*  {
+              /*  {
                 pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
                 message: "Special characters not allowed",
               }, */
             ]}
           >
-            <Input className="h-[40px]" placeholder="Enter Username" />
+            <Input
+              className="_input_username  h-[31px] w-[128px] ml-[10px]"
+              placeholder="Enter Username"
+            />
           </Form.Item>
         </Form>
       </Modal>

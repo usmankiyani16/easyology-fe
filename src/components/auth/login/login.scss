@@ -1,99 +1,100 @@
-._welcome_back > h1 {
+._main-container {
+  ._welcome_back > h1 {
+    font-family: "Lato";
+    color: #000000;
+  }
 
-  font-family: "Lato";
-  color: #000000;
-}
+  ._log_in {
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0.3px;
+    color: #252733;
+  }
 
-._log_in {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  text-align: center;
-  letter-spacing: 0.3px;
-  color: #252733;
-}
+  ._easyology_slogan {
+    /* background: #FF0000; */
+    width: 100%;
+    height: 35vh;
+    background-image: url("../../../assets/images/easyology_bg.png");
+    /* border-bottom-radius: 50% 25%; */
+    /* border-bottom-radius: 30px; */
 
-._easyology_slogan {
-  /* background: #FF0000; */
-  width: 100%;
-  height: 35vh;
-  background-image: url("../../../assets/images/easyology_bg.png");
-  /* border-bottom-radius: 50% 25%; */
-  /* border-bottom-radius: 30px; */
+    /* border-bottom-left-radius: 40px ; */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    /* border-radius: 50px; */
+    /* clip-path: circle(100% at 50% -50%); */
+  }
 
-  /* border-bottom-left-radius: 40px ; */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover;
-  /* border-radius: 50px; */
-  /* clip-path: circle(100% at 50% -50%); */
-}
+  ._easyology_slogan_details > h3 {
+    // width: 240px;
+    // height: 50px;
 
-._easyology_slogan_details > h3 {
-  // width: 240px;
-  // height: 50px;
+    font-family: "Mulish";
+    font-style: normal;
+    font-weight: 600;
 
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 600;
+    line-height: 50px;
 
-  line-height: 50px;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
 
-  color: #ffffff;
-  text-transform: uppercase;
-}
+  ._easyology_slogan_details > p {
+    width: 329px;
+    height: 64px;
 
-._easyology_slogan_details > p {
-  width: 329px;
-  height: 64px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 22px;
 
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 22px;
+    color: #ffffff;
+  }
+  ._enter_credentials {
+    height: 20px;
 
-  color: #ffffff;
-}
-._enter_credentials {
-  height: 20px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 20px;
+    /* identical to box height, or 91% */
 
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 300;
-  font-size: 22px;
-  line-height: 20px;
-  /* identical to box height, or 91% */
+    text-align: center;
+    letter-spacing: 0.3px;
 
-  text-align: center;
-  letter-spacing: 0.3px;
+    color: #000000;
+  }
+  ._welcome_header > h3 {
+    width: 262px;
+    height: 106px;
 
-  color: #000000;
-}
-._welcome_header > h3 {
-  width: 262px;
-  height: 106px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 37px;
+    line-height: 44px;
+    text-align: center;
 
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 37px;
-  line-height: 44px;
-  text-align: center;
+    color: #ff0000;
+  }
 
-  color: #ff0000;
-}
+  ._welcome_header > p {
+    width: 313px;
+    height: 106px;
 
-._welcome_header > p {
-  width: 313px;
-  height: 106px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
 
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  text-align: center;
-
-  color: #5e5e5e;
+    color: #5e5e5e;
+  }
 }

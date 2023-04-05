@@ -10,16 +10,18 @@ const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
 
-const AddCategoryModal = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-
+const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
   return (
     <>
-      <Button type="primary" onClick={() => setModalOpen(true)}>
-        Add Category
-      </Button>
-      <Modal centered open={modalOpen} onCancel={() => setModalOpen(false)}>
-        <h3 className="text-center text-2xl">Add Category</h3>
+      
+      <Modal
+        footer={false}
+        centered
+        open={catmodalOpen}
+        onCancel={() => setCatModalOpen(false)}
+        destroyOnClose={true}
+      >
+        <h3 className="_modal_header_poView">Add Category</h3>
 
         <Form
           // labelCol={{ span: 4 }}
@@ -31,7 +33,6 @@ const AddCategoryModal = () => {
           autoComplete="off"
           className="mt-8"
         >
-
           <Form.Item
             label="Category"
             name="Category Name"
@@ -54,13 +55,15 @@ const AddCategoryModal = () => {
 
           <div className="flex justify-center">
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="w-36 text-center text-lg">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="w-36 text-center text-lg"
+              >
                 Add
               </Button>
             </Form.Item>
           </div>
-
-
         </Form>
       </Modal>
     </>

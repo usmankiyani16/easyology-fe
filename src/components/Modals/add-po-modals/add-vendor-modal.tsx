@@ -10,15 +10,21 @@ const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
 
-const AddVendorModal: React.FC<any> = ({ modalOpen, setModalOpen }) => {
-
+const AddVendorModal: React.FC<any> = ({
+  vendormodalOpen,
+  setVendorModalOpen,
+}) => {
   return (
     <>
-      <Button type="primary" onClick={() => setModalOpen(true)}>
-        Add Vendor
-      </Button>
-      <Modal centered open={modalOpen} onCancel={() => setModalOpen(false)}>
-        <h3 className="text-center text-2xl">Add Vendor</h3>
+
+      <Modal
+        footer={false}
+        centered
+        open={vendormodalOpen}
+        onCancel={() => setVendorModalOpen(false)}
+        destroyOnClose={true}
+      >
+        <h3 className="_modal_header_poView">Add Vendor</h3>
 
         <Form
           // labelCol={{ span: 4 }}
@@ -29,7 +35,7 @@ const AddVendorModal: React.FC<any> = ({ modalOpen, setModalOpen }) => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <div className="_vendor_container grid grid-cols-2 gap-8">
+          <div className="_vendor_container grid grid-cols-2 gap-12 mt-8">
             {/* --------------------- Grid 1 in Form------------------------ */}
 
             <div className="_grid1_vendor">
