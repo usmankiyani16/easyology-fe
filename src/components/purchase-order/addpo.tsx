@@ -9,18 +9,20 @@ import AddVendorModal from "../Modals/add-po-modals/add-vendor-modal";
 import AddCategoryModal from "../Modals/add-po-modals/add-cat-modal";
 import PreviewModal from "../Modals/add-po-modals/preview-product-modal";
 
-
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
-
 const AddPO = () => {
+  const [image, setImage] = useState()
   const [vendormodalOpen, setVendorModalOpen] = useState(false);
   const [catmodalOpen, setCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
+  console.log('image', image);
+
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", { image }, errorInfo);
+  };
+
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
@@ -28,15 +30,15 @@ const AddPO = () => {
           <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
         </div>
         <div>
-          <img src={previewproduct} alt="Preview Product Icon" className="h-10 cursor-pointer" onClick={() => setPreviewModalOpen(true)}/>
+          <img src={previewproduct} alt="Preview Product Icon" className="h-10 cursor-pointer" onClick={() => setPreviewModalOpen(true)} />
         </div>
       </div>
 
       {/* Add PO Form  */}
       <AddVendorModal vendormodalOpen={vendormodalOpen} setVendorModalOpen={setVendorModalOpen} />
-      <AddCategoryModal catmodalOpen={catmodalOpen} setCatModalOpen={setCatModalOpen}/>
-      <PreviewModal previewmodalOpen={previewmodalOpen} setPreviewModalOpen={setPreviewModalOpen}/>
-      
+      <AddCategoryModal catmodalOpen={catmodalOpen} setCatModalOpen={setCatModalOpen} />
+      <PreviewModal previewmodalOpen={previewmodalOpen} setPreviewModalOpen={setPreviewModalOpen} />
+
 
       <Form
         // labelCol={{ span: 4 }}
@@ -86,7 +88,7 @@ const AddPO = () => {
               ]}
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input className="_input" placeholder="$0.00" type="number"/>
+              <Input className="_input" placeholder="$0.00" type="number" />
             </Form.Item>
             <Form.Item
               label="Threshold"
@@ -119,7 +121,7 @@ const AddPO = () => {
               valuePropName="fileList"
               className="mt-[32px]"
             >
-              <Upload action="/upload.do" listType="picture-card">
+              <Upload onChange={(e: any) => setImage(e.file)} listType="picture-card">
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload Image</div>
@@ -173,35 +175,35 @@ const AddPO = () => {
 
             <div className="flex items-center">
 
-            <Form.Item
-              label="Category"
-              name="Product Category"
-              required
-              tooltip="This is a required field"
-              rules={[
-                {
-                  required: true,
-                  // type: 'email',
-                  message: "Required Field",
-                },
-              ]}
-            >
+              <Form.Item
+                label="Category"
+                name="Product Category"
+                required
+                tooltip="This is a required field"
+                rules={[
+                  {
+                    required: true,
+                    // type: 'email',
+                    message: "Required Field",
+                  },
+                ]}
+              >
 
 
 
-              <Select className="_input w-24" placeholder="Add or Select Category">
-                <Select.Option value="Laptops">Laptops</Select.Option>
-                <Select.Option value="Mobile Phones">
-                  Mobile Phones
-                </Select.Option>
-                <Select.Option value="Ipads">Ipads</Select.Option>
-              </Select>
-            </Form.Item>
-         
-            <img src={add_category} alt="add_cat_modal" className="cursor-pointer" onClick={() => {setCatModalOpen(true)}}/>
+                <Select className="_input w-24" placeholder="Add or Select Category">
+                  <Select.Option value="Laptops">Laptops</Select.Option>
+                  <Select.Option value="Mobile Phones">
+                    Mobile Phones
+                  </Select.Option>
+                  <Select.Option value="Ipads">Ipads</Select.Option>
+                </Select>
+              </Form.Item>
+
+              <img src={add_category} alt="add_cat_modal" className="cursor-pointer" onClick={() => { setCatModalOpen(true) }} />
             </div>
-     
-            
+
+
 
 
             <Form.Item
@@ -237,47 +239,47 @@ const AddPO = () => {
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
 
-           
-            <div>
-           
 
-            <Form.Item
-              label="Select Vendor"
-              name="Select Vendor"
-              required
-              tooltip="This is a required field"
-              rules={[
-                {
-                  required: true,
-                  // type: 'email',
-                  message: "Required Field",
-                },
-                {
-                  type: "string",
-                },
-              ]}
-            >
-              <Select className="_input" placeholder="Select Vendor">
-                <Select.Option value="Ali Raza">Ali Raza</Select.Option>
-                <Select.Option value="Hasan">Hasan</Select.Option>
-                <Select.Option value="Ahmed">Ahmed</Select.Option>
-              </Select>
-            </Form.Item>
-     
-       
-            
-            <img onClick={() => setVendorModalOpen(true)} src={add_vendor} className="_img_align cursor-pointer" alt="Add Vendor Icon" />
+            <div>
+
+
+              <Form.Item
+                label="Select Vendor"
+                name="Select Vendor"
+                required
+                tooltip="This is a required field"
+                rules={[
+                  {
+                    required: true,
+                    // type: 'email',
+                    message: "Required Field",
+                  },
+                  {
+                    type: "string",
+                  },
+                ]}
+              >
+                <Select className="_input" placeholder="Select Vendor">
+                  <Select.Option value="Ali Raza">Ali Raza</Select.Option>
+                  <Select.Option value="Hasan">Hasan</Select.Option>
+                  <Select.Option value="Ahmed">Ahmed</Select.Option>
+                </Select>
+              </Form.Item>
+
+
+
+              <img onClick={() => setVendorModalOpen(true)} src={add_vendor} className="_img_align cursor-pointer" alt="Add Vendor Icon" />
             </div>
-          
-            </div>
+
           </div>
-        
+        </div>
+
 
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn">
             <Form.Item className="mb-0">
               <Button type="primary">Import</Button>
-              
+
             </Form.Item>
             <p className="_import_btn_msg">Import product category</p>
           </div>
@@ -287,7 +289,7 @@ const AddPO = () => {
               <Button type="primary" htmlType="submit">
                 Add Product
               </Button>
-             
+
             </Form.Item>
             <p className="_submit_btn_msg">Submit via sent email to the vendor </p>
           </div>

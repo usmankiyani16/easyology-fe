@@ -4,6 +4,10 @@ import "../modals.scss";
 import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import profileupload from '../../../assets/icons/layout/profile-upload.png'
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { authState } from "../../../store/auth/auth.store";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -12,7 +16,15 @@ const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
 };
 
-const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) => {
+const Profilemodal: React.FC<any> = ({ profilemodalOpen, setProfileModalOpen, }) => {
+  const navigate = useNavigate()
+  const setAuthState = useSetRecoilState(authState);
+
+  const logOut = () => {
+    localStorage.removeItem('user')
+    setAuthState(null)
+    navigate(ROUTE_CONSTANTS.LOGIN)
+  }
   return (
     <>
       <Modal
@@ -23,7 +35,7 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
         onCancel={() => setProfileModalOpen(false)}
         destroyOnClose={true}
       >
-        <span className="_modal_logout">Logout</span>{" "}
+        <span onClick={() => logOut()} className="_modal_logout">Logout</span>{" "}
         <h3 className="_modal_header">Profile</h3>
         <Form
           // labelCol={{ span: 4 }}
