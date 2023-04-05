@@ -3,7 +3,9 @@ import { Layout, Menu } from "antd";
 import Header from "./header/header";
 import { siderbarData } from "./sidebar/sidebar-mock-data";
 import { logoIcon } from "../assets/icons";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+
+import sidebar_icon from '../assets/icons/layout/sidebar_icon.png';
+
 import { Link, Outlet } from "react-router-dom";
 
 const { Sider, Content } = Layout;
@@ -12,8 +14,10 @@ const MainLayout: React.FC<any> = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
+    <div className="_login_wrap">
     <Layout>
       <Sider
+       
         width={245}
         style={{
           background: "white",
@@ -26,7 +30,7 @@ const MainLayout: React.FC<any> = () => {
         collapsed={collapsed}
       >
         <div className="flex gap-4 items-center p-3">
-          <img className="w-16" src={logoIcon} alt="logo" />
+          <img className="w-16 h-16" src={logoIcon} alt="logo" />
           {!collapsed && (
             <span className="_easyology_sidebar text-3xl _primary-color">
               Easyology
@@ -34,6 +38,7 @@ const MainLayout: React.FC<any> = () => {
           )}
         </div>
         <Menu
+          
           className="font-semibold mt-3"
           theme="light"
           mode="inline"
@@ -48,14 +53,18 @@ const MainLayout: React.FC<any> = () => {
       </Sider>
       <Layout className="site-layout">
         <div className="flex">
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+        {React.createElement(
+    
+     
+            collapsed ? 'img' : 'img',
             {
-              className: "trigger",
+              src : sidebar_icon ,
+              className: "trigger _logo_menu",
               onClick: () => setCollapsed(!collapsed),
             }
           )}
           <Header />
+  
         </div>
         <Content
           style={{
@@ -69,6 +78,7 @@ const MainLayout: React.FC<any> = () => {
         </Content>
       </Layout>
     </Layout>
+    </div>
   );
 };
 

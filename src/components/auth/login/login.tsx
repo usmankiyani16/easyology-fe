@@ -71,7 +71,7 @@ const Login = () => {
             </div>
 
             <div className="_easyology_logo mt-5">
-              <img src={Login_Logo} alt="" className="w-12 h-12" />
+              <img src={Login_Logo} alt="" className="w-12 h-12 m-auto" />
               <div className="_log_in text-lg h-7 mt-2">
                 <p>Login Into POS Store</p>
               </div>
@@ -93,12 +93,14 @@ const Login = () => {
         </div>
 
         <div className="_bottom-container grid grid-cols-2 ">
-          <div className="_login_form mt-10">
-            <p className="_enter_credentials text-center ">
+          <div className="_login_form mt-10 m-auto">
+
+            <p className="_enter_credentials">
               Enter your email and password below
             </p>
 
             <Form
+             layout="vertical"
               className="mt-12"
               name="basic"
               labelCol={{
@@ -116,6 +118,7 @@ const Login = () => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
+             
             >
               <Form.Item
                 label="Email"
@@ -132,7 +135,7 @@ const Login = () => {
                 ]}
                 hasFeedback
               >
-                <Input />
+                <Input className="sm:w-[320px] sm:h-[35px]  md:w-[379px] md:h-[35px]" placeholder="Enter email address"/>
               </Form.Item>
 
               <Form.Item
@@ -149,25 +152,24 @@ const Login = () => {
                 ]}
                 hasFeedback
               >
-                <Input.Password />
+                <Input.Password className="sm:w-[320px] sm:h-[35px] md:w-[379px] md:h-[35px]" placeholder="Enter password"/>
               </Form.Item>
 
               <Form.Item
                 name="remember"
                 valuePropName="checked"
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
+
+               /*  wrapperCol={{
+                  offset: 9,
+                  span: 1,
+                }} */
+               
               >
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
               <Form.Item
-                wrapperCol={{
-                  offset: 9,
-                  span: 1,
-                }}
+                
               >
                 <Button type="primary" htmlType="submit">
                   Submit
@@ -182,7 +184,8 @@ const Login = () => {
             </div>
 
             <div className="_welcome_header">
-              <h3>Welcome to Easyology</h3>
+              <h3>WELCOME TO EASYOLOGY! 👋 </h3>
+              <br />
               <p>
                 Boost your business with ease and efficiency. From inventory
                 management to analytics, we've got you covered. Let's start

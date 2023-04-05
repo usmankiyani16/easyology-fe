@@ -1,23 +1,32 @@
-._easyology_sidebar {
-  font-family: "Lato";
-}
+._login_wrap {
+  ._easyology_sidebar {
+    font-family: "Lato";
+  }
 
+  .ant-menu-title-content {
+    font-family: "Lato";
+    font-size: 18px;
+    line-height: 32px;
+  }
+  //  Margin in Sidebar Sections
 
-.ant-menu-title-content {
-  font-family: "Lato";
-  font-size: 18px;
-  line-height: 32px;
-}
-//  Margin in Sidebar Sections
+  .ant-menu-inline .ant-menu-item {
+    margin-top: 10px;
+  }
 
-.ant-menu-inline .ant-menu-item {
-  margin-top: 10px;
-}
+  // Margin in Sidebar Labels
+  .ant-menu-inline.ant-menu-root .ant-menu-item > .ant-menu-title-content,
+  .ant-menu-inline.ant-menu-root
+    .ant-menu-submenu-title
+    > .ant-menu-title-content {
+    margin-left: 20px;
+  }
 
-// Margin in Sidebar Labels
-.ant-menu-inline.ant-menu-root .ant-menu-item > .ant-menu-title-content,
-.ant-menu-inline.ant-menu-root
-  .ant-menu-submenu-title
-  > .ant-menu-title-content {
-  margin-left: 20px;
+  ._logo_menu {
+    width: 25px;
+    height: 25px;
+    margin-top: 35px;
+  
+    cursor: pointer;
+  }
 }
