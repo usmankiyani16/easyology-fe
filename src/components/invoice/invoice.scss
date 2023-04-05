@@ -1,419 +1,351 @@
-@import '../../sass/variables';
-.invoice{ 
-    width:100%;
-    background-color: $white-color;
-    border: 2px solid $white-color; 
+@import "../../sass/variables";
+.invoice {
+  width: 100%;
+  background-color: $white-color;
+  border: 2px solid $white-color;
+  display: flex;
+  border-radius: 5px;
+  height: 90%;
+  /*  ---------------top-------------- */
+  .printicon {
     display: flex;
-    border-radius:5px;
-    height: 90%;
-    
-
-    /*  ---------------top-------------- */
-    .printicon{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        padding-top: 4%;
-        
-    }
-  
-    .onholdbtn{
-        padding-right: 3%;
-       
-    }
-    .onhold{
-        border: 1px solid $border-grey; 
-        /* height: 3%; */
-        width: 4.92rem;
-        border-radius:4px;
-        background-color: $lightgrey-color;
-     /*    margin-left: 22rem;
-        margin-top: -1.5rem; */
-        color: $black-color;
-        justify-content: center;
-        font-family: "Lato";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 13px;
-        display: flex;
-     }
-     .onhold:hover{
-        background-color: $primary-color;
-        color: $white-color;
-     }
-   .onhold>.number{
-    color: $primary-color;
-   
-   }
-   .onhold>.number:hover{
-    color: $black-color;
-   }
-
-   .printbtn{
-    padding-left: 53%;
-   }
-   .extendbtn{
-    padding-left: 2%;
-   }
-
-       /* ------------title and search--------------- */
-   .title_search{
-    display: flex;
-    padding-left: 1%;
-   }
-   .head{
-
-    width: 14%;
-   }
-   
-   .head>h1{
+    flex-direction: row;
+    padding-top: 4%;
+  }
+  .onholdbtn {
+    padding-left: 7%;
+  }
+  .onhold {
+    border: 1px solid $border-grey;
+    width: 4.92rem;
+    border-radius: 4px;
+    background-color: $lightgrey-color;
     color: $black-color;
     justify-content: center;
     font-family: "Lato";
     font-weight: 600;
+    font-size: 13px;
+    display: flex;
+  }
+  .onhold:hover {
+    background-color: $primary-color;
+    color: $white-color;
+  }
+  .onhold > .number {
+    color: $primary-color;
+  }
+  .onhold > .number:hover {
+    color: $black-color;
+  }
+  .printbtn {
+    padding-left: 53%;
+  }
+  .extendbtn {
+    padding-left: 2%;
+  }
+  /* ------------title and search--------------- */
+  .title_search {
+    display: flex;
+    padding-left: 1%;
+  }
+  .head {
+    width: 14%;
+  }
+  .head > h1 {
+    color: $black-color;
+    font-family: "Lato";
+    font-weight: 600;
     font-size: 25px;
     width: 14rem;
-   }
-   .h2_h3{
+  }
+  .h2_h3 {
     display: flex;
-
     font-size: 14px;
     width: 14rem;
-   }
-   .h2_h3>h2{
-    color:$primary-color;
-  
-   }
-   .h2_h3>h3{
+  }
+  .h2_h3 > h2 {
+    color: $primary-color;
+  }
+  .h2_h3 > h3 {
     color: $black-color;
-   }
-   
-   .search{
+  }
+  .search {
     display: flex;
     padding-top: 4%;
     padding-left: 40%;
-    /* padding-right: 9.9%; */
-   }
-   .searchbar{
-    border: 1px solid $border-grey; 
+  }
+  .searchbar {
+    border: 1px solid $border-grey;
     height: 55.5%;
- width:100%;
- font-size: 12px;
- padding-top: 0%;
- padding-bottom: 0%;
-   }
-   /* 
-   .searchbar::placeholder{
-    text-align: center;
-   }
-  */
-
-   .adduser{
-   height: 52%;
-   padding-left: 3%;
-   } 
-
-    /*  ------------promo and product---------------- */
-   .productID{
-   display: flex;
-   flex-direction: row;
-   justify-content: flex-end;
-   padding-top: 2%;
-
- 
-   
-   }
-
-.product{
-    border: 1px solid $border-grey; 
+    font-size: 12px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  .adduser {
+    height: 52%;
+    padding-left: 3%;
+  }
+  /*  ------------promo and product---------------- */
+  .productID {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 2%;
+  }
+  .product {
+    border: 1px solid $border-grey;
     height: 55.5%;
- width:30%;
- font-size: 12px;
- padding-top: 0%;
- padding-bottom: 0%;
-}
-
-
-
-   
-   
-   .QRicon{
+    width: 30%;
+    font-size: 12px;
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  .QRicon {
     height: 10%;
     padding-left: 1%;
-   } 
-  .promocode{
+  }
+  .promocode {
     width: 22%;
   }
-.promocode>Input{
-    border: 1px solid $border-grey; 
- font-size: 11px;
-padding-top: 0%;
-padding-bottom: 0%;
-padding-right: 0%;
-/* width: 70%; */
- 
-}
-.promocode>Input::placeholder{
+  .promocode > Input {
+    border: 1px solid $border-grey;
     font-size: 11px;
-}
-   .applybtn{
-   
-padding-right: 30%;
-padding-left: 1%;
-   }
-   
-   .applybtn>button{
-    border: 1px solid rgba(166, 163, 163, 1); 
+    padding-top: 0%;
+    padding-bottom: 0%;
+    padding-right: 0%;
+  }
+  .promocode > Input::placeholder {
+    font-size: 11px;
+  }
+  .applybtn {
+    padding-right: 30%;
+    padding-left: 1%;
+  }
+  .applybtn > button {
+    border: 1px solid rgba(166, 163, 163, 1);
     height: 1rem;
-    width:130%;
-    border-radius:4px;
+    width: 130%;
+    border-radius: 4px;
     font-size: 8px;
     color: rgba(253, 15, 0, 0.78);
-    
-   }
-   .applybtn>button:hover{
+  }
+  .applybtn > button:hover {
     background-color: rgba(253, 15, 0, 0.78);
     color: aliceblue;
-   }
-
-   
- /*  -----------item_Qty_Price---------------- */
-
-
-
-   .item_Qty_Price{
+  }
+  /*  -----------item_Qty_Price---------------- */
+  .item_Qty_Price {
     color: rgba(0, 0, 0, 1);
     font-family: "Lato";
     font-weight: 600;
     font-size: 23px;
     width: 14rem;
     display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-    width: 100%;
     padding-top: 1%;
-   }
-   .item_Qty_Price>h3{
-   padding-right: 5%;
-   }
-   .item_Qty_Price>h2{
-    padding-right: 11%;
-   }
-   .item_Qty_Price>h1{
-    padding-right: 43%;
-   }
-  
-
-   /*  -----------item_first row---------------- */
-.item_first_row>h1{
+  }
+  .item_Qty_Price > h3 {
+    padding-left: 16%;
+  }
+  .item_Qty_Price > h2 {
+    padding-left: 76%;
+  }
+  .item_Qty_Price > h1 {
+    padding-left: 5%;
+  }
+  /*  -----------item_first row---------------- */
+  .item_first_row > h1 {
     color: rgba(141, 141, 141, 1);
     font-family: "Lato";
     font-weight: 400;
     font-size: 14px;
     padding-left: 3%;
-
-}
-.first_row{
+  }
+  .first_row {
     display: flex;
     flex-direction: row;
     padding-bottom: 1%;
-}
-.first_row>img{
+  }
+  .first_row > img {
     padding-left: 3%;
-}
-.first_row>h2{
+  }
+  .first_row > h2 {
     width: 34%;
     padding-left: 4%;
-}
+  }
 
-.first_row_price{
+  .first_row_price {
     padding-left: 12%;
-}
-.first_row_price>h2{
+  }
+  .first_row_price > h2 {
     color: rgba(97, 95, 95, 1);
     font-family: "Lato";
     font-weight: 400;
     font-size: 14px;
-}
-
-.first_row_price>h3{
+  }
+  .first_row_price > h3 {
     color: rgba(0, 0, 0, 1);
     font-family: "Lato";
     font-weight: 600;
-    font-size: 18px; 
-}
-.first_row_quantity{
+    font-size: 18px;
+  }
+  .first_row_quantity {
     padding-left: 11%;
-    height: 3%;
-}
-.first_row_quantity>select{
-    background-color:rgba(248, 248, 248, 1);
+  }
+  .first_row_quantity > select {
+    background-color: rgba(248, 248, 248, 1);
     border: 1px solid rgba(136, 136, 136, 1);
-    border-radius: 5px;  
-}
-.line{
- width: 95%;
+    border-radius: 5px;
+  }
+  .line {
+    width: 95%;
     padding-left: 3%;
     padding-bottom: 2%;
-}
-
-/*  -----------item_second_row---------------- */
-
-.item_second_row>h1{
+  }
+  /*  -----------item_second_row---------------- */
+  .item_second_row > h1 {
     color: rgba(141, 141, 141, 1);
     font-family: "Lato";
     font-weight: 400;
     font-size: 14px;
     padding-left: 3%;
-}
-.second_row{
+  }
+  .second_row {
     display: flex;
-    flex-direction: row;
     padding-bottom: 1%;
-}
-.second_row>img{
+  }
+  .second_row > img {
     padding-left: 3%;
-}
-.second_row>h2{
-    width: 36%;
+  }
+  .second_row > h2 {
     padding-left: 4%;
-}
-.second_row_price{
-    padding-left: 12%;
-}
-.second_row_price>h2{
+  }
+  .second_row_price {
+    padding-right: 2%;
+    padding-left: 13%;
+  }
+  .second_row_price > h2 {
     color: rgba(97, 95, 95, 1);
     font-family: "Lato";
     font-weight: 400;
     font-size: 14px;
-}
-.second_row_price>h3{
+  }
+  .second_row_price > h3 {
     color: rgba(0, 0, 0, 1);
     font-family: "Lato";
     font-weight: 600;
-    font-size: 18px; 
-}
-.second_row_quantity{
+    font-size: 18px;
+  }
+  .second_row_quantity {
     padding-left: 11%;
     height: 3%;
-}
-.second_row_quantity>select{
-    background-color:rgba(248, 248, 248, 1);
+  }
+  .second_row_quantity > select {
+    background-color: rgba(248, 248, 248, 1);
     border: 1px solid rgba(136, 136, 136, 1);
-    border-radius: 5px;  
-}
-
-/*  -----------item_third_row---------------- */
-.item_third_row>h1{
+    border-radius: 5px;
+  }
+  /*  -----------item_third_row---------------- */
+  .item_third_row > h1 {
     color: rgba(141, 141, 141, 1);
     font-family: "Lato";
     font-weight: 400;
     font-size: 14px;
     padding-left: 3%;
-}
-.third_row{
+  }
+  .third_row {
     display: flex;
     flex-direction: row;
     padding-bottom: 1%;
-}
-.third_row>img{
+  }
+  .third_row > img {
     padding-left: 3%;
-}
-.third_row>h2{
+  }
+  .third_row > h2 {
     width: 34%;
     padding-left: 4%;
-}
-.third_row_price{
-    padding-left: 12%;
-}
-.third_row_price>h2{
+  }
+  .third_row_price {
+    padding-left: 14%;
+  }
+  .third_row_price > h2 {
     color: rgba(97, 95, 95, 1);
     font-family: "Lato";
     font-weight: 400;
     font-size: 14px;
-}
-.third_row_price>h3{
+  }
+  .third_row_price > h3 {
     color: rgba(0, 0, 0, 1);
     font-family: "Lato";
     font-weight: 600;
-    font-size: 18px; 
-}
-.third_row_quantity{
+    font-size: 18px;
+  }
+  .third_row_quantity {
     padding-left: 11%;
     height: 3%;
-}
-.third_row_quantity>select{
-    background-color:rgba(248, 248, 248, 1);
+  }
+  .third_row_quantity > select {
+    background-color: rgba(248, 248, 248, 1);
     border: 1px solid rgba(136, 136, 136, 1);
-    border-radius: 5px;  
-}
-
-/*  ----------last_row---------------- */
-
-.last_row{
+    border-radius: 5px;
+  }
+  /*  ----------last_row---------------- */
+  .last_row {
     display: flex;
-    /* width: 110%; */
-}
-.last_row_title{
+  }
+  .last_row_title {
     padding-left: 4%;
-}
-.last_row_title>h3{
+  }
+  .last_row_title > h3 {
     color: rgba(97, 95, 95, 1);
     font-family: "Lato";
-}
-.last_row_price{
-padding-left: 45%;
-
-}
-.last_row_price>h1{
-    padding-left: 28%;
-}
-.last_row_price>h2{
-    padding-left: 37%;
-}
-.last_row_price>h3{
+  }
+  .last_row_price {
     padding-left: 45%;
-}
-.last_row_title>h4{
+  }
+  .last_row_price > h1 {
+    padding-left: 28%;
+  }
+  .last_row_price > h2 {
+    padding-left: 37%;
+  }
+  .last_row_price > h3 {
+    padding-left: 45%;
+  }
+  .last_row_title > h4 {
     color: rgba(255, 55, 43, 1);
     font-family: "Lato";
     font-weight: 600;
     font-size: 20px;
     padding-top: 14%;
-    
-
-}
-
-
-.last_row_price>h4{
+  }
+  .last_row_price > h4 {
     color: rgba(0, 0, 0, 1);
     font-family: "Lato";
     font-weight: 600;
     font-size: 20px;
     padding-top: 16%;
-   
     width: 90px;
-}
-.invoicebutn{
+  }
+  .invoicebutn {
     display: flex;
     flex: 1;
     justify-content: center;
-    padding-top:5% ;
+    padding-top: 5%;
     justify-content: space-around;
     padding-bottom: 5.2%;
-}
-.invoicebutn>button{
-    background-color:rgba(248, 248, 248, 1);
+  }
+  .invoicebutn > button {
+    background-color: rgba(248, 248, 248, 1);
     border-radius: 10px;
     width: 26%;
-   padding-top: 2%;
-   padding-bottom: 2%;
-   font-weight: 600;
-   font-size: 12px;
-   border: 1px solid rgb(219, 217, 217) ;
-}
-.invoicebutn>button:hover{
-    background-color:rgba(255, 55, 43, 1);
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-weight: 600;
+    font-size: 12px;
+    border: 1px solid rgb(219, 217, 217);
+  }
+  .invoicebutn > button:hover {
+    background-color: rgba(255, 55, 43, 1);
     color: aliceblue;
-}
+  }
 }
