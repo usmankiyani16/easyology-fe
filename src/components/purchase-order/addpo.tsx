@@ -261,7 +261,7 @@ const AddPO = () => {
                   },
                 ]}
               >
-                <Select style={{ width: '200px' }} className="_input" placeholder="Select Vendor">
+                <Select  className="_input" placeholder="Select Vendor">
                   <Select.Option value="Ali Raza">Ali Raza</Select.Option>
                   <Select.Option value="Hasan">Hasan</Select.Option>
                   <Select.Option value="Ahmed">Ahmed</Select.Option>
