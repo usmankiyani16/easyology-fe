@@ -1,9 +1,11 @@
+@import '../../sass/variables';
 .invoice{ 
     width:100%;
-    background-color: rgba(255, 255, 255, 1);
-    border: 2px solid rgba(228, 223, 223, 1); 
+    background-color: $white-color;
+    border: 2px solid $white-color; 
     display: flex;
     border-radius:5px;
+    height: 90%;
     
 
     /*  ---------------top-------------- */
@@ -20,14 +22,14 @@
        
     }
     .onhold{
-        border: 1px solid rgb(212, 209, 209); 
+        border: 1px solid $border-grey; 
         /* height: 3%; */
         width: 4.92rem;
         border-radius:4px;
-        background-color: rgba(246, 246, 246, 1);
+        background-color: $lightgrey-color;
      /*    margin-left: 22rem;
         margin-top: -1.5rem; */
-        color: rgba(0, 0, 0, 1);
+        color: $black-color;
         justify-content: center;
         font-family: "Lato";
         font-style: normal;
@@ -36,15 +38,15 @@
         display: flex;
      }
      .onhold:hover{
-        background-color: rgba(253, 15, 0, 0.78);
-        color: rgba(255, 255, 255, 1);
+        background-color: $primary-color;
+        color: $white-color;
      }
    .onhold>.number{
-    color: red;
+    color: $primary-color;
    
    }
    .onhold>.number:hover{
-    color: black;
+    color: $black-color;
    }
 
    .printbtn{
@@ -65,7 +67,7 @@
    }
    
    .head>h1{
-    color: rgba(0, 0, 0, 1);
+    color: $black-color;
     justify-content: center;
     font-family: "Lato";
     font-weight: 600;
@@ -79,11 +81,11 @@
     width: 14rem;
    }
    .h2_h3>h2{
-    color:rgba(253, 15, 0, 0.78) ;
+    color:$primary-color;
   
    }
    .h2_h3>h3{
-    color: rgba(0, 0, 0, 1);
+    color: $black-color;
    }
    
    .search{
@@ -93,7 +95,7 @@
     /* padding-right: 9.9%; */
    }
    .searchbar{
-    border: 1px solid rgba(166, 163, 163, 1); 
+    border: 1px solid $border-grey; 
     height: 55.5%;
  width:100%;
  font-size: 12px;
@@ -123,7 +125,7 @@
    }
 
 .product{
-    border: 1px solid rgba(166, 163, 163, 1); 
+    border: 1px solid $border-grey; 
     height: 55.5%;
  width:30%;
  font-size: 12px;
@@ -143,7 +145,7 @@
     width: 22%;
   }
 .promocode>Input{
-    border: 1px solid rgba(166, 163, 163, 1); 
+    border: 1px solid $border-grey; 
  font-size: 11px;
 padding-top: 0%;
 padding-bottom: 0%;
