@@ -1,15 +1,31 @@
-import printIcon from "../../assets/icons/layout/print.png";
-import searchIcon from "../../assets/icons/layout/search.png";
-import AddUser from "../../assets/icons/layout/adduser.png";
-import QRicon from "../../assets/icons/layout/QR.png";
-import ExtendBtn from "../../assets/icons/layout/extendbtn.png";
-import Laptop from "../../assets/images/laptop_img.png";
+import printIcon from "../../../assets/icons/layout/print.png";
+import AddUser from "../../../assets/icons/layout/adduser.png";
+import QRicon from "../../../assets/icons/layout/QR.png";
+import ExtendBtn from "../../../assets/icons/layout/extendbtn.png";
+import Laptop from "../../../assets/images/laptop_img.png";
 import { Input, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
 import "./invoice.scss";
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactFragment,
+  ReactPortal,
+} from "react";
+import { preProcessFile } from "typescript";
 
-const Invoice = () => {
+const Invoice = (props: {
+  item1: string;
+  item2: string;
+  item3: string;
+  price: any;
+  pricetotal: any;
+  total_discount: any;
+  discount: any;
+  sales_tax: any;
+  Total: any;
+}) => {
   return (
     <div className="invoice">
       <div className="container">
@@ -88,7 +104,7 @@ const Invoice = () => {
           <h1>Product ID # 6789</h1>
           <div className="first_row">
             <img src={Laptop} />
-            <h2>Laptop Lenovo Series 4</h2>
+            <h2>{props.item1}</h2>
             <div className="first_row_quantity">
               <select id="quantity">
                 <option>1</option>
@@ -102,8 +118,8 @@ const Invoice = () => {
               </select>
             </div>
             <div className="first_row_price">
-              <h2>$ 150.00</h2>
-              <h3>$ 250.99</h3>
+              <h2>{props.price}</h2>
+              <h3>{props.pricetotal}</h3>
             </div>
           </div>
           <div className="line">
@@ -116,7 +132,7 @@ const Invoice = () => {
           <h1>Product ID # 6789</h1>
           <div className="second_row">
             <img src={Laptop} />
-            <h2>I Phone 14 Pro Max - Limited Edition</h2>
+            <h2>{props.item2}</h2>
             <div className="second_row_quantity">
               <select id="quantity">
                 <option>1</option>
@@ -130,8 +146,8 @@ const Invoice = () => {
               </select>
             </div>
             <div className="second_row_price">
-              <h2>$ 150.00</h2>
-              <h3>$ 250.99</h3>
+              <h2>{props.price}</h2>
+              <h3>{props.pricetotal}</h3>
             </div>
           </div>
           <div className="line">
@@ -144,7 +160,7 @@ const Invoice = () => {
           <h1>Product ID # 6789</h1>
           <div className="third_row">
             <img src={Laptop} />
-            <h2>Airpods series 6 - Addidas Edition</h2>
+            <h2>{props.item3}</h2>
             <div className="third_row_quantity">
               <select id="quantity">
                 <option>1</option>
@@ -158,8 +174,8 @@ const Invoice = () => {
               </select>
             </div>
             <div className="third_row_price">
-              <h2>$ 150.00</h2>
-              <h3>$ 250.99</h3>
+              <h2>{props.price}</h2>
+              <h3>{props.pricetotal}</h3>
             </div>
           </div>
           <div className="line">
@@ -177,10 +193,10 @@ const Invoice = () => {
           </div>
 
           <div className=" last_row_price">
-            <h1>$ 250.99</h1>
-            <h2>- $ 4.99</h2>
-            <h3>$ 2.55</h3>
-            <h4>$ 1500.99</h4>
+            <h1>{props.total_discount}</h1>
+            <h2>{props.discount}</h2>
+            <h3>{props.sales_tax}</h3>
+            <h4>{props.Total}</h4>
           </div>
         </div>
 
