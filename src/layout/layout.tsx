@@ -25,6 +25,7 @@ const MainLayout: React.FC<any> = () => {
 
           // overflow: "hidden",
         }}
+        
         trigger={null}
         collapsible
         collapsed={collapsed}

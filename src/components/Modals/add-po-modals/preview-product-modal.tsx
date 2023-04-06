@@ -76,6 +76,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+  const [form] = Form.useForm();
 
   const handleSearch = (
     selectedKeys: string[],
@@ -218,6 +219,11 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
     console.log(`checked = ${e.target.checked}`);
     }
 
+    const handleFinish = (values: any) => {
+      // Handle the edited data
+      console.log(values);
+    };
+
   return (
     <div className="_modal_wrap">
       <PreviewMax
@@ -266,7 +272,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
             columns={columns}
             dataSource={data}
             className="mt-4"
-            pagination={{ defaultPageSize: 3, hideOnSinglePage: true }}
+            pagination={{ defaultPageSize: 2, hideOnSinglePage: true }}
           />
           <div className="_footer flex justify-between mb-6">
             <div>
@@ -277,6 +283,8 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
             </div>
           </div>
         </div>
+
+        <Form form={form} onFinish={handleFinish}>
 
         <div className="_footer_modal mt-4">
           <div className="_payment flex justify-between">
@@ -309,7 +317,13 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
               className=" sm:ml-[116px] xs:ml-4"
             />
           </Form.Item>
+
+          <Button type="primary" htmlType="submit">
+              Submit
+          </Button>
         </div>
+
+        </Form>
       </Modal>
     </div>
   );

@@ -210,6 +210,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
             <EditOutlined
               onClick={() => {
                 onEditProduct(record);
+                
               }}
             />
             <DeleteOutlined
@@ -248,6 +249,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
   };
   const onEditProduct = (record: React.SetStateAction<any>) => {
     setIsEditing(true);
+    
     setEditingProduct({ ...record });
   };
   const resetEditing = () => {

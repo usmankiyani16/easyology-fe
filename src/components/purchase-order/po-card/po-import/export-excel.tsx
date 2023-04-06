@@ -21,7 +21,7 @@ const ExportExcel = ({excelData, fileName}:any)=> {
   return (
     <div>
 
-        <Button className='ml-[68px] mt-10' onClick={(e) => exportToExcel(fileName)}>
+        <Button className='w-[210px] ml-[68px] mt-10 flex justify-center' onClick={(e) => exportToExcel(fileName)}>
             Download Excel
         </Button>
       

@@ -10,7 +10,6 @@ import AddCategoryModal from "../Modals/add-po-modals/add-cat-modal";
 import PreviewModal from "../Modals/add-po-modals/preview-product-modal";
 import Importmodal from "../Modals/add-po-modals/import-modal";
 
-
 const onFinish = (values: any) => {
   console.log("Success:", values);
 };
@@ -30,16 +29,32 @@ const AddPO = () => {
           <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
         </div>
         <div>
-          <img src={previewproduct} alt="Preview Product Icon" className="h-10 cursor-pointer" onClick={() => setPreviewModalOpen(true)} />
+          <img
+            src={previewproduct}
+            alt="Preview Product Icon"
+            className="h-10 cursor-pointer"
+            onClick={() => setPreviewModalOpen(true)}
+          />
         </div>
       </div>
 
       {/* Add PO Form  */}
-      <AddVendorModal vendormodalOpen={vendormodalOpen} setVendorModalOpen={setVendorModalOpen} />
-      <AddCategoryModal catmodalOpen={catmodalOpen} setCatModalOpen={setCatModalOpen} />
-      <PreviewModal previewmodalOpen={previewmodalOpen} setPreviewModalOpen={setPreviewModalOpen} />
-      <Importmodal importModalOpen={importModalOpen} setImportModalOpen={setImportModalOpen} />
-
+      <AddVendorModal
+        vendormodalOpen={vendormodalOpen}
+        setVendorModalOpen={setVendorModalOpen}
+      />
+      <AddCategoryModal
+        catmodalOpen={catmodalOpen}
+        setCatModalOpen={setCatModalOpen}
+      />
+      <PreviewModal
+        previewmodalOpen={previewmodalOpen}
+        setPreviewModalOpen={setPreviewModalOpen}
+      />
+      <Importmodal
+        importModalOpen={importModalOpen}
+        setImportModalOpen={setImportModalOpen}
+      />
 
       <Form
         // labelCol={{ span: 4 }}
@@ -55,6 +70,38 @@ const AddPO = () => {
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">
+            <div className="flex items-center gap-3">
+              <Form.Item
+                label="Select Vendor"
+                name="Select Vendor"
+                required
+                tooltip="This is a required field"
+                rules={[
+                  {
+                    required: true,
+                    // type: 'email',
+                    message: "Required Field",
+                  },
+                  {
+                    type: "string",
+                  },
+                ]}
+              >
+                <Select className="_input" placeholder="Select Vendor">
+                  <Select.Option value="Ali Raza">Ali Raza</Select.Option>
+                  <Select.Option value="Hasan">Hasan</Select.Option>
+                  <Select.Option value="Ahmed">Ahmed</Select.Option>
+                </Select>
+              </Form.Item>
+
+              <img
+                onClick={() => setVendorModalOpen(true)}
+                src={add_vendor}
+                className=" cursor-pointer"
+                alt="Add Vendor Icon"
+              />
+            </div>
+
             <Form.Item
               label="Product Name"
               name="Product Name"
@@ -122,8 +169,12 @@ const AddPO = () => {
               valuePropName="fileList"
               className="mt-[28px]"
             >
-              <Upload action="/upload.do" listType="picture-card" multiple={false}
-                maxCount={1}>
+              <Upload
+                action="/upload.do"
+                listType="picture-card"
+                multiple={false}
+                maxCount={1}
+              >
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload Image</div>
@@ -175,8 +226,7 @@ const AddPO = () => {
               />
             </Form.Item>
 
-            <div className="flex items-center">
-
+            <div className="flex items-center gap-3">
               <Form.Item
                 label="Category"
                 name="Product Category"
@@ -190,10 +240,10 @@ const AddPO = () => {
                   },
                 ]}
               >
-
-
-
-                <Select className="_input w-24" placeholder="Add or Select Category">
+                <Select
+                  className="_input w-24"
+                  placeholder="Add or Select Category"
+                >
                   <Select.Option value="Laptops">Laptops</Select.Option>
                   <Select.Option value="Mobile Phones">
                     Mobile Phones
@@ -202,11 +252,15 @@ const AddPO = () => {
                 </Select>
               </Form.Item>
 
-              <img src={add_category} alt="add_cat_modal" className="cursor-pointer" onClick={() => { setCatModalOpen(true) }} />
+              <img
+                src={add_category}
+                alt="add_cat_modal"
+                className="cursor-pointer"
+                onClick={() => {
+                  setCatModalOpen(true);
+                }}
+              />
             </div>
-
-
-
 
             <Form.Item
               label="Color"
@@ -241,10 +295,7 @@ const AddPO = () => {
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
 
-
             <div className="flex items-center gap-3">
-
-
               <Form.Item
                 label="Select Vendor"
                 name="Select Vendor"
@@ -261,27 +312,29 @@ const AddPO = () => {
                   },
                 ]}
               >
-                <Select  className="_input" placeholder="Select Vendor">
+                <Select className="_input" placeholder="Select Vendor">
                   <Select.Option value="Ali Raza">Ali Raza</Select.Option>
                   <Select.Option value="Hasan">Hasan</Select.Option>
                   <Select.Option value="Ahmed">Ahmed</Select.Option>
                 </Select>
               </Form.Item>
 
-
-
-              <img onClick={() => setVendorModalOpen(true)} src={add_vendor} className=" cursor-pointer" alt="Add Vendor Icon" />
+              <img
+                onClick={() => setVendorModalOpen(true)}
+                src={add_vendor}
+                className=" cursor-pointer"
+                alt="Add Vendor Icon"
+              />
             </div>
-
           </div>
         </div>
-
 
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn">
             <Form.Item className="mb-0">
-              <Button type="primary" onClick={() => setImportModalOpen(true)}>Import</Button>
-
+              <Button type="primary" onClick={() => setImportModalOpen(true)}>
+                Import
+              </Button>
             </Form.Item>
             <p className="_import_btn_msg">Import product category</p>
           </div>
@@ -291,9 +344,10 @@ const AddPO = () => {
               <Button type="primary" htmlType="submit">
                 Add Product
               </Button>
-
             </Form.Item>
-            <p className="_submit_btn_msg">Submit via sent email to the vendor </p>
+            <p className="_submit_btn_msg">
+              Submit via sent email to the vendor{" "}
+            </p>
           </div>
         </div>
       </Form>

@@ -2,9 +2,12 @@ import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
 import { capitalize } from "../../../utils/functions/functions";
 import "./po-card.scss";
+import Viewmodal from "../../Modals/add-po-modals/view-modal";
 
 const POCard: React.FC<any> = ({ purchaseOrders }) => {
   const [applyBorder, setApplyBorder] = useState(false);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
+
 
 
   useEffect(() => {
@@ -24,6 +27,9 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
     };
   }, []);
   return (
+    <>
+
+    <Viewmodal viewModalOpen={viewModalOpen} setViewModalOpen={setViewModalOpen}  />
     <div className="flex flex-col gap-4">
       {purchaseOrders.map((data: any) => (
         <Card key={data?.key} className="_po-card">
@@ -79,13 +85,16 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
             <div className="flex flex-col justify-self-end items-center justify-between">
               <span className="font-semibold text-3xl	 _primary-color">
                 {data?.totalAmount}$
+
+
               </span>
-              <Button className="">View</Button>
+              <Button className="" onClick={() => setViewModalOpen(true)}>View</Button>
             </div>
           </div>
         </Card>
       ))}
     </div>
+    </>
   );
 };
 
