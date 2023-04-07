@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import add_category from "../../assets/icons/layout/plus_icon.png";
 import add_vendor from "../../assets/icons/layout/add.png";
 import { PlusOutlined } from "@ant-design/icons";
@@ -9,6 +9,10 @@ import AddVendorModal from "../Modals/add-po-modals/add-vendor-modal";
 import AddCategoryModal from "../Modals/add-po-modals/add-cat-modal";
 import PreviewModal from "../Modals/add-po-modals/preview-product-modal";
 import Importmodal from "../Modals/add-po-modals/import-modal";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getCatogaries } from "../../store/catogaries/catogaries-slice";
+import { capitalize } from "../../utils/functions/functions";
+import { uploadMedia } from "../../store/media/media-slice";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -18,10 +22,33 @@ const onFinishFailed = (errorInfo: any) => {
 };
 
 const AddPO = () => {
+  const dispatch = useAppDispatch()
+  const { catogaries } = useAppSelector(state => state.catogaries)
+  const { image } = useAppSelector(state => state.media)
   const [vendormodalOpen, setVendorModalOpen] = useState(false);
   const [catmodalOpen, setCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
   const [importModalOpen, setImportModalOpen] = useState(false);
+  const [productImage, setProductImage] = useState<string>('')
+  const [showUpload, setShowUpload] = useState(true)
+  const imageUpload = async (e: any) => {
+    console.log('upload', e)
+    const file = e.file
+    delete file.uid
+    if (showUpload) {
+      await dispatch(uploadMedia(file))
+      console.log('immgg', image);
+
+      setProductImage(image?.fileName)
+      console.log('producat name', productImage)
+      setShowUpload(false)
+    } else
+      setShowUpload(true)
+  }
+
+  useEffect(() => {
+    dispatch(getCatogaries());
+  }, []);
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
@@ -88,9 +115,9 @@ const AddPO = () => {
                 ]}
               >
                 <Select className="_input" placeholder="Select Vendor">
-                  <Select.Option value="Ali Raza">Ali Raza</Select.Option>
-                  <Select.Option value="Hasan">Hasan</Select.Option>
-                  <Select.Option value="Ahmed">Ahmed</Select.Option>
+                  {catogaries?.map((catogary: any) => (
+                    <Select.Option value={catogary?._id}>{capitalize(catogary?.name)}</Select.Option>
+                  ))}
                 </Select>
               </Form.Item>
 
@@ -170,16 +197,24 @@ const AddPO = () => {
               className="mt-[28px]"
             >
               <Upload
-                action="/upload.do"
+                beforeUpload={() => false}
+                onChange={(e) => imageUpload(e)}
+                action='hhdhdh'
                 listType="picture-card"
                 multiple={false}
                 maxCount={1}
+                showUploadList={{
+                  showPreviewIcon: false,
+                }}
+                accept="image/*"
               >
-                <div>
+                {showUpload && <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload Image</div>
-                </div>
+                </div>}
+
               </Upload>
+              <input type="file" onChange={(e) => imageUpload(e)} name="file"></input>
             </Form.Item>
 
             <Form.Item
@@ -244,11 +279,9 @@ const AddPO = () => {
                   className="_input w-24"
                   placeholder="Add or Select Category"
                 >
-                  <Select.Option value="Laptops">Laptops</Select.Option>
-                  <Select.Option value="Mobile Phones">
-                    Mobile Phones
-                  </Select.Option>
-                  <Select.Option value="Ipads">Ipads</Select.Option>
+                  {catogaries?.map((catogary: any) => (
+                    <Select.Option value={catogary?._id}>{capitalize(catogary?.name)}</Select.Option>
+                  ))}
                 </Select>
               </Form.Item>
 
@@ -294,38 +327,6 @@ const AddPO = () => {
             <Form.Item label="Product Serial #" name="Pruduct Serial #">
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
-
-            <div className="flex items-center gap-3">
-              <Form.Item
-                label="Select Vendor"
-                name="Select Vendor"
-                required
-                tooltip="This is a required field"
-                rules={[
-                  {
-                    required: true,
-                    // type: 'email',
-                    message: "Required Field",
-                  },
-                  {
-                    type: "string",
-                  },
-                ]}
-              >
-                <Select className="_input" placeholder="Select Vendor">
-                  <Select.Option value="Ali Raza">Ali Raza</Select.Option>
-                  <Select.Option value="Hasan">Hasan</Select.Option>
-                  <Select.Option value="Ahmed">Ahmed</Select.Option>
-                </Select>
-              </Form.Item>
-
-              <img
-                onClick={() => setVendorModalOpen(true)}
-                src={add_vendor}
-                className=" cursor-pointer"
-                alt="Add Vendor Icon"
-              />
-            </div>
           </div>
         </div>
 

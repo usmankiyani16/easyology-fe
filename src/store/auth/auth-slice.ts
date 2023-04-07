@@ -14,22 +14,21 @@ export const signin = createAsyncThunk(
         try {
             dispatch(setLoading(true));
             const response = await postApi('/user/sign-in', payload);
-            if (response?.error) {
-                Toast(response.error, 'error')
-            } else {
-                let obj = {
-                    data: response?.data?.data,
-                    token: response?.data?.token,
-                    email: response?.data?.data?.email,
-                    role: response?.data?.data?.role,
-                    accessToken: response?.data?.token?.AccessToken,
-                };
-                localStorage.setItem("user", JSON.stringify(obj));
-            }
-            return response.data;
-        } catch (error) {
-            console.log('error', error);
-            return rejectWithValue(error);
+            let obj = {
+                data: response?.data?.data,
+                token: response?.data?.token,
+                email: response?.data?.data?.email,
+                role: response?.data?.data?.role,
+                accessToken: response?.data?.token?.AccessToken,
+            };
+            localStorage.setItem("user", JSON.stringify(obj));
+
+            console.log('response.data', response)
+            return response;
+        } catch (error: any) {
+            console.log('error', error?.response?.data);
+            Toast(error?.response?.data?.error, 'error')
+            return rejectWithValue(error?.response?.data);
         } finally {
             dispatch(setLoading(false));
         }
@@ -68,7 +67,26 @@ const authSlice = createSlice({
             state.error = null;
         },
     },
-    extraReducers: (builder) => { }
+    extraReducers: (builder) => {
+        builder
+            .addCase(signin.pending, (state, action) => {
+                console.log('pend');
+
+                state.status = REQUEST_STATUS.PENDING;
+            })
+            .addCase(signin.fulfilled, (state, action) => {
+                console.log('full', action.payload);
+
+                state.status = REQUEST_STATUS.SUCCEEDED;
+                state.user = action?.payload;
+            })
+            .addCase(signin.rejected, (state, action: any) => {
+                console.log('action', action.payload?.error);
+
+                state.status = REQUEST_STATUS.FAILED;
+                state.error = action.payload?.error;
+            })
+    }
 });
 
 export const { setUser } = authSlice.actions;
