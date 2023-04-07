@@ -1,26 +1,16 @@
 import DashboardTabs from "./tabs/tabs";
 import "./dashboard.scss";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { loadingState } from "../../store/loader/loader.store";
 import { useEffect } from "react";
-import { authState } from "../../store/auth/auth.store";
-import {
-  categoriesSelector,
-  categoriesState,
-} from "../../store/categories/categories.store";
+import { useAppDispatch } from "../../store/store";
+import { setLoading } from "../../store/loader/loader-slice";
 
 const Dashboard = () => {
-  const setLoading = useSetRecoilState(loadingState);
-
-  const auth = useRecoilValue(authState);
-
-
-  console.log({ auth });
+  const dispatch = useAppDispatch()
 
   // use effect to change loading state
-  useEffect(() => {
-    setLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(setLoading(false));
+  // }, []);
   return (
     <div className="_dashboard_wrap">
       <DashboardTabs />

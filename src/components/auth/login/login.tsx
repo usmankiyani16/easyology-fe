@@ -7,19 +7,20 @@ import cart from "../../../assets/images/Purchase online.png";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserRole } from "../../../utils/interfaces";
-import { useRecoilState } from "recoil";
-import { authState } from "../../../store/auth/auth.store";
 import { postApi } from "../../../utils/api/api";
-import { loadingState } from "../../../store/loader/loader.store";
 import Loader from "../../common/loader/loader";
 import { Toast } from "../../common/toast/toast";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { setLoading } from "../../../store/loader/loader-slice";
+import { signin } from "../../../store/auth/auth-slice";
 
 const Login = () => {
-  const [auth, setAuth] = useRecoilState(authState);
-  const [loading, setLoading] = useRecoilState(loadingState);
-
+  const dispatch = useAppDispatch()
+  const { auth, loader } = useAppSelector(state => state)
+  console.log('loader', loader);
   const navigate = useNavigate();
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
+
   useEffect(() => {
     if (role === UserRole.ADMIN) {
       navigate("/admin-dashboard");
@@ -27,42 +28,19 @@ const Login = () => {
       navigate("/dashboard");
     }
   }, [role]);
+
   const onFinish = async (values: any) => {
-    try {
-      setLoading(true);
-      const response = await postApi("/user/sign-in", {
-        email: values.email,
-        password: values.password,
-      });
-      if (response?.message) {
-        setLoading(false);
-        Toast(response?.message, "error");
-      } else {
-        setAuth(response);
-        let obj = {
-          data: response?.data,
-          token: response?.token,
-          email: response?.data?.email,
-          role: response?.data?.role,
-          accessToken: response?.token?.AccessToken,
-        };
-        localStorage.setItem("user", JSON.stringify(obj));
-        if (obj?.role === UserRole.ADMIN) {
-          navigate("/admin-dashboard");
-        } else {
-          navigate("/dashboard");
-        }
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+    delete values?.remember
+
+    await dispatch(signin(values))
+  }
+
+
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
   return (
     <>
-      {loading && <Loader />}
+      {loader?.isLoading && <Loader />}
       <div className="_main-container">
         <div className="_top-container grid grid-cols-2">
           <div className="_welcome_back text-center">
@@ -100,7 +78,7 @@ const Login = () => {
             </p>
 
             <Form
-             layout="vertical"
+              layout="vertical"
               className="mt-12"
               name="basic"
               labelCol={{
@@ -118,7 +96,7 @@ const Login = () => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
-             
+
             >
               <Form.Item
                 label="Email"
@@ -135,7 +113,7 @@ const Login = () => {
                 ]}
                 hasFeedback
               >
-                <Input className="sm:w-[320px] sm:h-[35px]  md:w-[379px] md:h-[35px]" placeholder="Enter email address"/>
+                <Input className="sm:w-[320px] sm:h-[35px]  md:w-[379px] md:h-[35px]" placeholder="Enter email address" />
               </Form.Item>
 
               <Form.Item
@@ -152,24 +130,24 @@ const Login = () => {
                 ]}
                 hasFeedback
               >
-                <Input.Password className="sm:w-[320px] sm:h-[35px] md:w-[379px] md:h-[35px]" placeholder="Enter password"/>
+                <Input.Password className="sm:w-[320px] sm:h-[35px] md:w-[379px] md:h-[35px]" placeholder="Enter password" />
               </Form.Item>
 
               <Form.Item
                 name="remember"
                 valuePropName="checked"
 
-               /*  wrapperCol={{
-                  offset: 9,
-                  span: 1,
-                }} */
-               
+              /*  wrapperCol={{
+                 offset: 9,
+                 span: 1,
+               }} */
+
               >
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
               <Form.Item
-                
+
               >
                 <Button type="primary" htmlType="submit">
                   Submit
@@ -196,7 +174,7 @@ const Login = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export default Login;

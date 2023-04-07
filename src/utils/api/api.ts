@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 const baseURL =
-  "https://s2yibo3yne.execute-api.us-east-1.amazonaws.com/production/api";
+  "https://25sievoztd.execute-api.us-east-1.amazonaws.com/qa/api";
 
 const api: AxiosInstance = axios.create({
   baseURL,
@@ -10,7 +10,7 @@ const api: AxiosInstance = axios.create({
 // Authorization header with the access token
 api.interceptors.request.use(
   (config) => {
-  const { accessToken }: any = JSON.parse(localStorage.getItem("user") || "{}");
+    const { accessToken }: any = JSON.parse(localStorage.getItem("user") || "{}");
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
