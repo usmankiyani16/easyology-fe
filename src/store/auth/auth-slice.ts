@@ -2,9 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { postApi } from '../../utils/api/api';
 import { REQUEST_STATUS } from '../../utils/constants';
 import { setLoading } from '../loader/loader-slice';
-import { useNavigate } from 'react-router-dom';
 import { Toast } from '../../components/common/toast/toast';
-import { UserRole } from '../../utils/interfaces';
 
 type SigninPayload = {
     email: string;
@@ -16,24 +14,17 @@ export const signin = createAsyncThunk(
         try {
             dispatch(setLoading(true));
             const response = await postApi('/user/sign-in', payload);
-            console.log('res', response)
-            if (response?.message) {
-                Toast(response.message)
+            if (response?.error) {
+                Toast(response.error, 'error')
             } else {
-                const navigate = useNavigate();
                 let obj = {
-                    data: response?.data,
-                    token: response?.token,
-                    email: response?.data?.email,
-                    role: response?.data?.role,
-                    accessToken: response?.token?.AccessToken,
+                    data: response?.data?.data,
+                    token: response?.data?.token,
+                    email: response?.data?.data?.email,
+                    role: response?.data?.data?.role,
+                    accessToken: response?.data?.token?.AccessToken,
                 };
                 localStorage.setItem("user", JSON.stringify(obj));
-                if (obj?.role === UserRole.ADMIN) {
-                    navigate("/admin-dashboard");
-                } else {
-                    navigate("/dashboard");
-                }
             }
             return response.data;
         } catch (error) {

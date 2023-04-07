@@ -7,7 +7,6 @@ import cart from "../../../assets/images/Purchase online.png";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { UserRole } from "../../../utils/interfaces";
-import { useRecoilState } from "recoil";
 import { postApi } from "../../../utils/api/api";
 import Loader from "../../common/loader/loader";
 import { Toast } from "../../common/toast/toast";
@@ -31,29 +30,13 @@ const Login = () => {
   }, [role]);
 
   const onFinish = async (values: any) => {
-    console.log('values', values)
     delete values?.remember
 
-    dispatch(setLoading(true));
-    dispatch(signin(values))
-    // let obj = {
-    //   data: 'response?.data',
-    //   token: 'response?.token',
-    //   email: 'response?.data?.email',
-    //   role: 'user',
-    //   accessToken: 'response?.token?.AccessToken',
-    // };
-    // localStorage.setItem("user", JSON.stringify(obj));
-    // if (obj?.role === UserRole.ADMIN) {
-    //   navigate("/admin-dashboard");
-    // } else {
-    //   navigate("/dashboard");
-    // }
+    await dispatch(signin(values))
   }
 
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
   return (
     <>

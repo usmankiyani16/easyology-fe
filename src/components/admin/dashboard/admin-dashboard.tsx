@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
 import { useAppDispatch } from "../../../store/store";
 import { setLoading } from "../../../store/loader/loader-slice";
 
