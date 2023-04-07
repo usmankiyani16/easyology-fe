@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
-import { loadingState } from "../../../store/loader/loader.store";
+import { useAppDispatch } from "../../../store/store";
+import { setLoading } from "../../../store/loader/loader-slice";
 
 const AdminDashboard = () => {
-  const setLoading = useSetRecoilState(loadingState);
+  const dispatch = useAppDispatch()
 
   // use effect to change loading state
-  useEffect(() => {
-    setLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(setLoading(false))
+  // }, []);
   return <div>AdminDashboard</div>;
 };
 
