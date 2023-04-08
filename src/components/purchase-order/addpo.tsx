@@ -17,12 +17,7 @@ import { Toast } from "../common/toast/toast";
 import { getVendors } from "../../store/vendors/vendors-slice";
 import Loader from "../common/loader/loader";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
+
 
 const AddPO = () => {
   const dispatch = useAppDispatch()
@@ -36,6 +31,17 @@ const AddPO = () => {
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [productImage, setProductImage] = useState<string>('')
   const [showUpload, setShowUpload] = useState(true)
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+    Toast('Item added')
+    values.image = productImage
+    let vendor = values.vendor;
+    delete values.vendor
+
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   const imageUpload = async (e: any) => {
     const file = e.file
     delete file.uid
@@ -202,7 +208,7 @@ const AddPO = () => {
               <Upload
                 beforeUpload={() => false}
                 onChange={(e) => imageUpload(e)}
-                action='hhdhdh'
+                action=''
                 listType="picture-card"
                 multiple={false}
                 maxCount={1}
