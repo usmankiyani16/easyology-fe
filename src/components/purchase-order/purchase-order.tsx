@@ -4,6 +4,7 @@ import Loader from "../common/loader/loader";
 import { purchaseOrders } from "./mock-data/po-data";
 import POCard from "./po-card/po-card";
 import AddPO from '../../assets/icons/layout/AddPO.png'
+import Viewmodal from "../Modals/add-po-modals/view-modal";
 
 
 const PurchaseOrder = () => {
@@ -18,6 +19,8 @@ const PurchaseOrder = () => {
         </NavLink>
       </div>
       <POCard purchaseOrders={purchaseOrders} />
+      <Viewmodal purchaseOrders={purchaseOrders} />
+
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Table, Button, Form, Upload, message, Modal } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import "../../../Modals/modals.scss";
+import PreviewMax from "../../../Modals/add-po-modals/preview-max";
 
 const BulkUpload = () => {
   const [excelData, setExcelData] = useState([]);
@@ -70,6 +71,8 @@ const BulkUpload = () => {
 
   return (
     <div>
+
+      <PreviewMax dataSource={dataSource} columns={columns} />
       <Form form={form} onFinish={handleFinish}>
         <Form.Item
           name="file"
@@ -89,7 +92,7 @@ const BulkUpload = () => {
         destroyOnClose={true}
       > */}
 
-        {fileDeleted ? null : (
+       {/*  {fileDeleted ? null : (
           <>
             {columns && (
               <Table
@@ -99,13 +102,15 @@ const BulkUpload = () => {
                 rowKey="key"
               />
             )}
-            {/* </Modal> */}
-            <Button type="primary" htmlType="submit">
+       
+         
+          </>
+        )} */}
+        {/* </Modal> */}
+
+        <Button className="ml-28" type="primary" htmlType="submit">
               Submit
             </Button>
-          </>
-        )}
-        {/* </Modal> */}
       </Form>
       
     </div>

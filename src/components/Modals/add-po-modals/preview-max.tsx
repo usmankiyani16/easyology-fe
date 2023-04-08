@@ -5,156 +5,160 @@ import "../modals.scss";
 import { Button, Modal, Form, Upload, Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,previewmodalOpen,setPreviewModalOpen,}) => {
+const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,previewmodalOpen,setPreviewModalOpen,dataSource, columns}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
-  const [dataSource, setDataSource] = useState([
-    {
-      id: "#001",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#002",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#003",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#004",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
 
-    {
-      id: "#005",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#006",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#007",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#008",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#009",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#010",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#011",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#012",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-    {
-      id: "#013",
-      image: "None",
-      serial_No: "234",
-      product: "Lenovo",
-      category: "Electronics",
-      type: "Laptop",
-      color: "Grey",
-      qty: "x2",
-      price: "4400",
-    },
-  ]);
-  const columns = [
+  console.log(dataSource , 'nikkamma dataSource')
+  console.log(columns , 'nikkamma coloumn')
+
+  // const [dataSource, setDataSource] = useState([
+  //   {
+  //     id: "#001",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#002",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#003",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#004",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+
+  //   {
+  //     id: "#005",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#006",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#007",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#008",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#009",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#010",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#011",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#012",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  //   {
+  //     id: "#013",
+  //     image: "None",
+  //     serial_No: "234",
+  //     product: "Lenovo",
+  //     category: "Electronics",
+  //     type: "Laptop",
+  //     color: "Grey",
+  //     qty: "x2",
+  //     price: "4400",
+  //   },
+  // ]);
+  /* const columns = [
     {
       key: "1",
       title: "ID",
@@ -224,8 +228,8 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
       },
     },
   ];
-
-  const onDeleteProduct = (record: any) => {
+ */
+  /* const onDeleteProduct = (record: any) => {
     Modal.confirm(
      
       
@@ -246,8 +250,8 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
 
     });
    
-  };
-  const onEditProduct = (record: React.SetStateAction<any>) => {
+  }; */
+ /*  const onEditProduct = (record: React.SetStateAction<any>) => {
     setIsEditing(true);
     
     setEditingProduct({ ...record });
@@ -256,7 +260,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
     setIsEditing(false);
     setEditingProduct(null);
   };
-
+ */
   return (
     <div className="_modal_wrap">
 
@@ -271,7 +275,6 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
         onCancel={() => setPreviewMaxModalOpen(false)}
         destroyOnClose={true}
         width="1200px"
-        
       >
         <img
           src={tabler_minimize}
@@ -314,9 +317,9 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
           visible={isEditing}
           okText="Save"
           onCancel={() => {
-            resetEditing();
+            // resetEditing();
           }}
-          onOk={() => {
+         /*  onOk={() => {
             setDataSource((pre): any => {
               return pre.map((product) => {
                 if (product.id === editingProduct.id) {
@@ -327,7 +330,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
               });
             });
             resetEditing();
-          }}
+          }} */
           destroyOnClose={true}
         >
           <h3 className="_modal_header">Edit Product</h3>

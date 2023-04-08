@@ -14,12 +14,12 @@ const Importmodal: React.FC<any> = ({importModalOpen,setImportModalOpen,}) => {
     <div className="_modal_wrap">
       <Modal
       
-        width="1200px"
+        width="400px"
         footer={false}
         centered
         open={importModalOpen}
         onCancel={() => setImportModalOpen(false)}
-        destroyOnClose={true}
+        // destroyOnClose={true}
       >
         <h3 className="_modal_header text-red-500">Import PO In Bulk</h3>
 

@@ -1,119 +1,136 @@
+._modal_header {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
 
+  font-size: 24px;
+  line-height: 100%;
+}
 
-  ._modal_header {
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
+._modal_logout {
+  color: rgba(253, 15, 0, 0.78);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 100%;
+}
+._modal_header_poView {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 100%;
+  /* or 39px */
 
-    font-size: 24px;
-    line-height: 100%;
-  }
+  color: #000000;
+  text-align: center;
+}
+:where(.css-dev-only-do-not-override-e0k33r).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > td {
+  position: relative;
+  padding: 5px 5px;
+  overflow-wrap: break-word;
+  text-align: center;
+  font-size: 12px;
+  font-family: "Lato";
+}
+.ant-table-wrapper .ant-table-thead > tr > th {
+  padding: 5px 5px;
+  text-align: center;
+  font-size: 13px;
+  font-family: "Lato";
+}
+:where(.css-dev-only-do-not-override-1vywuwj).ant-table-wrapper .ant-table {
+  font-size: 11px;
+}
 
-  ._modal_logout {
-    color: rgba(253, 15, 0, 0.78);
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 100%;
+._preview_po {
+  // height: 447px;
 
-  }
-  ._modal_header_poView {
-    font-family: "Lato";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 100%;
-    /* or 39px */
+  background: #fdfdfd;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 17px;
+}
 
-    color: #000000;
-    text-align: center;
-  }
-  :where(.css-dev-only-do-not-override-e0k33r).ant-table-wrapper .ant-table-tbody>tr>td {
-    position: relative;
-    padding: 5px 5px;
-    overflow-wrap: break-word;
-    text-align: center;
-    font-size: 12px;
-    font-family: "Lato";
-  }
-  .ant-table-wrapper .ant-table-thead >tr>th {
-    padding: 5px 5px;
-    text-align: center;
-    font-size: 13px;
-    font-family: "Lato";
+.ant-upload .ant-upload-select {
+  width: 108px;
+  height: 104px;
+}
 
-  }
-  :where(.css-dev-only-do-not-override-1vywuwj).ant-table-wrapper .ant-table {
-    font-size: 11px;
-  }
+._modal_para {
+  font-family: "Lato";
+  font-size: 16px;
+  color: #000000;
+}
 
-  ._preview_po {
-    // height: 447px;
+._payment_header {
+  width: 193px;
+  height: 27px;
 
-    background: #fdfdfd;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 17px;
-  }
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
 
-  .ant-upload .ant-upload-select {
-    width: 108px;
-    height: 104px;
-  }
+  color: #000000;
+}
 
-  ._modal_para {
-    font-family: "Lato";
-    font-size: 16px;
-    color: #000000;
-  }
+.ant-form-vertical .ant-form-item-label {
+  margin: -10px;
+  margin-bottom: -5px;
+}
 
-  ._payment_header {
-    width: 193px;
-    height: 27px;
+// profile upload
 
-    font-family: "Lato";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
+  width: 195px;
+}
 
-    color: #000000;
-  }
+._label_input {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
 
-  .ant-form-vertical .ant-form-item-label {
-    margin: -10px;
-    margin-bottom: -5px;
-  }
+  color: #000000;
+}
 
-  // profile upload
+// Profile Upload
 
-  .ant-upload-wrapper.ant-upload-picture-card-wrapper
-    .ant-upload.ant-upload-select {
-    width: 195px;
-  }
+:where(
+    .css-dev-only-do-not-override-e0k33r
+  ).ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
+  width: 108px;
+  height: 104px;
+  background: #f8f8f8;
+  border: 0.5px solid rgba(48, 58, 79, 0.4);
+  border-radius: 10px;
+}
 
-  ._label_input {
-    font-family: "Lato";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 19px;
-    text-align: center;
+._input_username {
+  background: #f8f8f8;
+  border: 0.5px solid rgba(48, 58, 79, 0.4);
+}
 
-    color: #000000;
-  }
+// View Modal
 
-  // Profile Upload 
+._po_Number {
+  font-family: "Lato";
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
+}
 
-  :where(.css-dev-only-do-not-override-e0k33r).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select{
-    width:108px;
-    height: 104px;
-    background: #F8F8F8;
-    border: 0.5px solid rgba(48, 58, 79, 0.4);
-    border-radius: 10px;
-  }
+._company_name {
+  font-family: "Lato";
 
-  ._input_username {
-    background: #F8F8F8;
-    border: 0.5px solid rgba(48, 58, 79, 0.4);
-  
-  }
+  font-weight: 500;
+  font-size: 24px;
 
-  
+  color: #000000;
+}
