@@ -13,7 +13,7 @@ const BulkUpload = () => {
 
   const handleUpload = (file: Blob) => {
     const fileReader = new FileReader();
-    fileReader.onload = (e) => {
+    fileReader.onload = (e:any) => {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: "array" });
       const sheetName = workbook.SheetNames[0];

@@ -213,7 +213,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
   // Consoling Date
 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
+    console.log( dateString);
   };
   const onChangeCheckBox = (e: CheckboxChangeEvent) => {
     console.log(`checked = ${e.target.checked}`);

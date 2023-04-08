@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import "../modals.scss";
 
 import { Button, Modal, Form, Input } from "antd";
+import { useAppDispatch } from "../../../store/store";
+import { addCatogary } from "../../../store/catogaries/catogaries-slice";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
+
 
 const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
+  const dispatch = useAppDispatch()
+  const onFinish = async (values: any) => {
+    setCatModalOpen(false)
+    await dispatch(addCatogary(values))
+  };
   return (
     <div className="_modal_wrap">
-      
+
       <Modal
         footer={false}
         centered
@@ -29,13 +31,12 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
           layout="horizontal"
           // style={{ maxWidth:  }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
           className="mt-8"
         >
           <Form.Item
             label="Category"
-            name="Category Name"
+            name="name"
             required
             tooltip="This is a required field"
             rules={[
