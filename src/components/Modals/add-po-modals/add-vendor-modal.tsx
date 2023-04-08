@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import "../modals.scss";
 
 import { Button, Modal, Form, Input } from "antd";
+import { useAppDispatch } from "../../../store/store";
+import { addVendor } from "../../../store/vendors/vendors-slice";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
 
-const AddVendorModal: React.FC<any> = ({
-  vendormodalOpen,
-  setVendorModalOpen,
-}) => {
+
+const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) => {
+  const dispatch = useAppDispatch()
+  const onFinish = (values: any) => {
+    console.log("Success:", values);
+    dispatch(addVendor(values))
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div className="_modal_wrap">
 
@@ -40,8 +42,8 @@ const AddVendorModal: React.FC<any> = ({
 
             <div className="_grid1_vendor">
               <Form.Item
-                label="User name"
-                name="User name"
+                label="Name"
+                name="name"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -56,7 +58,7 @@ const AddVendorModal: React.FC<any> = ({
               </Form.Item>
               <Form.Item
                 label="Company Name"
-                name="Company Name"
+                name="company_name"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -76,7 +78,7 @@ const AddVendorModal: React.FC<any> = ({
             <div className="_grid2_vendor">
               <Form.Item
                 label="Email"
-                name="Email"
+                name="email"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -95,7 +97,7 @@ const AddVendorModal: React.FC<any> = ({
 
               <Form.Item
                 label="Mobile Number"
-                name="Mobile Number"
+                name="phone_number"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -113,7 +115,7 @@ const AddVendorModal: React.FC<any> = ({
 
           <Form.Item
             label="Company Address"
-            name="Company Address"
+            name="company_address"
             required
             tooltip="This is a required field"
             rules={[

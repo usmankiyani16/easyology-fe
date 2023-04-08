@@ -7,8 +7,9 @@ import { Toast } from '../../components/common/toast/toast';
 
 export const uploadMedia = createAsyncThunk(
     'media',
-    async (payload: any, { rejectWithValue }) => {
+    async (payload: any, { rejectWithValue, dispatch }) => {
         try {
+            dispatch(setLoading(true));
             const file = new FormData();
             file.append('file', payload);
             const config = {
@@ -21,6 +22,8 @@ export const uploadMedia = createAsyncThunk(
         } catch (error) {
             console.log('error', error);
             return rejectWithValue(error);
+        } finally {
+            dispatch(setLoading(false));
         }
     }
 );

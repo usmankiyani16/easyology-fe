@@ -13,6 +13,9 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getCatogaries } from "../../store/catogaries/catogaries-slice";
 import { capitalize } from "../../utils/functions/functions";
 import { uploadMedia } from "../../store/media/media-slice";
+import { Toast } from "../common/toast/toast";
+import { getVendors } from "../../store/vendors/vendors-slice";
+import Loader from "../common/loader/loader";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -24,6 +27,8 @@ const onFinishFailed = (errorInfo: any) => {
 const AddPO = () => {
   const dispatch = useAppDispatch()
   const { catogaries } = useAppSelector(state => state.catogaries)
+  const { vendors } = useAppSelector(state => state.vendors)
+
   const { image } = useAppSelector(state => state.media)
   const [vendormodalOpen, setVendorModalOpen] = useState(false);
   const [catmodalOpen, setCatModalOpen] = useState(false);
@@ -32,22 +37,20 @@ const AddPO = () => {
   const [productImage, setProductImage] = useState<string>('')
   const [showUpload, setShowUpload] = useState(true)
   const imageUpload = async (e: any) => {
-    console.log('upload', e)
     const file = e.file
     delete file.uid
+    setShowUpload(!showUpload)
     if (showUpload) {
-      await dispatch(uploadMedia(file))
-      console.log('immgg', image);
-
-      setProductImage(image?.fileName)
-      console.log('producat name', productImage)
-      setShowUpload(false)
-    } else
-      setShowUpload(true)
+      const res = await dispatch(uploadMedia(file))
+      if (res?.meta?.requestStatus == 'fulfilled') {
+        setProductImage(res?.payload?.data?.fileName)
+      } else Toast('Something went wrong', 'error')
+    }
   }
 
   useEffect(() => {
     dispatch(getCatogaries());
+    dispatch(getVendors())
   }, []);
   return (
     <div className="_add_po_wrap">
@@ -115,8 +118,8 @@ const AddPO = () => {
                 ]}
               >
                 <Select className="_input" placeholder="Select Vendor">
-                  {catogaries?.map((catogary: any) => (
-                    <Select.Option value={catogary?._id}>{capitalize(catogary?.name)}</Select.Option>
+                  {vendors?.map((vendor: any, index: number) => (
+                    <Select.Option key={index} value={vendor?._id}>{capitalize(vendor?.name)}</Select.Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -214,7 +217,6 @@ const AddPO = () => {
                 </div>}
 
               </Upload>
-              <input type="file" onChange={(e) => imageUpload(e)} name="file"></input>
             </Form.Item>
 
             <Form.Item
@@ -279,8 +281,8 @@ const AddPO = () => {
                   className="_input w-24"
                   placeholder="Add or Select Category"
                 >
-                  {catogaries?.map((catogary: any) => (
-                    <Select.Option value={catogary?._id}>{capitalize(catogary?.name)}</Select.Option>
+                  {catogaries?.map((catogary: any, index: number) => (
+                    <Select.Option key={index} value={catogary?._id}>{capitalize(catogary?.name)}</Select.Option>
                   ))}
                 </Select>
               </Form.Item>

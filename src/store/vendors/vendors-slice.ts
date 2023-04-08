@@ -1,37 +1,40 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getApi, postApi } from '../../utils/api/api';
 import { REQUEST_STATUS } from '../../utils/constants';
 import { setLoading } from '../loader/loader-slice';
 import { Toast } from '../../components/common/toast/toast';
 
 
-export const getCatogaries = createAsyncThunk(
-    'catogaries/get',
+export const getVendors = createAsyncThunk(
+    'vendors',
     async (payload, { rejectWithValue }) => {
         try {
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             const userId = data?._id
-            const response = await getApi('/category/' + userId);
+            const response = await getApi('/vendor/' + userId);
             return response;
         } catch (error) {
+            console.log('error', error);
             return rejectWithValue(error);
         }
     }
 );
-
-type AddCatogaryPayload = {
+type AddVendorPayload = {
     name: string,
-    userId: string,
-    image?: string
+    email: string,
+    company_name: string,
+    comapny_address: string,
+    phone_number: string,
+    user_id: string
 }
-export const addCatogary = createAsyncThunk(
+export const addVendor = createAsyncThunk(
     'catogaries/add',
-    async (payload: AddCatogaryPayload, { rejectWithValue, dispatch }) => {
+    async (payload: AddVendorPayload, { rejectWithValue, dispatch }) => {
         try {
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-            payload.userId = data?._id
-            const response = await postApi('/category', payload);
+            payload.user_id = data?._id
+            const response = await postApi('/vendor', payload);
             Toast(response?.message)
             return response;
         } catch (error: any) {
@@ -46,64 +49,54 @@ export const addCatogary = createAsyncThunk(
 
 
 
-interface CatogariesState {
-    catogaries: any | null;
+interface VendorsState {
+    vendors: any | null;
     error: string | null;
     status: string
 }
 
 
-const initialState: CatogariesState = {
-    catogaries: [],
+const initialState: VendorsState = {
+    vendors: [],
     error: null,
     status: REQUEST_STATUS.IDLE
 };
 
-const catogariesSlice = createSlice({
-    name: 'catogaries',
+const vendorsSlice = createSlice({
+    name: 'vendors',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getCatogaries.pending, (state) => {
-                console.log('pend');
-
+            .addCase(getVendors.pending, (state, action) => {
                 state.status = REQUEST_STATUS.PENDING;
             })
-            .addCase(getCatogaries.fulfilled, (state, action) => {
-                console.log('full', action);
-
+            .addCase(getVendors.fulfilled, (state, action) => {
                 state.status = REQUEST_STATUS.SUCCEEDED;
-                state.catogaries = action?.payload?.data;
+                state.vendors = action?.payload?.data;
             })
-            .addCase(getCatogaries.rejected, (state, action: any) => {
-                console.log('action', action.payload?.error);
+            .addCase(getVendors.rejected, (state, action: any) => {
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })
-            .addCase(addCatogary.pending, (state) => {
-                console.log('pend');
-
+            .addCase(addVendor.pending, (state) => {
                 state.status = REQUEST_STATUS.PENDING;
             })
-            .addCase(addCatogary.fulfilled, (state, action) => {
-                console.log('full', action?.payload?.data);
-
+            .addCase(addVendor.fulfilled, (state, action) => {
                 state.status = REQUEST_STATUS.SUCCEEDED;
-                let category = {
+                let vendor = {
                     name: action?.payload?.data?.name,
                     _id: action?.payload?.data?._id
                 }
-                state.catogaries?.push(category);
+                state.vendors?.push(vendor);
             })
-            .addCase(addCatogary.rejected, (state, action: any) => {
-                console.log('action', action.payload);
+            .addCase(addVendor.rejected, (state, action: any) => {
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })
     }
 });
 
-export const { } = catogariesSlice.actions;
+export const { } = vendorsSlice.actions;
 
-export default catogariesSlice.reducer;
+export default vendorsSlice.reducer;

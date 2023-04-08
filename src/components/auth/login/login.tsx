@@ -16,8 +16,6 @@ import { signin } from "../../../store/auth/auth-slice";
 
 const Login = () => {
   const dispatch = useAppDispatch()
-  const { auth, loader } = useAppSelector(state => state)
-  console.log('loader', loader);
   const navigate = useNavigate();
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
 
@@ -40,7 +38,7 @@ const Login = () => {
   };
   return (
     <>
-      {loader?.isLoading && <Loader />}
+      
       <div className="_main-container">
         <div className="_top-container grid grid-cols-2">
           <div className="_welcome_back text-center">
