@@ -13,12 +13,26 @@ const BulkUpload = () => {
 
   const handleUpload = (file: Blob) => {
     const fileReader = new FileReader();
-    fileReader.onload = (e:any) => {
+    fileReader.onload = (e: any) => {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: "array" });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const dataFromExcel = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+      const keys: any = dataFromExcel.shift(); // remove the headers
+      const objectData = dataFromExcel.map((row: any) => {
+        return keys.reduce((obj: { [x: string]: any; }, key: string | number, index: string | number) => {
+          obj[key] = row[index];
+          return obj;
+        }, {});
+      });
+
+      console.log('keysss', keys)
+      console.log('objectData', objectData)
+
+
+      console.log(objectData);
 
       setExcelData(dataFromExcel);
       /* setProfileModalOpen(true); */
@@ -35,7 +49,7 @@ const BulkUpload = () => {
     setFileDeleted(true);
   };
 
-  const columns:any =
+  const columns: any =
     excelData[0] &&
     excelData[0].map((col: any, index: string) => ({
       title: col,
@@ -44,25 +58,25 @@ const BulkUpload = () => {
       render: (text: any, record: { key: string; }) => {
         return (
           <>
-          <Form.Item name={index + "-" + record.key} initialValue={text}>
-            <input />
-          </Form.Item>
-        
-        </>
-        
+            <Form.Item name={index + "-" + record.key} initialValue={text}>
+              <input />
+            </Form.Item>
+
+          </>
+
         );
 
-        
+
       },
-     
+
     }));
 
-     columns?.push( {
-      title: "col",
-      dataIndex: "index",
-      key: "index",
+  columns?.push({
+    title: "col",
+    dataIndex: "index",
+    key: "index",
 
-    })
+  })
 
   const dataSource = excelData
     .slice(1)
@@ -92,7 +106,7 @@ const BulkUpload = () => {
         destroyOnClose={true}
       > */}
 
-       {/*  {fileDeleted ? null : (
+        {/*  {fileDeleted ? null : (
           <>
             {columns && (
               <Table
@@ -109,10 +123,10 @@ const BulkUpload = () => {
         {/* </Modal> */}
 
         <Button className="ml-28" type="primary" htmlType="submit">
-              Submit
-            </Button>
+          Submit
+        </Button>
       </Form>
-      
+
     </div>
   );
 };
