@@ -17,46 +17,80 @@ import { Toast } from "../common/toast/toast";
 import { getVendors } from "../../store/vendors/vendors-slice";
 import Loader from "../common/loader/loader";
 
-
-
 const AddPO = () => {
-  const dispatch = useAppDispatch()
-  const { catogaries } = useAppSelector(state => state.catogaries)
-  const { vendors } = useAppSelector(state => state.vendors)
+  const dispatch = useAppDispatch();
+  const { catogaries } = useAppSelector((state) => state.catogaries);
+  const { vendors } = useAppSelector((state) => state.vendors);
 
-  const { image } = useAppSelector(state => state.media)
+  const { image } = useAppSelector((state) => state.media);
   const [vendormodalOpen, setVendorModalOpen] = useState(false);
   const [catmodalOpen, setCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
   const [importModalOpen, setImportModalOpen] = useState(false);
-  const [productImage, setProductImage] = useState<string>('')
-  const [showUpload, setShowUpload] = useState(true)
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-    Toast('Item added')
-    values.image = productImage
-    let vendor = values.vendor;
-    delete values.vendor
+  const [productImage, setProductImage] = useState<string>("");
+  const [showUpload, setShowUpload] = useState(true);
+  const [formData, setFormData] = useState<any[]>([]);
+  
 
+
+  
+  const onFinish = (values: any) => {
+    
+  
+
+    Toast("Product added");
+    const newFormData = {
+      'product': values.product,
+      'price': values.price,
+      'threshold': values.threshold,
+      'imeiNumber': values.imeiNumber,
+      'productDescription': values.productDescription,
+      'category': values.category,
+      'color': values.color,
+      'image': values.image,
+      'size': values.size,
+      'productType': values.productType
+    };
+
+    const newObject = {
+      "vendorId": values.selectVendor ,
+      "product": formData.concat(newFormData)
+    };
+
+    console.log(newObject); 
+
+    setFormData(formData.concat(newFormData));
   };
+
+    
+    // setFormData([...formData, newFormData]);
+ 
+
+ /*  useEffect(() => {
+    console.log('Updated formData:', formData);
+  }, [formData]);
+ */
+
+  
+ 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
   const imageUpload = async (e: any) => {
-    const file = e.file
-    delete file.uid
-    setShowUpload(!showUpload)
+    const file = e.file;
+    delete file.uid;
+    setShowUpload(!showUpload);
     if (showUpload) {
-      const res = await dispatch(uploadMedia(file))
-      if (res?.meta?.requestStatus == 'fulfilled') {
-        setProductImage(res?.payload?.data?.fileName)
-      } else Toast('Something went wrong', 'error')
+      const res = await dispatch(uploadMedia(file));
+      if (res?.meta?.requestStatus == "fulfilled") {
+        setProductImage(res?.payload?.data?.fileName);
+      } else Toast("Something went wrong", "error");
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(getCatogaries());
-    dispatch(getVendors())
+    dispatch(getVendors());
   }, []);
   return (
     <div className="_add_po_wrap">
@@ -109,7 +143,7 @@ const AddPO = () => {
             <div className="flex items-center gap-3">
               <Form.Item
                 label="Select Vendor"
-                name="Select Vendor"
+                name="selectVendor"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -125,7 +159,9 @@ const AddPO = () => {
               >
                 <Select className="_input" placeholder="Select Vendor">
                   {vendors?.map((vendor: any, index: number) => (
-                    <Select.Option key={index} value={vendor?._id}>{capitalize(vendor?.name)}</Select.Option>
+                    <Select.Option key={index} value={vendor?._id}>
+                      {capitalize(vendor?.name)}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -140,7 +176,7 @@ const AddPO = () => {
 
             <Form.Item
               label="Product Name"
-              name="Product Name"
+              name="product"
               required
               tooltip="This is a required field"
               rules={[
@@ -160,7 +196,7 @@ const AddPO = () => {
 
             <Form.Item
               label="Product Price"
-              name="  Price"
+              name="price"
               required
               tooltip="This is a required field"
               rules={[
@@ -176,7 +212,7 @@ const AddPO = () => {
             </Form.Item>
             <Form.Item
               label="Threshold"
-              name="Select Threshold"
+              name="threshold"
               required
               tooltip="This is a required field"
               rules={[
@@ -208,7 +244,7 @@ const AddPO = () => {
               <Upload
                 beforeUpload={() => false}
                 onChange={(e) => imageUpload(e)}
-                action=''
+                action=""
                 listType="picture-card"
                 multiple={false}
                 maxCount={1}
@@ -217,17 +253,18 @@ const AddPO = () => {
                 }}
                 accept="image/*"
               >
-                {showUpload && <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>Upload Image</div>
-                </div>}
-
+                {showUpload && (
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Upload Image</div>
+                  </div>
+                )}
               </Upload>
             </Form.Item>
 
             <Form.Item
-              label="Product IMEI Number"
-              name="IMEI Number"
+              label="IMEI Number"
+              name="imeiNumber"
               rules={[
                 {
                   pattern: new RegExp("^\\d{15}$"),
@@ -238,7 +275,7 @@ const AddPO = () => {
               <Input className="_input" placeholder="Enter Product IMEI" />
             </Form.Item>
 
-            <Form.Item label="Product Description" name="Product Description">
+            <Form.Item label="Product Description" name="productDescription">
               <Input
                 className="_input"
                 placeholder="Enter Product Description"
@@ -251,7 +288,7 @@ const AddPO = () => {
           <div className="_grid2_fields">
             <Form.Item
               label="Product Quality"
-              name="Product Quality"
+              name="quality"
               required
               tooltip="This is a required field"
               rules={[
@@ -272,7 +309,7 @@ const AddPO = () => {
             <div className="flex items-center gap-3">
               <Form.Item
                 label="Category"
-                name="Product Category"
+                name="category"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -288,7 +325,9 @@ const AddPO = () => {
                   placeholder="Add or Select Category"
                 >
                   {catogaries?.map((catogary: any, index: number) => (
-                    <Select.Option key={index} value={catogary?._id}>{capitalize(catogary?.name)}</Select.Option>
+                    <Select.Option key={index} value={catogary?._id}>
+                      {capitalize(catogary?.name)}
+                    </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
@@ -305,7 +344,7 @@ const AddPO = () => {
 
             <Form.Item
               label="Color"
-              name="Product Color"
+              name="color"
               rules={[
                 {
                   pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
@@ -317,7 +356,7 @@ const AddPO = () => {
             </Form.Item>
             <Form.Item
               label="Product Size"
-              name="Pruduct Size"
+              name="size"
               rules={[
                 {
                   pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
@@ -328,11 +367,11 @@ const AddPO = () => {
               <Input className="_input" placeholder="Specify Size" />
             </Form.Item>
 
-            <Form.Item label="Product Type" name="Pruduct Type">
+            <Form.Item label="Product Type" name="productType">
               <Input className="_input" placeholder="Specify Product Type" />
             </Form.Item>
 
-            <Form.Item label="Product Serial #" name="Pruduct Serial #">
+            <Form.Item label="Product Serial #" name="serial#">
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
           </div>

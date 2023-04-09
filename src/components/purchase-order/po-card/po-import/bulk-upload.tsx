@@ -6,7 +6,7 @@ import "../../../Modals/modals.scss";
 import PreviewMax from "../../../Modals/add-po-modals/preview-max";
 
 const BulkUpload = () => {
-  const [excelData, setExcelData] = useState([]);
+  const [excelData, setExcelData] = useState<any>([]);
   // const [profilemodalOpen, setProfileModalOpen] = useState(false);
   const [fileDeleted, setFileDeleted] = useState(false);
   const [form] = Form.useForm();
@@ -66,7 +66,7 @@ const BulkUpload = () => {
 
   const dataSource = excelData
     .slice(1)
-    .map((row, index) => ({ ...row, key: index }));
+    .map((row: any, index: any) => ({ ...row, key: index }));
   console.log(dataSource, 'Data source hu m');
 
   return (
