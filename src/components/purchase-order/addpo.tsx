@@ -30,6 +30,7 @@ const AddPO = () => {
   const [productImage, setProductImage] = useState<string>("");
   const [showUpload, setShowUpload] = useState(true);
   const [formData, setFormData] = useState<any[]>([]);
+  const [dataForm, setDataForm] = useState<any>();
   
 
 
@@ -49,7 +50,9 @@ const AddPO = () => {
       'color': values.color,
       'image': values.image,
       'size': values.size,
-      'productType': values.productType
+      'productType': values.productType,
+      'quantity': values.quantity,
+      'serial': values.serial
     };
 
     const newObject = {
@@ -57,9 +60,13 @@ const AddPO = () => {
       "product": formData.concat(newFormData)
     };
 
+    
+
     console.log(newObject); 
 
     setFormData(formData.concat(newFormData));
+    
+    setDataForm(newObject)
   };
 
     
@@ -117,10 +124,15 @@ const AddPO = () => {
         catmodalOpen={catmodalOpen}
         setCatModalOpen={setCatModalOpen}
       />
-      <PreviewModal
+
+      {previewmodalOpen &&  <PreviewModal
         previewmodalOpen={previewmodalOpen}
         setPreviewModalOpen={setPreviewModalOpen}
+        newObject={dataForm}
       />
+ }
+     
+      
       <Importmodal
         importModalOpen={importModalOpen}
         setImportModalOpen={setImportModalOpen}
@@ -287,8 +299,8 @@ const AddPO = () => {
 
           <div className="_grid2_fields">
             <Form.Item
-              label="Product Quality"
-              name="quality"
+              label="Product Quantity"
+              name="quantity"
               required
               tooltip="This is a required field"
               rules={[
@@ -371,7 +383,7 @@ const AddPO = () => {
               <Input className="_input" placeholder="Specify Product Type" />
             </Form.Item>
 
-            <Form.Item label="Product Serial #" name="serial#">
+            <Form.Item label="Product Serial #" name="serial">
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
           </div>

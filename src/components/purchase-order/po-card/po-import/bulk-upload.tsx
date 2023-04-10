@@ -9,7 +9,16 @@ const BulkUpload = () => {
   const [excelData, setExcelData] = useState<any>([]);
   // const [profilemodalOpen, setProfileModalOpen] = useState(false);
   const [fileDeleted, setFileDeleted] = useState(false);
+  const [previewMaxmodalOpen, setPreviewMaxModalOpen] = useState(false);
+
+  const [coloumn, setColoumn] = useState<any>();
+  const [dataSource, setDataSource] = useState<any>();
+
+
   const [form] = Form.useForm();
+
+  // let keys = []
+  // let objectData
 
   const handleUpload = (file: Blob) => {
     const fileReader = new FileReader();
@@ -20,7 +29,7 @@ const BulkUpload = () => {
       const worksheet = workbook.Sheets[sheetName];
       const dataFromExcel = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-      const keys: any = dataFromExcel.shift(); // remove the headers
+      const keys:any= dataFromExcel.shift(); // remove the headers
       const objectData = dataFromExcel.map((row: any) => {
         return keys.reduce((obj: { [x: string]: any; }, key: string | number, index: string | number) => {
           obj[key] = row[index];
@@ -28,14 +37,18 @@ const BulkUpload = () => {
         }, {});
       });
 
-      console.log('keysss', keys)
-      console.log('objectData', objectData)
+      setColoumn(keys)
+      setDataSource(objectData)
+
+      console.log('keysss', coloumn )
+      // console.log('objectData', objectData)
 
 
       console.log(objectData);
 
       setExcelData(dataFromExcel);
       /* setProfileModalOpen(true); */
+      setPreviewMaxModalOpen(true)
     };
     fileReader.readAsArrayBuffer(file);
   };
@@ -71,22 +84,33 @@ const BulkUpload = () => {
 
     }));
 
-  columns?.push({
+  /* columns?.push({
     title: "col",
     dataIndex: "index",
     key: "index",
 
   })
+  console.log(columns, 'col') */
 
-  const dataSource = excelData
-    .slice(1)
-    .map((row: any, index: any) => ({ ...row, key: index }));
-  console.log(dataSource, 'Data source hu m');
+
 
   return (
     <div>
 
-      <PreviewMax dataSource={dataSource} columns={columns} />
+      {previewMaxmodalOpen && <PreviewMax
+        previewMaxmodalOpen={previewMaxmodalOpen}
+        setPreviewMaxModalOpen={setPreviewMaxModalOpen}
+        dataSource={dataSource}
+        keys= {coloumn}
+
+        // dataSource={dataSource} columns={coloumn} 
+      />}
+       
+
+
+
+      {/* <PreviewMax dataSource={dataSource} columns={coloumn} /> */}
+
       <Form form={form} onFinish={handleFinish}>
         <Form.Item
           name="file"

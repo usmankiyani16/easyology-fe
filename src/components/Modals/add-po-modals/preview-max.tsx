@@ -5,12 +5,15 @@ import "../modals.scss";
 import { Button, Modal, Form, Upload, Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,previewmodalOpen,setPreviewModalOpen,dataSource, columns}) => {
+const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,previewmodalOpen,setPreviewModalOpen,dataSource, keys}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
 
   console.log(dataSource , 'nikkamma dataSource')
-  console.log(columns , 'nikkamma coloumn')
+  // console.log(columns , 'nikkamma coloumn')
+
+
+// const [data, setData] = useState(dataSource)
 
   // const [dataSource, setDataSource] = useState([
   //   {
@@ -24,6 +27,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
   //     qty: "x2",
   //     price: "4400",
   //   },
+  // hello
   //   {
   //     id: "#002",
   //     image: "None",
@@ -158,7 +162,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
   //     price: "4400",
   //   },
   // ]);
-  /* const columns = [
+  const columns = [
     {
       key: "1",
       title: "ID",
@@ -172,7 +176,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
     {
       key: "3",
       title: "Serial #",
-      dataIndex: "serial_No",
+      dataIndex: "serial",
     },
     {
       key: "4",
@@ -187,7 +191,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
     {
       key: "6",
       title: "Type",
-      dataIndex: "type",
+      dataIndex: "productType",
     },
     {
       key: "7",
@@ -197,7 +201,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
     {
       key: "8",
       title: "QTY",
-      dataIndex: "qty",
+      dataIndex: "quantity",
     },
 
     {
@@ -213,13 +217,13 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
           <>
             <EditOutlined
               onClick={() => {
-                onEditProduct(record);
+                // onEditProduct(record);
                 
               }}
             />
             <DeleteOutlined
               onClick={() => {
-                onDeleteProduct(record);
+                // onDeleteProduct(record);
               }}
               style={{ color: "red", marginLeft: 12 }}
             />
@@ -228,8 +232,31 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
       },
     },
   ];
- */
-  /* const onDeleteProduct = (record: any) => {
+
+  console.log(keys , 'Coloumns agye')
+
+  // Getting Data when uploading Bulk 
+  // Threshold and productDesc etc agr bhejna hai to to map s leliya hai
+
+  const myData =  dataSource?.map(({ product, quantity, price ,productDescription,threshold,color,category,productType,serial}: any, index: any) => ({
+    key: index,
+    id: "#001",
+    product,
+    quantity,
+    price,
+    productDescription,
+    threshold,
+    color,
+    category,
+    productType,
+    serial,
+    image:'none'
+
+
+
+  }));
+
+ /*  const onDeleteProduct = (record: any) => {
     Modal.confirm(
      
       
@@ -248,10 +275,10 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
       },
      
 
-    });
+    }); */
    
-  }; */
- /*  const onEditProduct = (record: React.SetStateAction<any>) => {
+  // };
+  /* const onEditProduct = (record: React.SetStateAction<any>) => {
     setIsEditing(true);
     
     setEditingProduct({ ...record });
@@ -259,8 +286,10 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
   const resetEditing = () => {
     setIsEditing(false);
     setEditingProduct(null);
-  };
- */
+  }; */
+
+
+  
   return (
     <div className="_modal_wrap">
 
@@ -304,7 +333,7 @@ const PreviewMax: React.FC<any> = ({previewMaxmodalOpen,setPreviewMaxModalOpen,p
 
         <Table
           columns={columns}
-          dataSource={dataSource}
+          dataSource={myData}
           pagination={{ defaultPageSize: 12, hideOnSinglePage: true }}
         >
           {" "}

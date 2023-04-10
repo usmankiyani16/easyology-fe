@@ -35,42 +35,15 @@ interface DataType {
 
 type DataIndex = keyof DataType;
 
-const data: DataType[] = [
-  {
-    key: "1",
-    id: "#001",
-    // img: Laptop,
-    Productname: "Laptop Lenovo Series 4",
-    QTY: "x8",
-    Price: 5000,
-  },
-  {
-    key: "2",
-    id: "#002",
-    // img: Laptop,
-    Productname: "Laptop Lenovo Series 4",
-    QTY: "x6",
-    Price: 3000,
-  },
-  {
-    key: "3",
-    id: "#003",
-    // img: Laptop,
-    Productname: "Ipads Lenovo Series ",
-    QTY: "x3",
-    Price: 12000,
-  },
-  {
-    key: "4",
-    id: "#004",
-    // img: Laptop,
-    Productname: "Mobile Phone Lenovo Series ",
-    QTY: "x3",
-    Price: 88000,
-  },
-];
+  
 
-const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => {
+
+
+
+
+
+const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newObject}) => {
+  
   const [previewMaxmodalOpen, setPreviewMaxModalOpen] = useState(false);
 
   const [searchText, setSearchText] = useState("");
@@ -88,10 +61,15 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
     setSearchedColumn(dataIndex);
   };
 
+
+  console.log(newObject, 'Object in Preview Modal')
+
   const handleReset = (clearFilters: () => void) => {
     clearFilters();
     setSearchText("");
   };
+
+
 
   const getColumnSearchProps = (
     dataIndex: DataIndex
@@ -174,6 +152,19 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
      
   });
 
+
+  // Getting Data when submitting form 
+
+  const myData =  newObject?.product?.map(({ product, quantity, price }: any, index: any) => ({
+    key: index,
+    id: "#001",
+    product,
+    quantity,
+    price
+  }));
+
+
+
   const columns: ColumnsType<DataType> = [
     {
       title: "ID",
@@ -187,7 +178,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
     },
     {
       title: "Product Name",
-      dataIndex: "Productname",
+      dataIndex: "product",
       key: "name",
       width: "50%",
       ...getColumnSearchProps("Productname"),
@@ -195,17 +186,15 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
     },
     {
       title: "QTY",
-      dataIndex: "QTY",
+      dataIndex: "quantity",
       key: "age",
       width: "20%",
-      // ...getColumnSearchProps('age'),
+     
     },
     {
       title: "Price",
-      dataIndex: "Price",
+      dataIndex: "price",
       key: "price",
-      // ...getColumnSearchProps("Price"),
-      // sorter: (a, b) => a.Price.length - b.Price.length,
       sortDirections: ["descend", "ascend"],
     },
   ];
@@ -270,7 +259,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen}) => 
 
           <Table
             columns={columns}
-            dataSource={data}
+            dataSource={myData}
             className="mt-4"
             pagination={{ defaultPageSize: 2, hideOnSinglePage: true }}
           />
