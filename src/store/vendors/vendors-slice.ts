@@ -11,7 +11,7 @@ export const getVendors = createAsyncThunk(
         try {
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             const userId = data?._id
-            const response = await getApi('/vendor/' + userId);
+            const response = await getApi(`/vendor?'userId=${userId}`);
             return response;
         } catch (error) {
             console.log('error', error);

@@ -11,7 +11,7 @@ export const getCatogaries = createAsyncThunk(
         try {
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             const userId = data?._id
-            const response = await getApi('/category/' + userId);
+            const response = await getApi(`/category?userId=${userId}`);
             return response;
         } catch (error) {
             return rejectWithValue(error);
