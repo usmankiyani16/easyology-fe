@@ -21,6 +21,8 @@ import PreviewMax from "./preview-max";
 
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { useAppSelector } from "../../../store/store";
+import { capitalize } from "../../../utils/functions/functions";
 
 
 
@@ -35,15 +37,15 @@ interface DataType {
 
 type DataIndex = keyof DataType;
 
-  
 
 
 
 
 
 
-const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newObject}) => {
-  
+
+const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, newObject }) => {
+  const { vendors } = useAppSelector(state => state.vendors)
   const [previewMaxmodalOpen, setPreviewMaxModalOpen] = useState(false);
 
   const [searchText, setSearchText] = useState("");
@@ -60,6 +62,11 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newO
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
+
+  const vendor = vendors.find((data: any) => {
+    return data._id === newObject.vendorId;
+  });
+
 
 
   console.log(newObject, 'Object in Preview Modal')
@@ -149,20 +156,23 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newO
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-     
+
   });
 
 
   // Getting Data when submitting form 
 
-  const myData =  newObject?.product?.map(({ product, quantity, price }: any, index: any) => ({
+  const myData = newObject?.product?.map(({ product, quantity, price }: any, index: any) => ({
     key: index,
-    id: "#001",
+    id: index + 1,
     product,
     quantity,
-    price
+    price: `$${price}`
   }));
 
+  const totalPrice = newObject?.product?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
+    return accumulator + product.price * product.quantity;
+  }, 0);
 
 
   const columns: ColumnsType<DataType> = [
@@ -182,14 +192,14 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newO
       key: "name",
       width: "50%",
       ...getColumnSearchProps("Productname"),
-      
+
     },
     {
       title: "QTY",
       dataIndex: "quantity",
       key: "age",
       width: "20%",
-     
+
     },
     {
       title: "Price",
@@ -202,16 +212,27 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newO
   // Consoling Date
 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log( dateString);
+    console.log(dateString);
   };
-  const onChangeCheckBox = (e: CheckboxChangeEvent) => {
-    console.log(`checked = ${e.target.checked}`);
-    }
+  const [isPartialChecked, setIsPartialChecked] = useState(false);
+  const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
 
-    const handleFinish = (values: any) => {
-      // Handle the edited data
-      console.log(values);
-    };
+  const handlePartialChange = (e: CheckboxChangeEvent) => {
+    const isChecked = e.target.checked;
+    setIsPartialChecked(isChecked);
+    setIsFullyPaidChecked(!isChecked);
+  };
+
+  const handleFullyPaidChange = (e: CheckboxChangeEvent) => {
+    const isChecked = e.target.checked;
+    setIsFullyPaidChecked(isChecked);
+    setIsPartialChecked(!isChecked);
+  };
+
+  const handleFinish = (values: any) => {
+    // Handle the edited data
+    console.log(values);
+  };
 
   return (
     <div className="_modal_wrap">
@@ -223,7 +244,7 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newO
       />
 
       <Modal
-      footer={false}
+        footer={false}
         centered
         open={previewmodalOpen}
         onCancel={() => setPreviewModalOpen(false)}
@@ -245,17 +266,16 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newO
 
           <div className="m-4">
             <p className="_modal_para">
-              Vendor Name :{" "}
+              Vendor Name:{" "}
               <span className="text-stone-400 font-bold ml-2">
-             
-                ABC Company
+                {capitalize(vendor?.name)}
               </span>
             </p>
-            <p className="_modal_para">
+            {/* <p className="_modal_para">
               PO Number : <span className="text-red-500 ml-4"> #456 </span>
-            </p>
+            </p> */}
           </div>
-          
+
 
           <Table
             columns={columns}
@@ -268,49 +288,54 @@ const PreviewModal: React.FC<any> = ({previewmodalOpen,setPreviewModalOpen, newO
               <p className="ml-4 mb-6 text-lg">Total PO</p>
             </div>
             <div>
-              <p className="text-red-500 mr-4 text-lg"> $3500</p>
+              <p className="text-red-500 mr-4 text-lg"> {"$" + totalPrice}</p>
             </div>
           </div>
         </div>
 
         <Form form={form} onFinish={handleFinish}>
 
-        <div className="_footer_modal mt-4">
-          <div className="_payment flex justify-between">
-            <div>
-              <p className="_payment_header">Payment Method</p>
-            </div>
-            <div className="flex items-center">
-              <Checkbox onChange={onChangeCheckBox } className="mr-24"><p>Partial</p></Checkbox>
-            </div>
-            <div className="flex gap-6 items-center">
-       
-             <Checkbox onChange={onChangeCheckBox}> <p>Fully Paid</p> </Checkbox>
-            </div>
-          </div>
+          <div className="_footer_modal mt-4">
+            <div className="_payment flex justify-between">
+              <div>
+                <p className="_payment_header">Payment Method</p>
+              </div>
+              <div className="flex items-center">
+                <Checkbox checked={isPartialChecked} onChange={handlePartialChange} className="mr-24">
+                  <p>Partial</p>
+                </Checkbox></div>
+              <div className="flex gap-6 items-center">
 
-          <div className="_partial_price mt-4">
-            <Form.Item label="Partial Payment Price" name="Price">
-              {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input
-                className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
-                placeholder="$0.00"
-                type="number"
-              />
-            </Form.Item>
-          </div>
+                <Checkbox checked={isFullyPaidChecked} onChange={handleFullyPaidChange}>
+                  <p>Fully Paid</p>
+                </Checkbox> </div>
+            </div>
+            {isPartialChecked &&
+              <div className="_partial_price mt-4">
+                <Form.Item label="Partial Payment Price" name="Price">
+                  {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
+                  <Input
+                    className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
+                    placeholder="$0.00"
+                    type="number"
+                  />
+                </Form.Item>
+              </div>
+            }
 
-          <Form.Item label="Due Date" name="Due Date">
-            <DatePicker
-              onChange={onChange}
-              className=" sm:ml-[116px] xs:ml-4"
-            />
-          </Form.Item>
+            <div className={`${!isPartialChecked && 'mt-4'}`}>
+              <Form.Item label="Due Date" name="Due Date">
+                <DatePicker
+                  onChange={onChange}
+                  className=" sm:ml-[116px] xs:ml-4"
+                />
+              </Form.Item>
+            </div>
 
-          <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit">
               Submit
-          </Button>
-        </div>
+            </Button>
+          </div>
 
         </Form>
       </Modal>

@@ -34,11 +34,8 @@ const AddPO = () => {
 
 
   const onFinish = (values: any) => {
-
-
-
     Toast("Product added");
-    const newFormData = {
+    const newFormData: any = {
       'product': values.product,
       'price': values.price,
       'threshold': values.threshold,
@@ -52,6 +49,12 @@ const AddPO = () => {
       'quantity': values.quantity,
       'serial': values.serial
     };
+
+    Object.keys(newFormData).forEach((key) => {
+      if (newFormData[key] === undefined) {
+        delete newFormData[key];
+      }
+    });
 
     const newObject = {
       "vendorId": values.selectVendor,
@@ -103,14 +106,16 @@ const AddPO = () => {
         <div>
           <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
         </div>
-        {previewmodalOpen && <div>
-          <img
-            src={previewproduct}
-            alt="Preview Product Icon"
-            className="h-10 cursor-pointer"
-            onClick={() => setPreviewModalOpen(true)}
-          />
-        </div>}
+        {dataForm && Object.keys(dataForm).length && (
+          <div>
+            <img
+              src={previewproduct}
+              alt="Preview Product Icon"
+              className="h-10 cursor-pointer"
+              onClick={() => setPreviewModalOpen(true)}
+            />
+          </div>
+        )}
 
       </div>
 
