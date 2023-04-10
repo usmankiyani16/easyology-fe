@@ -31,13 +31,11 @@ const AddPO = () => {
   const [showUpload, setShowUpload] = useState(true);
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
-  
 
 
-  
   const onFinish = (values: any) => {
-    
-  
+
+
 
     Toast("Product added");
     const newFormData = {
@@ -56,30 +54,30 @@ const AddPO = () => {
     };
 
     const newObject = {
-      "vendorId": values.selectVendor ,
+      "vendorId": values.selectVendor,
       "product": formData.concat(newFormData)
     };
 
-    
 
-    console.log(newObject); 
+
+    console.log(newObject);
 
     setFormData(formData.concat(newFormData));
-    
+
     setDataForm(newObject)
   };
 
-    
-    // setFormData([...formData, newFormData]);
- 
 
- /*  useEffect(() => {
-    console.log('Updated formData:', formData);
-  }, [formData]);
- */
+  // setFormData([...formData, newFormData]);
 
-  
- 
+
+  /*  useEffect(() => {
+     console.log('Updated formData:', formData);
+   }, [formData]);
+  */
+
+
+
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
@@ -105,38 +103,44 @@ const AddPO = () => {
         <div>
           <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
         </div>
-        <div>
+        {previewmodalOpen && <div>
           <img
             src={previewproduct}
             alt="Preview Product Icon"
             className="h-10 cursor-pointer"
             onClick={() => setPreviewModalOpen(true)}
           />
-        </div>
+        </div>}
+
       </div>
 
       {/* Add PO Form  */}
-      <AddVendorModal
-        vendormodalOpen={vendormodalOpen}
-        setVendorModalOpen={setVendorModalOpen}
-      />
-      <AddCategoryModal
-        catmodalOpen={catmodalOpen}
-        setCatModalOpen={setCatModalOpen}
-      />
+      {vendormodalOpen &&
+        <AddVendorModal
+          vendormodalOpen={vendormodalOpen}
+          setVendorModalOpen={setVendorModalOpen}
+        />
+      }
+      {catmodalOpen &&
+        <AddCategoryModal
+          catmodalOpen={catmodalOpen}
+          setCatModalOpen={setCatModalOpen}
+        />
+      }
 
-      {previewmodalOpen &&  <PreviewModal
+      {previewmodalOpen && <PreviewModal
         previewmodalOpen={previewmodalOpen}
         setPreviewModalOpen={setPreviewModalOpen}
         newObject={dataForm}
       />
- }
-     
-      
-      <Importmodal
-        importModalOpen={importModalOpen}
-        setImportModalOpen={setImportModalOpen}
-      />
+      }
+
+      {importModalOpen &&
+        <Importmodal
+          importModalOpen={importModalOpen}
+          setImportModalOpen={setImportModalOpen}
+        />
+      }
 
       <Form
         // labelCol={{ span: 4 }}
@@ -171,7 +175,7 @@ const AddPO = () => {
               >
                 <Select className="_input" placeholder="Select Vendor">
                   {vendors?.map((vendor: any, index: number) => (
-                    <Select.Option key={index} value={vendor?._id}>
+                    <Select.Option key={vendor?._id} value={vendor?._id}>
                       {capitalize(vendor?.name)}
                     </Select.Option>
                   ))}
@@ -337,7 +341,7 @@ const AddPO = () => {
                   placeholder="Add or Select Category"
                 >
                   {catogaries?.map((catogary: any, index: number) => (
-                    <Select.Option key={index} value={catogary?._id}>
+                    <Select.Option key={catogary?._id} value={catogary?._id}>
                       {capitalize(catogary?.name)}
                     </Select.Option>
                   ))}
