@@ -11,7 +11,7 @@ export const getCatogaries = createAsyncThunk(
         try {
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             const userId = data?._id
-            const response = await getApi('/category/' + userId);
+            const response = await getApi(`/category?userId=${userId}`);
             return response;
         } catch (error) {
             return rejectWithValue(error);
@@ -35,7 +35,7 @@ export const addCatogary = createAsyncThunk(
             Toast(response?.message)
             return response;
         } catch (error: any) {
-            Toast(error?.response?.data?.message, 'error')
+            Toast(error?.response?.data?.error, 'error')
             return rejectWithValue(error);
         } finally {
             dispatch(setLoading(false))
@@ -66,29 +66,20 @@ const catogariesSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getCatogaries.pending, (state) => {
-                console.log('pend');
-
                 state.status = REQUEST_STATUS.PENDING;
             })
             .addCase(getCatogaries.fulfilled, (state, action) => {
-                console.log('full', action);
-
                 state.status = REQUEST_STATUS.SUCCEEDED;
                 state.catogaries = action?.payload?.data;
             })
             .addCase(getCatogaries.rejected, (state, action: any) => {
-                console.log('action', action.payload?.error);
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })
             .addCase(addCatogary.pending, (state) => {
-                console.log('pend');
-
                 state.status = REQUEST_STATUS.PENDING;
             })
             .addCase(addCatogary.fulfilled, (state, action) => {
-                console.log('full', action?.payload?.data);
-
                 state.status = REQUEST_STATUS.SUCCEEDED;
                 let category = {
                     name: action?.payload?.data?.name,
@@ -97,7 +88,6 @@ const catogariesSlice = createSlice({
                 state.catogaries?.push(category);
             })
             .addCase(addCatogary.rejected, (state, action: any) => {
-                console.log('action', action.payload);
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })

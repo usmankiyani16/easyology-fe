@@ -11,10 +11,9 @@ export const getVendors = createAsyncThunk(
         try {
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             const userId = data?._id
-            const response = await getApi('/vendor/' + userId);
+            const response = await getApi(`/vendor?userId=${userId}`);
             return response;
         } catch (error) {
-            console.log('error', error);
             return rejectWithValue(error);
         }
     }
@@ -25,12 +24,13 @@ type AddVendorPayload = {
     company_name: string,
     comapny_address: string,
     phone_number: string,
-    user_id: string
+    user_id?: string
 }
 export const addVendor = createAsyncThunk(
-    'catogaries/add',
-    async (payload: AddVendorPayload, { rejectWithValue, dispatch }) => {
+    'vendors/add',
+    async (payload: any, { rejectWithValue, dispatch }) => {
         try {
+            console.log('vebdor payload', payload)
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             payload.user_id = data?._id
