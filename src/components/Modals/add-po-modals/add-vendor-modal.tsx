@@ -10,7 +10,7 @@ import { addVendor } from "../../../store/vendors/vendors-slice";
 const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) => {
   const dispatch = useAppDispatch()
   const onFinish = (values: any) => {
-    console.log("Success-----values:", values);
+    setVendorModalOpen(false)
     dispatch(addVendor(values))
   };
   const onFinishFailed = (errorInfo: any) => {

@@ -200,7 +200,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       title: "Product Name",
       dataIndex: "name",
       key: "name",
-      width: "50%",
+      width: "30%",
       ...getColumnSearchProps("Productname"),
 
     },
@@ -304,7 +304,8 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             columns={columns}
             dataSource={myData}
             className="mt-4"
-            pagination={{ defaultPageSize: 2, hideOnSinglePage: true }}
+            pagination={false}
+            scroll={{ y: 120 }}
           />
           <div className="_footer flex justify-between mb-6">
             <div>

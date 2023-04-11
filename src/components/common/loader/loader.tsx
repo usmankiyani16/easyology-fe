@@ -1,5 +1,5 @@
 import React from "react";
-import { Spin } from "antd";
+import { Modal, Spin } from "antd";
 
 const Loader: React.FC = () => {
   return (
@@ -7,6 +7,7 @@ const Loader: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-gray-200 opacity-50"></div>
       <Spin size="large" />
     </div>
+
   );
 };
 

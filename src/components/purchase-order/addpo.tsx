@@ -66,7 +66,6 @@ const AddPO = () => {
 
 
     form.resetFields();
-    console.log('venderValue  ======== >', venderValue)
 
     console.log(newObject);
 
@@ -83,8 +82,6 @@ const AddPO = () => {
      console.log('Updated formData:', formData);
    }, [formData]);
   */
-
-  console.log("venderValue =========", venderValue)
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -184,9 +181,9 @@ const AddPO = () => {
                   },
                 ]}
               >
-                <Select className="_input" placeholder="Select Vendor" defaultValue={venderValue ? venderValue : undefined} disabled={!!venderValue} value={venderValue} onChange={(value: any, option: any) => setVenderValue(option?.label)}>
+                <Select className="_input" placeholder="Select Vendor" onChange={(value: any, option: any) => setVenderValue(option?.label)}>
                   {vendors?.map((vendor: any, index: number) => (
-                    <Select.Option key={vendor?._id} label={vendor?.name ?? venderValue} value={vendor?._id ?? venderValue} >
+                    <Select.Option key={vendor?._id} value={vendor?._id} >
                       {capitalize(vendor?.name)}
                     </Select.Option>
                   ))}

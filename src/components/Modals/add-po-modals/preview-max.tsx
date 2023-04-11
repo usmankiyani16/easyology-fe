@@ -25,153 +25,20 @@ const PreviewMax: React.FC<any> = ({
 
   const [editdataSource, setEditDataSource] = useState();
 
-  // const [dataSource, setDataSource] = useState([
-  //   {
-  //     id: "#001",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  // hello
-  //   {
-  //     id: "#002",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#003",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#004",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
+  const [dataSource1, setDataSource] = useState(dataSource?.map((data: any, index: number) => ({
+    id: index + 1,
+    category: data?.category,
+    image: (
+      <input type="file" />
+    ),
+    serial: data?.serial,
+    product: data?.product,
+    type: data?.productType,
+    quantity: data?.quantity,
+    price: data?.price,
+    color: data?.color
+  })))
 
-  //   {
-  //     id: "#005",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#006",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#007",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#008",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#009",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#010",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#011",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#012",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  //   {
-  //     id: "#013",
-  //     image: "None",
-  //     serial_No: "234",
-  //     product: "Lenovo",
-  //     category: "Electronics",
-  //     type: "Laptop",
-  //     color: "Grey",
-  //     qty: "x2",
-  //     price: "4400",
-  //   },
-  // ]);
   const columns = [
     {
       key: "1",
@@ -202,7 +69,7 @@ const PreviewMax: React.FC<any> = ({
     {
       key: "6",
       title: "Type",
-      dataIndex: "productType",
+      dataIndex: "type",
     },
     {
       key: "7",
@@ -288,7 +155,7 @@ const PreviewMax: React.FC<any> = ({
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        setEditDataSource((pre: any) => {
+        setDataSource((pre: any) => {
           return pre?.filter((product: { id: any }) => product.id !== record.id);
         });
       },
@@ -331,7 +198,7 @@ const PreviewMax: React.FC<any> = ({
         </div>
         <Table
           columns={columns}
-          dataSource={myData}
+          dataSource={dataSource1}
           // pagination={{ defaultPageSize: 12, hideOnSinglePage: true }}
           pagination={false}
           scroll={{ y: 200 }}
@@ -351,7 +218,7 @@ const PreviewMax: React.FC<any> = ({
             resetEditing();
           }}
           onOk={() => {
-            setEditDataSource((pre: any): any => {
+            setDataSource((pre: any): any => {
               return pre?.map((product: { id: any }) => {
                 if (product.id === editingProduct.id) {
                   return editingProduct;

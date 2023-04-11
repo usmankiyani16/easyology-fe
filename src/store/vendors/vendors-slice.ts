@@ -30,7 +30,6 @@ export const addVendor = createAsyncThunk(
     'vendors/add',
     async (payload: any, { rejectWithValue, dispatch }) => {
         try {
-            console.log('vendor payload', payload)
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             payload.userId = data?._id
