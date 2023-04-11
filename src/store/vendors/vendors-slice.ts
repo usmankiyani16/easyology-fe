@@ -21,24 +21,24 @@ export const getVendors = createAsyncThunk(
 type AddVendorPayload = {
     name: string,
     email: string,
-    company_name: string,
-    comapny_address: string,
-    phone_number: string,
-    user_id?: string
+    companyName: string,
+    comapnyAddress: string,
+    phoneNumber: string,
+    userId?: string
 }
 export const addVendor = createAsyncThunk(
     'vendors/add',
     async (payload: any, { rejectWithValue, dispatch }) => {
         try {
-            console.log('vebdor payload', payload)
+            console.log('vendor payload', payload)
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-            payload.user_id = data?._id
+            payload.userId = data?._id
             const response = await postApi('/vendor', payload);
             Toast(response?.message)
             return response;
         } catch (error: any) {
-            Toast(error?.response?.data?.message, 'error')
+            Toast(error?.response?.data?.error, 'error')
             return rejectWithValue(error);
         } finally {
             dispatch(setLoading(false))
