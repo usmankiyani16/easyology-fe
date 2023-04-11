@@ -6,7 +6,7 @@ import { Toast } from '../../components/common/toast/toast';
 
 
 export const getVendors = createAsyncThunk(
-    'vendors',
+    'vendors/get',
     async (payload, { rejectWithValue }) => {
         try {
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");

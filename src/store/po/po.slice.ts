@@ -5,19 +5,19 @@ import { setLoading } from '../loader/loader-slice';
 import { Toast } from '../../components/common/toast/toast';
 
 
-// export const getVendors = createAsyncThunk(
-//     'purchaseOrders/get',
-//     async (payload, { rejectWithValue }) => {
-//         try {
-//             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-//             const userId = data?._id
-//             const response = await getApi(`/vendor?userId=${userId}`);
-//             return response;
-//         } catch (error) {
-//             return rejectWithValue(error);
-//         }
-//     }
-// );
+export const getPOS = createAsyncThunk(
+    'purchaseOrders/get',
+    async (payload, { rejectWithValue }) => {
+        try {
+            const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+            const userId = data?._id
+            const response = await getApi(`/vendor-product?userId=${userId}&page=1&perPage=10`);
+            return response;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
 type AddVendorPayload = {
     name: string,
     email: string,
@@ -68,17 +68,18 @@ const purchaseOrdersSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // .addCase(getVendors.pending, (state, action) => {
-            //     state.status = REQUEST_STATUS.PENDING;
-            // })
-            // .addCase(getVendors.fulfilled, (state, action) => {
-            //     state.status = REQUEST_STATUS.SUCCEEDED;
-            //     state.vendors = action?.payload?.data;
-            // })
-            // .addCase(getVendors.rejected, (state, action: any) => {
-            //     state.status = REQUEST_STATUS.FAILED;
-            //     state.error = action.payload?.error;
-            // })
+            .addCase(getPOS.pending, (state, action) => {
+                state.status = REQUEST_STATUS.PENDING;
+            })
+            .addCase(getPOS.fulfilled, (state, action) => {
+                console.log('payload -action=====>>>', action?.payload?.data)
+                state.status = REQUEST_STATUS.SUCCEEDED;
+                state.purchaseOrders = action?.payload?.data;
+            })
+            .addCase(getPOS.rejected, (state, action: any) => {
+                state.status = REQUEST_STATUS.FAILED;
+                state.error = action.payload?.error;
+            })
             .addCase(addPO.pending, (state) => {
                 state.status = REQUEST_STATUS.PENDING;
             })

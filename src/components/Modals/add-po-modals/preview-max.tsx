@@ -287,10 +287,10 @@ const PreviewMax: React.FC<any> = ({
                 Type
               </label>
               <Input
-                value={editingProduct?.productType}
+                value={editingProduct?.type}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
-                    return { ...pre, productType: e.target.value };
+                    return { ...pre, type: e.target.value };
                   });
                 }}
               />{" "}

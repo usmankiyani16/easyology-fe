@@ -20,17 +20,17 @@ import { ROUTE_CONSTANTS } from "./route-constants";
 
 //<img src={LoadingSvg} height={200} width={200} alt="LoadingSvg" />
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
-  (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center">
-          <Spin size="large" />
-        </div>
-      }
-    >
-      <Component {...props} />
-    </Suspense>
-  );
+(
+  <Suspense
+    fallback={
+      <div className="flex items-center justify-center">
+        <Spin size="large" />
+      </div>
+    }
+  >
+    <Component {...props} />
+  </Suspense>
+);
 
 const DashboardLazy = Loadable(lazy(() => import("../pages/dashboard/index")));
 const PurchaseOrderLazy = Loadable(
