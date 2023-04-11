@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import tabler_minimize from "../../../assets/icons/layout/tabler_minimize.png";
 import "../modals.scss";
+import { PlusOutlined } from "@ant-design/icons";
 
 import { Button, Modal, Form, Upload, Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -180,6 +181,7 @@ const PreviewMax: React.FC<any> = ({
     {
       key: "2",
       title: "Image",
+      width: "200px",
       dataIndex: "image",
     },
     {
@@ -242,6 +244,7 @@ const PreviewMax: React.FC<any> = ({
   ];
 
   console.log(keys, "Coloumns agye");
+  const [showUpload, setShowUpload] = useState(true);
 
   // Getting Data when uploading Bulk
   // Threshold and productDesc etc agr bhejna hai to to map s leliya hai
@@ -272,7 +275,9 @@ const PreviewMax: React.FC<any> = ({
       category,
       productType,
       serial,
-      image: "none",
+      image: (
+        <input type="file" />
+      ),
     })
   );
 
@@ -283,7 +288,7 @@ const PreviewMax: React.FC<any> = ({
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        setEditDataSource((pre:any) => {
+        setEditDataSource((pre: any) => {
           return pre?.filter((product: { id: any }) => product.id !== record.id);
         });
       },
@@ -305,7 +310,7 @@ const PreviewMax: React.FC<any> = ({
 
       <Modal
         footer={false}
-        
+
         centered
         open={previewMaxmodalOpen}
         onCancel={() => setPreviewMaxModalOpen(false)}
@@ -335,7 +340,7 @@ const PreviewMax: React.FC<any> = ({
         </Table>
 
         <Payment />
-        
+
         {/* ---------------------------- Edit Model ----------------------------------------- */}
         <Modal
           centered
@@ -346,7 +351,7 @@ const PreviewMax: React.FC<any> = ({
             resetEditing();
           }}
           onOk={() => {
-            setEditDataSource((pre:any): any => {
+            setEditDataSource((pre: any): any => {
               return pre?.map((product: { id: any }) => {
                 if (product.id === editingProduct.id) {
                   return editingProduct;

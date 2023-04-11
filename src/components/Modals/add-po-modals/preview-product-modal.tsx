@@ -21,8 +21,9 @@ import PreviewMax from "./preview-max";
 
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
+import { addPO } from "../../../store/po/po.slice";
 
 
 
@@ -52,6 +53,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
   const [form] = Form.useForm();
+  const dispatch = useAppDispatch()
 
   const handleSearch = (
     selectedKeys: string[],
@@ -76,6 +78,14 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
     setSearchText("");
   };
 
+
+  // Delete Data
+  const handleDeleteChange = (record: any) => {
+    console.log("record", record);
+    const newArray = myData?.filter((item: any) => item.id !== record?.id);
+    console.log("newArray ++++++> ", newArray);
+
+  }
 
 
   const getColumnSearchProps = (
@@ -207,6 +217,14 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       key: "price",
       sortDirections: ["descend", "ascend"],
     },
+    // {
+    //   title: "Action",
+    //   dataIndex: "action",
+    //   key: "action",
+    //   render: (_: any, record: any) => (
+    //     <div onClick={() => handleDeleteChange(record)}>Delete This Record</div>
+    //   )
+    // },
   ];
 
   const [isPartialChecked, setIsPartialChecked] = useState(true);
@@ -226,8 +244,16 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
 
   const handleFinish = (values: any) => {
     // Handle the edited data
-
-    console.log(newObject, values, values.dueDate.toISOString().substr(0, 10));
+    newObject.poducts = newObject.products;
+    delete newObject.products;
+    let payload = {
+      ...newObject,
+      totalAmount: totalPrice,
+      paidAmount: Number(values.price),
+      dueDate: values.dueDate.toISOString().substr(0, 10)
+    }
+    console.log(payload);
+    dispatch(addPO(payload))
 
   };
 

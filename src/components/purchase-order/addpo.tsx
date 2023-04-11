@@ -21,6 +21,7 @@ const AddPO = () => {
   const dispatch = useAppDispatch();
   const { catogaries } = useAppSelector((state) => state.catogaries);
   const { vendors } = useAppSelector((state) => state.vendors);
+  const [venderValue, setVenderValue] = useState<any>("");
 
   const { image } = useAppSelector((state) => state.media);
   const [vendormodalOpen, setVendorModalOpen] = useState(false);
@@ -31,22 +32,24 @@ const AddPO = () => {
   const [showUpload, setShowUpload] = useState(true);
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
+  const [form] = Form.useForm();
 
 
   const onFinish = (values: any) => {
     Toast("Product added");
+
     const newFormData: any = {
       'name': values.product,
-      'price': values.price,
+      'price': Number(values.price),
       'threshold': values.threshold,
-      'imeiNumber': values.imeiNumber,
+      'iemeNumber': values.imeiNumber,
       'description': values.productDescription,
       'categoryId': values.category,
       'color': values.color,
       'image': values.image,
       'size': values.size,
       'productType': values.productType,
-      'quantity': values.quantity,
+      'quantity': Number(values.quantity),
       'serialNumber': values.serial
     };
 
@@ -62,12 +65,14 @@ const AddPO = () => {
     };
 
 
+    form.resetFields();
+    console.log('venderValue  ======== >', venderValue)
 
     console.log(newObject);
 
     setFormData(formData.concat(newFormData));
 
-    setDataForm(newObject)
+    setDataForm(newObject);
   };
 
 
@@ -79,7 +84,7 @@ const AddPO = () => {
    }, [formData]);
   */
 
-
+  console.log("venderValue =========", venderValue)
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -148,6 +153,7 @@ const AddPO = () => {
       }
 
       <Form
+        form={form}
         // labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="vertical"
@@ -178,9 +184,9 @@ const AddPO = () => {
                   },
                 ]}
               >
-                <Select className="_input" placeholder="Select Vendor">
+                <Select className="_input" placeholder="Select Vendor" defaultValue={venderValue ? venderValue : undefined} disabled={!!venderValue} value={venderValue} onChange={(value: any, option: any) => setVenderValue(option?.label)}>
                   {vendors?.map((vendor: any, index: number) => (
-                    <Select.Option key={vendor?._id} value={vendor?._id}>
+                    <Select.Option key={vendor?._id} label={vendor?.name ?? venderValue} value={vendor?._id ?? venderValue} >
                       {capitalize(vendor?.name)}
                     </Select.Option>
                   ))}
