@@ -146,9 +146,9 @@ const BulkUpload = () => {
         )} */}
         {/* </Modal> */}
 
-        <Button className="ml-28" type="primary" htmlType="submit">
+        {/* <Button className="ml-28" type="primary" htmlType="submit">
           Submit
-        </Button>
+        </Button> */}
       </Form>
 
     </div>
