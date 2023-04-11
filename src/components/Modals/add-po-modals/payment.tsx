@@ -21,20 +21,21 @@ import PreviewMax from "./preview-max";
 
 import { Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
+import { addPOinBulk } from "../../../store/po/po.slice";
 
 
-const Payment = () => {
+const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewMaxModalOpen }) => {
 
   const [form] = Form.useForm();
 
-
+  const dispatch = useAppDispatch()
 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(dateString);
   };
-  const [isPartialChecked, setIsPartialChecked] = useState(false);
+  const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
@@ -49,9 +50,25 @@ const Payment = () => {
     setIsPartialChecked(!isChecked);
   };
 
-  const handleFinish = (values: any) => {
+  const handleFinish = async (values: any) => {
     // Handle the edited data
-    console.log(values);
+    // console.log('dataSource1==========', dataSource1);
+    let paidAmount
+    if (isFullyPaidChecked) {
+      paidAmount = totalPrice
+    } else paidAmount = Number(values.price)
+    let payload = {
+      vendorId,
+      poducts: dataSource1,
+      totalAmount: totalPrice,
+      paidAmount,
+      dueDate: values.dueDate.toISOString().substr(0, 10)
+    }
+    console.log('payload-------->>>', payload)
+    const res = await dispatch(addPOinBulk(payload))
+    if (res?.meta?.requestStatus === 'fulfilled') {
+      setPreviewMaxModalOpen(false)
+    }
   };
 
 
@@ -63,6 +80,7 @@ const Payment = () => {
       <Form form={form} onFinish={handleFinish}>
 
         <div className="_footer_modal mt-4">
+          <h1 className="text-right font-semibold mr-4">Total Amount: {totalPrice}</h1>
           <div className="_payment flex">
             <div>
               <p className="_payment_header">Payment Method</p>
@@ -79,7 +97,7 @@ const Payment = () => {
           </div>
           {isPartialChecked &&
             <div className="_partial_price mt-4">
-              <Form.Item label="Partial Payment Price" name="Price">
+              <Form.Item rules={[{ required: isPartialChecked }]} label="Partial Payment Price" name="price">
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                 <Input
                   className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
@@ -91,7 +109,7 @@ const Payment = () => {
           }
 
           <div className={`${!isPartialChecked && 'mt-4'}`}>
-            <Form.Item label="Due Date" name="Due Date">
+            <Form.Item rules={[{ required: true }]} label="Due Date" name="dueDate">
               <DatePicker
                 onChange={onChange}
                 className=" sm:ml-[116px] xs:ml-4"
@@ -104,9 +122,9 @@ const Payment = () => {
           </Button>
         </div>
 
-      </Form>
+      </Form >
 
-    </div>
+    </div >
   )
 }
 

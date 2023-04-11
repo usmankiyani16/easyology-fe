@@ -5,13 +5,15 @@ import catogaryReducer from './catogaries/catogaries-slice'
 import mediaUploadReducer from './media/media-slice'
 import vendorsReducer from './vendors/vendors-slice'
 import purchaseOrderReducer from './po/po.slice'
+import productsReducer from './products/products-slice'
 const rootReducer = combineReducers({
     auth: authReducer,
     loader: loaderReducer,
     catogaries: catogaryReducer,
     media: mediaUploadReducer,
     vendors: vendorsReducer,
-    purchaseOrders: purchaseOrderReducer
+    purchaseOrders: purchaseOrderReducer,
+    products: productsReducer,
 
     // Add your other feature slices here
 });

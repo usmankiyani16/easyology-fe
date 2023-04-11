@@ -13,8 +13,10 @@ import { useAppSelector } from "../../../store/store";
 const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) => {
   const { vendors } = useAppSelector((state) => state.vendors);
   const [isVendorSelected, setIsVendorSelected] = useState(false);
+  const [vendorId, setvendorId] = useState()
 
   const handleVendorSelect = (value: any) => {
+    setvendorId(value)
     setIsVendorSelected(true);
   };
   const onFinish = (values: any) => { }
@@ -31,7 +33,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
       >
         <h3 className="_modal_header text-red-500">Import PO In Bulk</h3>
         <Form
-        /*   labelCol={{ span: 114 }} */
+          /*   labelCol={{ span: 114 }} */
           wrapperCol={{ span: 14 }}
           layout='vertical'
           // style={{ maxWidth:  }}
@@ -41,7 +43,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
         >
           <Form.Item
             className="ml-[66px]"
-            
+
             label="Select Vendor"
             name="selectVendor"
             required
@@ -57,7 +59,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
               },
             ]}
           >
-            <Select className="_input" style={{width:'210px'}} placeholder="Select Vendor" onSelect={handleVendorSelect}>
+            <Select className="_input" style={{ width: '210px' }} placeholder="Select Vendor" onSelect={handleVendorSelect}>
               {vendors?.map((vendor: any, index: number) => (
                 <Select.Option key={vendor?._id} value={vendor?._id}>
                   {capitalize(vendor?.name)}
@@ -69,15 +71,15 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
         </Form>
 
         {isVendorSelected && (
-            <>
+          <>
 
-        <ExportExcel excelData={Dummy_Add_PO} fileName={"Export Excel"} />
+            <ExportExcel excelData={Dummy_Add_PO} fileName={"Export Excel"} />
 
-        <BulkUpload />
-        {/* <UploadExcelTable /> */}
+            <BulkUpload vendorId={vendorId} />
+            {/* <UploadExcelTable /> */}
 
-        </>
-          )}
+          </>
+        )}
       </Modal>
     </div>
   );

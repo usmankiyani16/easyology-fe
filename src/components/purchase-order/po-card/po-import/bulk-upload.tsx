@@ -5,7 +5,7 @@ import * as XLSX from "xlsx";
 import "../../../Modals/modals.scss";
 import PreviewMax from "../../../Modals/add-po-modals/preview-max";
 
-const BulkUpload = () => {
+const BulkUpload: React.FC<any> = ({ vendorId }) => {
   const [excelData, setExcelData] = useState<any>([]);
   // const [profilemodalOpen, setProfileModalOpen] = useState(false);
   const [fileDeleted, setFileDeleted] = useState(false);
@@ -29,7 +29,7 @@ const BulkUpload = () => {
       const worksheet = workbook.Sheets[sheetName];
       const dataFromExcel = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-      const keys:any= dataFromExcel.shift(); // remove the headers
+      const keys: any = dataFromExcel.shift(); // remove the headers
       const objectData = dataFromExcel.map((row: any) => {
         return keys.reduce((obj: { [x: string]: any; }, key: string | number, index: string | number) => {
           obj[key] = row[index];
@@ -40,7 +40,7 @@ const BulkUpload = () => {
       setColoumn(keys)
       setDataSource(objectData)
 
-      console.log('keysss', coloumn )
+      console.log('keysss', coloumn)
       // console.log('objectData', objectData)
 
 
@@ -101,11 +101,12 @@ const BulkUpload = () => {
         previewMaxmodalOpen={previewMaxmodalOpen}
         setPreviewMaxModalOpen={setPreviewMaxModalOpen}
         dataSource={dataSource}
-        keys= {coloumn}
+        keys={coloumn}
+        vendorId={vendorId}
 
-        // dataSource={dataSource} columns={coloumn} 
+      // dataSource={dataSource} columns={coloumn} 
       />}
-       
+
 
 
 

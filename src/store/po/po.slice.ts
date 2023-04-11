@@ -46,6 +46,26 @@ export const addPO = createAsyncThunk(
     }
 );
 
+export const addPOinBulk = createAsyncThunk(
+    'purchaseOrders/addPoInBulk',
+    async (payload: any, { rejectWithValue, dispatch }) => {
+        try {
+            console.log('vendor payload', payload)
+            dispatch(setLoading(true))
+            const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+            payload.userId = data?._id
+            const response = await postApi('/product/bulk-po', payload);
+            Toast(response?.message)
+            return response;
+        } catch (error: any) {
+            Toast(error?.response?.data?.error, 'error')
+            return rejectWithValue(error);
+        } finally {
+            dispatch(setLoading(false))
+        }
+    }
+);
+
 
 
 

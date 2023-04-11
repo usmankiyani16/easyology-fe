@@ -46,12 +46,14 @@ const AddPO = () => {
       'description': values.productDescription,
       'categoryId': values.category,
       'color': values.color,
-      'image': values.image,
+      'image': productImage,
       'size': values.size,
       'productType': values.productType,
       'quantity': Number(values.quantity),
       'serialNumber': values.serial
     };
+    console.log('values========>>', newFormData);
+
 
     Object.keys(newFormData).forEach((key) => {
       if (newFormData[key] === undefined) {

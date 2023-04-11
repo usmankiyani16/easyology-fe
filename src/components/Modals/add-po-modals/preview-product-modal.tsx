@@ -245,11 +245,15 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
   const handleFinish = (values: any) => {
     // Handle the edited data
     newObject.poducts = newObject.products;
+    let paidAmount
+    if (isFullyPaidChecked) {
+      paidAmount = totalPrice
+    } else paidAmount = Number(values.price)
     delete newObject.products;
     let payload = {
       ...newObject,
       totalAmount: totalPrice,
-      paidAmount: Number(values.price),
+      paidAmount,
       dueDate: values.dueDate.toISOString().substr(0, 10)
     }
     console.log(payload);

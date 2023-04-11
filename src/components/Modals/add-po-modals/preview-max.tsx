@@ -6,6 +6,9 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Modal, Form, Upload, Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Payment from "./payment";
+import { useAppDispatch } from "../../../store/store";
+import { uploadMedia } from "../../../store/media/media-slice";
+import { Toast } from "../../common/toast/toast";
 
 const PreviewMax: React.FC<any> = ({
   previewMaxmodalOpen,
@@ -13,43 +16,79 @@ const PreviewMax: React.FC<any> = ({
   previewmodalOpen,
   setPreviewModalOpen,
   dataSource,
+  vendorId,
   keys,
 }) => {
+  const dispatch = useAppDispatch()
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
 
-  console.log(dataSource, "nikkamma dataSource");
-  // console.log(columns , 'nikkamma coloumn')
+  const imageUpload = async (e: any, id: number) => {
+    if (e.target.files) {
+      let file = e.target.files[0];
+      const res = await dispatch(uploadMedia(file));
+      if (res?.meta?.requestStatus == "fulfilled") {
+        const fileName = res?.payload?.data?.fileName;
+        setDataSource((prevState: any) => {
+          const newData = [...prevState];
+          const index = newData.findIndex((data: any) => data.id === id);
+          newData[index].image = fileName || '';
+          return newData;
+        });
+      } else {
+        Toast("Something went wrong", "error");
+      }
+    }
+  };
 
-  // const [data, setData] = useState(dataSource)
-
-  const [editdataSource, setEditDataSource] = useState();
 
   const [dataSource1, setDataSource] = useState(dataSource?.map((data: any, index: number) => ({
-    id: index + 1,
-    category: data?.category,
-    image: (
-      <input type="file" />
-    ),
+    categoryName: data?.category,
+    image: '',
     serial: data?.serial,
-    product: data?.product,
-    type: data?.productType,
-    quantity: data?.quantity,
-    price: data?.price,
-    color: data?.color
+    name: data?.product,
+    subCategoryName: data?.productType,
+    quantity: Number(data?.quantity),
+    price: Number(data?.price),
+    color: data?.color,
+    size: data?.size,
+    description: data?.productDescription,
+    threshold: data?.threshold,
+    iemiNumber: data?.imeiNumber
   })))
+
+
+  const totalPrice = dataSource1?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
+    return accumulator + Number(product.price) * Number(product.quantity);
+  }, 0);
+
+  console.log('total price', totalPrice);
+
 
   const columns = [
     {
       key: "1",
       title: "ID",
       dataIndex: "id",
+      render: (text: any, record: any, index: number) => index + 1,
     },
     {
       key: "2",
       title: "Image",
       width: "200px",
       dataIndex: "image",
+      render: (value: any, record: any) => {
+        if (value) {
+          return value;
+        } else {
+          return (
+            <input
+              type="file"
+              onChange={(e) => imageUpload(e, record.id)}
+            />
+          );;
+        }
+      },
     },
     {
       key: "3",
@@ -59,17 +98,17 @@ const PreviewMax: React.FC<any> = ({
     {
       key: "4",
       title: "Product",
-      dataIndex: "product",
+      dataIndex: "name",
     },
     {
       key: "5",
       title: "Category",
-      dataIndex: "category",
+      dataIndex: "categoryName",
     },
     {
       key: "6",
       title: "Type",
-      dataIndex: "type",
+      dataIndex: "subCategoryName",
     },
     {
       key: "7",
@@ -206,7 +245,7 @@ const PreviewMax: React.FC<any> = ({
           {" "}
         </Table>
 
-        <Payment />
+        <Payment dataSource1={dataSource1} totalPrice={totalPrice} vendorId={vendorId} setPreviewMaxModalOpen={setPreviewMaxModalOpen} />
 
         {/* ---------------------------- Edit Model ----------------------------------------- */}
         <Modal
@@ -251,7 +290,7 @@ const PreviewMax: React.FC<any> = ({
                 Product
               </label>
               <Input
-                value={editingProduct?.product}
+                value={editingProduct?.name}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
                     return { ...pre, product: e.target.value };
@@ -262,7 +301,7 @@ const PreviewMax: React.FC<any> = ({
                 Category
               </label>
               <Input
-                value={editingProduct?.category}
+                value={editingProduct?.categoryName}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
                     return { ...pre, category: e.target.value };
@@ -287,7 +326,7 @@ const PreviewMax: React.FC<any> = ({
                 Type
               </label>
               <Input
-                value={editingProduct?.type}
+                value={editingProduct?.subCategoryName}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
                     return { ...pre, type: e.target.value };
