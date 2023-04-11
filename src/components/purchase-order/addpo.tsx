@@ -108,12 +108,12 @@ const AddPO = () => {
         </div>
         {dataForm && Object.keys(dataForm).length && (
           <div>
-            <img
+            {<img
               src={previewproduct}
               alt="Preview Product Icon"
               className="h-10 cursor-pointer"
               onClick={() => setPreviewModalOpen(true)}
-            />
+            />}
           </div>
         )}
 

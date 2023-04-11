@@ -12,6 +12,11 @@ import { useAppSelector } from "../../../store/store";
 
 const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) => {
   const { vendors } = useAppSelector((state) => state.vendors);
+  const [isVendorSelected, setIsVendorSelected] = useState(false);
+
+  const handleVendorSelect = (value: any) => {
+    setIsVendorSelected(true);
+  };
   const onFinish = (values: any) => { }
   return (
     <div className="_modal_wrap">
@@ -22,19 +27,21 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
         centered
         open={importModalOpen}
         onCancel={() => setImportModalOpen(false)}
-      // destroyOnClose={true}
+        destroyOnClose={true}
       >
         <h3 className="_modal_header text-red-500">Import PO In Bulk</h3>
         <Form
-          // labelCol={{ span: 4 }}
+        /*   labelCol={{ span: 114 }} */
           wrapperCol={{ span: 14 }}
-          layout="vertical"
+          layout='vertical'
           // style={{ maxWidth:  }}
           onFinish={onFinish}
           autoComplete="off"
-          className="mt-4"
+          className="mt-10"
         >
           <Form.Item
+            className="ml-[66px]"
+            
             label="Select Vendor"
             name="selectVendor"
             required
@@ -50,7 +57,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
               },
             ]}
           >
-            <Select className="_input" placeholder="Select Vendor">
+            <Select className="_input" style={{width:'210px'}} placeholder="Select Vendor" onSelect={handleVendorSelect}>
               {vendors?.map((vendor: any, index: number) => (
                 <Select.Option key={vendor?._id} value={vendor?._id}>
                   {capitalize(vendor?.name)}
@@ -60,11 +67,17 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
           </Form.Item>
 
         </Form>
+
+        {isVendorSelected && (
+            <>
+
         <ExportExcel excelData={Dummy_Add_PO} fileName={"Export Excel"} />
 
         <BulkUpload />
         {/* <UploadExcelTable /> */}
 
+        </>
+          )}
       </Modal>
     </div>
   );
