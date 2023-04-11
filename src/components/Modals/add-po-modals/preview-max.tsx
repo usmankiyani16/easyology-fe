@@ -283,8 +283,8 @@ const PreviewMax: React.FC<any> = ({
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        setEditDataSource((pre) => {
-          return pre.filter((product: { id: any }) => product.id !== record.id);
+        setEditDataSource((pre:any) => {
+          return pre?.filter((product: { id: any }) => product.id !== record.id);
         });
       },
     });
@@ -346,8 +346,8 @@ const PreviewMax: React.FC<any> = ({
             resetEditing();
           }}
           onOk={() => {
-            setEditDataSource((pre: { id: any }[]): any => {
-              return pre.map((product: { id: any }) => {
+            setEditDataSource((pre:any): any => {
+              return pre?.map((product: { id: any }) => {
                 if (product.id === editingProduct.id) {
                   return editingProduct;
                 } else {
