@@ -80,10 +80,10 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
       <Form form={form} onFinish={handleFinish}>
 
         <div className="_footer_modal mt-4">
-          <h1 className="text-right font-semibold mr-4">Total Amount: {totalPrice}</h1>
+          <h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice}</h1>
           <div className="_payment flex">
             <div>
-              <p className="_payment_header">Payment Method</p>
+              <p className="_payment_header ml-[13px]">Payment Method</p>
             </div>
             <div className="flex items-center">
               <Checkbox checked={isPartialChecked} onChange={handlePartialChange} className="mr-24">
@@ -97,7 +97,7 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
           </div>
           {isPartialChecked &&
             <div className="_partial_price mt-4">
-              <Form.Item rules={[{ required: isPartialChecked }]} label="Partial Payment Price" name="price">
+              <Form.Item className="font-semibold" rules={[{ required: isPartialChecked }]} label="Partial Payment Price" name="price">
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                 <Input
                   className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
@@ -109,7 +109,7 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
           }
 
           <div className={`${!isPartialChecked && 'mt-4'}`}>
-            <Form.Item rules={[{ required: true }]} label="Due Date" name="dueDate">
+            <Form.Item className="font-semibold" rules={[{ required: true }]} label="Due Date" name="dueDate">
               <DatePicker
                 onChange={onChange}
                 className=" sm:ml-[116px] xs:ml-4"

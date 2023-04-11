@@ -290,7 +290,7 @@ const PreviewMax: React.FC<any> = ({
                 Product
               </label>
               <Input
-                value={editingProduct?.name}
+                value={editingProduct?.product}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
                     return { ...pre, product: e.target.value };
@@ -304,7 +304,7 @@ const PreviewMax: React.FC<any> = ({
                 value={editingProduct?.categoryName}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
-                    return { ...pre, category: e.target.value };
+                    return { ...pre, categoryName: e.target.value };
                   });
                 }}
               />
@@ -329,7 +329,7 @@ const PreviewMax: React.FC<any> = ({
                 value={editingProduct?.subCategoryName}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
-                    return { ...pre, type: e.target.value };
+                    return { ...pre, subCategoryName: e.target.value };
                   });
                 }}
               />{" "}
