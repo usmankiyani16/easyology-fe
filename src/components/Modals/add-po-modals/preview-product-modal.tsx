@@ -162,15 +162,15 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
 
   // Getting Data when submitting form 
 
-  const myData = newObject?.product?.map(({ product, quantity, price }: any, index: any) => ({
+  const myData = newObject?.products?.map(({ name, quantity, price }: any, index: any) => ({
     key: index,
     id: index + 1,
-    product,
+    name,
     quantity,
     price: `$${price}`
   }));
 
-  const totalPrice = newObject?.product?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
+  const totalPrice = newObject?.products?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
     return accumulator + product.price * product.quantity;
   }, 0);
 
@@ -188,7 +188,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
     },
     {
       title: "Product Name",
-      dataIndex: "product",
+      dataIndex: "name",
       key: "name",
       width: "50%",
       ...getColumnSearchProps("Productname"),
@@ -209,12 +209,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
     },
   ];
 
-  // Consoling Date
-
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(dateString);
-  };
-  const [isPartialChecked, setIsPartialChecked] = useState(false);
+  const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
@@ -231,7 +226,9 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
 
   const handleFinish = (values: any) => {
     // Handle the edited data
-    console.log(values);
+
+    console.log(newObject, values, values.dueDate.toISOString().substr(0, 10));
+
   };
 
   return (
@@ -312,7 +309,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             </div>
             {isPartialChecked &&
               <div className="_partial_price mt-4">
-                <Form.Item label="Partial Payment Price" name="Price">
+                <Form.Item label="Partial Payment Price" name="price">
                   {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                   <Input
                     className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
@@ -324,9 +321,8 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             }
 
             <div className={`${!isPartialChecked && 'mt-4'}`}>
-              <Form.Item label="Due Date" name="Due Date">
+              <Form.Item label="Due Date" name="dueDate">
                 <DatePicker
-                  onChange={onChange}
                   className=" sm:ml-[116px] xs:ml-4"
                 />
               </Form.Item>

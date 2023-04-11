@@ -58,7 +58,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
               </Form.Item>
               <Form.Item
                 label="Company Name"
-                name="company_name"
+                name="companyName"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -97,7 +97,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
 
               <Form.Item
                 label="Mobile Number"
-                name="phone_number"
+                name="phoneNumber"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -115,7 +115,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
 
           <Form.Item
             label="Company Address"
-            name="company_address"
+            name="companyAddress"
             required
             tooltip="This is a required field"
             rules={[

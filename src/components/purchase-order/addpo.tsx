@@ -36,18 +36,18 @@ const AddPO = () => {
   const onFinish = (values: any) => {
     Toast("Product added");
     const newFormData: any = {
-      'product': values.product,
+      'name': values.product,
       'price': values.price,
       'threshold': values.threshold,
       'imeiNumber': values.imeiNumber,
-      'productDescription': values.productDescription,
-      'category': values.category,
+      'description': values.productDescription,
+      'categoryId': values.category,
       'color': values.color,
       'image': values.image,
       'size': values.size,
       'productType': values.productType,
       'quantity': values.quantity,
-      'serial': values.serial
+      'serialNumber': values.serial
     };
 
     Object.keys(newFormData).forEach((key) => {
@@ -58,7 +58,7 @@ const AddPO = () => {
 
     const newObject = {
       "vendorId": values.selectVendor,
-      "product": formData.concat(newFormData)
+      "products": formData.concat(newFormData)
     };
 
 
