@@ -10,8 +10,10 @@ import { addCatogary } from "../../../store/catogaries/catogaries-slice";
 const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
   const dispatch = useAppDispatch()
   const onFinish = async (values: any) => {
-    setCatModalOpen(false)
-    await dispatch(addCatogary(values))
+    const res = await dispatch(addCatogary(values))
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setCatModalOpen(false)
+    }
   };
   return (
     <div className="_modal_wrap">
