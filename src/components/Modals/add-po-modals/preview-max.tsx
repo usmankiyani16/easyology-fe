@@ -83,6 +83,7 @@ const PreviewMax: React.FC<any> = ({
           return (
             <input
               type="file"
+              accept="image/*"
               onChange={(e) => imageUpload(e, index)}
             />
           );;
