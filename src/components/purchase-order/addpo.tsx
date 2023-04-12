@@ -44,7 +44,7 @@ const AddPO = () => {
 
   const onFinish = (values: any) => {
     Toast("Product added");
-
+    setShowUpload(true);
     const newFormData: any = {
       name: values.product,
       price: Number(values.price),
@@ -72,7 +72,7 @@ const AddPO = () => {
     };
 
     form.resetFields();
-    setFile(null); 
+    setFile(null);
 
     setFormData(formData.concat(newFormData));
 
@@ -80,16 +80,17 @@ const AddPO = () => {
   };
 
   const imageUpload = async (e: any) => {
-    const file = e.file;
-    delete file.uid;
+    const file = e?.file;
+    delete file?.uid;
     setShowUpload(!showUpload);
+    const fileList = e?.fileList ?? [];
     if (showUpload) {
       const res = await dispatch(uploadMedia(file));
       if (res?.meta?.requestStatus == "fulfilled") {
         setProductImage(res?.payload?.data?.fileName);
       } else Toast("Something went wrong", "error");
     }
-    setFile(e.file);
+    // setFile(e.file);
   };
 
   useEffect(() => {
@@ -112,7 +113,7 @@ const AddPO = () => {
     }
   };
 
-  
+
   // Quantity Validator
 
   const validateQuantity = (rule: any, value: string) => {
@@ -126,9 +127,6 @@ const AddPO = () => {
     }
   };
 
- 
-
-  
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
@@ -179,7 +177,7 @@ const AddPO = () => {
       )}
 
       {subCatmodalOpen && (
-        <AddSubCategoryModal subCatmodalOpen={subCatmodalOpen} setSubCatmodalOpen={setSubCatModalOpen}/>
+        <AddSubCategoryModal subCatmodalOpen={subCatmodalOpen} setSubCatmodalOpen={setSubCatModalOpen} />
       )}
 
       <Form
@@ -261,10 +259,10 @@ const AddPO = () => {
               tooltip="This is a required field"
 
               rules={[{ required: true, validator: validatePrice }]}
-              
+
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input className="_input" placeholder="$0.00"/>
+              <Input className="_input" placeholder="$0.00" />
             </Form.Item>
             <Form.Item
               label="Threshold"
@@ -294,7 +292,8 @@ const AddPO = () => {
 
             <Form.Item
               label="Upload"
-              valuePropName="fileList"
+              name="image"
+              valuePropName="image"
               className="mt-[28px]"
             >
               <Upload
@@ -347,12 +346,12 @@ const AddPO = () => {
               name="quantity"
               required
               tooltip="This is a required field"
-              rules={[{ required: true, validator: validateQuantity}]}
+              rules={[{ required: true, validator: validateQuantity }]}
             >
               <Input
                 className="_input"
                 placeholder="Enter Product Quality"
-            
+
               />
             </Form.Item>
 
@@ -422,8 +421,8 @@ const AddPO = () => {
               <Form.Item
                 label="Sub Category"
                 name="subCategory"
-                
-                
+
+
               >
                 <Select
                   className="_input select_input"
@@ -436,7 +435,7 @@ const AddPO = () => {
                   ))}
                 </Select>
 
-                
+
               </Form.Item>
 
               <img
