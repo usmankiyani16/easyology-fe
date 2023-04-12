@@ -19,6 +19,20 @@ export const getCatogaries = createAsyncThunk(
     }
 );
 
+export const getSubCatogaries = createAsyncThunk(
+    'catogaries/getSubCategories',
+    async (payload: any, { rejectWithValue }) => {
+        try {
+            const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+            const userId = data?._id
+            const response = await getApi(`/subcategory/?categoryId=${payload}`);
+            return response;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
 type AddCatogaryPayload = {
     name: string,
     userId: string,
@@ -48,6 +62,7 @@ export const addCatogary = createAsyncThunk(
 
 interface CatogariesState {
     catogaries: any | null;
+    subCategories: any,
     error: string | null;
     status: string
 }
@@ -55,6 +70,7 @@ interface CatogariesState {
 
 const initialState: CatogariesState = {
     catogaries: [],
+    subCategories: [],
     error: null,
     status: REQUEST_STATUS.IDLE
 };
@@ -73,6 +89,17 @@ const catogariesSlice = createSlice({
                 state.catogaries = action?.payload?.data;
             })
             .addCase(getCatogaries.rejected, (state, action: any) => {
+                state.status = REQUEST_STATUS.FAILED;
+                state.error = action.payload?.error;
+            })
+            .addCase(getSubCatogaries.pending, (state) => {
+                state.status = REQUEST_STATUS.PENDING;
+            })
+            .addCase(getSubCatogaries.fulfilled, (state, action) => {
+                state.status = REQUEST_STATUS.SUCCEEDED;
+                state.subCategories = action?.payload?.data;
+            })
+            .addCase(getSubCatogaries.rejected, (state, action: any) => {
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })

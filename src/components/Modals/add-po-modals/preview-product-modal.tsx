@@ -340,9 +340,10 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             </div>
             {isPartialChecked &&
               <div className="_partial_price mt-4">
-                <Form.Item label="Partial Payment Price" name="price">
+                <Form.Item label="Partial Payment Price" rules={[{ required: isPartialChecked }]} name="price">
                   {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                   <Input
+
                     className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
                     placeholder="$0.00"
                     type="number"
@@ -352,7 +353,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             }
 
             <div className={`${!isPartialChecked && 'mt-4'}`}>
-              <Form.Item label="Due Date" name="dueDate">
+              <Form.Item label="Due Date" rules={[{ required: true }]} name="dueDate">
                 <DatePicker
                   className=" sm:ml-[116px] xs:ml-4"
                 />

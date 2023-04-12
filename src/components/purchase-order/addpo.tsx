@@ -10,7 +10,7 @@ import AddCategoryModal from "../Modals/add-po-modals/add-cat-modal";
 import PreviewModal from "../Modals/add-po-modals/preview-product-modal";
 import Importmodal from "../Modals/add-po-modals/import-modal";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getCatogaries } from "../../store/catogaries/catogaries-slice";
+import { getCatogaries, getSubCatogaries } from "../../store/catogaries/catogaries-slice";
 import { capitalize } from "../../utils/functions/functions";
 import { uploadMedia } from "../../store/media/media-slice";
 import { Toast } from "../common/toast/toast";
@@ -19,7 +19,7 @@ import Loader from "../common/loader/loader";
 
 const AddPO = () => {
   const dispatch = useAppDispatch();
-  const { catogaries } = useAppSelector((state) => state.catogaries);
+  const { catogaries, subCategories } = useAppSelector((state) => state.catogaries);
   const { vendors } = useAppSelector((state) => state.vendors);
   const [venderValue, setVenderValue] = useState<any>("");
 
@@ -48,7 +48,7 @@ const AddPO = () => {
       'color': values.color,
       'image': productImage,
       'size': values.size,
-      'productType': values.productType,
+      'subCategory': values.subCategory,
       'quantity': Number(values.quantity),
       'serialNumber': values.serial
     };
@@ -349,9 +349,10 @@ const AddPO = () => {
                 <Select
                   className="_input w-24"
                   placeholder="Add or Select Category"
+                  onChange={(value: any) => dispatch(getSubCatogaries(value))}
                 >
                   {catogaries?.map((catogary: any, index: number) => (
-                    <Select.Option key={catogary?._id} value={catogary?._id}>
+                    <Select.Option key={catogary?._id} value={catogary?._id} >
                       {capitalize(catogary?.name)}
                     </Select.Option>
                   ))}
@@ -393,10 +394,19 @@ const AddPO = () => {
               <Input className="_input" placeholder="Specify Size" />
             </Form.Item>
 
-            
-
-            <Form.Item label="Product Type" name="productType">
-              <Input className="_input" placeholder="Specify Product Type" />
+            <Form.Item
+              label="Sub Category"
+              name="subCategory"
+              rules={[{ required: true }]}
+            >
+              <Select
+                className="_input select_input"
+                placeholder="Select sub category"
+              >
+                {subCategories?.sub_category?.map((data: any) => (
+                  <Select.Option key={data?._id} value={data?._id}>{data?.name}</Select.Option>
+                ))}
+              </Select>
             </Form.Item>
 
             <Form.Item label="Product Serial #" name="serial">
