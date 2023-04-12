@@ -393,6 +393,8 @@ const AddPO = () => {
               <Input className="_input" placeholder="Specify Size" />
             </Form.Item>
 
+            
+
             <Form.Item label="Product Type" name="productType">
               <Input className="_input" placeholder="Specify Product Type" />
             </Form.Item>

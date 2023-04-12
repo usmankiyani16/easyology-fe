@@ -24,10 +24,15 @@ const DashboardTabs: React.FC = () => {
   const productsNew = products?.map((data: any) => ({
     key: data?._id,
     label: capitalize(data?.name),
+    img: data?.image,
     children: <CommonTab data={laptopData} />,
+ 
   }));
 
+  // <CommonTab data={productsNew} />
+
   const items: TabsProps["items"] = productsNew;
+  console.log(productsNew, 'New' )
   return <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
 };
 
