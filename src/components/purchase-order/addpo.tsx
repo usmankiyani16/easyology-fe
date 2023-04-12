@@ -133,7 +133,7 @@ const AddPO = () => {
         <div>
           <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
         </div>
-        {dataForm && Object.keys(dataForm).length && (
+        {dataForm && dataForm?.products?.length && (
           <div>
             {
               <img

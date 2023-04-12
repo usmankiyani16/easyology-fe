@@ -244,6 +244,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       paidAmount,
       dueDate: values.dueDate.toISOString().substr(0, 10)
     }
+    console.log('payload', payload)
     dispatch(addPO(payload))
 
   };
