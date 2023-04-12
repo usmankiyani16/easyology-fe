@@ -13,6 +13,8 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
     setVendorModalOpen(false)
     dispatch(addVendor(values))
   };
+
+
   return (
     <div className="_modal_wrap">
 
@@ -101,7 +103,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
                   },
                 ]}
               >
-                <Input className="h-[40px]" placeholder="1234-1234-1234" />
+                <Input className="h-[40px]" placeholder="1234-1234-1234"/>
               </Form.Item>
             </div>
           </div>

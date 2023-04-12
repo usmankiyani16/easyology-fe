@@ -4,6 +4,7 @@ import "../modals.scss";
 import { Button, Modal, Form, Input } from "antd";
 import { useAppDispatch } from "../../../store/store";
 import { addCatogary } from "../../../store/catogaries/catogaries-slice";
+import Loader from "../../common/loader/loader";
 
 
 
@@ -67,6 +68,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
             </Form.Item>
           </div>
         </Form>
+        <Loader />
       </Modal>
     </div>
   );
