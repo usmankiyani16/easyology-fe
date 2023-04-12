@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../modals.scss";
 
-import { Button, Modal, Form, Input } from "antd";
+import { Button, Modal, Form, Input, Select } from "antd";
 import { useAppDispatch } from "../../../store/store";
 import { addCatogary } from "../../../store/catogaries/catogaries-slice";
 import Loader from "../../common/loader/loader";
@@ -13,6 +13,11 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
   const onFinish = async (values: any) => {
     setSubCatmodalOpen(false)
     await dispatch(addCatogary(values))
+  };
+
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
   };
   return (
     <div className="_modal_wrap">
@@ -37,6 +42,38 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
           className="mt-8"
         >
           <Form.Item
+                label="Category"
+                name="category"
+                required
+                tooltip="This is a required field"
+                rules={[
+                  {
+                    required: true,
+                    // type: 'email',
+                    message: "Required Field",
+                  },
+                ]}
+              >
+                <Select
+                  className="_input w-24 ml-7"
+                  placeholder="Add or Select Category"
+                  onChange={handleChange}
+                  
+                >
+                 
+                    <Select.Option value='aaaa'>
+                    
+                    </Select.Option>
+                    <Select.Option value='bbbb'>
+                      
+                    </Select.Option> 
+                    <Select.Option value='cccc'>
+                     
+                    </Select.Option>
+             
+                </Select>
+          </Form.Item>
+          <Form.Item
             label="Sub Category"
             name="name"
             required
@@ -53,7 +90,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
               },
             ]}
           >
-            <Input className="h-[40px]" placeholder="Enter Category Name" />
+            <Input className="h-[35px]" placeholder="Enter Category Name" />
           </Form.Item>
 
           <div className="flex justify-center">

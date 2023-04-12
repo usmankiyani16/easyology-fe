@@ -40,7 +40,13 @@ const AddPO = () => {
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
   const [file, setFile] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("");
   const [form] = Form.useForm();
+
+  
+ 
+
+
 
   const onFinish = (values: any) => {
     Toast("Product added");
@@ -127,6 +133,13 @@ const AddPO = () => {
     }
   };
 
+  const handleOptionChange = (event:any) => {
+    setSelectedOption(event.target.value);
+   
+
+  };
+  console.log(selectedOption, 'Option hai ye')
+
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
@@ -210,11 +223,10 @@ const AddPO = () => {
                 ]}
               >
                 <Select
+                  value={selectedOption}
                   className="_input"
                   placeholder="Select Vendor"
-                  onChange={(value: any, option: any) =>
-                    setVenderValue(option?.label)
-                  }
+                  onChange={handleOptionChange}
                 >
                   {vendors?.map((vendor: any, index: number) => (
                     <Select.Option key={vendor?._id} value={vendor?._id}>
