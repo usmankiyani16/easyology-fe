@@ -25,7 +25,7 @@ const DashboardTabs: React.FC = () => {
 
   }));
 
-  // <CommonTab data={productsNew} />
+  <CommonTab data={productsNew} />
 
   const items: TabsProps["items"] = productsNew;
   return <Tabs defaultActiveKey="1" items={items} />;
