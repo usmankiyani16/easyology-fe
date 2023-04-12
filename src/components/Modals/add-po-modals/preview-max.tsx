@@ -251,7 +251,7 @@ const PreviewMax: React.FC<any> = ({
         <Modal
           centered
           width="1200px"
-          visible={isEditing}
+          open={isEditing}
           okText="Save"
           onCancel={() => {
             resetEditing();
