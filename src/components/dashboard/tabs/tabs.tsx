@@ -12,6 +12,7 @@ import { getProducts } from "../../../store/products/products-slice";
 const DashboardTabs: React.FC = () => {
   const { products } = useAppSelector((state) => state.products)
   const dispatch = useAppDispatch()
+  console.log('products', products)
 
   useEffect(() => {
     dispatch(getProducts())

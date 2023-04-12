@@ -9,7 +9,7 @@ import {
   purchaseOrderIcon,
   settingsIcon,
   supportIcon,
-  
+
 } from "../../assets/icons";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import './sidebar.scss'
@@ -32,7 +32,7 @@ export const siderbarData = [
   {
     key: 3,
     icon: <img className="w-7" src={historyIcon} alt="historyIcon" />,
-    label: "History",
+    label: "Products",
     path: ROUTE_CONSTANTS.HISTORY,
   },
   {
