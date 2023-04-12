@@ -54,7 +54,7 @@ const categories: Category[] = [
   },
 ];
 
-const TwoLevelTabs = () => {
+const Products = () => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(undefined);
   const [activeSubcategory, setActiveSubcategory] = useState<string | undefined>(undefined);
 
@@ -87,4 +87,4 @@ const TwoLevelTabs = () => {
   );
 };
 
-export default TwoLevelTabs;
+export default Products;
