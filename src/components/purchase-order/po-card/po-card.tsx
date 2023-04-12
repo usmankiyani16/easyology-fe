@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { capitalize } from "../../../utils/functions/functions";
 import "./po-card.scss";
 import Viewmodal from "../../Modals/add-po-modals/view-modal";
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const POCard: React.FC<any> = ({ purchaseOrders }) => {
   const [applyBorder, setApplyBorder] = useState(false);
@@ -73,11 +78,11 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 </div>
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Paid Amount:</span>
-                  <span className="font-medium ">{data?.paid_amount}$</span>
+                  <span className="font-medium ">${data?.paid_amount}</span>
                 </div>
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Due Date:</span>
-                  <span className="font-medium ">{data?.due_date}</span>
+                  <span className="font-medium ">{dayjs(data?.due_date).tz("America/New_York").format('dddd h A z')}</span>
                 </div>
               </div>
               <div className="flex flex-col justify-self-end items-center justify-between">
