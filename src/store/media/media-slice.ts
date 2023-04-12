@@ -20,7 +20,6 @@ export const uploadMedia = createAsyncThunk(
             const response = await postApi('/media/upload', file, config);
             return response;
         } catch (error) {
-            console.log('error', error);
             return rejectWithValue(error);
         } finally {
             dispatch(setLoading(false));
@@ -51,18 +50,13 @@ const mediaUploadSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(uploadMedia.pending, (state, action) => {
-                console.log('pend');
-
                 state.status = REQUEST_STATUS.PENDING;
             })
             .addCase(uploadMedia.fulfilled, (state, action) => {
-                console.log('full', action?.payload?.data);
-
                 state.status = REQUEST_STATUS.SUCCEEDED;
                 state.image = action?.payload?.data;
             })
             .addCase(uploadMedia.rejected, (state, action: any) => {
-                console.log('action', action.payload?.error);
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })

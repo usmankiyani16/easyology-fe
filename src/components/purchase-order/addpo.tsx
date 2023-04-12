@@ -48,11 +48,10 @@ const AddPO = () => {
       'color': values.color,
       'image': productImage,
       'size': values.size,
-      'subCategory': values.subCategory,
+      'subCategoryId': values.subCategory,
       'quantity': Number(values.quantity),
       'serialNumber': values.serial
     };
-    console.log('values========>>', newFormData);
 
 
     Object.keys(newFormData).forEach((key) => {
@@ -69,25 +68,12 @@ const AddPO = () => {
 
     form.resetFields();
 
-    console.log(newObject);
-
     setFormData(formData.concat(newFormData));
 
     setDataForm(newObject);
   };
 
-
-  // setFormData([...formData, newFormData]);
-
-
-  /*  useEffect(() => {
-     console.log('Updated formData:', formData);
-   }, [formData]);
-  */
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+ 
   const imageUpload = async (e: any) => {
     const file = e.file;
     delete file.uid;
@@ -153,12 +139,9 @@ const AddPO = () => {
 
       <Form
         form={form}
-        // labelCol={{ span: 4 }}
         wrapperCol={{ span: 14 }}
         layout="vertical"
-        // style={{ maxWidth:  }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
         className="mt-4"
       >

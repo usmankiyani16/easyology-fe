@@ -22,11 +22,8 @@ export const signin = createAsyncThunk(
                 accessToken: response?.data?.token?.AccessToken,
             };
             localStorage.setItem("user", JSON.stringify(obj));
-
-            console.log('response.data', response)
             return response;
         } catch (error: any) {
-            console.log('error', error?.response?.data);
             Toast(error?.response?.data?.error, 'error')
             return rejectWithValue(error?.response?.data);
         } finally {
@@ -70,19 +67,13 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(signin.pending, (state, action) => {
-                console.log('pend');
-
                 state.status = REQUEST_STATUS.PENDING;
             })
             .addCase(signin.fulfilled, (state, action) => {
-                console.log('full', action.payload);
-
                 state.status = REQUEST_STATUS.SUCCEEDED;
                 state.user = action?.payload;
             })
             .addCase(signin.rejected, (state, action: any) => {
-                console.log('action', action.payload?.error);
-
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })

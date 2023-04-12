@@ -13,9 +13,6 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
     setVendorModalOpen(false)
     dispatch(addVendor(values))
   };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
   return (
     <div className="_modal_wrap">
 
@@ -29,12 +26,8 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
         <h3 className="_modal_header_poView">Add Vendor</h3>
 
         <Form
-          // labelCol={{ span: 4 }}
-          //   wrapperCol={{ span: 14 }}
           layout="vertical"
-          // style={{ maxWidth:  }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <div className="_vendor_container grid grid-cols-2 gap-12 mt-8">

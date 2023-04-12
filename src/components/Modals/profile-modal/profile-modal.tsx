@@ -5,12 +5,6 @@ import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import profileupload from '../../../assets/icons/layout/profile-upload.png'
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
 
 const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) => {
   return (
@@ -26,12 +20,8 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
         <span className="_modal_logout">Logout</span>{" "}
         <h3 className="_modal_header">Profile</h3>
         <Form
-          // labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
           layout="horizontal"
-          // style={{ maxWidth:  }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
           className="mt-4"
         >

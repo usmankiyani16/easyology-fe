@@ -7,33 +7,27 @@ import { capitalize } from "../../../utils/functions/functions";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { getProducts } from "../../../store/products/products-slice";
 
-const onChange = (key: string) => {
-  console.log(key);
-};
+
 
 const DashboardTabs: React.FC = () => {
   const { products } = useAppSelector((state) => state.products)
   const dispatch = useAppDispatch()
 
-  console.log('products, ', products)
-
   useEffect(() => {
     dispatch(getProducts())
   }, [])
-  const temp = ['abc', 'laptops']
   const productsNew = products?.map((data: any) => ({
     key: data?._id,
     label: capitalize(data?.name),
     img: data?.image,
-    children: <CommonTab data={laptopData} />,
- 
+    children: <CommonTab data={data?.products} />,
+
   }));
 
   // <CommonTab data={productsNew} />
 
   const items: TabsProps["items"] = productsNew;
-  console.log(productsNew, 'New' )
-  return <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
+  return <Tabs defaultActiveKey="1" items={items} />;
 };
 
 export default DashboardTabs;

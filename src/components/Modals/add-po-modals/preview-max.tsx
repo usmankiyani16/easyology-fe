@@ -23,7 +23,7 @@ const PreviewMax: React.FC<any> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
 
-  const imageUpload = async (e: any, id: number) => {
+  const imageUpload = async (e: any, index: number) => {
     if (e.target.files) {
       let file = e.target.files[0];
       const res = await dispatch(uploadMedia(file));
@@ -31,7 +31,7 @@ const PreviewMax: React.FC<any> = ({
         const fileName = res?.payload?.data?.fileName;
         setDataSource((prevState: any) => {
           const newData = [...prevState];
-          const index = newData.findIndex((data: any) => data.id === id);
+          // const index = newData.findIndex((data: any) => data.id === id);
           newData[index].image = fileName || '';
           return newData;
         });
@@ -62,7 +62,6 @@ const PreviewMax: React.FC<any> = ({
     return accumulator + Number(product.price) * Number(product.quantity);
   }, 0);
 
-  console.log('total price', totalPrice);
 
 
   const columns = [
@@ -77,14 +76,14 @@ const PreviewMax: React.FC<any> = ({
       title: "Image",
       width: "200px",
       dataIndex: "image",
-      render: (value: any, record: any) => {
+      render: (value: any, record: any, index: number) => {
         if (value) {
           return value;
         } else {
           return (
             <input
               type="file"
-              onChange={(e) => imageUpload(e, record.id)}
+              onChange={(e) => imageUpload(e, index)}
             />
           );;
         }
@@ -148,8 +147,6 @@ const PreviewMax: React.FC<any> = ({
       },
     },
   ];
-
-  console.log(keys, "Coloumns agye");
   const [showUpload, setShowUpload] = useState(true);
 
   // Getting Data when uploading Bulk

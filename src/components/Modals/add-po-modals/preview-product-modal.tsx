@@ -70,22 +70,10 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
   });
 
 
-
-  console.log(newObject, 'Object in Preview Modal')
-
   const handleReset = (clearFilters: () => void) => {
     clearFilters();
     setSearchText("");
   };
-
-
-  // Delete Data
-  const handleDeleteChange = (record: any) => {
-    console.log("record", record);
-    const newArray = myData?.filter((item: any) => item.id !== record?.id);
-    console.log("newArray ++++++> ", newArray);
-
-  }
 
 
   const getColumnSearchProps = (
@@ -256,7 +244,6 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       paidAmount,
       dueDate: values.dueDate.toISOString().substr(0, 10)
     }
-    console.log(payload);
     dispatch(addPO(payload))
 
   };

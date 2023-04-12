@@ -6,19 +6,12 @@ import { PlusOutlined } from "@ant-design/icons";
 import { laptopImg } from "../../../assets/images";
 import "../modals.scss";
 
-const onFinish = (values: any) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
 
 const Viewmodal: React.FC<any> = ({
   viewModalOpen,
   setViewModalOpen,
   purchaseOrders,
 }) => {
-  console.log(purchaseOrders, "Purchase Order hai ye");
   return (
     <div className="_modal_wrap _view_modal_wrap">
       <Modal

@@ -13,10 +13,7 @@ import Spinner from "../common/spinner/spinner";
 const PurchaseOrder = () => {
   const { purchaseOrders } = useAppSelector(state => state.purchaseOrders)
   const dispatch = useAppDispatch()
-  console.log('po===component', purchaseOrders)
   useEffect(() => {
-    console.log('useeffedct');
-
     dispatch(getPOS())
   }, [])
   return (

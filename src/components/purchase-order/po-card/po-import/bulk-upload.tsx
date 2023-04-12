@@ -40,12 +40,6 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
       setColoumn(keys)
       setDataSource(objectData)
 
-      console.log('keysss', coloumn)
-      // console.log('objectData', objectData)
-
-
-      console.log(objectData);
-
       setExcelData(dataFromExcel);
       /* setProfileModalOpen(true); */
       setPreviewMaxModalOpen(true)
@@ -53,14 +47,6 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
     fileReader.readAsArrayBuffer(file);
   };
 
-  const handleFinish = (values: any) => {
-    // Handle the edited data
-    console.log(values);
-  };
-  const handleDeleteFile = () => {
-    setExcelData([]);
-    setFileDeleted(true);
-  };
 
   const columns: any =
     excelData[0] &&
@@ -84,14 +70,6 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
 
     }));
 
-  /* columns?.push({
-    title: "col",
-    dataIndex: "index",
-    key: "index",
-
-  })
-  console.log(columns, 'col') */
-
 
 
   return (
@@ -112,7 +90,7 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
 
       {/* <PreviewMax dataSource={dataSource} columns={coloumn} /> */}
 
-      <Form form={form} onFinish={handleFinish}>
+      <Form form={form} >
         <Form.Item
           name="file"
           rules={[{ required: true, message: "Please select an Excel file." }]}

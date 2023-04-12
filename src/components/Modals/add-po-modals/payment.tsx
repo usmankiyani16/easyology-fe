@@ -32,9 +32,6 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
 
   const dispatch = useAppDispatch()
 
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(dateString);
-  };
   const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
 
@@ -51,8 +48,6 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
   };
 
   const handleFinish = async (values: any) => {
-    // Handle the edited data
-    // console.log('dataSource1==========', dataSource1);
     let paidAmount
     if (isFullyPaidChecked) {
       paidAmount = totalPrice
@@ -64,7 +59,6 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
       paidAmount,
       dueDate: values.dueDate.toISOString().substr(0, 10)
     }
-    console.log('payload-------->>>', payload)
     const res = await dispatch(addPOinBulk(payload))
     if (res?.meta?.requestStatus === 'fulfilled') {
       setPreviewMaxModalOpen(false)
@@ -111,7 +105,6 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
           <div className={`${!isPartialChecked && 'mt-4'}`}>
             <Form.Item className="font-semibold" rules={[{ required: true }]} label="Due Date" name="dueDate">
               <DatePicker
-                onChange={onChange}
                 className=" sm:ml-[116px] xs:ml-4"
               />
             </Form.Item>

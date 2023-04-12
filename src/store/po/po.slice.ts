@@ -30,7 +30,6 @@ export const addPO = createAsyncThunk(
     'purchaseOrders/add',
     async (payload: any, { rejectWithValue, dispatch }) => {
         try {
-            console.log('vendor payload', payload)
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             payload.userId = data?._id
@@ -50,7 +49,6 @@ export const addPOinBulk = createAsyncThunk(
     'purchaseOrders/addPoInBulk',
     async (payload: any, { rejectWithValue, dispatch }) => {
         try {
-            console.log('vendor payload', payload)
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             payload.userId = data?._id
@@ -92,7 +90,6 @@ const purchaseOrdersSlice = createSlice({
                 state.status = REQUEST_STATUS.PENDING;
             })
             .addCase(getPOS.fulfilled, (state, action) => {
-                console.log('payload -action=====>>>', action?.payload?.data)
                 state.status = REQUEST_STATUS.SUCCEEDED;
                 state.purchaseOrders = action?.payload?.data;
             })
@@ -104,8 +101,6 @@ const purchaseOrdersSlice = createSlice({
                 state.status = REQUEST_STATUS.PENDING;
             })
             .addCase(addPO.fulfilled, (state, action) => {
-                console.log('success', action.payload);
-
                 state.status = REQUEST_STATUS.SUCCEEDED;
                 // let po = {
                 //     name: action?.payload?.data?.name,
