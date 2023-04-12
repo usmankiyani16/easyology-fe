@@ -12,7 +12,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
   const dispatch = useAppDispatch()
   const onFinish = async (values: any) => {
     setSubCatmodalOpen(false)
-    await dispatch(addCatogary(values))
+    // await dispatch(addCatogary(values))
   };
   return (
     <div className="_modal_wrap">
@@ -68,7 +68,6 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
             </Form.Item>
           </div>
         </Form>
-        <Loader />
       </Modal>
     </div>
   );

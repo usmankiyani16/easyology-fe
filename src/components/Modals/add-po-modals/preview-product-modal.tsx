@@ -230,7 +230,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
     setIsPartialChecked(!isChecked);
   };
 
-  const handleFinish = (values: any) => {
+  const handleFinish = async (values: any) => {
     // Handle the edited data
     newObject.poducts = newObject.products;
     let paidAmount
@@ -244,8 +244,11 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       paidAmount,
       dueDate: values.dueDate.toISOString().substr(0, 10)
     }
-    console.log('payload', payload)
-    dispatch(addPO(payload))
+    const res = await dispatch(addPO(payload))
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setPreviewModalOpen(false)
+    }
+
 
   };
 
@@ -340,12 +343,14 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
               </div>
             }
 
-            <div className={`${!isPartialChecked && 'mt-4'}`}>
+            <div className={`${!isPartialChecked && 'mt-4'} flex`}>
               <Form.Item label="Due Date" rules={[{ required: true }]} name="dueDate">
                 <DatePicker
                   className=" sm:ml-[116px] xs:ml-4"
                 />
               </Form.Item>
+
+              <div>Remaining amount: #76</div>
             </div>
 
             <Button type="primary" htmlType="submit">
