@@ -7,23 +7,24 @@ import { addCatogary } from "../../../store/catogaries/catogaries-slice";
 
 
 
-const AddSubCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
+const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpen,}) => {
   const dispatch = useAppDispatch()
   const onFinish = async (values: any) => {
-    setCatModalOpen(false)
+    setSubCatmodalOpen(false)
     await dispatch(addCatogary(values))
   };
   return (
     <div className="_modal_wrap">
 
       <Modal
+        width={600}
         footer={false}
         centered
-        open={catmodalOpen}
-        onCancel={() => setCatModalOpen(false)}
+        open={subCatmodalOpen}
+        onCancel={() => setSubCatmodalOpen(false)}
         destroyOnClose={true}
       >
-        <h3 className="_modal_header_poView">Add Category</h3>
+        <h3 className="_modal_header_poView">Add Sub Category</h3>
 
         <Form
           // labelCol={{ span: 4 }}
@@ -35,7 +36,7 @@ const AddSubCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) =
           className="mt-8"
         >
           <Form.Item
-            label="Category"
+            label="Sub Category"
             name="name"
             required
             tooltip="This is a required field"

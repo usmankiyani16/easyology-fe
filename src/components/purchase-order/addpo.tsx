@@ -10,49 +10,55 @@ import AddCategoryModal from "../Modals/add-po-modals/add-cat-modal";
 import PreviewModal from "../Modals/add-po-modals/preview-product-modal";
 import Importmodal from "../Modals/add-po-modals/import-modal";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getCatogaries, getSubCatogaries } from "../../store/catogaries/catogaries-slice";
+import {
+  getCatogaries,
+  getSubCatogaries,
+} from "../../store/catogaries/catogaries-slice";
 import { capitalize } from "../../utils/functions/functions";
 import { uploadMedia } from "../../store/media/media-slice";
 import { Toast } from "../common/toast/toast";
 import { getVendors } from "../../store/vendors/vendors-slice";
 import Loader from "../common/loader/loader";
+import AddSubCategoryModal from "../Modals/add-po-modals/add-sub-cat";
 
 const AddPO = () => {
   const dispatch = useAppDispatch();
-  const { catogaries, subCategories } = useAppSelector((state) => state.catogaries);
+  const { catogaries, subCategories } = useAppSelector(
+    (state) => state.catogaries
+  );
   const { vendors } = useAppSelector((state) => state.vendors);
   const [venderValue, setVenderValue] = useState<any>("");
 
   const { image } = useAppSelector((state) => state.media);
   const [vendormodalOpen, setVendorModalOpen] = useState(false);
   const [catmodalOpen, setCatModalOpen] = useState(false);
+  const [subCatmodalOpen, setSubCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
   const [importModalOpen, setImportModalOpen] = useState(false);
   const [productImage, setProductImage] = useState<string>("");
   const [showUpload, setShowUpload] = useState(true);
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
+  const [file, setFile] = useState(null);
   const [form] = Form.useForm();
-
 
   const onFinish = (values: any) => {
     Toast("Product added");
 
     const newFormData: any = {
-      'name': values.product,
-      'price': Number(values.price),
-      'threshold': values.threshold,
-      'iemeNumber': values.imeiNumber,
-      'description': values.productDescription,
-      'categoryId': values.category,
-      'color': values.color,
-      'image': productImage,
-      'size': values.size,
-      'subCategoryId': values.subCategory,
-      'quantity': Number(values.quantity),
-      'serialNumber': values.serial
+      name: values.product,
+      price: Number(values.price),
+      threshold: values.threshold,
+      iemeNumber: values.imeiNumber,
+      description: values.productDescription,
+      categoryId: values.category,
+      color: values.color,
+      image: productImage,
+      size: values.size,
+      subCategoryId: values.subCategory,
+      quantity: Number(values.quantity),
+      serialNumber: values.serial,
     };
-
 
     Object.keys(newFormData).forEach((key) => {
       if (newFormData[key] === undefined) {
@@ -61,19 +67,18 @@ const AddPO = () => {
     });
 
     const newObject = {
-      "vendorId": values.selectVendor,
-      "products": formData.concat(newFormData)
+      vendorId: values.selectVendor,
+      products: formData.concat(newFormData),
     };
 
-
     form.resetFields();
+    setFile(null); 
 
     setFormData(formData.concat(newFormData));
 
     setDataForm(newObject);
   };
 
- 
   const imageUpload = async (e: any) => {
     const file = e.file;
     delete file.uid;
@@ -84,12 +89,44 @@ const AddPO = () => {
         setProductImage(res?.payload?.data?.fileName);
       } else Toast("Something went wrong", "error");
     }
+    setFile(e.file);
   };
 
   useEffect(() => {
     dispatch(getCatogaries());
     dispatch(getVendors());
   }, []);
+
+
+
+  // Price Validator
+
+  const validatePrice = (rule: any, value: string) => {
+    const price = parseFloat(value);
+    if (isNaN(price)) {
+      return Promise.reject('Please enter a valid price');
+    } else if (price <= 0) {
+      return Promise.reject('Price must be greater than zero');
+    } else {
+      return Promise.resolve();
+    }
+  };
+
+  
+  // Quantity Validator
+
+  const validateQuantity = (rule: any, value: string) => {
+    const price = parseFloat(value);
+    if (isNaN(price)) {
+      return Promise.reject('Please enter a valid quantity');
+    } else if (price <= 0) {
+      return Promise.reject('Quantity must be greater than zero');
+    } else {
+      return Promise.resolve();
+    }
+  };
+
+  
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
@@ -98,44 +135,50 @@ const AddPO = () => {
         </div>
         {dataForm && Object.keys(dataForm).length && (
           <div>
-            {<img
-              src={previewproduct}
-              alt="Preview Product Icon"
-              className="h-10 cursor-pointer"
-              onClick={() => setPreviewModalOpen(true)}
-            />}
+            {
+              <img
+                src={previewproduct}
+                alt="Preview Product Icon"
+                className="h-10 cursor-pointer"
+                onClick={() => setPreviewModalOpen(true)}
+              />
+            }
           </div>
         )}
-
       </div>
 
       {/* Add PO Form  */}
-      {vendormodalOpen &&
+      {vendormodalOpen && (
         <AddVendorModal
           vendormodalOpen={vendormodalOpen}
           setVendorModalOpen={setVendorModalOpen}
         />
-      }
-      {catmodalOpen &&
+      )}
+      {catmodalOpen && (
         <AddCategoryModal
           catmodalOpen={catmodalOpen}
           setCatModalOpen={setCatModalOpen}
         />
-      }
+      )}
 
-      {previewmodalOpen && <PreviewModal
-        previewmodalOpen={previewmodalOpen}
-        setPreviewModalOpen={setPreviewModalOpen}
-        newObject={dataForm}
-      />
-      }
+      {previewmodalOpen && (
+        <PreviewModal
+          previewmodalOpen={previewmodalOpen}
+          setPreviewModalOpen={setPreviewModalOpen}
+          newObject={dataForm}
+        />
+      )}
 
-      {importModalOpen &&
+      {importModalOpen && (
         <Importmodal
           importModalOpen={importModalOpen}
           setImportModalOpen={setImportModalOpen}
         />
-      }
+      )}
+
+      {subCatmodalOpen && (
+        <AddSubCategoryModal subCatmodalOpen={subCatmodalOpen} setSubCatmodalOpen={setSubCatModalOpen}/>
+      )}
 
       <Form
         form={form}
@@ -166,9 +209,15 @@ const AddPO = () => {
                   },
                 ]}
               >
-                <Select className="_input" placeholder="Select Vendor" onChange={(value: any, option: any) => setVenderValue(option?.label)}>
+                <Select
+                  className="_input"
+                  placeholder="Select Vendor"
+                  onChange={(value: any, option: any) =>
+                    setVenderValue(option?.label)
+                  }
+                >
                   {vendors?.map((vendor: any, index: number) => (
-                    <Select.Option key={vendor?._id} value={vendor?._id} >
+                    <Select.Option key={vendor?._id} value={vendor?._id}>
                       {capitalize(vendor?.name)}
                     </Select.Option>
                   ))}
@@ -208,16 +257,12 @@ const AddPO = () => {
               name="price"
               required
               tooltip="This is a required field"
-              rules={[
-                {
-                  required: true,
-                  // type: 'email',
-                  message: "Required Field",
-                },
-              ]}
+
+              rules={[{ required: true, validator: validatePrice }]}
+              
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input className="_input" placeholder="$0.00" type="number" />
+              <Input className="_input" placeholder="$0.00"/>
             </Form.Item>
             <Form.Item
               label="Threshold"
@@ -300,18 +345,12 @@ const AddPO = () => {
               name="quantity"
               required
               tooltip="This is a required field"
-              rules={[
-                {
-                  required: true,
-                  // type: 'email',
-                  message: "Required Field",
-                },
-              ]}
+              rules={[{ required: true, validator: validateQuantity}]}
             >
               <Input
                 className="_input"
                 placeholder="Enter Product Quality"
-                type="number"
+            
               />
             </Form.Item>
 
@@ -335,7 +374,7 @@ const AddPO = () => {
                   onChange={(value: any) => dispatch(getSubCatogaries(value))}
                 >
                   {catogaries?.map((catogary: any, index: number) => (
-                    <Select.Option key={catogary?._id} value={catogary?._id} >
+                    <Select.Option key={catogary?._id} value={catogary?._id}>
                       {capitalize(catogary?.name)}
                     </Select.Option>
                   ))}
@@ -377,20 +416,36 @@ const AddPO = () => {
               <Input className="_input" placeholder="Specify Size" />
             </Form.Item>
 
-            <Form.Item
-              label="Sub Category"
-              name="subCategory"
-              rules={[{ required: true }]}
-            >
-              <Select
-                className="_input select_input"
-                placeholder="Select sub category"
+            <div className="flex items-center gap-3">
+              <Form.Item
+                label="Sub Category"
+                name="subCategory"
+                
+                
               >
-                {subCategories?.sub_category?.map((data: any) => (
-                  <Select.Option key={data?._id} value={data?._id}>{data?.name}</Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
+                <Select
+                  className="_input select_input"
+                  placeholder="Select sub category"
+                >
+                  {subCategories?.sub_category?.map((data: any) => (
+                    <Select.Option key={data?._id} value={data?._id}>
+                      {data?.name}
+                    </Select.Option>
+                  ))}
+                </Select>
+
+                
+              </Form.Item>
+
+              <img
+                src={add_category}
+                alt="add_cat_modal"
+                className="cursor-pointer"
+                onClick={() => {
+                  setSubCatModalOpen(true);
+                }}
+              />
+            </div>
 
             <Form.Item label="Product Serial #" name="serial">
               <Input className="_input" placeholder="IMEI" />
