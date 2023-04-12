@@ -9,7 +9,7 @@ import { getProducts } from "../../../store/products/products-slice";
 
 
 
-const DashboardTabs: React.FC = () => {
+const ProductsTabs: React.FC = () => {
   const { products } = useAppSelector((state) => state.products)
   const dispatch = useAppDispatch()
   console.log('products', products)
@@ -31,4 +31,4 @@ const DashboardTabs: React.FC = () => {
   return <Tabs defaultActiveKey="1" items={items} />;
 };
 
-export default DashboardTabs;
+export default ProductsTabs;
