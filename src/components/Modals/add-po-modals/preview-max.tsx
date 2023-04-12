@@ -17,6 +17,7 @@ const PreviewMax: React.FC<any> = ({
   setPreviewModalOpen,
   dataSource,
   vendorId,
+  paidAmount,
   keys,
 }) => {
   const dispatch = useAppDispatch()
@@ -243,7 +244,9 @@ const PreviewMax: React.FC<any> = ({
           {" "}
         </Table>
 
-        <Payment dataSource1={dataSource1} totalPrice={totalPrice} vendorId={vendorId} setPreviewMaxModalOpen={setPreviewMaxModalOpen} />
+      <Payment dataSource1={dataSource1} totalPrice={totalPrice} paidAmount={paidAmount} vendorId={vendorId} setPreviewMaxModalOpen={setPreviewMaxModalOpen} />
+
+      
 
         {/* ---------------------------- Edit Model ----------------------------------------- */}
         <Modal

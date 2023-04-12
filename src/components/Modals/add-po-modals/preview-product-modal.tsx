@@ -24,6 +24,7 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
 import { addPO } from "../../../store/po/po.slice";
+import { values } from "@antv/util";
 
 
 
@@ -171,6 +172,10 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
   const totalPrice = newObject?.products?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
     return accumulator + product.price * product.quantity;
   }, 0);
+  
+  const paidAmounts = totalPrice- newObject?.paidAmount
+  
+
 
 
   const columns: ColumnsType<DataType> = [
@@ -244,10 +249,19 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       paidAmount,
       dueDate: values.dueDate.toISOString().substr(0, 10)
     }
+    console.log('remaining amount hai ye' , payload.totalAmount - payload.paidAmount)
     console.log('payload', payload)
+
     dispatch(addPO(payload))
 
+    if (payload.totalAmount< paidAmount){
+      alert('Total Balance is low')
+    }
+
   };
+
+
+ 
 
   return (
     <div className="_modal_wrap">
@@ -309,6 +323,9 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
           </div>
         </div>
 
+
+        
+
         <Form form={form} onFinish={handleFinish}>
 
           <div className="_footer_modal mt-4">
@@ -346,6 +363,10 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
                   className=" sm:ml-[116px] xs:ml-4"
                 />
               </Form.Item>
+            </div>
+
+            <div>
+              <p className="text-red-500 mr-4 text-lg"><span>Paid Amount</span> {paidAmounts}</p>
             </div>
 
             <Button type="primary" htmlType="submit">

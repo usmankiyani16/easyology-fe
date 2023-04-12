@@ -226,7 +226,7 @@ const AddPO = () => {
                   value={selectedOption}
                   className="_input"
                   placeholder="Select Vendor"
-                  onChange={handleOptionChange}
+                  // onChange={handleOptionChange}
                 >
                   {vendors?.map((vendor: any, index: number) => (
                     <Select.Option key={vendor?._id} value={vendor?._id}>
