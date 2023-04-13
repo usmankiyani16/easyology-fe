@@ -57,6 +57,25 @@ export const addCatogary = createAsyncThunk(
     }
 );
 
+export const addSubCatogary = createAsyncThunk(
+    'catogaries/addSubCatogary',
+    async (payload: any, { rejectWithValue, dispatch }) => {
+        try {
+            dispatch(setLoading(true))
+            const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+            payload.userId = data?._id
+            const response = await postApi('/subcategory', payload);
+            Toast(response?.message)
+            return response;
+        } catch (error: any) {
+            Toast(error?.response?.data?.error, 'error')
+            return rejectWithValue(error);
+        } finally {
+            dispatch(setLoading(false))
+        }
+    }
+);
+
 
 
 
@@ -115,6 +134,22 @@ const catogariesSlice = createSlice({
                 state.catogaries?.push(category);
             })
             .addCase(addCatogary.rejected, (state, action: any) => {
+                state.status = REQUEST_STATUS.FAILED;
+                state.error = action.payload?.error;
+            })
+            .addCase(addSubCatogary.pending, (state) => {
+                state.status = REQUEST_STATUS.PENDING;
+            })
+            .addCase(addSubCatogary.fulfilled, (state, action) => {
+                console.log('res', action?.payload?.data)
+                state.status = REQUEST_STATUS.SUCCEEDED;
+                let category = {
+                    name: action?.payload?.data?.name,
+                    _id: action?.payload?.data?._id
+                }
+                state?.subCategories?.push(category);
+            })
+            .addCase(addSubCatogary.rejected, (state, action: any) => {
                 state.status = REQUEST_STATUS.FAILED;
                 state.error = action.payload?.error;
             })
