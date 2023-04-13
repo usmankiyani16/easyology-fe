@@ -40,15 +40,17 @@ const AddPO = () => {
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
   const [file, setFile] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedVendor, setSeletedVendor] = useState<any>()
   const [form] = Form.useForm();
 
-  
- 
+
+
 
 
 
   const onFinish = (values: any) => {
+    console.log('value', values);
+
     Toast("Product added");
     setShowUpload(true);
     const newFormData: any = {
@@ -73,7 +75,7 @@ const AddPO = () => {
     });
 
     const newObject = {
-      vendorId: values.selectVendor,
+      vendorId: values.selectedVendor,
       products: formData.concat(newFormData),
     };
 
@@ -133,13 +135,16 @@ const AddPO = () => {
     }
   };
 
-  const handleOptionChange = (event:any) => {
-    setSelectedOption(event.target.value);
-   
-
+  const handleOptionChange = (value: any) => {
+    const vandorName = vendors?.find((data: any) => (
+      data?._id == value
+    ))
+    setSeletedVendor(vandorName)
   };
-  console.log(selectedOption, 'Option hai ye')
-
+  useEffect(()=>{
+    console.log('loggg', selectedVendor);
+    
+  },[])
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
@@ -208,12 +213,12 @@ const AddPO = () => {
             <div className="flex items-center gap-3">
               <Form.Item
                 label="Select Vendor"
-                name="selectVendor"
+                name="selectedVendor"
                 required
                 tooltip="This is a required field"
                 rules={[
                   {
-                    required: true,
+                    required: selectedVendor?._id ? false : true,
                     // type: 'email',
                     message: "Required Field",
                   },
@@ -223,10 +228,12 @@ const AddPO = () => {
                 ]}
               >
                 <Select
-                  value={selectedOption}
+                  defaultValue={selectedVendor?._id}
+                  value={selectedVendor?._id}
                   className="_input"
-                  placeholder="Select Vendor"
+                  placeholder={selectedVendor?._id ? selectedVendor?.name : `Select Vendor`}
                   onChange={handleOptionChange}
+                  disabled={selectedVendor && dataForm?.products?.length ? true : false}
                 >
                   {vendors?.map((vendor: any, index: number) => (
                     <Select.Option key={vendor?._id} value={vendor?._id}>
@@ -234,6 +241,7 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
+
               </Form.Item>
 
               <img

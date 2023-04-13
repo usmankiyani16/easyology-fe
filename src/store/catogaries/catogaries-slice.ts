@@ -64,7 +64,7 @@ export const addSubCatogary = createAsyncThunk(
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
             payload.userId = data?._id
-            const response = await postApi('/category', payload);
+            const response = await postApi('/subcategory', payload);
             Toast(response?.message)
             return response;
         } catch (error: any) {
@@ -147,7 +147,7 @@ const catogariesSlice = createSlice({
                     name: action?.payload?.data?.name,
                     _id: action?.payload?.data?._id
                 }
-                state.subCategories?.push(category);
+                state?.subCategories?.push(category);
             })
             .addCase(addSubCatogary.rejected, (state, action: any) => {
                 state.status = REQUEST_STATUS.FAILED;
