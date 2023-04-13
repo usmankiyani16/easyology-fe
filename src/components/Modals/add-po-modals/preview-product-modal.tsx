@@ -19,15 +19,13 @@ import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
 import PreviewMax from "./preview-max";
 
-import { Checkbox } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { Checkbox } from "antd";
+import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
 import { addPO } from "../../../store/po/po.slice";
 import { values } from "@antv/util";
 import { Toast } from "../../common/toast/toast";
-
-
 
 interface DataType {
   key: string;
@@ -40,22 +38,19 @@ interface DataType {
 
 type DataIndex = keyof DataType;
 
-
-
-
-
-
-
-
-const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, newObject }) => {
-  const { vendors } = useAppSelector(state => state.vendors)
+const PreviewModal: React.FC<any> = ({
+  previewmodalOpen,
+  setPreviewModalOpen,
+  newObject,
+}) => {
+  const { vendors } = useAppSelector((state) => state.vendors);
   const [previewMaxmodalOpen, setPreviewMaxModalOpen] = useState(false);
 
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
   const [form] = Form.useForm();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const handleSearch = (
     selectedKeys: string[],
@@ -71,12 +66,10 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
     return data._id === newObject.vendorId;
   });
 
-
   const handleReset = (clearFilters: () => void) => {
     clearFilters();
     setSearchText("");
   };
-
 
   const getColumnSearchProps = (
     dataIndex: DataIndex
@@ -156,28 +149,28 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-
   });
 
+  // Getting Data when submitting form
 
-  // Getting Data when submitting form 
+  const myData = newObject?.products?.map(
+    ({ name, quantity, price }: any, index: any) => ({
+      key: index,
+      id: index + 1,
+      name,
+      quantity,
+      price: `$${price}`,
+    })
+  );
 
-  const myData = newObject?.products?.map(({ name, quantity, price }: any, index: any) => ({
-    key: index,
-    id: index + 1,
-    name,
-    quantity,
-    price: `$${price}`
-  }));
+  const totalPrice = newObject?.products?.reduce(
+    (accumulator: number, product: { price: number; quantity: number }) => {
+      return accumulator + product.price * product.quantity;
+    },
+    0
+  );
 
-  const totalPrice = newObject?.products?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
-    return accumulator + product.price * product.quantity;
-  }, 0);
-
-  const paidAmounts = totalPrice - newObject?.paidAmount
-
-
-
+  const paidAmounts = totalPrice - newObject?.paidAmount;
 
   const columns: ColumnsType<DataType> = [
     {
@@ -196,14 +189,12 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       key: "name",
       width: "30%",
       ...getColumnSearchProps("Productname"),
-
     },
     {
       title: "QTY",
       dataIndex: "quantity",
       key: "age",
       width: "20%",
-
     },
     {
       title: "Price",
@@ -223,7 +214,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
 
   const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
-  const [remainingPrice, setRemainingPrice] = useState<number>()
+  const [remainingPrice, setRemainingPrice] = useState<number>();
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
     const isChecked = e.target.checked;
@@ -238,49 +229,45 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
   };
 
   const priceChange = (e: any) => {
-    if (typeof(e.target.value) === "number") {
+    if (typeof e.target.value === "number") {
       // Code to execute if the value is a number
     }
-    
-  }
+  };
 
   const handleFinish = async (values: any) => {
     // Handle the edited data
     newObject.poducts = newObject.products;
-    let paidAmount
+    let paidAmount;
     if (isFullyPaidChecked) {
-      paidAmount = totalPrice
-    } else paidAmount = Number(values.price)
+      paidAmount = totalPrice;
+    } else paidAmount = Number(values.price);
     delete newObject.products;
     let payload = {
       ...newObject,
       totalAmount: totalPrice,
       paidAmount,
-      dueDate: values.dueDate.toISOString().substr(0, 10)
-    }
+      dueDate: values.dueDate.toISOString().substr(0, 10),
+    };
 
     if (payload.totalAmount < paidAmount) {
-      Toast('Total Balance is low', 'error')
-      return
+      Toast("Total Balance is low", "error");
+      return;
     }
-    const res = await dispatch(addPO(payload))
+    const res = await dispatch(addPO(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
-      setPreviewModalOpen(false)
+      setPreviewModalOpen(false);
     }
   };
   const validatePrice = (rule: any, value: string) => {
     const price = parseFloat(value);
     if (isNaN(price)) {
-      return Promise.reject('Please enter a valid quantity');
+      return Promise.reject("Please enter a valid quantity");
     } else if (price <= 0) {
-      return Promise.reject('Quantity must be greater than zero');
+      return Promise.reject("Quantity must be greater than zero");
     } else {
       return Promise.resolve();
     }
   };
-
-
-
 
   return (
     <div className="_modal_wrap">
@@ -301,16 +288,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
         <h3 className="_modal_header_poView">Purchase Order Overview</h3>
 
         <div className="_preview_po mt-6">
-          <img
-            src={tabler_maximize}
-            alt="tabler_maximize_icon"
-            className="float-right m-2 cursor-pointer"
-            onClick={() => {
-              setPreviewMaxModalOpen(true);
-              setPreviewModalOpen(false);
-            }}
-          />
-          <br />
+         
 
           <div className="m-4">
             <p className="_modal_para">
@@ -324,6 +302,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             </p> */}
           </div>
 
+          
 
           <Table
             columns={columns}
@@ -331,6 +310,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             className="mt-4"
             pagination={false}
             scroll={{ y: 120 }}
+           
           />
           <div className="_footer flex justify-between mb-6">
             <div>
@@ -342,59 +322,75 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
           </div>
         </div>
 
-
-
-
         <Form form={form} onFinish={handleFinish}>
-
           <div className="_footer_modal mt-4">
             <div className="_payment flex justify-between">
               <div>
                 <p className="_payment_header">Payment Method</p>
               </div>
               <div className="flex items-center">
-                <Checkbox checked={isPartialChecked} onChange={handlePartialChange} className="mr-24">
+                <Checkbox
+                  checked={isPartialChecked}
+                  onChange={handlePartialChange}
+                  className="mr-24"
+                >
                   <p>Partial</p>
-                </Checkbox></div>
+                </Checkbox>
+              </div>
               <div className="flex gap-6 items-center">
-
-                <Checkbox checked={isFullyPaidChecked} onChange={handleFullyPaidChange}>
+                <Checkbox
+                  checked={isFullyPaidChecked}
+                  onChange={handleFullyPaidChange}
+                >
                   <p>Fully Paid</p>
-                </Checkbox> </div>
+                </Checkbox>{" "}
+              </div>
             </div>
-            {isPartialChecked &&
+            {isPartialChecked && (
               <div className="_partial_price mt-4">
-                <Form.Item label="Partial Payment Price" rules={[{ required: isPartialChecked, validator: validatePrice }]} name="price">
+                <Form.Item
+                  label="Partial Payment Price"
+                  rules={[
+                    { required: isPartialChecked, validator: validatePrice },
+                  ]}
+                  name="price"
+                >
                   {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                   <Input
                     onChange={(e) => priceChange(e)}
                     className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
-                    placeholder="$0.00"
+                    placeholder="0.00"
                     type="number"
+                    prefix="$"
                   />
                 </Form.Item>
               </div>
-            }
+            )}
 
-            <div className={`${!isPartialChecked && 'mt-4'} flex flex-col`}>
-              <Form.Item label="Due Date" rules={[{ required: true }]} name="dueDate">
-                <DatePicker
-                  className=" sm:ml-[116px] xs:ml-4"
-                />
-              </Form.Item>
+            {isPartialChecked && (
+              <div className={`${!isPartialChecked && "mt-4"} flex flex-col`}>
+                <Form.Item
+                  label="Due Date"
+                  rules={[{ required: isPartialChecked }]}
+                  name="dueDate"
+                >
+                  <DatePicker className="sm:ml-[116px] xs:ml-4" />
+                </Form.Item>
+              </div>
+            )}
 
-              <div className="text-red-500  flex self-end ">Remaining amount: {totalPrice}</div>
+            <div className={`${!isPartialChecked && "mt-6"} flex flex-col text-red-500  flex self-end ml-2 float-right`} >
+              Remaining amount: {totalPrice}
             </div>
 
             <div>
               {/* <p className="text-red-500 mr-4 "><span>Paid Amount</span> {paidAmounts}</p> */}
             </div>
 
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" className="mt-4 ml-2">
               Submit
             </Button>
           </div>
-
         </Form>
       </Modal>
     </div>

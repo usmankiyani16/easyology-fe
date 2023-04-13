@@ -40,19 +40,14 @@ const AddPO = () => {
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
   const [file, setFile] = useState(null);
-  const [selectedVendor, setSeletedVendor] = useState<any>()
+  const [selectedVendor, setSeletedVendor] = useState<any>();
   const [form] = Form.useForm();
-
-
-
-
-
 
   const onFinish = (values: any) => {
     // event.preventDefault();
-    console.log('value', values);
+    console.log("value", values);
 
-    Toast("Product added");
+    Toast("Product added to card successfully");
     setShowUpload(true);
     const newFormData: any = {
       name: values.product,
@@ -105,46 +100,47 @@ const AddPO = () => {
     dispatch(getVendors());
   }, []);
 
-
-
   // Price Validator
 
-  const validatePrice = (rule: any, value: string, callback: (error?: string) => void) => {
+  const validatePrice = (
+    rule: any,
+    value: string,
+    callback: (error?: string) => void
+  ) => {
     const price = parseFloat(value);
-  
+
     if (isNaN(price) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
-      callback('Please enter a valid positive number');
+      callback("Please enter a valid positive number");
     } else if (price <= 0) {
-      callback('Price must be greater than zero');
+      callback("Price must be greater than zero");
     } else {
       callback();
     }
   };
-  
-
 
   // Quantity Validator
 
-  const validateQuantity = (rule: any, value: string, callback: (error?: string) => void) => {
+  const validateQuantity = (
+    rule: any,
+    value: string,
+    callback: (error?: string) => void
+  ) => {
     const quantity = parseFloat(value);
-  
+
     if (isNaN(quantity) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
-      callback('Please enter a valid positive number');
+      callback("Please enter a valid positive number");
     } else if (quantity <= 0) {
-      callback('Quantity must be greater than zero');
-    }
-    else if (quantity === 0) {
-        callback('Quantity cannot be 0');
+      callback("Quantity must be greater than zero");
+    } else if (quantity === 0) {
+      callback("Quantity cannot be 0");
     } else {
       callback();
     }
   };
 
   const handleOptionChange = (value: any) => {
-    const vandorName = vendors?.find((data: any) => (
-      data?._id == value
-    ))
-    setSeletedVendor(vandorName)
+    const vandorName = vendors?.find((data: any) => data?._id == value);
+    setSeletedVendor(vandorName);
   };
   return (
     <div className="_add_po_wrap">
@@ -152,18 +148,6 @@ const AddPO = () => {
         <div>
           <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
         </div>
-        {dataForm && dataForm?.products?.length && (
-          <div>
-            {
-              <img
-                src={previewproduct}
-                alt="Preview Product Icon"
-                className="h-10 cursor-pointer"
-                onClick={() => setPreviewModalOpen(true)}
-              />
-            }
-          </div>
-        )}
       </div>
 
       {/* Add PO Form  */}
@@ -196,7 +180,10 @@ const AddPO = () => {
       )}
 
       {subCatmodalOpen && (
-        <AddSubCategoryModal subCatmodalOpen={subCatmodalOpen} setSubCatmodalOpen={setSubCatModalOpen} />
+        <AddSubCategoryModal
+          subCatmodalOpen={subCatmodalOpen}
+          setSubCatmodalOpen={setSubCatModalOpen}
+        />
       )}
 
       <Form
@@ -232,9 +219,13 @@ const AddPO = () => {
                   defaultValue={selectedVendor?._id}
                   value={selectedVendor?._id}
                   className="_input"
-                  placeholder={selectedVendor?._id ? selectedVendor?.name : `Select Vendor`}
+                  placeholder={
+                    selectedVendor?._id ? selectedVendor?.name : `Select Vendor`
+                  }
                   onChange={handleOptionChange}
-                  disabled={selectedVendor && dataForm?.products?.length ? true : false}
+                  disabled={
+                    selectedVendor && dataForm?.products?.length ? true : false
+                  }
                 >
                   {vendors?.map((vendor: any, index: number) => (
                     <Select.Option key={vendor?._id} value={vendor?._id}>
@@ -242,7 +233,6 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
-
               </Form.Item>
 
               <img
@@ -278,9 +268,7 @@ const AddPO = () => {
               name="price"
               required
               tooltip="This is a required field"
-
               rules={[{ required: true, validator: validatePrice }]}
-
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
               <Input className="_input" placeholder="0.00" prefix="$" />
@@ -373,7 +361,6 @@ const AddPO = () => {
                 type="number"
                 className="_input"
                 placeholder="Enter Product Quantity"
-
               />
             </Form.Item>
 
@@ -440,12 +427,7 @@ const AddPO = () => {
             </Form.Item>
 
             <div className="flex items-center gap-3">
-              <Form.Item
-                label="Sub Category"
-                name="subCategory"
-
-
-              >
+              <Form.Item label="Sub Category" name="subCategory">
                 <Select
                   className="_input select_input"
                   placeholder="Select sub category"
@@ -456,8 +438,6 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
-
-
               </Form.Item>
 
               <img
@@ -486,12 +466,28 @@ const AddPO = () => {
             <p className="_import_btn_msg">Import product category</p>
           </div>
 
+          {dataForm && dataForm?.products?.length && (
+            <div>
+              {
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="h-10 cursor-pointer mt-[5px]"
+                  onClick={() => setPreviewModalOpen(true)}
+                >
+                 View Product Card
+                </Button>
+              }
+            </div>
+          )}
+
           <div className="_submit_btn mr-16">
             <Form.Item className="mb-0">
               <Button type="primary" htmlType="submit">
-                Add Product
+                {dataForm && dataForm?.products?.length? "Add More Product": "Add Product"}
               </Button>
             </Form.Item>
+
             <p className="_submit_btn_msg">
               Submit via sent email to the vendor{" "}
             </p>

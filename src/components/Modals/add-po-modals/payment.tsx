@@ -19,18 +19,22 @@ import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
 import PreviewMax from "./preview-max";
 
-import { Checkbox } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { Checkbox } from "antd";
+import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
 import { addPOinBulk } from "../../../store/po/po.slice";
 
-
-const Payment: React.FC<any> = ({ setImportModalOpen, dataSource1, totalPrice, vendorId, setPreviewMaxModalOpen }) => {
-
+const Payment: React.FC<any> = ({
+  setImportModalOpen,
+  dataSource1,
+  totalPrice,
+  vendorId,
+  setPreviewMaxModalOpen,
+}) => {
   const [form] = Form.useForm();
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
@@ -48,56 +52,48 @@ const Payment: React.FC<any> = ({ setImportModalOpen, dataSource1, totalPrice, v
   };
 
   const handleFinish = async (values: any) => {
-   
-    let paidAmount
+    let paidAmount;
     if (isFullyPaidChecked) {
-      paidAmount = totalPrice
-    } else paidAmount = Number(values.price)
+      paidAmount = totalPrice;
+    } else paidAmount = Number(values.price);
     let payload = {
       vendorId,
       poducts: dataSource1,
       totalAmount: totalPrice,
       paidAmount: paidAmount,
-      dueDate: values.dueDate.toISOString().substr(0, 10)
-    }
-    
-    const res = await dispatch(addPOinBulk(payload))
-    if (res?.meta?.requestStatus === 'fulfilled') {
-      setPreviewMaxModalOpen(false)
-      setImportModalOpen(false)
-    }
+      dueDate: values.dueDate.toISOString().substr(0, 10),
+    };
 
-    
+    const res = await dispatch(addPOinBulk(payload));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setPreviewMaxModalOpen(false);
+      setImportModalOpen(false);
+    }
   };
 
-
- 
-
-   // Price Validator
+  // Price Validator
 
   const validatePrice = (rule: any, value: string) => {
     const price = parseFloat(value);
     if (isNaN(price)) {
-      return Promise.reject('Please enter a valid quantity');
+      return Promise.reject("Please enter a valid quantity");
     } else if (price <= 0) {
-      return Promise.reject('Quantity must be greater than zero');
+      return Promise.reject("Quantity must be greater than zero");
     } else {
       return Promise.resolve();
     }
   };
 
-
-
-
   return (
     <div>
       <Form form={form} onFinish={handleFinish}>
-
         <div className="_footer_modal mt-4">
-          {<h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice}</h1>}
+          {
+            <h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">
+              Total Amount: {totalPrice}
+            </h1>
+          }
           {/* {<h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice-paidAmount}</h1>} */}
-
-
 
           {/* <h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice-paidAmount}</h1> */}
           <div className="_payment flex">
@@ -105,44 +101,64 @@ const Payment: React.FC<any> = ({ setImportModalOpen, dataSource1, totalPrice, v
               <p className="_payment_header ml-[13px]">Payment Method</p>
             </div>
             <div className="flex items-center">
-              <Checkbox checked={isPartialChecked} onChange={handlePartialChange} className="mr-24">
+              <Checkbox
+                checked={isPartialChecked}
+                onChange={handlePartialChange}
+                className="mr-24"
+              >
                 <p>Partial</p>
-              </Checkbox></div>
+              </Checkbox>
+            </div>
             <div className="flex gap-6 items-center">
-
-              <Checkbox checked={isFullyPaidChecked} onChange={handleFullyPaidChange}>
+              <Checkbox
+                checked={isFullyPaidChecked}
+                onChange={handleFullyPaidChange}
+              >
                 <p>Fully Paid</p>
-              </Checkbox> </div>
+              </Checkbox>{" "}
+            </div>
           </div>
-          {isPartialChecked &&
+          {isPartialChecked && (
             <div className="_partial_price mt-4">
-              <Form.Item className="font-semibold" rules={[{ required: isPartialChecked , validator: validatePrice }]} label="Partial Payment Price" name="price">
+              <Form.Item
+                rules={[
+                  { required: isPartialChecked, validator: validatePrice },
+                ]}
+                label={<span style={{ fontWeight:"600", marginLeft:'2px' }}>Partial Payment Price</span>}
+                name="price"
+              >
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                 <Input
-                  className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
-                  placeholder="$0.00"
+                  className="_input h-10 w-[280px] sm:ml-[34px] xs:ml-0"
+                  placeholder="0.00"
+                  type="number"
+                  prefix='$'
                 />
               </Form.Item>
             </div>
-          }
+          )}
 
-          <div className={`${!isPartialChecked && 'mt-4'}`}>
-            <Form.Item className="font-semibold" rules={[{ required: true }]} label="Due Date" name="dueDate">
-              <DatePicker
-                className=" sm:ml-[116px] xs:ml-4"
-              />
-            </Form.Item>
-          </div>
+          {isPartialChecked && (
+            <div className={`${!isPartialChecked && "mt-4"}`}>
+              <Form.Item
+             /*    className="font-semibold" */
+                rules={[{ required: isPartialChecked }]}
+                label={<span style={{ fontWeight:"600", marginLeft:'2px' }}>Due Date</span>}
+                name="dueDate"
+                >
+              
+                <DatePicker className=" sm:ml-[116px] xs:ml-4" />
+              </Form.Item>
+            </div>
+          )}
 
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" className="mt-4 ml-2">
             Submit
           </Button>
         </div>
+      </Form>
+    </div>
+  );
+};
 
-      </Form >
-
-    </div >
-  )
-}
-
-export default Payment
+export default Payment;

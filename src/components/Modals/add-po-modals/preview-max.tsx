@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import tabler_minimize from "../../../assets/icons/layout/tabler_minimize.png";
 import "../modals.scss";
-import { PlusOutlined } from "@ant-design/icons";
 
-import { Button, Modal, Form, Upload, Input, Table } from "antd";
+import { Modal,  Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Payment from "./payment";
 import { useAppDispatch } from "../../../store/store";
@@ -21,6 +19,7 @@ const PreviewMax: React.FC<any> = ({
   keys,
   setImportModalOpen
 }) => {
+  
   const dispatch = useAppDispatch()
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
