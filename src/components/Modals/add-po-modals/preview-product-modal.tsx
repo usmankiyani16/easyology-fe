@@ -25,6 +25,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
 import { addPO } from "../../../store/po/po.slice";
 import { values } from "@antv/util";
+import { Toast } from "../../common/toast/toast";
 
 
 
@@ -172,9 +173,9 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
   const totalPrice = newObject?.products?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
     return accumulator + product.price * product.quantity;
   }, 0);
-  
-  const paidAmounts = totalPrice- newObject?.paidAmount
-  
+
+  const paidAmounts = totalPrice - newObject?.paidAmount
+
 
 
 
@@ -250,21 +251,28 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
       dueDate: values.dueDate.toISOString().substr(0, 10)
     }
 
-    dispatch(addPO(payload))
+    if (payload.totalAmount < paidAmount) {
+      Toast('Total Balance is low', 'error')
+      return
+    }
     const res = await dispatch(addPO(payload))
     if (res?.meta?.requestStatus === "fulfilled") {
       setPreviewModalOpen(false)
     }
-
-
-    if (payload.totalAmount< paidAmount){
-      alert('Total Balance is low')
+  };
+  const validatePrice = (rule: any, value: string) => {
+    const price = parseFloat(value);
+    if (isNaN(price)) {
+      return Promise.reject('Please enter a valid quantity');
+    } else if (price <= 0) {
+      return Promise.reject('Quantity must be greater than zero');
+    } else {
+      return Promise.resolve();
     }
-
   };
 
 
- 
+
 
   return (
     <div className="_modal_wrap">
@@ -327,7 +335,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
         </div>
 
 
-        
+
 
         <Form form={form} onFinish={handleFinish}>
 
@@ -348,7 +356,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             </div>
             {isPartialChecked &&
               <div className="_partial_price mt-4">
-                <Form.Item label="Partial Payment Price" rules={[{ required: isPartialChecked }]} name="price">
+                <Form.Item label="Partial Payment Price" rules={[{ required: isPartialChecked, validator: validatePrice }]} name="price">
                   {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                   <Input
 
@@ -367,7 +375,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
                 />
               </Form.Item>
 
-              <div>Remaining amount: #76</div>
+              {/* <div>Remaining amount: #76</div> */}
             </div>
 
             <div>

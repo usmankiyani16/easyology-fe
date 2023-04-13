@@ -9,19 +9,22 @@ import { addVendor } from "../../../store/vendors/vendors-slice";
 
 const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) => {
   const dispatch = useAppDispatch()
-  const onFinish = async(values: any) => {
+  const onFinish = async (values: any) => {
+    console.log('values', values)
     const res = await dispatch(addVendor(values))
-    if(res?.meta?.requestStatus==="fulfilled"){
+    if (res?.meta?.requestStatus === "fulfilled") {
       setVendorModalOpen(false)
     }
   };
+  const onFinishFailed = (values: any) => {
+    console.log('vlaue', values)
+  }
 
-  const validateMobileNumber = (rule: any, value: string, callback: (arg0: string | undefined) => void) => {
+  const validateMobileNumber = (rule: any, value: string, callback: (arg0?: string | undefined) => void) => {
     const mobileNumberRegex = /^[0-9]{10,12}$/;
     if (!mobileNumberRegex.test(value)) {
       callback('Must be number between 10 to 12 digits');
-    }
-    // callback();
+    } else    callback();
   }
 
   return (
@@ -39,6 +42,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
         <Form
           layout="vertical"
           onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <div className="_vendor_container grid grid-cols-2 gap-12 mt-8">
@@ -105,12 +109,12 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
                 required
                 tooltip="This is a required field"
                 rules={[
-                  
+
                   { validator: validateMobileNumber },
-                  
+
                 ]}
               >
-                <Input className="h-[40px]" placeholder="1234-1234-1234" maxLength={12} pattern="[0-9]{10,12}"/>
+                <Input className="h-[40px]" placeholder="1234-1234-1234" maxLength={12} pattern="[0-9]{10,12}" />
               </Form.Item>
             </div>
           </div>

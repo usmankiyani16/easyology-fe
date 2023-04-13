@@ -19,6 +19,7 @@ const PreviewMax: React.FC<any> = ({
   vendorId,
   paidAmount,
   keys,
+  setImportModalOpen
 }) => {
   const dispatch = useAppDispatch()
   const [isEditing, setIsEditing] = useState(false);

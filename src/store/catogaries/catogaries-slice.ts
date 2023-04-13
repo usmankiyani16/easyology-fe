@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction, current } from '@reduxjs/toolkit';
 import { getApi, postApi } from '../../utils/api/api';
 import { REQUEST_STATUS } from '../../utils/constants';
 import { setLoading } from '../loader/loader-slice';
@@ -147,7 +147,9 @@ const catogariesSlice = createSlice({
                     name: action?.payload?.data?.name,
                     _id: action?.payload?.data?._id
                 }
+                console.log('sttaee',  current(state))
                 state?.subCategories?.push(category);
+              
             })
             .addCase(addSubCatogary.rejected, (state, action: any) => {
                 state.status = REQUEST_STATUS.FAILED;

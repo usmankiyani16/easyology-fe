@@ -26,7 +26,7 @@ import { capitalize } from "../../../utils/functions/functions";
 import { addPOinBulk } from "../../../store/po/po.slice";
 
 
-const Payment: React.FC<any> = ({ dataSource1, totalPrice, paidAmount , vendorId, setPreviewMaxModalOpen }) => {
+const Payment: React.FC<any> = ({ setImportModalOpen, dataSource1, totalPrice, vendorId, setPreviewMaxModalOpen }) => {
 
   const [form] = Form.useForm();
 
@@ -64,6 +64,7 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, paidAmount , vendorId
     const res = await dispatch(addPOinBulk(payload))
     if (res?.meta?.requestStatus === 'fulfilled') {
       setPreviewMaxModalOpen(false)
+      setImportModalOpen(false)
     }
 
     
@@ -74,17 +75,16 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, paidAmount , vendorId
 
    // Price Validator
 
-   const validatePrice = (rule: any, value: string) => {
+  const validatePrice = (rule: any, value: string) => {
     const price = parseFloat(value);
     if (isNaN(price)) {
-      return Promise.reject('Please enter a valid price');
+      return Promise.reject('Please enter a valid quantity');
     } else if (price <= 0) {
-      return Promise.reject('Price must be greater than zero');
+      return Promise.reject('Quantity must be greater than zero');
     } else {
       return Promise.resolve();
     }
   };
-
 
 
 

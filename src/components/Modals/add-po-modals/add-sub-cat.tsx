@@ -13,10 +13,9 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
   const { catogaries } = useAppSelector(state => state.catogaries)
   const dispatch = useAppDispatch()
   const onFinish = async (values: any) => {
-    
-    console.log('..c.c', values)
     const res = await dispatch(addSubCatogary(values))
     if (res?.meta?.requestStatus === "fulfilled") {
+      console.log('vvaava')
       setSubCatmodalOpen(false)
     }
   };

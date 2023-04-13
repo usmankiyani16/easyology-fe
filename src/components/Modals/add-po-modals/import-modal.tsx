@@ -75,7 +75,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
 
             <ExportExcel excelData={Dummy_Add_PO} fileName={"Export Excel"} />
 
-            <BulkUpload vendorId={vendorId} />
+            <BulkUpload setImportModalOpen={setImportModalOpen} vendorId={vendorId} />
             {/* <UploadExcelTable /> */}
 
           </>
