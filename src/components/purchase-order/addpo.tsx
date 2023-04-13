@@ -110,28 +110,34 @@ const AddPO = () => {
 
   // Price Validator
 
-  const validatePrice = (rule: any, value: string) => {
+  const validatePrice = (rule: any, value: string, callback: (error?: string) => void) => {
     const price = parseFloat(value);
-    if (isNaN(price)) {
-      return Promise.reject('Please enter a valid price');
+  
+    if (isNaN(price) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
+      callback('Please enter a valid positive number');
     } else if (price <= 0) {
-      return Promise.reject('Price must be greater than zero');
+      callback('Price must be greater than zero');
     } else {
-      return Promise.resolve();
+      callback();
     }
   };
+  
 
 
   // Quantity Validator
 
-  const validateQuantity = (rule: any, value: string) => {
-    const price = parseFloat(value);
-    if (isNaN(price)) {
-      return Promise.reject('Please enter a valid quantity');
-    } else if (price <= 0) {
-      return Promise.reject('Quantity must be greater than zero');
+  const validateQuantity = (rule: any, value: string, callback: (error?: string) => void) => {
+    const quantity = parseFloat(value);
+  
+    if (isNaN(quantity) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
+      callback('Please enter a valid positive number');
+    } else if (quantity <= 0) {
+      callback('Quantity must be greater than zero');
+    }
+    else if (quantity === 0) {
+        callback('Quantity cannot be 0');
     } else {
-      return Promise.resolve();
+      callback();
     }
   };
 
@@ -282,7 +288,7 @@ const AddPO = () => {
 
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input className="_input" placeholder="$0.00" />
+              <Input className="_input" placeholder="0.00" prefix="$" />
             </Form.Item>
             <Form.Item
               label="Threshold"
@@ -370,7 +376,7 @@ const AddPO = () => {
             >
               <Input
                 className="_input"
-                placeholder="Enter Product Quality"
+                placeholder="Enter Product Quantity"
 
               />
             </Form.Item>

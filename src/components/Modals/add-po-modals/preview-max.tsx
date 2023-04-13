@@ -30,7 +30,7 @@ const PreviewMax: React.FC<any> = ({
       const res = await dispatch(uploadMedia(file));
       if (res?.meta?.requestStatus == "fulfilled") {
         const fileName = res?.payload?.data?.fileName;
-        setDataSource((prevState: any) => {
+        setDataSource1((prevState: any) => {
           const newData = [...prevState];
           // const index = newData.findIndex((data: any) => data.id === id);
           newData[index].image = fileName || '';
@@ -43,7 +43,8 @@ const PreviewMax: React.FC<any> = ({
   };
 
 
-  const [dataSource1, setDataSource] = useState(dataSource?.map((data: any, index: number) => ({
+  const [dataSource1, setDataSource1] = useState(dataSource?.map((data: any, index: number) => ({
+    id: index+1 ,
     categoryName: data?.category,
     image: '',
     serial: data?.serial,
@@ -151,40 +152,9 @@ const PreviewMax: React.FC<any> = ({
   ];
   const [showUpload, setShowUpload] = useState(true);
 
-  // Getting Data when uploading Bulk
-  // Threshold and productDesc etc agr bhejna hai to to map s leliya hai
+  
 
-  const myData = dataSource?.map(
-    (
-      {
-        product,
-        quantity,
-        price,
-        productDescription,
-        threshold,
-        color,
-        category,
-        productType,
-        serial,
-      }: any,
-      index: any
-    ) => ({
-      key: index,
-      id: index + 1,
-      product,
-      quantity,
-      price,
-      productDescription,
-      threshold,
-      color,
-      category,
-      productType,
-      serial,
-      image: (
-        <input type="file" />
-      ),
-    })
-  );
+ 
 
   const onDeleteProduct = (record: any) => {
     Modal.confirm({
@@ -193,7 +163,7 @@ const PreviewMax: React.FC<any> = ({
       okText: "Yes",
       okType: "danger",
       onOk: () => {
-        setDataSource((pre: any) => {
+        setDataSource1((pre: any) => {
           return pre?.filter((product: { id: any }) => product.id !== record.id);
         });
       },
@@ -258,7 +228,7 @@ const PreviewMax: React.FC<any> = ({
             resetEditing();
           }}
           onOk={() => {
-            setDataSource((pre: any): any => {
+            setDataSource1((pre: any): any => {
               return pre?.map((product: { id: any }) => {
                 if (product.id === editingProduct.id) {
                   return editingProduct;
@@ -291,10 +261,10 @@ const PreviewMax: React.FC<any> = ({
                 Product
               </label>
               <Input
-                value={editingProduct?.product}
+                value={editingProduct?.name}
                 onChange={(e) => {
                   setEditingProduct((pre: any) => {
-                    return { ...pre, product: e.target.value };
+                    return { ...pre, name: e.target.value };
                   });
                 }}
               />

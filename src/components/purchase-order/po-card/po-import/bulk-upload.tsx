@@ -100,34 +100,7 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
           </Upload>
         </Form.Item>
 
-        {/*   <Modal
-        width='372px'
-        footer={false}
-        centered
-        open={profilemodalOpen}
-        onCancel={() => setProfileModalOpen(false)}
-        destroyOnClose={true}
-      > */}
-
-        {/*  {fileDeleted ? null : (
-          <>
-            {columns && (
-              <Table
-                dataSource={dataSource}
-                columns={columns}
-                pagination={{ defaultPageSize: 3, hideOnSinglePage: true }}
-                rowKey="key"
-              />
-            )}
-       
-         
-          </>
-        )} */}
-        {/* </Modal> */}
-
-        {/* <Button className="ml-28" type="primary" htmlType="submit">
-          Submit
-        </Button> */}
+    
       </Form>
 
     </div>

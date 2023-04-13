@@ -19,7 +19,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
   const validateMobileNumber = (rule: any, value: string, callback: (arg0: string | undefined) => void) => {
     const mobileNumberRegex = /^[0-9]{10,12}$/;
     if (!mobileNumberRegex.test(value)) {
-      callback('Mobile number must be between 10 to 12 digits');
+      callback('Must be number between 10 to 12 digits');
     }
     // callback();
   }
@@ -107,6 +107,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
                 rules={[
                   
                   { validator: validateMobileNumber },
+                  
                 ]}
               >
                 <Input className="h-[40px]" placeholder="1234-1234-1234" maxLength={12} pattern="[0-9]{10,12}"/>

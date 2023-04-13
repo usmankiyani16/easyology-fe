@@ -78,7 +78,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 </div>
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Paid Amount:</span>
-                  <span className="font-medium ">${data?.paid_amount}</span>
+                  {<span className="font-medium ">{data?.paid_amount}</span>}
                 </div>
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Due Date:</span>
@@ -87,7 +87,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
               </div>
               <div className="flex flex-col justify-self-end items-center justify-between">
                 <span className="font-semibold text-3xl	 _primary-color">
-                  {data?.total_amount}$
+                  ${data?.total_amount}
                 </span>
                 <Button className="" onClick={() => setViewModalOpen(true)}>
                   View
