@@ -4,7 +4,8 @@ import "./dashboard.scss";
 const Dashboard = () => {
   return (
     <div className="_dashboard_wrap">
-      <DashboardTabs />
+      {/* <DashboardTabs /> */}
+      Dashboard
     </div>
   );
 };
