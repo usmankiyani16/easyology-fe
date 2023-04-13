@@ -3,7 +3,7 @@ import "../modals.scss";
 
 import { Button, Modal, Form, Input, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { addCatogary, addSubCatogary } from "../../../store/catogaries/catogaries-slice";
+import { addCatogary, addSubCatogary, getSubCatogaries } from "../../../store/catogaries/catogaries-slice";
 import Loader from "../../common/loader/loader";
 import { capitalize } from "../../../utils/functions/functions";
 
@@ -15,8 +15,8 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
   const onFinish = async (values: any) => {
     const res = await dispatch(addSubCatogary(values))
     if (res?.meta?.requestStatus === "fulfilled") {
-      console.log('vvaava')
       setSubCatmodalOpen(false)
+      dispatch(getSubCatogaries(values.categoryId))
     }
   };
 

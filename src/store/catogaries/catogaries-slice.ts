@@ -141,15 +141,8 @@ const catogariesSlice = createSlice({
                 state.status = REQUEST_STATUS.PENDING;
             })
             .addCase(addSubCatogary.fulfilled, (state, action) => {
-                console.log('res', action?.payload?.data)
                 state.status = REQUEST_STATUS.SUCCEEDED;
-                let category = {
-                    name: action?.payload?.data?.name,
-                    _id: action?.payload?.data?._id
-                }
-                console.log('sttaee',  current(state))
-                state?.subCategories?.push(category);
-              
+
             })
             .addCase(addSubCatogary.rejected, (state, action: any) => {
                 state.status = REQUEST_STATUS.FAILED;

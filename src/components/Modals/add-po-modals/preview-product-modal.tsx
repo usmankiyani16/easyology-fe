@@ -223,6 +223,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
 
   const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
+  const [remainingPrice, setRemainingPrice] = useState<number>()
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
     const isChecked = e.target.checked;
@@ -235,6 +236,13 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
     setIsFullyPaidChecked(isChecked);
     setIsPartialChecked(!isChecked);
   };
+
+  const priceChange = (e: any) => {
+    if (typeof(e.target.value) === "number") {
+      // Code to execute if the value is a number
+    }
+    
+  }
 
   const handleFinish = async (values: any) => {
     // Handle the edited data
@@ -359,7 +367,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
                 <Form.Item label="Partial Payment Price" rules={[{ required: isPartialChecked, validator: validatePrice }]} name="price">
                   {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                   <Input
-
+                    onChange={(e) => priceChange(e)}
                     className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
                     placeholder="$0.00"
                     type="number"
@@ -368,18 +376,18 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
               </div>
             }
 
-            <div className={`${!isPartialChecked && 'mt-4'} flex`}>
+            <div className={`${!isPartialChecked && 'mt-4'} flex flex-col`}>
               <Form.Item label="Due Date" rules={[{ required: true }]} name="dueDate">
                 <DatePicker
                   className=" sm:ml-[116px] xs:ml-4"
                 />
               </Form.Item>
 
-              {/* <div>Remaining amount: #76</div> */}
+              <div className="text-red-500  flex self-end ">Remaining amount: {totalPrice}</div>
             </div>
 
             <div>
-              <p className="text-red-500 mr-4 text-lg"><span>Paid Amount</span> {paidAmounts}</p>
+              {/* <p className="text-red-500 mr-4 "><span>Paid Amount</span> {paidAmounts}</p> */}
             </div>
 
             <Button type="primary" htmlType="submit">
