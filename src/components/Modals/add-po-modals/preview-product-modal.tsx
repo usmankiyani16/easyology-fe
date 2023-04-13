@@ -251,6 +251,16 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
 
 
   };
+  const validatePrice = (rule: any, value: string) => {
+    const price = parseFloat(value);
+    if (isNaN(price)) {
+      return Promise.reject('Please enter a valid quantity');
+    } else if (price <= 0) {
+      return Promise.reject('Quantity must be greater than zero');
+    } else {
+      return Promise.resolve();
+    }
+  };
 
   return (
     <div className="_modal_wrap">
@@ -331,7 +341,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
             </div>
             {isPartialChecked &&
               <div className="_partial_price mt-4">
-                <Form.Item label="Partial Payment Price" rules={[{ required: isPartialChecked }]} name="price">
+                <Form.Item label="Partial Payment Price" rules={[{ required: isPartialChecked, validator: validatePrice }]} name="price">
                   {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                   <Input
 

@@ -9,12 +9,20 @@ import { addVendor } from "../../../store/vendors/vendors-slice";
 
 const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) => {
   const dispatch = useAppDispatch()
-  const onFinish = async(values: any) => {
+  const onFinish = async (values: any) => {
     const res = await dispatch(addVendor(values))
-    if(res?.meta?.requestStatus==="fulfilled"){
+    if (res?.meta?.requestStatus === "fulfilled") {
       setVendorModalOpen(false)
     }
   };
+
+  const validateMobileNumber = (rule: any, value: string, callback: (arg0: string | undefined) => void) => {
+    const mobileNumberRegex = /^[0-9]{10,12}$/;
+    if (!mobileNumberRegex.test(value)) {
+      callback('Mobile number must be between 10 to 12 digits');
+    }
+    // callback();
+  }
 
 
   return (
@@ -98,14 +106,10 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
                 required
                 tooltip="This is a required field"
                 rules={[
-                  {
-                    required: true,
-
-                    message: "Required Field",
-                  },
+                  { validator: validateMobileNumber },
                 ]}
               >
-                <Input className="h-[40px]" placeholder="1234-1234-1234"/>
+                <Input className="h-[40px]" placeholder="1234-1234-1234" />
               </Form.Item>
             </div>
           </div>
@@ -124,6 +128,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
             ]}
           >
             <Input
+              type="number"
               className="h-[40px]"
               placeholder="Street # 4, Clock tower  2nd floor near hens toy shop. TX"
             />

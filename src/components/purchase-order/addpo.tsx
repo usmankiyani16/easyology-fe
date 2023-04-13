@@ -277,7 +277,7 @@ const AddPO = () => {
 
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input className="_input" placeholder="$0.00" />
+              <Input type="number" className="_input" placeholder="$0.00" />
             </Form.Item>
             <Form.Item
               label="Threshold"
@@ -364,6 +364,7 @@ const AddPO = () => {
               rules={[{ required: true, validator: validateQuantity }]}
             >
               <Input
+                type="number"
                 className="_input"
                 placeholder="Enter Product Quality"
 

@@ -26,7 +26,7 @@ import { capitalize } from "../../../utils/functions/functions";
 import { addPOinBulk } from "../../../store/po/po.slice";
 
 
-const Payment: React.FC<any> = ({setImportModalOpen, dataSource1, totalPrice, vendorId, setPreviewMaxModalOpen }) => {
+const Payment: React.FC<any> = ({ setImportModalOpen, dataSource1, totalPrice, vendorId, setPreviewMaxModalOpen }) => {
 
   const [form] = Form.useForm();
 
@@ -66,6 +66,16 @@ const Payment: React.FC<any> = ({setImportModalOpen, dataSource1, totalPrice, ve
     }
   };
 
+  const validatePrice = (rule: any, value: string) => {
+    const price = parseFloat(value);
+    if (isNaN(price)) {
+      return Promise.reject('Please enter a valid quantity');
+    } else if (price <= 0) {
+      return Promise.reject('Quantity must be greater than zero');
+    } else {
+      return Promise.resolve();
+    }
+  };
 
 
 
@@ -92,7 +102,7 @@ const Payment: React.FC<any> = ({setImportModalOpen, dataSource1, totalPrice, ve
           </div>
           {isPartialChecked &&
             <div className="_partial_price mt-4">
-              <Form.Item className="font-semibold" rules={[{ required: isPartialChecked }]} label="Partial Payment Price" name="price">
+              <Form.Item className="font-semibold" rules={[{ required: isPartialChecked, validator: validatePrice }]} label="Partial Payment Price" name="price">
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                 <Input
                   className="_input h-10 w-[280px] sm:ml-10 xs:ml-0"
