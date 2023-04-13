@@ -350,7 +350,7 @@ const PreviewModal: React.FC<any> = ({ previewmodalOpen, setPreviewModalOpen, ne
                 />
               </Form.Item>
 
-              <div>Remaining amount: #76</div>
+              {/* <div>Remaining amount: #76</div> */}
             </div>
 
             <Button type="primary" htmlType="submit">

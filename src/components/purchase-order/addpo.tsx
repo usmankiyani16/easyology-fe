@@ -49,6 +49,7 @@ const AddPO = () => {
 
 
   const onFinish = (values: any) => {
+    // event.preventDefault();
     console.log('value', values);
 
     Toast("Product added");
@@ -75,10 +76,9 @@ const AddPO = () => {
     });
 
     const newObject = {
-      vendorId: values.selectedVendor,
+      vendorId: selectedVendor?._id,
       products: formData.concat(newFormData),
     };
-
     form.resetFields();
     setFile(null);
 
@@ -91,7 +91,6 @@ const AddPO = () => {
     const file = e?.file;
     delete file?.uid;
     setShowUpload(!showUpload);
-    const fileList = e?.fileList ?? [];
     if (showUpload) {
       const res = await dispatch(uploadMedia(file));
       if (res?.meta?.requestStatus == "fulfilled") {
@@ -141,10 +140,6 @@ const AddPO = () => {
     ))
     setSeletedVendor(vandorName)
   };
-  useEffect(()=>{
-    console.log('loggg', selectedVendor);
-    
-  },[])
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">

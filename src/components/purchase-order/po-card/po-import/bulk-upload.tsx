@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Upload, message, Modal } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import "../../../Modals/modals.scss";
 import PreviewMax from "../../../Modals/add-po-modals/preview-max";
 
-const BulkUpload: React.FC<any> = ({ vendorId }) => {
+const BulkUpload: React.FC<any> = ({ vendorId, setImportModalOpen }) => {
   const [excelData, setExcelData] = useState<any>([]);
   // const [profilemodalOpen, setProfileModalOpen] = useState(false);
   const [fileDeleted, setFileDeleted] = useState(false);
@@ -20,7 +20,11 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
   // let keys = []
   // let objectData
 
+  // useEffect(() => {
+  //   setImportModalOpen(false)
+  // }, [])
   const handleUpload = (file: Blob) => {
+
     const fileReader = new FileReader();
     fileReader.onload = (e: any) => {
       const data = new Uint8Array(e.target.result);
@@ -45,6 +49,8 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
       setPreviewMaxModalOpen(true)
     };
     fileReader.readAsArrayBuffer(file);
+
+    // setImportModalOpen(false)
   };
 
 
@@ -81,7 +87,7 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
         dataSource={dataSource}
         keys={coloumn}
         vendorId={vendorId}
-
+        setImportModalOpen={setImportModalOpen}
       // dataSource={dataSource} columns={coloumn} 
       />}
 

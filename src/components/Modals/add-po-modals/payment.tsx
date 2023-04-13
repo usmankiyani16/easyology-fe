@@ -26,7 +26,7 @@ import { capitalize } from "../../../utils/functions/functions";
 import { addPOinBulk } from "../../../store/po/po.slice";
 
 
-const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewMaxModalOpen }) => {
+const Payment: React.FC<any> = ({setImportModalOpen, dataSource1, totalPrice, vendorId, setPreviewMaxModalOpen }) => {
 
   const [form] = Form.useForm();
 
@@ -62,6 +62,7 @@ const Payment: React.FC<any> = ({ dataSource1, totalPrice, vendorId, setPreviewM
     const res = await dispatch(addPOinBulk(payload))
     if (res?.meta?.requestStatus === 'fulfilled') {
       setPreviewMaxModalOpen(false)
+      setImportModalOpen(false)
     }
   };
 
