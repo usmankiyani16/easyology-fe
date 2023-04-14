@@ -15,7 +15,7 @@ const Viewmodal: React.FC<any> = ({
     <div className="_modal_wrap _view_modal_wrap">
 
       {/* ----------- View Modal ------------------ */}
-      
+
       <Modal
         width="471px"
         footer={false}
@@ -36,6 +36,9 @@ const Viewmodal: React.FC<any> = ({
         {/* --------------- Products Container -------------------- */}
 
         <div className="mt-2" style={{ height: "200px", overflowY: "auto" }}>
+
+          {/* --------- Purchase Order data ka map yaha lagega -------------- */}
+          
           <p className="_product_id font-bold">
             Product ID <span>#6784</span>
           </p>

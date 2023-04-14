@@ -200,7 +200,7 @@ const AddPO = () => {
           <div className="_grid1_fields">
             <div className="flex items-center gap-3">
               <Form.Item
-                label="Select Vendor"
+                label={<span className="_po_field_label">Select Vendor</span>}
                 name="selectedVendor"
                 required
                 tooltip="This is a required field"
@@ -244,7 +244,7 @@ const AddPO = () => {
             </div>
 
             <Form.Item
-              label="Product Name"
+              label={<span className="_po_field_label">Product Name</span>}
               name="product"
               required
               tooltip="This is a required field"
@@ -264,7 +264,7 @@ const AddPO = () => {
             </Form.Item>
 
             <Form.Item
-              label="Product Price"
+              label={<span className="_po_field_label">Product Price</span>}
               name="price"
               required
               tooltip="This is a required field"
@@ -274,7 +274,7 @@ const AddPO = () => {
               <Input className="_input" placeholder="0.00" prefix="$" />
             </Form.Item>
             <Form.Item
-              label="Threshold"
+              label={<span className="_po_field_label">Threshold</span>}
               name="threshold"
               required
               tooltip="This is a required field"
@@ -300,7 +300,7 @@ const AddPO = () => {
             </Form.Item>
 
             <Form.Item
-              label="Upload"
+              label={<span className="_po_field_label ml-[10px]">Upload</span>}
               name="image"
               valuePropName="image"
               className="mt-[28px]"
@@ -326,7 +326,7 @@ const AddPO = () => {
               </Upload>
             </Form.Item>
 
-            <Form.Item label="Product Description" name="productDescription">
+            <Form.Item label={<span className="_po_field_label  ml-[10px]">Product Description</span>} name="productDescription">
               <Input
                 className="_input"
                 placeholder="Enter Product Description"
@@ -340,7 +340,7 @@ const AddPO = () => {
 
           <div className="_grid2_fields">
             <Form.Item
-              label="Product Quantity"
+              label={<span className="_po_field_label">Product Quantity</span>}
               name="quantity"
               required
               tooltip="This is a required field"
@@ -355,7 +355,7 @@ const AddPO = () => {
 
             <div className="flex items-center gap-3">
               <Form.Item
-                label="Category"
+                label={<span className="_po_field_label">Category</span>}
                 name="category"
                 required
                 tooltip="This is a required field"
@@ -391,7 +391,7 @@ const AddPO = () => {
             </div>
 
             <Form.Item
-              label="Color"
+              label={<span className="_po_field_label  ml-[10px]">Color</span>}
               name="color"
               rules={[
                 {
@@ -403,7 +403,7 @@ const AddPO = () => {
               <Input className="_input" placeholder="Specify Color" />
             </Form.Item>
             <Form.Item
-              label="Product Size"
+              label={<span className="_po_field_label  ml-[10px]">Product Size</span>}
               name="size"
               rules={[
                 {
@@ -416,7 +416,7 @@ const AddPO = () => {
             </Form.Item>
 
             <div className="flex items-center gap-3">
-              <Form.Item label="Sub Category" name="subCategory">
+              <Form.Item label={<span className="_po_field_label  ml-[10px]">Sub Category</span>} name="subCategory">
                 <Select
                   className="_input select_input"
                   placeholder="Select sub category"
@@ -439,12 +439,12 @@ const AddPO = () => {
               />
             </div>
 
-            <Form.Item label="Product Serial #" name="serial">
+            <Form.Item label={<span className="_po_field_label  ml-[10px]">Product Serail #</span>} name="serial">
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
 
             <Form.Item
-              label="IMEI Number"
+              label={<span className="_po_field_label ml-[10px]">IMEI Number</span>}
               name="imeiNumber"
               rules={[
                 {
