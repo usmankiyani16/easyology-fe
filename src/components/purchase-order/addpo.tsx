@@ -471,8 +471,8 @@ const AddPO = () => {
               {
                 <Button
                   type="primary"
-                  htmlType="submit"
-                  className="h-10 cursor-pointer mt-[5px]"
+                  // htmlType="submit"
+                  className="h-10 cursor-pointer"
                   onClick={() => setPreviewModalOpen(true)}
                 >
                  View Product Card
