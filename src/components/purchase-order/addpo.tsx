@@ -47,7 +47,7 @@ const AddPO = () => {
     // event.preventDefault();
     console.log("value", values);
 
-    Toast("Product added to card successfully");
+    Toast("Product added to cart successfully");
     setShowUpload(true);
     const newFormData: any = {
       name: values.product,
@@ -475,7 +475,7 @@ const AddPO = () => {
                   className="h-10 cursor-pointer"
                   onClick={() => setPreviewModalOpen(true)}
                 >
-                 View Product Card
+                 View Cart
                 </Button>
               }
             </div>
