@@ -229,8 +229,9 @@ const PreviewModal: React.FC<any> = ({
   };
 
   const priceChange = (e: any) => {
-    if (typeof e.target.value === "number") {
-      // Code to execute if the value is a number
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value)) {
+      setRemainingPrice(totalPrice - value);
     }
   };
 
@@ -380,7 +381,7 @@ const PreviewModal: React.FC<any> = ({
             )}
 
             <div className={`${!isPartialChecked && "mt-6"} flex flex-col text-red-500  flex self-end ml-2 float-right`} >
-              Remaining amount: {totalPrice}
+              Remaining amount: {remainingPrice}
             </div>
 
             <div>

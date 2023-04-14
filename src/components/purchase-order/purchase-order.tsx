@@ -29,7 +29,7 @@ const PurchaseOrder = () => {
       {purchaseOrders?.length ?
         <POCard purchaseOrders={purchaseOrders} /> : <Spinner />
       }
-      <Viewmodal purchaseOrders={purchaseOrders} />
+      
 
 
     </div>

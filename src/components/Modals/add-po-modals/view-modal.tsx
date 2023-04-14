@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "../modals.scss";
 
 import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { laptopImg } from "../../../assets/images";
+import Line from "../../../assets/images/Line.png";
 import "../modals.scss";
-
 
 const Viewmodal: React.FC<any> = ({
   viewModalOpen,
@@ -14,6 +13,9 @@ const Viewmodal: React.FC<any> = ({
 }) => {
   return (
     <div className="_modal_wrap _view_modal_wrap">
+
+      {/* ----------- View Modal ------------------ */}
+      
       <Modal
         width="471px"
         footer={false}
@@ -26,12 +28,15 @@ const Viewmodal: React.FC<any> = ({
           PO Number: <span className="text-red-500">#456</span>
         </h4>
         <h4 className="_company_name">Lenovo Company</h4>
-        <p>
-          Sheduled: <span> Friday 12 AM EST</span>
+        <p className="_sheduled_date font-medium">
+          Sheduled:{" "}
+          <span className="text-black font-medium"> Friday 12 AM EST</span>
         </p>
 
-        <div className="mt-2">
-          <p>
+        {/* --------------- Products Container -------------------- */}
+
+        <div className="mt-2" style={{ height: "200px", overflowY: "auto" }}>
+          <p className="_product_id font-bold">
             Product ID <span>#6784</span>
           </p>
 
@@ -42,54 +47,64 @@ const Viewmodal: React.FC<any> = ({
                 alt="Products"
                 className="w-[59px] h-[66px]"
               />
-              <p className="w-[112px] h-[66px]">Laptop Lenovo Series 4</p>
+              <p className="_product_name w-[112px] h-[66px] font-medium">
+                Laptop Lenovo Series 4
+              </p>
             </div>
             <div>
-              <p>x2</p>
+              <p className="_product_quantity w-[112px] h-[66p] font-medium">
+                x2
+              </p>
             </div>
             <div>
-              <p>$ 599.00</p>
+              <p className="_product_price text-[18px] font-bold">$ 599.00</p>
             </div>
           </div>
+
+          <img src={Line} alt="" />
         </div>
 
         <div className="_contact_details mt-4">
-          <p>
-            Address{" "}
-            <span
-              style={{ width: "317px", height: "44px" }}
-              className="w-[317px] h-[44px]"
-            >
+          <p className="flex font-bold">
+            Address:
+            <span className="_address_details ml-[12px]">
               Street #05, Times square, Buidling icon tower, Near Timmies.
               Dallas/Texas.
             </span>
           </p>
-          <p>
-            Contact: <span>+001 48976 543</span>
+          <p className="_label font-bold">
+            Contact: <span className="ml-[12px]">+001 48976 543</span>
           </p>
-          <p>
-            Payment: <span className="text-red-500">Full Payment</span>
+          <p className="_label font-bold">
+            Payment:{" "}
+            <span className="text-red-500 ml-[10px]">Full Payment</span>
           </p>
-          <p>
-            Delivery Type: <span className="text-red-500">Standard</span>
+          <p className="_label font-bold">
+            Delivery Type: <span className=" text-red-500">Standard</span>
           </p>
         </div>
 
-        <div className="_footer flex justify-between mt-6">
-          <div className="_names">
-            <p>Total Discount</p>
-            <p>Discount</p>
-            <p>
+        {/* ----------------- Footer ------------------------------ */}
+
+        <div className="_footer mt-6 font-bold">
+          <div className="flex justify-between">
+            <p className="_label">Total Discount</p>
+            <p>$ 1500</p>
+          </div>
+          <div className="flex justify-between font-bold">
+            <p className="_label">Discount</p>
+            <p>$ 1500</p>
+          </div>
+          <div className="flex justify-between">
+            <p className="_label">
               Sales Tax <span>(2%)</span>
             </p>
-            <p>Total</p>
+            <p>$ 1500</p>
           </div>
 
-          <div className="_price">
-            <p>1500</p>
-            <p>1200</p>
-            <p>9000</p>
-            <p>2700</p>
+          <div className="flex justify-between">
+            <p className="_label _label_total">Total</p>
+            <p className="_label_total">$ 1500</p>
           </div>
         </div>
       </Modal>

@@ -34,6 +34,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
       <Viewmodal
         viewModalOpen={viewModalOpen}
         setViewModalOpen={setViewModalOpen}
+        purchaseOrders = {purchaseOrders}
       />
       <div className="flex flex-col gap-4">
         {purchaseOrders?.map((data: any) => (

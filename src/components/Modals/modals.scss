@@ -134,3 +134,73 @@
 
   color: #000000;
 }
+
+._sheduled_date,
+._product_id {
+  font-family: "Lato";
+  font-size: 14px;
+  color: rgba(97, 95, 95, 0.91);
+}
+
+._product_name,
+._product_quantity {
+  font-family: "Lato";
+  font-size: 16px;
+  color: #000000;
+}
+._product_price {
+  font-family: "Lato";
+  color: #000000;
+}
+
+._label {
+  font-family: "Lato";
+  font-style: normal;
+
+  font-size: 14px;
+  /* identical to box height */
+  color: #000000;
+}
+._address_details {
+  display: block;
+
+  width: 317px;
+  height: 44px;
+  font-family: "Lato";
+
+  font-weight: 400;
+  font-size: 14px;
+
+  color: rgba(97, 95, 95, 0.91);
+}
+._label_total {
+  font-family: "Lato";
+
+  font-weight: 600;
+  font-size: 18px;
+
+  color: rgba(253, 15, 0, 0.78);
+}
+
+
+
+/* style for the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+/* style for the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+  border-radius: 10px;
+}
+
+/* style for the scrollbar when hovered */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a1a1a1;
+}
+::-webkit-scrollbar {
+  width:0px;
+}
+

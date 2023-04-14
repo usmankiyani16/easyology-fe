@@ -78,6 +78,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
             <BulkUpload setImportModalOpen={setImportModalOpen} vendorId={vendorId} />
             {/* <UploadExcelTable /> */}
 
+
           </>
         )}
       </Modal>

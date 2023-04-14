@@ -44,7 +44,7 @@ const AddPO = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    // event.preventDefault();
+    
     console.log("value", values);
 
     Toast("Product added to cart successfully");
@@ -326,25 +326,14 @@ const AddPO = () => {
               </Upload>
             </Form.Item>
 
-            <Form.Item
-              label="IMEI Number"
-              name="imeiNumber"
-              rules={[
-                {
-                  pattern: new RegExp("^\\d{15}$"),
-                  message: "Only digits (15) allowed",
-                },
-              ]}
-            >
-              <Input className="_input" placeholder="Enter Product IMEI" />
-            </Form.Item>
-
             <Form.Item label="Product Description" name="productDescription">
               <Input
                 className="_input"
                 placeholder="Enter Product Description"
               />
             </Form.Item>
+
+           
           </div>
 
           {/*----------------------- Grid 2 ---------------------------- */}
@@ -453,6 +442,21 @@ const AddPO = () => {
             <Form.Item label="Product Serial #" name="serial">
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
+
+            <Form.Item
+              label="IMEI Number"
+              name="imeiNumber"
+              rules={[
+                {
+                  pattern: new RegExp("^\\d{15}$"),
+                  message: "Only digits (15) allowed",
+                },
+              ]}
+            >
+              <Input className="_input" placeholder="Enter Product IMEI" />
+            </Form.Item>
+
+        
           </div>
         </div>
 
@@ -464,6 +468,7 @@ const AddPO = () => {
               </Button>
             </Form.Item>
             <p className="_import_btn_msg">Import product category</p>
+
           </div>
 
           {dataForm && dataForm?.products?.length && (
