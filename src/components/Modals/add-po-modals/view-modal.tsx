@@ -38,7 +38,7 @@ const Viewmodal: React.FC<any> = ({
         <div className="mt-2" style={{ height: "200px", overflowY: "auto" }}>
 
           {/* --------- Purchase Order data ka map yaha lagega -------------- */}
-          
+
           <p className="_product_id font-bold">
             Product ID <span>#6784</span>
           </p>
