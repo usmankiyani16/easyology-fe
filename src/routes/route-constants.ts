@@ -3,6 +3,7 @@ export const ROUTE_CONSTANTS = {
   UNAUTHORIZED: "/unauthorized",
   LOGIN: "/auth/login",
   DASHBOARD: "dashboard",
+  PRODUCTS: "products",
   HISTORY: "history",
   CASH_CHECKER: "cash-checker",
   DAILY_LEDGER: "daily-ledger",

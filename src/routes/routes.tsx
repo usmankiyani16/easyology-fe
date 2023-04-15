@@ -33,6 +33,7 @@ const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
 );
 
 const DashboardLazy = Loadable(lazy(() => import("../pages/dashboard/index")));
+const ProductsLazy = Loadable(lazy(() => import("../pages/products/index")));
 const PurchaseOrderLazy = Loadable(
   lazy(() => import("../pages/purchase-order/index"))
 );
@@ -94,6 +95,14 @@ export const routes: any = [
         element: (
           <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
             <DashboardLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.PRODUCTS,
+        element: (
+          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+            <ProductsLazy />
           </RequireAuth>
         ),
       },

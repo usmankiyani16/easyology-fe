@@ -1,9 +1,8 @@
-import DashboardTabs from "./tabs/tabs";
 import "./dashboard.scss";
 
 const Dashboard = () => {
   return (
-    <div className="_dashboard_wrap">
+    <div className="_dashboard">
       {/* <DashboardTabs /> */}
       Dashboard
     </div>

@@ -6,6 +6,7 @@ import {
   monthlyReportIcon,
   notificationIcon,
   paymentsIcon,
+  productsIcon,
   purchaseOrderIcon,
   settingsIcon,
   supportIcon,
@@ -16,10 +17,16 @@ import './sidebar.scss'
 
 export const siderbarData = [
   {
-    key: 1,
+    key: 0,
     icon: <img className="w-7" src={dashboardIcon} alt="dashboard" />,
     label: "Dashboard",
     path: ROUTE_CONSTANTS.DASHBOARD,
+  },
+  {
+    key: 1,
+    icon: <img className="w-7" src={productsIcon} alt="dashboard" />,
+    label: "Products",
+    path: ROUTE_CONSTANTS.PRODUCTS,
   },
   {
     key: 2,
@@ -32,7 +39,7 @@ export const siderbarData = [
   {
     key: 3,
     icon: <img className="w-7" src={historyIcon} alt="historyIcon" />,
-    label: "Products",
+    label: "History",
     path: ROUTE_CONSTANTS.HISTORY,
   },
   {

@@ -17,31 +17,34 @@ const Header = () => {
   const navigate = useNavigate()
   const [profilemodalOpen, setProfileModalOpen] = useState(false);
 
-  // Getting Current Date
+  const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
 
-  const current = new Date();
-  const date = `${current.getDate()}/${current.getMonth() + 1
-    }/${current.getFullYear()}`;
+  // Getting Current Date
+  const today = new Date();
+  const month = today.getMonth() + 1; // January is 0
+  const day = today.getDate();
+  const year = today.getFullYear();
+  const formattedDate = `${month}/${day}/${year}`;
 
   return (
     <>
       <div className="flex justify-between items-center w-full pt-3 px-5">
         <div className="flex gap-2 w-1/3">
-          <div>
+          <div className="flex flex-col items-center">
             <img
               src={profileIcon}
               alt="profileIcon"
               className="cursor-pointer w-8 h-8"
               onClick={() => setProfileModalOpen(true)}
             />
-            <p className="_profile">Profile</p>
+            <p className="_profile">{data?.first_name}</p>
           </div>
 
           <div className="flex flex-col justify-center">
             <span className="_header_easyology _primary-color text-2xl">
-              Easyology
+              {data?.store_name}
             </span>
-            <span className="_current_date">{date}</span>
+            <span className="_profile">{formattedDate}</span>
           </div>
         </div>
 

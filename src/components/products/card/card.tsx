@@ -1,5 +1,4 @@
 import { Card } from "antd";
-import '../dashboard.scss'
 import React from "react";
 import { addIcon } from "../../../assets/images";
 
