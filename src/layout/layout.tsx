@@ -43,7 +43,7 @@ const MainLayout: React.FC<any> = () => {
           className="font-semibold mt-3"
           theme="light"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["0"]}
         >
           {siderbarData.map((data) => (
             <Menu.Item key={data.key} icon={data.icon}>
