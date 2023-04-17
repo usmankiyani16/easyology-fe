@@ -15,7 +15,7 @@ import {
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import './sidebar.scss'
 
-export const siderbarData = [
+export const sidebarData = [
   {
     key: 0,
     icon: <img className="w-7" src={dashboardIcon} alt="dashboard" />,

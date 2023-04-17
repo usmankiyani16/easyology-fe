@@ -27,6 +27,7 @@ const Dashboard = () => {
             }
           >
             <Input
+              className="h-8"
               prefix={<SearchOutlined />}
               placeholder="Search customer"
             />
@@ -39,6 +40,7 @@ const Dashboard = () => {
             }
           >
             <Input
+              className="h-8"
               prefix={<SearchOutlined />}
               placeholder="Search products"
             />
@@ -47,7 +49,7 @@ const Dashboard = () => {
         </div>
         <div className="flex items-center gap-3">
           <img className="cursor-pointer" src={addCustomereIcon} alt="scanner" />
-          <Button className="bg-white font-semibold">On hold<span className="_primary-color ml-2">{`(2)`}</span></Button>
+          <Button style={{ padding: '0px 34px' }} className="bg-white font-semibold h-8">On hold<span className="_primary-color ml-2">{`(2)`}</span></Button>
         </div>
 
       </div>
