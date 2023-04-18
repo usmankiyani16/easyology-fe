@@ -5,13 +5,18 @@ import { laptopImg } from '../../../assets/images';
 const ItemCard = () => {
   return (
     <div>
+      <div className="w-full flex justify-between">
+        <label className='text-xl'>Items</label>
+        <label className='text-xl'>Qty</label>
+        <label className='text-xl'>Price</label>
+      </div>
 
       <table className="w-full">
         <thead >
           <tr className='text-left px-4 py-2'>
-            <th className="px-4 py-2">Items</th>
-            <th className="px-4 py-2">Qty</th>
-            <th className="px-4 py-2">Price</th>
+            <th className="px-4 py-2 text-xl">Items</th>
+            <th className="px-4 py-2 text-xl">Qty</th>
+            <th className="px-4 py-2 text-xl">Price</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +31,10 @@ const ItemCard = () => {
               </div>
             </td>
             <td className="px-4 py-2">2</td>
-            <td className="px-4 py-2">$10</td>
+            <td className="px-4 py-2">
+              <p className='_grey-color'>$103</p>
+              <p>$177</p>
+            </td>
           </tr>
           <tr>
             <td className="px-4 py-2">Item 2</td>
