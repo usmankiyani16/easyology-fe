@@ -15,7 +15,7 @@ import { setLoading } from "../../../store/loader/loader-slice";
 import { signin } from "../../../store/auth/auth-slice";
 
 const Login = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
 
@@ -28,19 +28,19 @@ const Login = () => {
   }, [role]);
 
   const onFinish = async (values: any) => {
-    delete values?.remember
+    delete values?.remember;
 
-    await dispatch(signin(values))
-  }
-
-
-  const onFinishFailed = (errorInfo: any) => {
+    await dispatch(signin(values));
   };
+
+  const onFinishFailed = (errorInfo: any) => {};
   return (
     <>
-      
-      <div className="_main-container">
-        <div className="_top-container grid grid-cols-2">
+      <div className="_main-container sm:block">
+
+        {/* ----------- Grid 1 in Top Header ------------ */}
+        
+        <div className="_top-container grid md:grid-cols-2 xs:grid-cols-1">
           <div className="_welcome_back text-center">
             <div className="_welcome_back_text mt-12">
               <h1 className="text-5xl mr-3">Welcome Back</h1>
@@ -54,7 +54,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="_easyology_slogan">
+          <div className="_easyology_slogan  xs:hidden md:block">
             <div className="_easyology_slogan_details ml-5">
               <img
                 src={easyology_logo}
@@ -68,9 +68,10 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="_bottom-container grid grid-cols-2 ">
-          <div className="_login_form mt-10 m-auto">
+        {/* ----------- Grid 2 bottom ------------- */}
 
+        <div className="_bottom-container grid xs:grid-cols-1 md:grid-cols-2">
+          <div className="_login_form mt-10 m-auto">
             <p className="_enter_credentials">
               Enter your email and password below
             </p>
@@ -94,7 +95,6 @@ const Login = () => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
-
             >
               <Form.Item
                 label="Email"
@@ -111,7 +111,11 @@ const Login = () => {
                 ]}
                 hasFeedback
               >
-                <Input className="sm:w-[320px] sm:h-[35px]  md:w-[379px] md:h-[35px]" placeholder="Enter email address" />
+                <Input
+                // sm:w-[320px] sm:h-[35px] 
+                  className="sm:w-[379px] sm:h-[35px]"
+                  placeholder="Enter email address"
+                />
               </Form.Item>
 
               <Form.Item
@@ -128,38 +132,27 @@ const Login = () => {
                 ]}
                 hasFeedback
               >
-                <Input.Password className="sm:w-[320px] sm:h-[35px] md:w-[379px] md:h-[35px]" placeholder="Enter password" />
+                <Input.Password
+
+                  className="sm:w-[379px] sm:h-[35px]"
+                  placeholder="Enter password"
+                />
               </Form.Item>
 
-              <Form.Item
-                name="remember"
-                valuePropName="checked"
-
-              /*  wrapperCol={{
-                 offset: 9,
-                 span: 1,
-               }} */
-
-              >
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-
-              <Form.Item
-
-              >
-                <Button type="primary" htmlType="submit">
+              <Form.Item>
+                <Button type="primary" htmlType="submit" className="mt-4 m-auto">
                   Submit
                 </Button>
               </Form.Item>
             </Form>
           </div>
 
-          <div className="_easyology_welcome_slogan flex mt-12 justify-around">
+          <div className="_easyology_welcome_slogan flex mt-12 justify-around xs:hidden md:flex">
             <div className="_card_image ">
               <img src={cart} alt="Easyology Card" />
             </div>
 
-            <div className="_welcome_header">
+            <div className="_welcome_header mt-2">
               <h3>WELCOME TO EASYOLOGY! 👋 </h3>
               <br />
               <p>
@@ -172,7 +165,7 @@ const Login = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Login;
