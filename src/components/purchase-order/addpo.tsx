@@ -480,7 +480,7 @@ const AddPO = () => {
                   className="h-10 cursor-pointer"
                   onClick={() => setPreviewModalOpen(true)}
                 >
-                 View Cart
+                 Finalize PO
                 </Button>
               }
             </div>

@@ -43,7 +43,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
           className="mt-8"
         >
           <Form.Item
-            label="Category"
+            label={<span className="_po_field_label">Category</span>}
             name="categoryId"
             required
             tooltip="This is a required field"
@@ -69,7 +69,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
             </Select>
           </Form.Item>
           <Form.Item
-            label="Sub Category"
+            label={<span className="_po_field_label">Sub Category</span>}
             name="name"
             required
             tooltip="This is a required field"

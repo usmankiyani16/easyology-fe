@@ -86,14 +86,14 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                   <span className="font-medium ">{dayjs(data?.due_date).tz("America/New_York").format('dddd h A z')}</span>
                 </div>
               </div>
-              <div className="flex flex-col justify-self-end items-center justify-between">
+              {<div className="flex flex-col justify-self-end items-center justify-between">
                 <span className="font-semibold text-3xl	 _primary-color">
                   ${data?.total_amount}
                 </span>
-                <Button className="" onClick={() => setViewModalOpen(true)}>
+                <Button onClick={() => setViewModalOpen(true)}>
                   View
                 </Button>
-              </div>
+              </div>}
             </div>
           </Card>
         ))}

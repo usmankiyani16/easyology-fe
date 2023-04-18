@@ -3,14 +3,31 @@ import "../modals.scss";
 
 import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import profileupload from '../../../assets/icons/layout/profile-upload.png'
+import profileupload from "../../../assets/icons/layout/profile-upload.png";
 
+const Profilemodal: React.FC<any> = ({
+  profilemodalOpen,
+  setProfileModalOpen,
+}) => {
+  const [showUpload, setShowUpload] = useState(true);
 
-const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) => {
+  const imageUpload = async (e: any) => {
+    const file = e?.file;
+    delete file?.uid;
+    setShowUpload(!showUpload);
+    /* if (showUpload) {
+      const res = await dispatch(uploadMedia(file));
+      if (res?.meta?.requestStatus == "fulfilled") {
+        setProductImage(res?.payload?.data?.fileName);
+      } else Toast("Something went wrong", "error");
+    } */
+    // setFile(e.file);
+  };
+
   return (
     <div className="_modal_wrap">
       <Modal
-        width='372px'
+        width="372px"
         footer={false}
         centered
         open={profilemodalOpen}
@@ -26,23 +43,29 @@ const Profilemodal: React.FC<any> = ({profilemodalOpen,setProfileModalOpen,}) =>
           className="mt-4"
         >
           <Form.Item
-            label="Profile Picture"
-            valuePropName="fileList"
+            label={<span>Profile Picture</span>}
+            name="image"
+            valuePropName="image"
             className="mt-[50px]"
           >
             <Upload
-              action="/upload.do"
-              listType="picture-card"
               className="ml-4"
+              beforeUpload={() => false}
+              onChange={(e) => imageUpload(e)}
+              action=""
+              listType="picture-card"
               multiple={false}
               maxCount={1}
+              showUploadList={{
+                showPreviewIcon: false,
+              }}
+              accept="image/*"
             >
-              <div>
-                {/* <PlusOutlined /> */}
-                {/* <div style={{ marginTop: 8 }}>Upload Image</div> */}
-                <img src={profileupload} alt="" />
-
-              </div>
+              {showUpload && (
+                <div>
+                  <img src={profileupload} alt="" />
+                </div>
+              )}
             </Upload>
           </Form.Item>
 

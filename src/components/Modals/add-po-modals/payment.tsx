@@ -53,23 +53,23 @@ const Payment: React.FC<any> = ({
   };
 
   const handleFinish = async (values: any) => {
-    let paidAmount ;
+    let paidAmount;
     let payload: any = {
       vendorId,
       poducts: dataSource1,
       totalAmount: totalPrice,
-    }
+    };
     if (isFullyPaidChecked) {
       paidAmount = totalPrice;
     } else {
-      paidAmount = Number(values?.price)
-      payload.dueDate = values?.dueDate.toISOString().substr(0, 10)
+      paidAmount = Number(values?.price);
+      payload.dueDate = values?.dueDate.toISOString().substr(0, 10);
       if (payload?.totalAmount < paidAmount) {
         Toast("Total Balance is low", "error");
         return;
       }
-    };
-    payload.paidAmount = paidAmount
+    }
+    payload.paidAmount = paidAmount;
     const res = await dispatch(addPOinBulk(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       setPreviewMaxModalOpen(false);
@@ -130,7 +130,14 @@ const Payment: React.FC<any> = ({
                 rules={[
                   { required: isPartialChecked, validator: validatePrice },
                 ]}
-                label={<span style={{ fontWeight: "600", marginLeft: '2px' }}>Partial Payment Price</span>}
+                label={
+                  <span
+                    className="_po_field_label"
+                    style={{ fontWeight: "600", marginLeft: "2px" }}
+                  >
+                    Partial Payment Price
+                  </span>
+                }
                 name="price"
               >
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
@@ -138,7 +145,7 @@ const Payment: React.FC<any> = ({
                   className="_input h-10 w-[280px] sm:ml-[34px] xs:ml-0"
                   placeholder="0.00"
                   type="number"
-                  prefix='$'
+                  prefix="$"
                 />
               </Form.Item>
             </div>
@@ -149,10 +156,16 @@ const Payment: React.FC<any> = ({
               <Form.Item
                 /*    className="font-semibold" */
                 rules={[{ required: isPartialChecked }]}
-                label={<span style={{ fontWeight: "600", marginLeft: '2px' }}>Due Date</span>}
+                label={
+                  <span
+                    className="_po_field_label"
+                    style={{ fontWeight: "600", marginLeft: "2px" }}
+                  >
+                    Due Date
+                  </span>
+                }
                 name="dueDate"
               >
-
                 <DatePicker className=" sm:ml-[116px] xs:ml-4" />
               </Form.Item>
             </div>

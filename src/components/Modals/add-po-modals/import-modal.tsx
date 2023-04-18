@@ -44,7 +44,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
           <Form.Item
             className="ml-[66px]"
 
-            label="Select Vendor"
+            label={<span className="_po_field_label">Select Vendor</span>}
             name="selectVendor"
             required
             tooltip="This is a required field"

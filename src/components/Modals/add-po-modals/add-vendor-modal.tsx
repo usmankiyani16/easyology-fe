@@ -50,7 +50,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
 
             <div className="_grid1_vendor">
               <Form.Item
-                label="Name"
+                label={<span className="_po_field_label">Name</span>}
                 name="name"
                 required
                 tooltip="This is a required field"
@@ -65,7 +65,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
                 <Input className="h-[40px]" placeholder="Enter User Name" />
               </Form.Item>
               <Form.Item
-                label="Company Name"
+                label={<span className="_po_field_label">Company Name</span>}
                 name="companyName"
                 required
                 tooltip="This is a required field"
@@ -85,7 +85,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
 
             <div className="_grid2_vendor">
               <Form.Item
-                label="Email"
+               label={<span className="_po_field_label">Email</span>}
                 name="email"
                 required
                 tooltip="This is a required field"
@@ -104,7 +104,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
               </Form.Item>
 
               <Form.Item
-                label="Mobile Number"
+                label={<span className="_po_field_label">Mobile Number</span>}
                 name="phoneNumber"
                 required
                 tooltip="This is a required field"
@@ -120,7 +120,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
           </div>
 
           <Form.Item
-            label="Company Address"
+            label={<span className="_po_field_label">Company Address</span>}
             name="companyAddress"
             required
             tooltip="This is a required field"
