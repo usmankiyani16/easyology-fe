@@ -70,20 +70,26 @@ export const addPOinBulk = createAsyncThunk(
 interface purchaseOrderState {
     purchaseOrders: any | null;
     error: string | null;
-    status: string
+    status: string,
+    importModalOpen: boolean
 }
 
 
 const initialState: purchaseOrderState = {
     purchaseOrders: [],
     error: null,
-    status: REQUEST_STATUS.IDLE
+    status: REQUEST_STATUS.IDLE,
+    importModalOpen: false
 };
 
 const purchaseOrdersSlice = createSlice({
     name: 'purchaseOrders',
     initialState,
-    reducers: {},
+    reducers: {
+        setImportModalOpen(state, action) {
+            state.importModalOpen = action.payload
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getPOS.pending, (state, action) => {
@@ -115,6 +121,6 @@ const purchaseOrdersSlice = createSlice({
     }
 });
 
-export const { } = purchaseOrdersSlice.actions;
+export const { setImportModalOpen } = purchaseOrdersSlice.actions;
 
 export default purchaseOrdersSlice.reducer;

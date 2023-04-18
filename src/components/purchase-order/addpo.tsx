@@ -20,12 +20,15 @@ import { Toast } from "../common/toast/toast";
 import { getVendors } from "../../store/vendors/vendors-slice";
 import Loader from "../common/loader/loader";
 import AddSubCategoryModal from "../Modals/add-po-modals/add-sub-cat";
+import { setImportModalOpen } from "../../store/po/po.slice";
 
 const AddPO = () => {
   const dispatch = useAppDispatch();
   const { catogaries, subCategories } = useAppSelector(
     (state) => state.catogaries
   );
+
+  const { importModalOpen } = useAppSelector(state => state.purchaseOrders)
   const { vendors } = useAppSelector((state) => state.vendors);
   const [venderValue, setVenderValue] = useState<any>("");
 
@@ -34,7 +37,7 @@ const AddPO = () => {
   const [catmodalOpen, setCatModalOpen] = useState(false);
   const [subCatmodalOpen, setSubCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
-  const [importModalOpen, setImportModalOpen] = useState(false);
+  // const [importModalOpen, setImportModalOpen] = useState(false);
   const [productImage, setProductImage] = useState<string>("");
   const [showUpload, setShowUpload] = useState(true);
   const [formData, setFormData] = useState<any[]>([]);
@@ -44,7 +47,7 @@ const AddPO = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    
+
     console.log("value", values);
 
     Toast("Product added to cart successfully");
@@ -173,10 +176,7 @@ const AddPO = () => {
       )}
 
       {importModalOpen && (
-        <Importmodal
-          importModalOpen={importModalOpen}
-          setImportModalOpen={setImportModalOpen}
-        />
+        <Importmodal />
       )}
 
       {subCatmodalOpen && (
@@ -333,7 +333,7 @@ const AddPO = () => {
               />
             </Form.Item>
 
-           
+
           </div>
 
           {/*----------------------- Grid 2 ---------------------------- */}
@@ -456,14 +456,14 @@ const AddPO = () => {
               <Input className="_input" placeholder="Enter Product IMEI" />
             </Form.Item>
 
-        
+
           </div>
         </div>
 
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn">
             <Form.Item className="mb-0">
-              <Button type="primary" onClick={() => setImportModalOpen(true)}>
+              <Button type="primary" onClick={() => dispatch(setImportModalOpen(true))}>
                 Import
               </Button>
             </Form.Item>
@@ -480,7 +480,7 @@ const AddPO = () => {
                   className="h-10 cursor-pointer"
                   onClick={() => setPreviewModalOpen(true)}
                 >
-                 View Cart
+                  View Cart
                 </Button>
               }
             </div>
@@ -489,7 +489,7 @@ const AddPO = () => {
           <div className="_submit_btn mr-16">
             <Form.Item className="mb-0">
               <Button type="primary" htmlType="submit">
-                {dataForm && dataForm?.products?.length? "Add More Product": "Add Product"}
+                {dataForm && dataForm?.products?.length ? "Add More Product" : "Add Product"}
               </Button>
             </Form.Item>
 

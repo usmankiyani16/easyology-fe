@@ -7,10 +7,13 @@ import ExportExcel from "../../purchase-order/po-card/po-import/export-excel";
 import Dummy_Add_PO from "../../purchase-order/po-card/po-import/dummy-add-po";
 import BulkUpload from "../../purchase-order/po-card/po-import/bulk-upload";
 import { capitalize } from "../../../utils/functions/functions";
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { setImportModalOpen } from "../../../store/po/po.slice";
 // import UploadExcelTable from "../../purchase-order/po-card/po-import/import-excel";
 
-const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) => {
+const Importmodal: React.FC<any> = () => {
+  const dispatch = useAppDispatch()
+  const { importModalOpen } = useAppSelector(state => state.purchaseOrders)
   const { vendors } = useAppSelector((state) => state.vendors);
   const [isVendorSelected, setIsVendorSelected] = useState(false);
   const [vendorId, setvendorId] = useState()
@@ -28,7 +31,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
         footer={false}
         centered
         open={importModalOpen}
-        onCancel={() => setImportModalOpen(false)}
+        onCancel={() => dispatch(setImportModalOpen(false))}
         destroyOnClose={true}
       >
         <h3 className="_modal_header text-red-500">Import PO In Bulk</h3>
@@ -75,7 +78,7 @@ const Importmodal: React.FC<any> = ({ importModalOpen, setImportModalOpen, }) =>
 
             <ExportExcel excelData={Dummy_Add_PO} fileName={"Export Excel"} />
 
-            <BulkUpload setImportModalOpen={setImportModalOpen} vendorId={vendorId} />
+            <BulkUpload vendorId={vendorId} />
             {/* <UploadExcelTable /> */}
 
 

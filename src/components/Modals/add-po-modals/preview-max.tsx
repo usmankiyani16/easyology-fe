@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "../modals.scss";
 
-import { Modal,  Input, Table } from "antd";
+import { Modal, Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Payment from "./payment";
 import { useAppDispatch } from "../../../store/store";
 import { uploadMedia } from "../../../store/media/media-slice";
 import { Toast } from "../../common/toast/toast";
+import { setImportModalOpen } from "../../../store/po/po.slice";
 
 const PreviewMax: React.FC<any> = ({
   previewMaxmodalOpen,
@@ -17,9 +18,8 @@ const PreviewMax: React.FC<any> = ({
   vendorId,
   paidAmount,
   keys,
-  setImportModalOpen
 }) => {
-  
+
   const dispatch = useAppDispatch()
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
@@ -36,6 +36,7 @@ const PreviewMax: React.FC<any> = ({
           newData[index].image = fileName || '';
           return newData;
         });
+       
       } else {
         Toast("Something went wrong", "error");
       }
@@ -44,7 +45,7 @@ const PreviewMax: React.FC<any> = ({
 
 
   const [dataSource1, setDataSource1] = useState(dataSource?.map((data: any, index: number) => ({
-    id: index+1 ,
+    id: index + 1,
     categoryName: data?.category,
     image: '',
     serial: data?.serial,
@@ -152,9 +153,9 @@ const PreviewMax: React.FC<any> = ({
   ];
   const [showUpload, setShowUpload] = useState(true);
 
-  
 
- 
+
+
 
   const onDeleteProduct = (record: any) => {
     Modal.confirm({
@@ -214,9 +215,9 @@ const PreviewMax: React.FC<any> = ({
           {" "}
         </Table>
 
-      <Payment dataSource1={dataSource1} totalPrice={totalPrice} paidAmount={paidAmount} vendorId={vendorId} setPreviewMaxModalOpen={setPreviewMaxModalOpen} />
+        <Payment dataSource1={dataSource1} totalPrice={totalPrice} paidAmount={paidAmount} vendorId={vendorId} setPreviewMaxModalOpen={setPreviewMaxModalOpen} />
 
-      
+
 
         {/* ---------------------------- Edit Model ----------------------------------------- */}
         <Modal
