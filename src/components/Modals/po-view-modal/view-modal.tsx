@@ -5,14 +5,19 @@ import { PlusOutlined } from "@ant-design/icons";
 import { laptopImg } from "../../../assets/images";
 import Line from "../../../assets/images/Line.png";
 import "../modals.scss";
+import PayModal from "./pay-modal";
 
 const Viewmodal: React.FC<any> = ({
   viewModalOpen,
   setViewModalOpen,
   purchaseOrders,
 }) => {
+
+  const [paymentModalOpen , setPaymentModalOpen] = useState(false)
   return (
-    <div className="_modal_wrap _view_modal_wrap">
+    <div className="_modal_wrap _view_modal_wrap _btnhu">
+
+      <PayModal paymentModalOpen={paymentModalOpen} setPaymentModalOpen={setPaymentModalOpen} />
       {/* ----------- View Modal ------------------ */}
 
       <Modal
@@ -67,6 +72,8 @@ const Viewmodal: React.FC<any> = ({
           
         </div>
 
+        {/* //! Donot touch This commented code as it will be used in upcoming release */}
+
         {/*   <div className="_contact_details mt-4">
           <p className="flex font-bold">
             Address:
@@ -111,10 +118,18 @@ const Viewmodal: React.FC<any> = ({
           </div>
         </div> */}
 
-        <div className="_footer">
+        <div className="_footer mb-6">
           <div className="_inv_status flex justify-between items-center">
             <span className="text-[16px]"> Inv Status: <span className="ml-2 _primary-color">Partially Paid</span></span>
-            <Button className="_bg-primary-color text-white hover:text-white">Pay</Button>
+            <Button 
+            className="_bg-primary-color text-white hover:text-white" 
+            onClick={() => { 
+              setPaymentModalOpen(true)
+              setViewModalOpen(false)
+
+            }
+
+            }>Pay</Button>
             
 
           </div>
@@ -136,6 +151,8 @@ const Viewmodal: React.FC<any> = ({
 
         </div>
       </Modal>
+
+
     </div>
   );
 };

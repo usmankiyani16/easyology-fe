@@ -54,7 +54,7 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
               },
             ]}
           >
-            <Input className="h-[40px]" placeholder="Enter Category Name" />
+            <Input className="h-[40px] _input_string" placeholder="Enter Category Name" />
           </Form.Item>
 
           <div className="flex justify-center">

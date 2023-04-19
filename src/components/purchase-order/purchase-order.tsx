@@ -4,7 +4,7 @@ import Loader from "../common/loader/loader";
 // import { purchaseOrders } from "./mock-data/po-data";
 import POCard from "./po-card/po-card";
 import AddPO from '../../assets/icons/layout/AddPO.png'
-import Viewmodal from "../Modals/add-po-modals/view-modal";
+import Viewmodal from "../Modals/po-view-modal/view-modal";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getPOS } from "../../store/po/po.slice";
 import Spinner from "../common/spinner/spinner";

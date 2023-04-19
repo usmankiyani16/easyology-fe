@@ -56,7 +56,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
             ]}
           >
             <Select
-              className="_input w-24 ml-7"
+              className="_input ml-6"
               placeholder="Add or Select Category"
             >
 
@@ -85,7 +85,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
               },
             ]}
           >
-            <Input className="h-[35px]" placeholder="Enter Category Name" />
+            <Input className="h-[35px] _input_string" placeholder="Enter Category Name" />
           </Form.Item>
 
           <div className="flex justify-center">
