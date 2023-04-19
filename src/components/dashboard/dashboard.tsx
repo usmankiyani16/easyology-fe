@@ -15,15 +15,17 @@ const Dashboard = () => {
     { _id: '15555', value: 'customer 3' },
   ];
   const products = [
-    { _id: '112222', value: 'product 1' },
-    { _id: '122222', value: 'product 2' },
-    { _id: '133333', value: 'product 3' },
+    { _id: '112222', value: 'product 1', qty: 12, price: 24 },
+    { _id: '122222', value: 'product 2', qty: 22, price: 23 },
+    { _id: '133333', value: 'product 3', qty: 32, price: 34 },
   ];
   const handleCustomerSelect = (option: any) => {
+    console.log('customer', option)
     setSelectCustomer(option)
   }
 
   const handleProductSelect = (option: any) => {
+    console.log('product', option)
     setSelectProduct(option)
   }
   return (
