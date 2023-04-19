@@ -146,7 +146,7 @@ const AddPO = () => {
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
         <div>
-          <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
+          <h1 className="font-lato  mt-4 text-[2rem] ml-[70px]">Purchase Order</h1>
         </div>
       </div>
 
@@ -194,7 +194,11 @@ const AddPO = () => {
         autoComplete="off"
         className="mt-4"
       >
-        <div className="_parent_form grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto">
+
+       {/* grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto */}
+       {/* ml-8 mr-24 */}
+
+        <div className="_parent_form flex lg:justify-between ml-[70px] mr-28">
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">
@@ -462,7 +466,7 @@ const AddPO = () => {
 
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn">
-            <Form.Item className="mb-0">
+            <Form.Item className="mb-0 ml-[70px]">
               <Button type="primary" onClick={() => setImportModalOpen(true)}>
                 Import
               </Button>
