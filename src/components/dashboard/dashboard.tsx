@@ -3,42 +3,58 @@ import { SearchOutlined } from '@ant-design/icons';
 import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
+import { useState } from "react";
 
 const Dashboard = () => {
-  const options = [
-    { value: 'Burns Bay Road' },
-    { value: 'Downing Street' },
-    { value: 'Wall Street' },
+  const [selectCustomer, setSelectCustomer] = useState<any>({})
+  const [selectProduct, setSelectProduct] = useState()
+
+  const customers = [
+    { _id: '144444', value: 'customer 1' },
+    { _id: '13232', value: 'customer 2' },
+    { _id: '15555', value: 'customer 3' },
   ];
-  const productsOptions = [
-    { value: 'Burns Bay Road' },
-    { value: 'Downing Street' },
-    { value: 'Wall Street' },
+  const products = [
+    { _id: '112222', value: 'product 1', qty: 12, price: 24 },
+    { _id: '122222', value: 'product 2', qty: 22, price: 23 },
+    { _id: '133333', value: 'product 3', qty: 32, price: 34 },
   ];
+  const handleCustomerSelect = (option: any) => {
+    console.log('customer', option)
+    setSelectCustomer(option)
+  }
+
+  const handleProductSelect = (option: any) => {
+    console.log('product', option)
+    setSelectProduct(option)
+  }
   return (
     <div className="_dashboard">
       <div className="flex gap-3 justify-between items-center">
-        <h1 className="font-semibold text-xl">Invoice #45454</h1>
+        <h1>Customer name: <span className="font-semibold">{selectCustomer?.value ?? ""}</span></h1>
         <div className="flex items-center gap-3">
           <AutoComplete
-            options={options}
+            onSelect={(value, option) => handleCustomerSelect(option)}
+            options={customers}
             filterOption={(inputValue, option) =>
               option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
             }
           >
             <Input
+              className="h-8"
               prefix={<SearchOutlined />}
               placeholder="Search customer"
             />
           </AutoComplete>
           <AutoComplete
-            style={{ width: 200 }}
-            options={productsOptions}
+            onSelect={(value, option) => handleProductSelect(option)}
+            options={products}
             filterOption={(inputValue, option) =>
               option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
             }
           >
             <Input
+              className="h-8"
               prefix={<SearchOutlined />}
               placeholder="Search products"
             />
@@ -47,11 +63,11 @@ const Dashboard = () => {
         </div>
         <div className="flex items-center gap-3">
           <img className="cursor-pointer" src={addCustomereIcon} alt="scanner" />
-          <Button className="bg-white font-semibold">On hold<span className="_primary-color ml-2">{`(2)`}</span></Button>
+          <Button style={{ padding: '0px 34px' }} className="bg-white font-semibold h-8">On hold<span className="_primary-color ml-2">{`(2)`}</span></Button>
         </div>
 
       </div>
-      <div>
+      <div className="mt-7">
         <ItemCard />
       </div>
     </div>

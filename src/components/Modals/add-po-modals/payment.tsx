@@ -23,11 +23,10 @@ import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
-import { addPOinBulk } from "../../../store/po/po.slice";
+import { addPOinBulk, setImportModalOpen } from "../../../store/po/po.slice";
 import { Toast } from "../../common/toast/toast";
 
 const Payment: React.FC<any> = ({
-  setImportModalOpen,
   dataSource1,
   totalPrice,
   vendorId,
@@ -73,7 +72,7 @@ const Payment: React.FC<any> = ({
     const res = await dispatch(addPOinBulk(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       setPreviewMaxModalOpen(false);
-      setImportModalOpen(false);
+      dispatch(setImportModalOpen(false));
     }
   };
 

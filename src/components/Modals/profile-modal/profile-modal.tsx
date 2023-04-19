@@ -4,6 +4,8 @@ import "../modals.scss";
 import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import profileupload from "../../../assets/icons/layout/profile-upload.png";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const Profilemodal: React.FC<any> = ({
   profilemodalOpen,
@@ -23,7 +25,12 @@ const Profilemodal: React.FC<any> = ({
     } */
     // setFile(e.file);
   };
-
+  const navigate = useNavigate()
+  const logout = () => {
+    localStorage.removeItem('user')
+    setProfileModalOpen(false)
+    navigate(ROUTE_CONSTANTS.LOGIN)
+  }
   return (
     <div className="_modal_wrap">
       <Modal
@@ -34,7 +41,7 @@ const Profilemodal: React.FC<any> = ({
         onCancel={() => setProfileModalOpen(false)}
         destroyOnClose={true}
       >
-        <span className="_modal_logout">Logout</span>{" "}
+        <span onClick={logout} className="_modal_logout">Logout</span>{" "}
         <h3 className="_modal_header">Profile</h3>
         <Form
           wrapperCol={{ span: 14 }}

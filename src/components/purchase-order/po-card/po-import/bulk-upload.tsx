@@ -4,8 +4,10 @@ import { UploadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import "../../../Modals/modals.scss";
 import PreviewMax from "../../../Modals/add-po-modals/preview-max";
+import { useAppSelector } from "../../../../store/store";
 
-const BulkUpload: React.FC<any> = ({ vendorId, setImportModalOpen }) => {
+const BulkUpload: React.FC<any> = ({ vendorId }) => {
+  const { importModalOpen } = useAppSelector(state => state.purchaseOrders)
   const [excelData, setExcelData] = useState<any>([]);
   // const [profilemodalOpen, setProfileModalOpen] = useState(false);
   const [fileDeleted, setFileDeleted] = useState(false);
@@ -87,7 +89,6 @@ const BulkUpload: React.FC<any> = ({ vendorId, setImportModalOpen }) => {
         dataSource={dataSource}
         keys={coloumn}
         vendorId={vendorId}
-        setImportModalOpen={setImportModalOpen}
       // dataSource={dataSource} columns={coloumn} 
       />}
 
