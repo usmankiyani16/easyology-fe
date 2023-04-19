@@ -466,8 +466,8 @@ const AddPO = () => {
 
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn">
-            <Form.Item className="mb-0 ml-[70px]">
-              <Button type="primary" onClick={() => dispatch(setImportModalOpen(true))}>
+            <Form.Item className="mb-0 ml-[70px] w-40">
+              <Button className="w-44" type="primary" onClick={() => dispatch(setImportModalOpen(true))}>
                 Import
               </Button>
             </Form.Item>
@@ -492,12 +492,12 @@ const AddPO = () => {
 
           <div className="_submit_btn mr-16">
             <Form.Item className="mb-0">
-              <Button type="primary" htmlType="submit">
+              <Button className="w-44"  type="primary" htmlType="submit">
                 {dataForm && dataForm?.products?.length ? "Add More Product" : "Add Product"}
               </Button>
             </Form.Item>
 
-            <p className="_submit_btn_msg">
+            <p className="_submit_btn_msg w-44">
               Submit via sent email to the vendor{" "}
             </p>
           </div>

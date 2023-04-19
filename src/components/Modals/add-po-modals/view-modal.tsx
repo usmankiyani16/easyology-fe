@@ -13,7 +13,6 @@ const Viewmodal: React.FC<any> = ({
 }) => {
   return (
     <div className="_modal_wrap _view_modal_wrap">
-
       {/* ----------- View Modal ------------------ */}
 
       <Modal
@@ -28,15 +27,14 @@ const Viewmodal: React.FC<any> = ({
           PO Number: <span className="text-red-500">#456</span>
         </h4>
         <h4 className="_company_name">Lenovo Company</h4>
-        <p className="_sheduled_date font-medium">
+        {/* <p className="_sheduled_date font-medium">
           Sheduled:{" "}
           <span className="text-black font-medium"> Friday 12 AM EST</span>
-        </p>
+        </p> */}
 
         {/* --------------- Products Container -------------------- */}
 
-        <div className="mt-2" style={{ height: "200px", overflowY: "auto" }}>
-
+        <div className="mt-2" style={{ height: "290px", overflowY: "auto" }}>
           {/* --------- Purchase Order data ka map yaha lagega -------------- */}
 
           <p className="_product_id font-bold">
@@ -65,9 +63,11 @@ const Viewmodal: React.FC<any> = ({
           </div>
 
           <img src={Line} alt="" />
+
+          
         </div>
 
-        <div className="_contact_details mt-4">
+        {/*   <div className="_contact_details mt-4">
           <p className="flex font-bold">
             Address:
             <span className="_address_details ml-[12px]">
@@ -85,11 +85,11 @@ const Viewmodal: React.FC<any> = ({
           <p className="_label font-bold">
             Delivery Type: <span className=" text-red-500">Standard</span>
           </p>
-        </div>
+        </div> */}
 
         {/* ----------------- Footer ------------------------------ */}
 
-        <div className="_footer mt-6 font-bold">
+     {/*    <div className="_footer mt-6 font-bold">
           <div className="flex justify-between">
             <p className="_label">Total Discount</p>
             <p>$ 1500</p>
@@ -109,6 +109,31 @@ const Viewmodal: React.FC<any> = ({
             <p className="_label _label_total">Total</p>
             <p className="_label_total">$ 1500</p>
           </div>
+        </div> */}
+
+        <div className="_footer">
+          <div className="_inv_status flex justify-between items-center">
+            <span className="text-[16px]"> Inv Status: <span className="ml-2 _primary-color">Partially Paid</span></span>
+            <Button className="_bg-primary-color text-white hover:text-white">Pay</Button>
+            
+
+          </div>
+
+          <div className="_total_paid">
+          <span> Total Paid: <span className="ml-2 _success_color">$ 900</span></span>
+
+          </div>
+
+          <div className="_total_remaining">
+          <span> Total Remaining: <span className="ml-2 _primary-color">$ 300</span></span>
+
+          </div>
+
+          <div className="_remaining_due_date">
+          <span> Remaining Due Date: <span className="ml-2 _primary-color">$ 300</span></span>
+
+          </div>
+
         </div>
       </Modal>
     </div>

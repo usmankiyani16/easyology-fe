@@ -14,7 +14,7 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    monospace, ;
 }
 
 .ant-menu-item-selected {
@@ -43,4 +43,8 @@ code {
 .ant-btn-primary {
   color: $white-color;
   background-color: $primary-color;
+}
+
+._success_color {
+  color: $success-color; ;
 }

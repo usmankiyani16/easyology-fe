@@ -30,11 +30,12 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
         <Form
           // labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
-          layout="horizontal"
+          layout='horizontal'
           // style={{ maxWidth:  }}
           onFinish={onFinish}
           autoComplete="off"
           className="mt-8"
+          
         >
           <Form.Item
             label={<span className="_po_field_label">Category</span>}
