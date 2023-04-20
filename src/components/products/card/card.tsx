@@ -3,7 +3,7 @@ import React from "react";
 import { addIcon } from "../../../assets/images";
 
 const CardComponent: React.FC<any> = ({ label, img ,color}) => (
-  <Card style={{ width: "10.688rem", height: "12.063rem" }}>
+  <Card >
     <img src={img} alt="laptop" />
     <div className="flex items-center justify-between">
       <span className='_productname'>{label}</span>

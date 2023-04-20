@@ -1,9 +1,11 @@
-import { Input, Select } from 'antd'
+import { Input, Pagination, Select } from 'antd'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/store'
 import { getCatogaries, getSubCatogaries } from '../../store/catogaries/catogaries-slice';
 import { capitalize } from '../../utils/functions/functions';
 import { SearchOutlined } from '@ant-design/icons';
+import CardComponent from '../products/card/card';
+import { mobileAccessoriesData } from '../products/tabs/tabs-mock-data';
 
 const History = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +20,7 @@ const History = () => {
       <div className='flex justify-between mt-3'>
         <div className='flex gap-3'>
           <div className='flex flex-col gap-1'>
-            <label>Category: </label>
+            {/* <label>Category: </label> */}
             <Select
               className="w-44 h-8"
               placeholder="Select Category"
@@ -35,7 +37,7 @@ const History = () => {
             </Select>
           </div>
           <div className='flex flex-col gap-1'>
-            <label>Sub category: </label>
+            {/* <label>Sub category: </label> */}
             <Select
               className="w-44 h-8"
               placeholder="Select sub category"
@@ -59,6 +61,13 @@ const History = () => {
           />
         </div>
       </div>
+      {/* products */}
+      <div className="my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 sm:gap-x-24 ">
+        {mobileAccessoriesData?.map((item, index: number) => (
+          <CardComponent key={index} label={item?.label} img={item?.img} />
+        ))}
+      </div>
+      <Pagination className='flex justify-content-end' defaultCurrent={1} total={50} />
     </div>
   )
 }
