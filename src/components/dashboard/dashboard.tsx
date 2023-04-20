@@ -5,6 +5,7 @@ import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
 import { useState } from "react";
 import { laptopImg } from "../../assets/images";
+import Operations from "./operations/operations";
 
 const Dashboard = () => {
   const [selectCustomer, setSelectCustomer] = useState<any>({})
@@ -70,13 +71,14 @@ const Dashboard = () => {
         </div>
         <div className="flex items-center gap-3">
           <img className="cursor-pointer" src={addCustomereIcon} alt="scanner" />
-          <Button style={{ padding: '0px 34px' }} className="bg-white font-semibold h-8">On hold<span className="_primary-color ml-2">{`(2)`}</span></Button>
+          <Button className="bg-white font-semibold h-8 flex items-center justify-center">On hold<span className="_primary-color ml-2">{`(2)`}</span></Button>
         </div>
 
       </div>
       <div className="mt-7">
         <ItemCard products={products} setProducts={setProducts} />
       </div>
+      <Operations />
     </div>
   );
 };
