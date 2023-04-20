@@ -4,29 +4,36 @@ import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
 import { useState } from "react";
+import { laptopImg } from "../../assets/images";
 
 const Dashboard = () => {
   const [selectCustomer, setSelectCustomer] = useState<any>({})
   const [selectProduct, setSelectProduct] = useState()
+  const [products, setProducts] = useState<any>([
+    { _id: '0001', name: 'Laptop Lenovo Series 4', image: laptopImg, qty: 23, price: 23 }
+  ])
 
-  const customers = [
+  const customerOptions = [
     { _id: '144444', value: 'customer 1' },
     { _id: '13232', value: 'customer 2' },
     { _id: '15555', value: 'customer 3' },
   ];
-  const products = [
-    { _id: '112222', value: 'product 1', qty: 12, price: 24 },
-    { _id: '122222', value: 'product 2', qty: 22, price: 23 },
-    { _id: '133333', value: 'product 3', qty: 32, price: 34 },
+  const productOptions = [
+    { _id: '112222', value: 'product 1', image: laptopImg, qty: 12, price: 24 },
+    { _id: '122222', value: 'product 2', image: laptopImg, qty: 22, price: 23 },
+    { _id: '133333', value: 'product 3', image: laptopImg, qty: 32, price: 34 },
   ];
   const handleCustomerSelect = (option: any) => {
     console.log('customer', option)
     setSelectCustomer(option)
   }
 
-  const handleProductSelect = (option: any) => {
-    console.log('product', option)
-    setSelectProduct(option)
+  const handleProductSelect = (product: any) => {
+    console.log('product', product)
+    product.name = product?.value
+    delete product.value
+    setProducts((prevProducts: any) => [...prevProducts, product])
+    setSelectProduct(product)
   }
   return (
     <div className="_dashboard">
@@ -35,7 +42,7 @@ const Dashboard = () => {
         <div className="flex items-center gap-3">
           <AutoComplete
             onSelect={(value, option) => handleCustomerSelect(option)}
-            options={customers}
+            options={customerOptions}
             filterOption={(inputValue, option) =>
               option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
             }
@@ -48,7 +55,7 @@ const Dashboard = () => {
           </AutoComplete>
           <AutoComplete
             onSelect={(value, option) => handleProductSelect(option)}
-            options={products}
+            options={productOptions}
             filterOption={(inputValue, option) =>
               option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
             }
@@ -68,7 +75,7 @@ const Dashboard = () => {
 
       </div>
       <div className="mt-7">
-        <ItemCard />
+        <ItemCard products={products} setProducts={setProducts} />
       </div>
     </div>
   );
