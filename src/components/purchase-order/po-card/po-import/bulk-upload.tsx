@@ -7,7 +7,7 @@ import PreviewMax from "../../../Modals/add-po-modals/preview-max";
 import { useAppSelector } from "../../../../store/store";
 
 const BulkUpload: React.FC<any> = ({ vendorId }) => {
-  const { importModalOpen } = useAppSelector(state => state.purchaseOrders)
+  const { importModalOpen } = useAppSelector((state) => state.purchaseOrders);
   const [excelData, setExcelData] = useState<any>([]);
   // const [profilemodalOpen, setProfileModalOpen] = useState(false);
   const [fileDeleted, setFileDeleted] = useState(false);
@@ -15,7 +15,6 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
 
   const [coloumn, setColoumn] = useState<any>();
   const [dataSource, setDataSource] = useState<any>();
-
 
   const [form] = Form.useForm();
 
@@ -25,8 +24,8 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
   // useEffect(() => {
   //   setImportModalOpen(false)
   // }, [])
-  const handleUpload = (file: Blob) => {
 
+  const handleUpload = (file: Blob) => {
     const fileReader = new FileReader();
     fileReader.onload = (e: any) => {
       const data = new Uint8Array(e.target.result);
@@ -37,24 +36,30 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
 
       const keys: any = dataFromExcel.shift(); // remove the headers
       const objectData = dataFromExcel.map((row: any) => {
-        return keys.reduce((obj: { [x: string]: any; }, key: string | number, index: string | number) => {
-          obj[key] = row[index];
-          return obj;
-        }, {});
+        return keys.reduce(
+          (
+            obj: { [x: string]: any },
+            key: string | number,
+            index: string | number
+          ) => {
+            obj[key] = row[index];
+            return obj;
+          },
+          {}
+        );
       });
 
-      setColoumn(keys)
-      setDataSource(objectData)
+      setColoumn(keys);
+      setDataSource(objectData);
 
       setExcelData(dataFromExcel);
       /* setProfileModalOpen(true); */
-      setPreviewMaxModalOpen(true)
+      setPreviewMaxModalOpen(true);
     };
     fileReader.readAsArrayBuffer(file);
 
     // setImportModalOpen(false)
   };
-
 
   const columns: any =
     excelData[0] &&
@@ -62,54 +67,52 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
       title: col,
       dataIndex: index,
       key: index,
-      render: (text: any, record: { key: string; }) => {
+      render: (text: any, record: { key: string }) => {
         return (
           <>
             <Form.Item name={index + "-" + record.key} initialValue={text}>
               <input />
             </Form.Item>
-
           </>
-
         );
-
-
       },
-
     }));
-
-
 
   return (
     <div>
-
-      {previewMaxmodalOpen && <PreviewMax
-        previewMaxmodalOpen={previewMaxmodalOpen}
-        setPreviewMaxModalOpen={setPreviewMaxModalOpen}
-        dataSource={dataSource}
-        keys={coloumn}
-        vendorId={vendorId}
-      // dataSource={dataSource} columns={coloumn} 
-      />}
-
-
-
+      {previewMaxmodalOpen && (
+        <PreviewMax
+          previewMaxmodalOpen={previewMaxmodalOpen}
+          setPreviewMaxModalOpen={setPreviewMaxModalOpen}
+          dataSource={dataSource}
+          keys={coloumn}
+          vendorId={vendorId}
+          // dataSource={dataSource} columns={coloumn}
+        />
+      )}
 
       {/* <PreviewMax dataSource={dataSource} columns={coloumn} /> */}
 
-      <Form form={form} >
+      <Form form={form}>
         <Form.Item
           name="file"
           rules={[{ required: true, message: "Please select an Excel file." }]}
         >
-          <Upload accept=".xlsx, .xls" beforeUpload={handleUpload} multiple={false} maxCount={1}>
-            <Button className="className='w-[200px] ml-[68px] mt-10 m-auto" icon={<UploadOutlined />}>Select Excel File</Button>
+          <Upload
+            accept=".xlsx, .xls"
+            beforeUpload={handleUpload}
+            multiple={false}
+            maxCount={1}
+          >
+            <Button
+              className="className='w-[200px] ml-[68px] mt-10 m-auto"
+              icon={<UploadOutlined />}
+            >
+              Select Excel File
+            </Button>
           </Upload>
         </Form.Item>
-
-    
       </Form>
-
     </div>
   );
 };

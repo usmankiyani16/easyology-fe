@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { capitalize } from "../../../utils/functions/functions";
 import "./po-card.scss";
 import Viewmodal from "../../Modals/po-view-modal/view-modal";
-import dayjs from 'dayjs';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -34,15 +34,16 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
       <Viewmodal
         viewModalOpen={viewModalOpen}
         setViewModalOpen={setViewModalOpen}
-        purchaseOrders = {purchaseOrders}
+        purchaseOrders={purchaseOrders}
       />
       <div className="flex flex-col gap-4">
         {purchaseOrders?.map((data: any) => (
           <Card key={data?.key} className="_po-card">
             <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
               <div
-                className={`flex flex-col justify-between${applyBorder ? " _border-r" : ""
-                  } pr-7 mr-7`}
+                className={`flex flex-col justify-between${
+                  applyBorder ? " _border-r" : ""
+                } pr-7 mr-7`}
               >
                 <div className="flex text-lg gap-4">
                   <span className="font-medium">PO Number:</span>
@@ -58,8 +59,9 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 </div>
               </div>
               <div
-                className={`flex flex-col justify-between${applyBorder ? " _border-r" : ""
-                  } pr-7 mr-7`}
+                className={`flex flex-col justify-between${
+                  applyBorder ? " _border-r" : ""
+                } pr-7 mr-7`}
               >
                 {data?.product?.slice(0, 3).map((prod: any, index: number) => (
                   <div key={index} className="flex text-lg gap-4">
@@ -83,17 +85,21 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 </div>
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Due Date:</span>
-                  <span className="font-medium ">{dayjs(data?.due_date).tz("America/New_York").format('dddd h A z')}</span>
+                  <span className="font-medium ">
+                    {dayjs(data?.due_date)
+                      .tz("America/New_York")
+                      .format("dddd h A z")}
+                  </span>
                 </div>
               </div>
-              {<div className="flex flex-col justify-self-end items-center justify-between">
-                <span className="font-semibold text-3xl	 _primary-color">
-                  ${data?.total_amount}
-                </span>
-                <Button onClick={() => setViewModalOpen(true)}>
-                  View
-                </Button>
-              </div>}
+              {
+                <div className="flex flex-col justify-self-end items-center justify-between">
+                  <span className="font-semibold text-3xl	 _primary-color">
+                    ${data?.total_amount}
+                  </span>
+                  <Button onClick={() => setViewModalOpen(true)}>View</Button>
+                </div>
+              }
             </div>
           </Card>
         ))}

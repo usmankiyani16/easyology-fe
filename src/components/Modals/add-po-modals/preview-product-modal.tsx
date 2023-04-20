@@ -242,18 +242,18 @@ const PreviewModal: React.FC<any> = ({
     let payload: any = {
       ...newObject,
       totalAmount: totalPrice,
-    }
+    };
     if (isFullyPaidChecked) {
       paidAmount = totalPrice;
     } else {
-      paidAmount = Number(values?.price)
-      payload.dueDate = values?.dueDate?.toISOString().substr(0, 10)
+      paidAmount = Number(values?.price);
+      payload.dueDate = values?.dueDate?.toISOString().substr(0, 10);
       if (payload.totalAmount < paidAmount) {
         Toast("Total Balance is low", "error");
         return;
       }
-    };
-    payload.paidAmount = paidAmount
+    }
+    payload.paidAmount = paidAmount;
     const res = await dispatch(addPO(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       setPreviewModalOpen(false);
@@ -290,8 +290,6 @@ const PreviewModal: React.FC<any> = ({
         <h3 className="_modal_header_poView">Purchase Order Overview</h3>
 
         <div className="_preview_po mt-6">
-
-
           <div className="m-4">
             <p className="_modal_para">
               Vendor Name:{" "}
@@ -304,15 +302,12 @@ const PreviewModal: React.FC<any> = ({
             </p> */}
           </div>
 
-
-
           <Table
             columns={columns}
             dataSource={myData}
             className="mt-4"
             pagination={false}
             scroll={{ y: 120 }}
-
           />
           <div className="_footer flex justify-between mb-6">
             <div>
@@ -381,7 +376,11 @@ const PreviewModal: React.FC<any> = ({
               </div>
             )}
 
-            <div className={`${!isPartialChecked && "mt-6"} flex flex-col text-red-500  flex self-end ml-2 float-right`} >
+            <div
+              className={`${
+                !isPartialChecked && "mt-6"
+              } flex flex-col text-red-500  flex self-end ml-2 float-right`}
+            >
               Remaining amount: {remainingPrice}
             </div>
 

@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center w-full pt-3 px-5">
+      <div className="_header_wrap flex justify-between items-center w-full pt-3 px-5">
         <div className="flex gap-2 w-1/3">
           <div className="flex flex-col items-center">
             <img

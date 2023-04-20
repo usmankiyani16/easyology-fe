@@ -1,23 +1,20 @@
-
-
 // .ant-input-search .ant-input-search-button {
 //     height:32px
 // }
 
-._current_date, ._profile {
-    font-family: 'Lato';
+._header_wrap {
+  ._current_date,
+  ._profile {
+    font-family: "Lato";
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
     // line-height: 26px;
     color: rgba(0, 0, 0, 0.47);
-}
-._profile{
+  }
+  ._profile {
     font-size: 12px;
     text-align: center;
-
+  }
 }
 
-// .ant-input-affix-wrapper {
-//     padding: 0.5px 6px;
-// }

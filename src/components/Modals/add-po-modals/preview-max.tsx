@@ -19,8 +19,7 @@ const PreviewMax: React.FC<any> = ({
   paidAmount,
   keys,
 }) => {
-
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
 
@@ -33,39 +32,39 @@ const PreviewMax: React.FC<any> = ({
         setDataSource1((prevState: any) => {
           const newData = [...prevState];
           // const index = newData.findIndex((data: any) => data.id === id);
-          newData[index].image = fileName || '';
+          newData[index].image = fileName || "";
           return newData;
         });
-       
       } else {
         Toast("Something went wrong", "error");
       }
     }
   };
 
+  const [dataSource1, setDataSource1] = useState(
+    dataSource?.map((data: any, index: number) => ({
+      id: index + 1,
+      categoryName: data?.category,
+      image: "",
+      serial: data?.serial,
+      name: data?.product,
+      subCategoryName: data?.productType,
+      quantity: Number(data?.quantity),
+      price: Number(data?.price),
+      color: data?.color,
+      size: data?.size,
+      description: data?.productDescription,
+      threshold: data?.threshold,
+      iemiNumber: data?.imeiNumber,
+    }))
+  );
 
-  const [dataSource1, setDataSource1] = useState(dataSource?.map((data: any, index: number) => ({
-    id: index + 1,
-    categoryName: data?.category,
-    image: '',
-    serial: data?.serial,
-    name: data?.product,
-    subCategoryName: data?.productType,
-    quantity: Number(data?.quantity),
-    price: Number(data?.price),
-    color: data?.color,
-    size: data?.size,
-    description: data?.productDescription,
-    threshold: data?.threshold,
-    iemiNumber: data?.imeiNumber
-  })))
-
-
-  const totalPrice = dataSource1?.reduce((accumulator: number, product: { price: number; quantity: number; }) => {
-    return accumulator + Number(product.price) * Number(product.quantity);
-  }, 0);
-
-
+  const totalPrice = dataSource1?.reduce(
+    (accumulator: number, product: { price: number; quantity: number }) => {
+      return accumulator + Number(product.price) * Number(product.quantity);
+    },
+    0
+  );
 
   const columns = [
     {
@@ -89,7 +88,7 @@ const PreviewMax: React.FC<any> = ({
               accept="image/*"
               onChange={(e) => imageUpload(e, index)}
             />
-          );;
+          );
         }
       },
     },
@@ -153,10 +152,6 @@ const PreviewMax: React.FC<any> = ({
   ];
   const [showUpload, setShowUpload] = useState(true);
 
-
-
-
-
   const onDeleteProduct = (record: any) => {
     Modal.confirm({
       title: "Are you sure, you want to delete this Product?",
@@ -165,7 +160,9 @@ const PreviewMax: React.FC<any> = ({
       okType: "danger",
       onOk: () => {
         setDataSource1((pre: any) => {
-          return pre?.filter((product: { id: any }) => product.id !== record.id);
+          return pre?.filter(
+            (product: { id: any }) => product.id !== record.id
+          );
         });
       },
     });
@@ -186,7 +183,6 @@ const PreviewMax: React.FC<any> = ({
 
       <Modal
         footer={false}
-
         centered
         open={previewMaxmodalOpen}
         onCancel={() => setPreviewMaxModalOpen(false)}
@@ -216,9 +212,13 @@ const PreviewMax: React.FC<any> = ({
           {" "}
         </Table>
 
-        <Payment dataSource1={dataSource1} totalPrice={totalPrice} paidAmount={paidAmount} vendorId={vendorId} setPreviewMaxModalOpen={setPreviewMaxModalOpen} />
-
-
+        <Payment
+          dataSource1={dataSource1}
+          totalPrice={totalPrice}
+          paidAmount={paidAmount}
+          vendorId={vendorId}
+          setPreviewMaxModalOpen={setPreviewMaxModalOpen}
+        />
 
         {/* ---------------------------- Edit Model ----------------------------------------- */}
         <Modal

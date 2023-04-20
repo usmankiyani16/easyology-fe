@@ -5,19 +5,16 @@ import { Button, Modal, Form, Input } from "antd";
 import { useAppDispatch } from "../../../store/store";
 import { addCatogary } from "../../../store/catogaries/catogaries-slice";
 
-
-
 const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const onFinish = async (values: any) => {
-    const res = await dispatch(addCatogary(values))
+    const res = await dispatch(addCatogary(values));
     if (res?.meta?.requestStatus === "fulfilled") {
-      setCatModalOpen(false)
+      setCatModalOpen(false);
     }
   };
   return (
-    <div >
-
+    <div>
       <Modal
         footer={false}
         centered
@@ -31,12 +28,11 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
         <Form
           // labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
-          layout='horizontal'
+          layout="horizontal"
           // style={{ maxWidth:  }}
           onFinish={onFinish}
           autoComplete="off"
           className="mt-8"
-          
         >
           <Form.Item
             label={<span className="_po_field_label">Category</span>}
@@ -55,7 +51,10 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
               },
             ]}
           >
-            <Input className="h-[40px] _input_field" placeholder="Enter Category Name" />
+            <Input
+              className="h-[40px] _input_field"
+              placeholder="Enter Category Name"
+            />
           </Form.Item>
 
           <div className="flex justify-center">

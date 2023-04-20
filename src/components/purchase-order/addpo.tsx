@@ -144,11 +144,16 @@ const AddPO = () => {
     const vandorName = vendors?.find((data: any) => data?._id == value);
     setSeletedVendor(vandorName);
   };
+
+  const selectProps = {
+    dropdownStyle: { maxHeight: 140 },
+  };
+
   return (
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
         <div>
-          <h1 className="font-lato mt-4 text-[2rem] ml-[70px]">
+          <h1 className="font-lato mt-4 text-[2rem] lg:ml-[70px]">
             Purchase Order
           </h1>
         </div>
@@ -218,6 +223,7 @@ const AddPO = () => {
                 ]}
               >
                 <Select
+                  {...selectProps}
                   defaultValue={selectedVendor?._id}
                   value={selectedVendor?._id}
                   className="_input"
@@ -375,6 +381,7 @@ const AddPO = () => {
                 ]}
               >
                 <Select
+                   {...selectProps}
                   className="_input w-24"
                   placeholder="Add or Select Category"
                   onChange={(value: any) => dispatch(getSubCatogaries(value))}
@@ -434,6 +441,7 @@ const AddPO = () => {
                 name="subCategory"
               >
                 <Select
+                  {...selectProps}
                   className="_input select_input"
                   placeholder="Select sub category"
                 >
@@ -457,8 +465,8 @@ const AddPO = () => {
 
             <Form.Item
               label={
-                <span className="_po_field_label  ml-[10px]">
-                  Product Serail #
+                <span className="_po_field_label">
+                  Product Serial #
                 </span>
               }
               name="serial"

@@ -12,21 +12,25 @@ import { setImportModalOpen } from "../../../store/po/po.slice";
 // import UploadExcelTable from "../../purchase-order/po-card/po-import/import-excel";
 
 const Importmodal: React.FC<any> = () => {
-  const dispatch = useAppDispatch()
-  const { importModalOpen } = useAppSelector(state => state.purchaseOrders)
+  const dispatch = useAppDispatch();
+  const { importModalOpen } = useAppSelector((state) => state.purchaseOrders);
   const { vendors } = useAppSelector((state) => state.vendors);
   const [isVendorSelected, setIsVendorSelected] = useState(false);
-  const [vendorId, setvendorId] = useState()
+  const [vendorId, setvendorId] = useState();
 
   const handleVendorSelect = (value: any) => {
-    setvendorId(value)
+    setvendorId(value);
     setIsVendorSelected(true);
   };
-  const onFinish = (values: any) => { }
+  const onFinish = (values: any) => {};
+
+  const selectProps = {
+    dropdownStyle: { maxHeight: 140 },
+  };
+
   return (
     <div>
       <Modal
-
         width="400px"
         footer={false}
         centered
@@ -34,20 +38,22 @@ const Importmodal: React.FC<any> = () => {
         onCancel={() => dispatch(setImportModalOpen(false))}
         destroyOnClose={true}
         className="_modal_wrap"
+        
+        
+        
       >
         <h3 className="_modal_header text-red-500">Import PO In Bulk</h3>
         <Form
           /*   labelCol={{ span: 114 }} */
           wrapperCol={{ span: 14 }}
-          layout='vertical'
+          layout="vertical"
           // style={{ maxWidth:  }}
           onFinish={onFinish}
           autoComplete="off"
-          className="mt-10"
+          className={`${!isVendorSelected && "h-52"} mt-10`}
         >
           <Form.Item
             className="ml-[66px]"
-
             label={<span className="_po_field_label">Select Vendor</span>}
             name="selectVendor"
             required
@@ -63,7 +69,13 @@ const Importmodal: React.FC<any> = () => {
               },
             ]}
           >
-            <Select className="_input" style={{ width: '210px' }} placeholder="Select Vendor" onSelect={handleVendorSelect}>
+            <Select
+              className="_input"
+              style={{ width: "210px" }}
+              placeholder="Select Vendor"
+              onSelect={handleVendorSelect}
+              {...selectProps}
+            >
               {vendors?.map((vendor: any, index: number) => (
                 <Select.Option key={vendor?._id} value={vendor?._id}>
                   {capitalize(vendor?.name)}
@@ -71,18 +83,14 @@ const Importmodal: React.FC<any> = () => {
               ))}
             </Select>
           </Form.Item>
-
         </Form>
 
         {isVendorSelected && (
           <>
-
             <ExportExcel excelData={Dummy_Add_PO} fileName={"Export Excel"} />
 
             <BulkUpload vendorId={vendorId} />
             {/* <UploadExcelTable /> */}
-
-
           </>
         )}
       </Modal>

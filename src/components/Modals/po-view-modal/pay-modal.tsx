@@ -4,17 +4,19 @@ import "../modals.scss";
 import { Modal, Form, Select, Button, Input } from "antd";
 
 const PayModal: React.FC<any> = ({ paymentModalOpen, setPaymentModalOpen }) => {
-  const [showInput, setShowInput] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
   function handleSelect(value: any) {
     setSelectedOption(value);
-    setShowInput(value === "Check");
+  
   }
 
   const onFinish = (values: any) => {
     console.log(values, "Ye values hai");
+    
   };
+
+
 
   return (
     <div>
@@ -54,6 +56,7 @@ const PayModal: React.FC<any> = ({ paymentModalOpen, setPaymentModalOpen }) => {
               className="_input_field ml-16 w-[700px]"
               placeholder="Payment Method"
               onChange={handleSelect}
+       
             >
               <Select.Option value="Check">Check</Select.Option>
               <Select.Option value="Cash">Cash</Select.Option>
@@ -61,8 +64,7 @@ const PayModal: React.FC<any> = ({ paymentModalOpen, setPaymentModalOpen }) => {
             </Select>
           </Form.Item>
 
-
-          {selectedOption === 'Check' && (
+          {selectedOption === "Check" && (
             <div>
               <Form.Item
                 className="mt-12 ml-16"
@@ -97,19 +99,19 @@ const PayModal: React.FC<any> = ({ paymentModalOpen, setPaymentModalOpen }) => {
             </div>
           )}
 
-      {(selectedOption === 'Cash' || selectedOption === 'CC') && (
-        <div className="flex justify-center mt-16">
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="w-36 text-center text-lg"
-          >
-            Done
-          </Button>
-        </Form.Item>
-      </div>
-      )}
+          {(selectedOption === "Cash" || selectedOption === "CC") && (
+            <div className="flex justify-center mt-16">
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="w-36 text-center text-lg"
+                >
+                  Done
+                </Button>
+              </Form.Item>
+            </div>
+          )}
         </Form>
       </Modal>
     </div>

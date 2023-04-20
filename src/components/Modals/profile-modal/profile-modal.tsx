@@ -25,12 +25,12 @@ const Profilemodal: React.FC<any> = ({
     } */
     // setFile(e.file);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const logout = () => {
-    localStorage.removeItem('user')
-    setProfileModalOpen(false)
-    navigate(ROUTE_CONSTANTS.LOGIN)
-  }
+    localStorage.removeItem("user");
+    setProfileModalOpen(false);
+    navigate(ROUTE_CONSTANTS.LOGIN);
+  };
   return (
     <div>
       <Modal
@@ -42,7 +42,9 @@ const Profilemodal: React.FC<any> = ({
         destroyOnClose={true}
         className="_modal_wrap"
       >
-        <span onClick={logout} className="_modal_logout">Logout</span>{" "}
+        <span onClick={logout} className="_modal_logout">
+          Logout
+        </span>{" "}
         <h3 className="_modal_header">Profile</h3>
         <Form
           wrapperCol={{ span: 14 }}

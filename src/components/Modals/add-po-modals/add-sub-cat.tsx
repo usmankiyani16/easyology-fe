@@ -3,26 +3,34 @@ import "../modals.scss";
 
 import { Button, Modal, Form, Input, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { addCatogary, addSubCatogary, getSubCatogaries } from "../../../store/catogaries/catogaries-slice";
+import {
+  addCatogary,
+  addSubCatogary,
+  getSubCatogaries,
+} from "../../../store/catogaries/catogaries-slice";
 import Loader from "../../common/loader/loader";
 import { capitalize } from "../../../utils/functions/functions";
 
-
-
-const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpen, }) => {
-  const { catogaries } = useAppSelector(state => state.catogaries)
-  const dispatch = useAppDispatch()
+const AddSubCategoryModal: React.FC<any> = ({
+  subCatmodalOpen,
+  setSubCatmodalOpen,
+}) => {
+  const { catogaries } = useAppSelector((state) => state.catogaries);
+  const dispatch = useAppDispatch();
   const onFinish = async (values: any) => {
-    const res = await dispatch(addSubCatogary(values))
+    const res = await dispatch(addSubCatogary(values));
     if (res?.meta?.requestStatus === "fulfilled") {
-      setSubCatmodalOpen(false)
-      dispatch(getSubCatogaries(values.categoryId))
+      setSubCatmodalOpen(false);
+      dispatch(getSubCatogaries(values.categoryId));
     }
+  };
+
+  const selectProps = {
+    dropdownStyle: { maxHeight: 140 },
   };
 
   return (
     <div>
-
       <Modal
         width={600}
         footer={false}
@@ -59,14 +67,13 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
             <Select
               className="_input_field ml-6"
               placeholder="Add or Select Category"
+              {...selectProps}
             >
-
               {catogaries?.map((catogary: any, index: number) => (
                 <Select.Option key={catogary?._id} value={catogary?._id}>
                   {capitalize(catogary?.name)}
                 </Select.Option>
               ))}
-
             </Select>
           </Form.Item>
           <Form.Item
@@ -86,7 +93,10 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
               },
             ]}
           >
-            <Input className="h-[35px] _input_field" placeholder="Enter Category Name" />
+            <Input
+              className="h-[35px] _input_field"
+              placeholder="Enter Category Name"
+            />
           </Form.Item>
 
           <div className="flex justify-center">
