@@ -112,7 +112,7 @@ const AddPO = () => {
     const price = parseFloat(value);
 
     if (isNaN(price) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
-      callback("Please enter a valid positive number");
+      callback("Please enter positive number");
     } else if (price <= 0) {
       callback("Price must be greater than zero");
     } else {
@@ -130,7 +130,7 @@ const AddPO = () => {
     const quantity = parseFloat(value);
 
     if (isNaN(quantity) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
-      callback("Please enter a valid positive number");
+      callback("Please enter positive number");
     } else if (quantity <= 0) {
       callback("Quantity must be greater than zero");
     } else if (quantity === 0) {
@@ -279,7 +279,7 @@ const AddPO = () => {
               rules={[{ required: true, validator: validatePrice }]}
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input className="_input" placeholder="0.00" prefix="$" />
+              <Input className="_input" type="number" placeholder="0.00" prefix="$" />
             </Form.Item>
             <Form.Item
               label={<span className="_po_field_label">Threshold</span>}
