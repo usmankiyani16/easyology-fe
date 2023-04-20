@@ -16,7 +16,7 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
     }
   };
   return (
-    <div className="_modal_wrap">
+    <div >
 
       <Modal
         footer={false}
@@ -24,6 +24,7 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
         open={catmodalOpen}
         onCancel={() => setCatModalOpen(false)}
         destroyOnClose={true}
+        className="_modal_wrap"
       >
         <h3 className="_modal_header_poView">Add Category</h3>
 
@@ -54,7 +55,7 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
               },
             ]}
           >
-            <Input className="h-[40px] _input_string" placeholder="Enter Category Name" />
+            <Input className="h-[40px] _input_field" placeholder="Enter Category Name" />
           </Form.Item>
 
           <div className="flex justify-center">

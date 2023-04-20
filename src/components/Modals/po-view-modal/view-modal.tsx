@@ -15,7 +15,7 @@ const Viewmodal: React.FC<any> = ({
 
   const [paymentModalOpen , setPaymentModalOpen] = useState(false)
   return (
-    <div className="_modal_wrap _view_modal_wrap _btnhu">
+    <div className="_view_modal_wrap">
 
       <PayModal paymentModalOpen={paymentModalOpen} setPaymentModalOpen={setPaymentModalOpen} />
       {/* ----------- View Modal ------------------ */}
@@ -27,6 +27,7 @@ const Viewmodal: React.FC<any> = ({
         open={viewModalOpen}
         onCancel={() => setViewModalOpen(false)}
         destroyOnClose={true}
+        className="_modal_wrap"
       >
         <h4 className="_po_Number text-xl mt-8">
           PO Number: <span className="text-red-500">#456</span>

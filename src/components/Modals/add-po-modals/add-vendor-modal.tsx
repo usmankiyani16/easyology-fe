@@ -36,6 +36,7 @@ const AddVendorModal: React.FC<any> = ({ vendormodalOpen, setVendorModalOpen }) 
         open={vendormodalOpen}
         onCancel={() => setVendorModalOpen(false)}
         destroyOnClose={true}
+        className="_modal_wrap"
       >
         <h3 className="_modal_header_poView">Add Vendor</h3>
 

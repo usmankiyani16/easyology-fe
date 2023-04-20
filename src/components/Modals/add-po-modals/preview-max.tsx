@@ -181,7 +181,7 @@ const PreviewMax: React.FC<any> = ({
   };
 
   return (
-    <div className="_modal_wrap">
+    <div>
       {/* ---------------- Model for Products ----------------- */}
 
       <Modal
@@ -193,6 +193,7 @@ const PreviewMax: React.FC<any> = ({
         maskClosable={false}
         destroyOnClose={true}
         width="1200px"
+        className="_modal_wrap"
       >
         <h3 className="_modal_header">Product Overview</h3>
         <br />

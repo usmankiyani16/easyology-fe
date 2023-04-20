@@ -21,7 +21,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
   };
 
   return (
-    <div className="_modal_wrap">
+    <div>
 
       <Modal
         width={600}
@@ -30,6 +30,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
         open={subCatmodalOpen}
         onCancel={() => setSubCatmodalOpen(false)}
         destroyOnClose={true}
+        className="_modal_wrap"
       >
         <h3 className="_modal_header_poView">Add Sub Category</h3>
 
@@ -56,7 +57,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
             ]}
           >
             <Select
-              className="_input ml-6"
+              className="_input_field ml-6"
               placeholder="Add or Select Category"
             >
 
@@ -85,7 +86,7 @@ const AddSubCategoryModal: React.FC<any> = ({ subCatmodalOpen, setSubCatmodalOpe
               },
             ]}
           >
-            <Input className="h-[35px] _input_string" placeholder="Enter Category Name" />
+            <Input className="h-[35px] _input_field" placeholder="Enter Category Name" />
           </Form.Item>
 
           <div className="flex justify-center">

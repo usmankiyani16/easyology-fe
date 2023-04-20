@@ -24,7 +24,7 @@ const Importmodal: React.FC<any> = () => {
   };
   const onFinish = (values: any) => { }
   return (
-    <div className="_modal_wrap">
+    <div>
       <Modal
 
         width="400px"
@@ -33,6 +33,7 @@ const Importmodal: React.FC<any> = () => {
         open={importModalOpen}
         onCancel={() => dispatch(setImportModalOpen(false))}
         destroyOnClose={true}
+        className="_modal_wrap"
       >
         <h3 className="_modal_header text-red-500">Import PO In Bulk</h3>
         <Form

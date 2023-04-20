@@ -271,7 +271,7 @@ const PreviewModal: React.FC<any> = ({
   };
 
   return (
-    <div className="_modal_wrap">
+    <div>
       <PreviewMax
         previewMaxmodalOpen={previewMaxmodalOpen}
         setPreviewMaxModalOpen={setPreviewMaxModalOpen}
@@ -285,6 +285,7 @@ const PreviewModal: React.FC<any> = ({
         open={previewmodalOpen}
         onCancel={() => setPreviewModalOpen(false)}
         destroyOnClose={true}
+        className="_modal_wrap"
       >
         <h3 className="_modal_header_poView">Purchase Order Overview</h3>
 

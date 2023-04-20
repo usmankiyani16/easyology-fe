@@ -32,7 +32,7 @@ const Profilemodal: React.FC<any> = ({
     navigate(ROUTE_CONSTANTS.LOGIN)
   }
   return (
-    <div className="_modal_wrap">
+    <div>
       <Modal
         width="372px"
         footer={false}
@@ -40,6 +40,7 @@ const Profilemodal: React.FC<any> = ({
         open={profilemodalOpen}
         onCancel={() => setProfileModalOpen(false)}
         destroyOnClose={true}
+        className="_modal_wrap"
       >
         <span onClick={logout} className="_modal_logout">Logout</span>{" "}
         <h3 className="_modal_header">Profile</h3>

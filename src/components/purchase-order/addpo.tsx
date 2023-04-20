@@ -28,7 +28,7 @@ const AddPO = () => {
     (state) => state.catogaries
   );
 
-  const { importModalOpen } = useAppSelector(state => state.purchaseOrders)
+  const { importModalOpen } = useAppSelector((state) => state.purchaseOrders);
   const { vendors } = useAppSelector((state) => state.vendors);
   const [venderValue, setVenderValue] = useState<any>("");
 
@@ -47,7 +47,6 @@ const AddPO = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-
     console.log("value", values);
 
     Toast("Product added to cart successfully");
@@ -149,7 +148,9 @@ const AddPO = () => {
     <div className="_add_po_wrap">
       <div className="_addpo_header flex justify-between items-center">
         <div>
-          <h1 className="font-lato  mt-4 text-[2rem] ml-[70px]">Purchase Order</h1>
+          <h1 className="font-lato mt-4 text-[2rem] ml-[70px]">
+            Purchase Order
+          </h1>
         </div>
       </div>
 
@@ -175,9 +176,7 @@ const AddPO = () => {
         />
       )}
 
-      {importModalOpen && (
-        <Importmodal />
-      )}
+      {importModalOpen && <Importmodal />}
 
       {subCatmodalOpen && (
         <AddSubCategoryModal
@@ -194,11 +193,10 @@ const AddPO = () => {
         autoComplete="off"
         className="mt-4"
       >
+        {/* grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto */}
+        {/* ml-8 mr-24 */}
 
-       {/* grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto */}
-       {/* ml-8 mr-24 */}
-
-        <div className="_parent_form flex lg:justify-between ml-[70px] mr-28">
+        <div className="_parent_form flex xs:flex-col lg:flex-row lg:justify-between lg:ml-[70px] lg:mr-28">
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">
@@ -330,14 +328,19 @@ const AddPO = () => {
               </Upload>
             </Form.Item>
 
-            <Form.Item label={<span className="_po_field_label  ml-[10px]">Product Description</span>} name="productDescription">
+            <Form.Item
+              label={
+                <span className="_po_field_label  ml-[10px]">
+                  Product Description
+                </span>
+              }
+              name="productDescription"
+            >
               <Input
                 className="_input"
                 placeholder="Enter Product Description"
               />
             </Form.Item>
-
-
           </div>
 
           {/*----------------------- Grid 2 ---------------------------- */}
@@ -407,7 +410,9 @@ const AddPO = () => {
               <Input className="_input" placeholder="Specify Color" />
             </Form.Item>
             <Form.Item
-              label={<span className="_po_field_label  ml-[10px]">Product Size</span>}
+              label={
+                <span className="_po_field_label  ml-[10px]">Product Size</span>
+              }
               name="size"
               rules={[
                 {
@@ -420,7 +425,14 @@ const AddPO = () => {
             </Form.Item>
 
             <div className="flex items-center gap-3">
-              <Form.Item label={<span className="_po_field_label  ml-[10px]">Sub Category</span>} name="subCategory">
+              <Form.Item
+                label={
+                  <span className="_po_field_label  ml-[10px]">
+                    Sub Category
+                  </span>
+                }
+                name="subCategory"
+              >
                 <Select
                   className="_input select_input"
                   placeholder="Select sub category"
@@ -443,12 +455,30 @@ const AddPO = () => {
               />
             </div>
 
-            <Form.Item label={<span className="_po_field_label  ml-[10px]">Product Serail #</span>} name="serial">
+            <Form.Item
+              label={
+                <span className="_po_field_label  ml-[10px]">
+                  Product Serail #
+                </span>
+              }
+              name="serial"
+              required
+              tooltip="This is a required field"
+              rules={[
+                {
+                  required: true,
+                  // type: 'email',
+                  message: "Required Field",
+                },
+              ]}
+            >
               <Input className="_input" placeholder="IMEI" />
             </Form.Item>
 
             <Form.Item
-              label={<span className="_po_field_label ml-[10px]">IMEI Number</span>}
+              label={
+                <span className="_po_field_label ml-[10px]">IMEI Number</span>
+              }
               name="imeiNumber"
               rules={[
                 {
@@ -459,20 +489,21 @@ const AddPO = () => {
             >
               <Input className="_input" placeholder="Enter Product IMEI" />
             </Form.Item>
-
-
           </div>
         </div>
 
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn">
             <Form.Item className="mb-0 ml-[70px] w-40">
-              <Button className="w-44" type="primary" onClick={() => dispatch(setImportModalOpen(true))}>
+              <Button
+                className="w-44"
+                type="primary"
+                onClick={() => dispatch(setImportModalOpen(true))}
+              >
                 Import
               </Button>
             </Form.Item>
             <p className="_import_btn_msg">Import product category</p>
-
           </div>
 
           {dataForm && dataForm?.products?.length && (
@@ -484,7 +515,7 @@ const AddPO = () => {
                   className="h-10 cursor-pointer"
                   onClick={() => setPreviewModalOpen(true)}
                 >
-                 Finalize PO
+                  Finalize PO
                 </Button>
               }
             </div>
@@ -492,8 +523,10 @@ const AddPO = () => {
 
           <div className="_submit_btn mr-16">
             <Form.Item className="mb-0">
-              <Button className="w-44"  type="primary" htmlType="submit">
-                {dataForm && dataForm?.products?.length ? "Add More Product" : "Add Product"}
+              <Button className="w-44" type="primary" htmlType="submit">
+                {dataForm && dataForm?.products?.length
+                  ? "Add More Product"
+                  : "Add Product"}
               </Button>
             </Form.Item>
 

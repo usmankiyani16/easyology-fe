@@ -141,7 +141,7 @@ const Payment: React.FC<any> = ({
               >
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                 <Input
-                  className="_input h-10 w-[280px] sm:ml-[34px] xs:ml-0"
+                  className="_input_field h-10 w-[280px] sm:ml-[34px] xs:ml-0"
                   placeholder="0.00"
                   type="number"
                   prefix="$"
