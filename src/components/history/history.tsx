@@ -67,7 +67,7 @@ const History = () => {
           <CardComponent key={index} label={item?.label} img={item?.img} />
         ))}
       </div>
-      <Pagination className='flex justify-content-end' defaultCurrent={1} total={50} />
+      <Pagination className='flex justify-end' defaultCurrent={1} total={50} />
     </div>
   )
 }
