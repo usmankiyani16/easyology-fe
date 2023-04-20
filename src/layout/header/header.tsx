@@ -48,7 +48,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="w-1/3r flex items-center">
+        {/* <div className="w-1/3r flex items-center">
           <div>
             <Input
               type="search"
@@ -60,7 +60,7 @@ const Header = () => {
           <div className="ml-2">
             <img src={scanner} alt="Product Scanner" />
           </div>
-        </div>
+        </div> */}
 
         <div className="flex justify-end gap-9 ml-auto">
           <img className="w-7 h-7 cursor-pointer" src={cartIcon} alt="cart" />
