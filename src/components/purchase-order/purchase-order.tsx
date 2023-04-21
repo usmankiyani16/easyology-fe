@@ -39,25 +39,24 @@ const PurchaseOrder = () => {
           </div>
         </NavLink>
       </div>
-      {purchaseOrders?.length ? (
-        <>
-          <POCard purchaseOrders={currentData} />
-        </>
-      ) : (
-        <Spinner />
-      )}
+      <div className="_cards">
+        {purchaseOrders?.length ? (
+          <>
+            <POCard purchaseOrders={currentData} />
+          </>
+        ) : (
+          <Spinner />
+        )}
+      </div>
 
-     
-        <Pagination
-          className="flex justify-end mt-4"
-          defaultCurrent={1}
-          current={currentPage}
-          pageSize={pageSize}
-          total={total}
-          onChange={handlePageChange}
-        />
-      
-    
+      <Pagination
+        className="flex justify-end mt-4"
+        defaultCurrent={1}
+        current={currentPage}
+        pageSize={pageSize}
+        total={total}
+        onChange={handlePageChange}
+      />
     </div>
   );
 };

@@ -21,11 +21,13 @@ const MainLayout: React.FC<any> = () => {
     <div className="_login_wrap">
       <Layout>
         <Sider
+        className="xs:hidden md:block"
 
           width={245}
           style={{
             background: "white",
             height: "100vh",
+            
 
             // overflow: "hidden",
           }}
@@ -66,6 +68,7 @@ const MainLayout: React.FC<any> = () => {
                 src: sidebar_icon,
                 className: "trigger _logo_menu",
                 onClick: () => setCollapsed(!collapsed),
+                
               }
             )}
             <Header />
