@@ -126,6 +126,7 @@ const Payment: React.FC<any> = ({
           {isPartialChecked && (
             <div className="_partial_price mt-4">
               <Form.Item
+              className="form-item"
                 rules={[
                   { required: isPartialChecked, validator: validatePrice },
                 ]}
@@ -139,9 +140,10 @@ const Payment: React.FC<any> = ({
                 }
                 name="price"
               >
+                 {/* h-10 w-[280px] sm:ml-[34px] xs:ml-0 */}
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                 <Input
-                  className="_input_field h-10 w-[280px] sm:ml-[34px] xs:ml-0"
+                  className="_input_field h-10 w-[280px] sm:ml-[34px] xs:ml-0 "
                   placeholder="0.00"
                   type="number"
                   prefix="$"
@@ -165,7 +167,8 @@ const Payment: React.FC<any> = ({
                 }
                 name="dueDate"
               >
-                <DatePicker className=" sm:ml-[116px] xs:ml-4" />
+                {/* sm:ml-[116px] xs:ml-4 */}
+                <DatePicker className="sm:ml-[116px] xs:ml-4" />
               </Form.Item>
             </div>
           )}
