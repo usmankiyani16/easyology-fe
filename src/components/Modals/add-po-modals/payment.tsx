@@ -143,7 +143,7 @@ const Payment: React.FC<any> = ({
                  {/* h-10 w-[280px] sm:ml-[34px] xs:ml-0 */}
                 {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                 <Input
-                  className="_input_field h-10 w-[280px] sm:ml-[34px] xs:ml-0 "
+                  className="_input_field w-[280px]"
                   placeholder="0.00"
                   type="number"
                   prefix="$"
@@ -168,7 +168,7 @@ const Payment: React.FC<any> = ({
                 name="dueDate"
               >
                 {/* sm:ml-[116px] xs:ml-4 */}
-                <DatePicker className="sm:ml-[116px] xs:ml-4" />
+                <DatePicker/>
               </Form.Item>
             </div>
           )}

@@ -196,12 +196,13 @@ const AddPO = () => {
         layout="vertical"
         onFinish={onFinish}
         autoComplete="off"
-        className="mt-4"
+        // className="mt-4"
       >
         {/* grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto */}
         {/* ml-8 mr-24 */}
+        {/* lg:ml-[70px] lg:mr-28" */}
 
-        <div className="_parent_form flex xs:flex-col lg:flex-row lg:justify-between lg:ml-[70px] lg:mr-28">
+        <div className="_parent_form flex xs:flex-col lg:flex-row lg:justify-around">
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">

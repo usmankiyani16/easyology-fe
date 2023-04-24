@@ -25,6 +25,10 @@ const MainLayout: React.FC<any> = () => {
         <Sider
         className="xs:hidden md:block"
 
+        // className="hidden md:flex"
+        // className='${}'
+        // width={collapsed ? 0 : 0}
+
           width={245}
           style={{
             background: "white",

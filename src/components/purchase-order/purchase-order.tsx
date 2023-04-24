@@ -18,7 +18,7 @@ const PurchaseOrder = () => {
     dispatch(getPOS());
   }, []);
 
-  const pageSize = 3;
+  const pageSize = 10 ;
   const total = purchaseOrders?.length ?? 0;
   const startIdx = (currentPage - 1) * pageSize;
   const endIdx = startIdx + pageSize;
