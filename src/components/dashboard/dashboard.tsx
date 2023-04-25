@@ -71,7 +71,7 @@ const Dashboard = () => {
         </div>
         <div className="flex items-center gap-3">
           <img className="cursor-pointer" src={addCustomereIcon} alt="scanner" />
-          <Button className="bg-white font-semibold h-8 flex items-center justify-center">On hold<span className="_primary-color ml-2">{`(2)`}</span></Button>
+          <Button className="bg-white font-semibold h-8 flex items-center justify-center">On hold<span className="_primary-color ml-2">({`0`})</span></Button>
         </div>
 
       </div>

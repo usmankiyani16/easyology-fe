@@ -19,19 +19,22 @@ const Operations = () => {
             </div>
             <div className='w-3/12 pr-5 flex flex-col gap-5'>
                 <div className='flex justify-between'>
-                    <label>Sub-Total: </label>
+                    <label>Sub-Total </label>
                     <label>$ 24</label>
                 </div>
                 <div className='flex justify-between'>
-                    <label>Discount: </label>
+                    <label>Discount </label>
                     <label className='shadow rounded pl-4 pr-1'>$ -5</label>
                 </div>
                 <div className='flex justify-between'>
-                    <label>Sales Tax: </label>
+                    <div>
+                        <label className='_grey-color'>Sales Tax </label>
+                        <label>(8.5%) </label>
+                    </div>
                     <label>$ 67</label>
                 </div>
                 <div className='flex justify-between'>
-                    <label>Total: </label>
+                    <label className='_primary-color'>Total </label>
                     <label>$ 354</label>
                 </div>
 
