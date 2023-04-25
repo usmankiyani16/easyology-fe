@@ -3,7 +3,7 @@ import { Table, Button, Form, Upload, message, Modal } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import "../../../Modals/modals.scss";
-import PreviewMax from "../../../Modals/add-po-modals/preview-max";
+import PreviewMax from "../../add-po-modals/preview-max";
 import { useAppSelector } from "../../../../store/store";
 
 const BulkUpload: React.FC<any> = ({ vendorId }) => {

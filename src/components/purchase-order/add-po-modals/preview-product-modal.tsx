@@ -2,19 +2,10 @@ import React, { useState, useRef } from "react";
 import unchecked from "../../../assets/icons/layout/unchecked.png";
 import tabler_maximize from "../../../assets/icons/layout/tabler_maximize.png";
 import Laptop from "../../../assets/images/dashboard/laptop.png";
-import "../modals.scss";
+import "../../Modals/modals.scss";
 import { SearchOutlined } from "@ant-design/icons";
 import type { InputRef } from "antd";
-import {
-  Input,
-  Space,
-  Table,
-  Button,
-  Modal,
-  Form,
-  DatePickerProps,
-  DatePicker,
-} from "antd";
+import { Input, Space, Table, Button, Modal, Form, DatePicker } from "antd";
 import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
 import PreviewMax from "./preview-max";
@@ -52,103 +43,8 @@ const PreviewModal: React.FC<any> = ({
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
 
-  const handleSearch = (
-    selectedKeys: string[],
-    confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: DataIndex
-  ) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-
   const vendor = vendors.find((data: any) => {
     return data._id === newObject.vendorId;
-  });
-
-  const handleReset = (clearFilters: () => void) => {
-    clearFilters();
-    setSearchText("");
-  };
-
-  const getColumnSearchProps = (
-    dataIndex: DataIndex
-  ): ColumnType<DataType> => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
-      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() =>
-            handleSearch(selectedKeys as string[], confirm, dataIndex)
-          }
-          style={{ marginBottom: 8, display: "block" }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() =>
-              handleSearch(selectedKeys as string[], confirm, dataIndex)
-            }
-            icon={<SearchOutlined />}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Search
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({ closeDropdown: false });
-              setSearchText((selectedKeys as string[])[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Filter
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              close();
-            }}
-          >
-            close
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered: boolean) => (
-      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex]
-        .toString()
-        .toLowerCase()
-        .includes((value as string).toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
   });
 
   // Getting Data when submitting form
@@ -188,7 +84,6 @@ const PreviewModal: React.FC<any> = ({
       dataIndex: "name",
       key: "name",
       width: "30%",
-      ...getColumnSearchProps("Productname"),
     },
     {
       title: "QTY",
@@ -214,6 +109,9 @@ const PreviewModal: React.FC<any> = ({
 
   const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
+
+  const [isCardChecked, setIsCardChecked] = useState(true);
+  const [isCashChecked, setIsCashChecked] = useState(false);
   const [remainingPrice, setRemainingPrice] = useState<number>();
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
@@ -226,6 +124,24 @@ const PreviewModal: React.FC<any> = ({
     const isChecked = e.target.checked;
     setIsFullyPaidChecked(isChecked);
     setIsPartialChecked(!isChecked);
+  };
+
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleCheckboxChange = (option: any) => {
+    setSelectedOption(option);
+    console.log(option);
+  };
+
+  const handleCardChange = (e: CheckboxChangeEvent) => {
+    const isChecked = e.target.checked;
+    setIsCardChecked(isChecked);
+    setIsCashChecked(!isChecked);
+  };
+  const handleCashChange = (e: CheckboxChangeEvent) => {
+    const isChecked = e.target.checked;
+    setIsCardChecked(!isChecked);
+    setIsCashChecked(isChecked);
   };
 
   const priceChange = (e: any) => {
@@ -334,7 +250,7 @@ const PreviewModal: React.FC<any> = ({
                   <p>Partial</p>
                 </Checkbox>
               </div>
-              <div className="flex gap-6 items-center">
+              <div className="flex items-center">
                 <Checkbox
                   checked={isFullyPaidChecked}
                   onChange={handleFullyPaidChange}
@@ -343,54 +259,105 @@ const PreviewModal: React.FC<any> = ({
                 </Checkbox>{" "}
               </div>
             </div>
-            {isPartialChecked && (
-              <div className="_partial_price mt-4">
-                <Form.Item
-                  label="Partial Payment Price"
-                  rules={[
-                    { required: isPartialChecked, validator: validatePrice },
-                  ]}
-                  name="price"
-                >
-                  {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-                  <Input
-                    onChange={(e) => priceChange(e)}
-                    className="_input_field h-10 w-[280px] sm:ml-10 xs:ml-0"
-                    placeholder="0.00"
-                    type="number"
-                    prefix="$"
-                  />
-                </Form.Item>
-              </div>
-            )}
 
             {isPartialChecked && (
+              <>
+                <div className="_partial_price mt-4">
+                  <Form.Item
+                    label="Partial Payment Price"
+                    rules={[
+                      { required: isPartialChecked, validator: validatePrice },
+                    ]}
+                    name="price"
+                  >
+                    {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
+                    <Input
+                      onChange={(e) => priceChange(e)}
+                      className="_input_field h-10 w-[280px] sm:ml-10 xs:ml-0"
+                      placeholder="0.00"
+                      type="number"
+                      prefix="$"
+                    />
+                  </Form.Item>
+                </div>
+                <div className={`${!isPartialChecked && "mt-4"} flex flex-col`}>
+                  <Form.Item
+                    label="Due Date"
+                    rules={[{ required: isPartialChecked }]}
+                    name="dueDate"
+                  >
+                    <DatePicker className="sm:ml-[116px] xs:ml-4" />
+                  </Form.Item>
+                </div>
+
+                <div
+                  className={`${
+                    !isPartialChecked && "mt-6"
+                  } flex flex-col text-red-500  flex self-end ml-2 float-right`}
+                >
+                  Remaining amount: {remainingPrice}
+                </div>
+              </>
+            )}
+            {!isPartialChecked && (
               <div className={`${!isPartialChecked && "mt-4"} flex flex-col`}>
-                <Form.Item
-                  label="Due Date"
-                  rules={[{ required: isPartialChecked }]}
-                  name="dueDate"
+                <Checkbox
+                  checked={selectedOption === "Check"}
+                  onChange={() => handleCheckboxChange("Check")}
                 >
-                  <DatePicker className="sm:ml-[116px] xs:ml-4" />
-                </Form.Item>
+                  By Check
+                </Checkbox>
+
+                {selectedOption === "Check" && (
+                  <div className="ml-4">
+                    <Form.Item
+                      label={
+                        <span className="_po_field_label">Check Number</span>
+                      }
+                      name="serial"
+                      required
+                      tooltip="This is a required field"
+                      rules={[
+                        {
+                          required: true,
+                          // type: 'email',
+                          message: "Required field",
+                        },
+                      ]}
+                    >
+                      <Input
+                        className="_input_field w-48"
+                        placeholder="Check Number"
+                      />
+                    </Form.Item>
+                  </div>
+                )}
+                <Checkbox
+                  checked={selectedOption === "cash"}
+                  onChange={() => handleCheckboxChange("cash")}
+                >
+                  By Cash
+                </Checkbox>
+                <Checkbox
+                  checked={selectedOption === "cc"}
+                  onChange={() => handleCheckboxChange("cc")}
+                >
+                  By CC
+                </Checkbox>
               </div>
             )}
-
-            <div
-              className={`${
-                !isPartialChecked && "mt-6"
-              } flex flex-col text-red-500  flex self-end ml-2 float-right`}
-            >
-              Remaining amount: {remainingPrice}
-            </div>
 
             <div>
               {/* <p className="text-red-500 mr-4 "><span>Paid Amount</span> {paidAmounts}</p> */}
             </div>
 
-            <Button type="primary" htmlType="submit" className="mt-4 ml-2">
-              Submit
-            </Button>
+            <br />
+
+            <div className="flex justify-end">
+              <Button type="primary" htmlType="submit" className="mt-4">
+                Submit
+              </Button>
+            </div>
           </div>
         </Form>
       </Modal>

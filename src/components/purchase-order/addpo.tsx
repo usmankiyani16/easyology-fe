@@ -5,10 +5,10 @@ import { PlusOutlined } from "@ant-design/icons";
 import previewproduct from "../../assets/icons/layout/preview_product.png";
 import "./addpo.scss";
 import { Form, Input, Button, Select, Upload } from "antd";
-import AddVendorModal from "../Modals/add-po-modals/add-vendor-modal";
-import AddCategoryModal from "../Modals/add-po-modals/add-cat-modal";
-import PreviewModal from "../Modals/add-po-modals/preview-product-modal";
-import Importmodal from "../Modals/add-po-modals/import-modal";
+import AddVendorModal from "./add-po-modals/add-vendor-modal";
+import AddCategoryModal from "./add-po-modals/add-cat-modal";
+import PreviewModal from "./add-po-modals/preview-product-modal";
+import Importmodal from "./add-po-modals/import-modal";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
   getCatogaries,
@@ -19,7 +19,7 @@ import { uploadMedia } from "../../store/media/media-slice";
 import { Toast } from "../common/toast/toast";
 import { getVendors } from "../../store/vendors/vendors-slice";
 import Loader from "../common/loader/loader";
-import AddSubCategoryModal from "../Modals/add-po-modals/add-sub-cat";
+import AddSubCategoryModal from "./add-po-modals/add-sub-cat";
 import { setImportModalOpen } from "../../store/po/po.slice";
 
 const AddPO = () => {
@@ -151,13 +151,13 @@ const AddPO = () => {
 
   return (
     <div className="_add_po_wrap">
-      <div className="_addpo_header flex justify-between items-center">
+     
         <div>
-          <h1 className="font-lato mt-4 text-[2rem] lg:ml-[70px]">
+          <h1 className="font-lato mt-4 text-[2rem]">
             Purchase Order
           </h1>
         </div>
-      </div>
+     
 
       {/* Add PO Form  */}
       {vendormodalOpen && (
@@ -202,10 +202,14 @@ const AddPO = () => {
         {/* ml-8 mr-24 */}
         {/* lg:ml-[70px] lg:mr-28" */}
 
-        <div className="_parent_form flex xs:flex-col lg:flex-row lg:justify-around">
+        <div className="_parent_form flex xs:flex-col lg:flex-row lg:justify-around mt-4">
           {/* --------------- Grid 1 --------------------- */}
 
+
+
           <div className="_grid1_fields">
+            
+
             <div className="flex items-center gap-3">
               <Form.Item
                 label={<span className="_po_field_label">Select Vendor</span>}
@@ -312,7 +316,7 @@ const AddPO = () => {
               label={<span className="_po_field_label ml-[10px]">Upload</span>}
               name="image"
               valuePropName="image"
-              className="mt-[28px]"
+              className="mt-[20px]"
             >
               <Upload
                 beforeUpload={() => false}
@@ -368,6 +372,8 @@ const AddPO = () => {
             </Form.Item>
 
             <div className="flex items-center gap-3">
+
+
               <Form.Item
                 label={<span className="_po_field_label">Category</span>}
                 name="category"
@@ -383,7 +389,7 @@ const AddPO = () => {
               >
                 <Select
                    {...selectProps}
-                  className="_input w-24"
+                  className="_input"
                   placeholder="Add or Select Category"
                   onChange={(value: any) => dispatch(getSubCatogaries(value))}
                 >
@@ -501,9 +507,9 @@ const AddPO = () => {
           </div>
         </div>
 
-        <div className="_btn-footer flex justify-between mt-8">
+        <div className="_btn-footer flex justify-around mt-8">
           <div className="_import_btn">
-            <Form.Item className="mb-0 ml-[70px] w-40">
+            <Form.Item className="">
               <Button
                 className="w-44"
                 type="primary"
@@ -530,9 +536,9 @@ const AddPO = () => {
             </div>
           )}
 
-          <div className="_submit_btn mr-16">
+          <div className="_submit_btn">
             <Form.Item className="mb-0">
-              <Button className="w-44" type="primary" htmlType="submit">
+              <Button className="text-center" type="primary" htmlType="submit">
                 {dataForm && dataForm?.products?.length
                   ? "Add More Product"
                   : "Add Product"}

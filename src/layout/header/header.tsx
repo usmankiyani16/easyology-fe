@@ -9,7 +9,7 @@ import {
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import "./header.scss";
-import Profilemodal from "../../components/Modals/profile-modal/profile-modal";
+import Profilemodal from "./profile-modal/profile-modal";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 
