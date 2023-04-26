@@ -4,7 +4,7 @@ import tabler_maximize from "../../../assets/icons/layout/tabler_maximize.png";
 import Laptop from "../../../assets/images/dashboard/laptop.png";
 import "../../Modals/modals.scss";
 import { SearchOutlined } from "@ant-design/icons";
-import type { InputRef } from "antd";
+import { InputRef, Select } from "antd";
 import { Input, Space, Table, Button, Modal, Form, DatePicker } from "antd";
 import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
@@ -17,6 +17,7 @@ import { capitalize } from "../../../utils/functions/functions";
 import { addPO } from "../../../store/po/po.slice";
 import { values } from "@antv/util";
 import { Toast } from "../../common/toast/toast";
+import Payment from "./payment";
 
 interface DataType {
   key: string;
@@ -36,6 +37,7 @@ const PreviewModal: React.FC<any> = ({
 }) => {
   const { vendors } = useAppSelector((state) => state.vendors);
   const [previewMaxmodalOpen, setPreviewMaxModalOpen] = useState(false);
+  const [showInput, setShowInput] = useState(false);
 
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -109,9 +111,15 @@ const PreviewModal: React.FC<any> = ({
 
   const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
+  const [dueDate, setDueDate] = useState(null);
+  const [selectedChoiceOption, setSelectedChoiceOption] = useState(null);
 
-  const [isCardChecked, setIsCardChecked] = useState(true);
-  const [isCashChecked, setIsCashChecked] = useState(false);
+  function handleSelect(value: any) {
+    setSelectedChoiceOption(value);
+  }
+
+
+
   const [remainingPrice, setRemainingPrice] = useState<number>();
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
@@ -133,21 +141,12 @@ const PreviewModal: React.FC<any> = ({
     console.log(option);
   };
 
-  const handleCardChange = (e: CheckboxChangeEvent) => {
-    const isChecked = e.target.checked;
-    setIsCardChecked(isChecked);
-    setIsCashChecked(!isChecked);
-  };
-  const handleCashChange = (e: CheckboxChangeEvent) => {
-    const isChecked = e.target.checked;
-    setIsCardChecked(!isChecked);
-    setIsCashChecked(isChecked);
-  };
-
   const priceChange = (e: any) => {
     const value = parseFloat(e.target.value);
-    if (!isNaN(value)) {
+    if (!isNaN(value) && e.target.value.trim() !== '') {
       setRemainingPrice(totalPrice - value);
+    } else {
+      setRemainingPrice(totalPrice);
     }
   };
 
@@ -175,7 +174,20 @@ const PreviewModal: React.FC<any> = ({
       setPreviewModalOpen(false);
     }
   };
-  const validatePrice = (rule: any, value: string) => {
+
+  const handleDateChange = (date: any) => {
+    // Check if a date is selected
+    if (date) {
+      setShowInput(true);
+    } else {
+      setShowInput(false);
+    }
+    setDueDate(date);
+  };
+
+   // Price Validator
+
+   const validatePrice = (rule: any, value: string) => {
     const price = parseFloat(value);
     if (isNaN(price)) {
       return Promise.reject("Please enter a valid quantity");
@@ -235,8 +247,25 @@ const PreviewModal: React.FC<any> = ({
           </div>
         </div>
 
+        {/* <Payment /> */}
+
         <Form form={form} onFinish={handleFinish}>
           <div className="_footer_modal mt-4">
+          <div className="flex justify-between">
+          <h1 className=" font-semibold mr-4 text-[16px]">
+            Total Amount: {totalPrice}
+          </h1>
+
+        {/*   className={`${
+              !isPartialChecked && "mt-6"
+            } */}
+
+          <div
+           className="flex flex-col text-red-500  flex self-end ml-2"
+          >
+            Remaining amount: {remainingPrice}
+          </div>
+          </div>
             <div className="_payment flex justify-between">
               <div>
                 <p className="_payment_header">Payment Method</p>
@@ -286,70 +315,105 @@ const PreviewModal: React.FC<any> = ({
                     rules={[{ required: isPartialChecked }]}
                     name="dueDate"
                   >
-                    <DatePicker className="sm:ml-[116px] xs:ml-4" />
+                    <DatePicker
+                      className="sm:ml-[116px] xs:ml-4"
+                      onChange={handleDateChange}
+                      value={dueDate}
+                    />
                   </Form.Item>
                 </div>
 
-                <div
-                  className={`${
-                    !isPartialChecked && "mt-6"
-                  } flex flex-col text-red-500  flex self-end ml-2 float-right`}
-                >
-                  Remaining amount: {remainingPrice}
-                </div>
+              
               </>
             )}
-            {!isPartialChecked && (
-              <div className={`${!isPartialChecked && "mt-4"} flex flex-col`}>
-                <Checkbox
-                  checked={selectedOption === "Check"}
-                  onChange={() => handleCheckboxChange("Check")}
-                >
-                  By Check
-                </Checkbox>
 
-                {selectedOption === "Check" && (
-                  <div className="ml-4">
-                    <Form.Item
-                      label={
-                        <span className="_po_field_label">Check Number</span>
-                      }
-                      name="serial"
-                      required
-                      tooltip="This is a required field"
-                      rules={[
-                        {
-                          required: true,
-                          // type: 'email',
-                          message: "Required field",
-                        },
-                      ]}
-                    >
-                      <Input
-                        className="_input_field w-48"
-                        placeholder="Check Number"
-                      />
-                    </Form.Item>
-                  </div>
-                )}
-                <Checkbox
-                  checked={selectedOption === "cash"}
-                  onChange={() => handleCheckboxChange("cash")}
-                >
-                  By Cash
-                </Checkbox>
-                <Checkbox
-                  checked={selectedOption === "cc"}
-                  onChange={() => handleCheckboxChange("cc")}
-                >
-                  By CC
-                </Checkbox>
-              </div>
-            )}
+{showInput && (
+            <Form.Item label="Payment Method" name="inputField">
+              <Select
+                className="_input h-10 w-[50px]"
+                placeholder="Payment Method"
+                style={{ width: "280px" }}
+                onChange={handleSelect}
+              >
+                <Select.Option value="Check">Check</Select.Option>
+                <Select.Option value="Cash">Cash</Select.Option>
+                <Select.Option value="CC">CC</Select.Option>
+              </Select>
+            </Form.Item>
+          )}
 
+          {selectedChoiceOption === "Check" && (
             <div>
-              {/* <p className="text-red-500 mr-4 "><span>Paid Amount</span> {paidAmounts}</p> */}
+              <Form.Item
+                label={<span className="_po_field_label">Check Number</span>}
+                name="serial"
+                required
+                tooltip="This is a required field"
+                rules={[
+                  {
+                    required: true,
+                    // type: 'email',
+                    message: "Required field",
+                  },
+                ]}
+              >
+                <Input
+                  className="_input_field w-[280px]"
+                  placeholder="Check Number"
+                />
+              </Form.Item>
             </div>
+          )}
+
+          {!isPartialChecked && (
+            <div
+              className={`${!isPartialChecked && "mt-8"} flex flex-col ml-4`}
+            >
+              <Checkbox
+                checked={selectedOption === "Check"}
+                onChange={() => handleCheckboxChange("Check")}
+              >
+                By Check
+              </Checkbox>
+
+              {selectedOption === "Check" && (
+                <div className="ml-4">
+                  <Form.Item
+                    label={
+                      <span className="_po_field_label">Check Number</span>
+                    }
+                    name="serial"
+                    required
+                    tooltip="This is a required field"
+                    rules={[
+                      {
+                        required: true,
+                        // type: 'email',
+                        message: "Required field",
+                      },
+                    ]}
+                  >
+                    <Input
+                      className="_input_field w-48"
+                      placeholder="Check Number"
+                    />
+                  </Form.Item>
+                </div>
+              )}
+              <Checkbox
+                checked={selectedOption === "cash"}
+                onChange={() => handleCheckboxChange("cash")}
+              >
+                By Cash
+              </Checkbox>
+              <Checkbox
+                checked={selectedOption === "cc"}
+                onChange={() => handleCheckboxChange("cc")}
+              >
+                By CC
+              </Checkbox>
+            </div>
+          )}
 
             <br />
 
