@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import "./item-card.scss";
-import { laptopImg } from "../../../assets/images";
-import { InputNumber } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
+import { Button, InputNumber } from "antd";
 interface ItemCardProps {
   products: any[];
   setProducts: Dispatch<SetStateAction<any[]>>;
@@ -14,7 +14,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
     setProducts(updatedProducts);
   };
 
-  const [number, setNumber] = useState<number>(1);
+  // const [number, setNumber] = useState<number>(1);
 
   const handleChange = (index: number, value: any) => {
     setProducts((prevProducts) => {
@@ -23,18 +23,32 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
         ...updatedProducts[index],
         qty: value,
       };
-      console.log(updatedProducts);
       return updatedProducts;
     });
   };
 
-  const handleIncrement = () => {
-    setNumber((number) => number + 1);
+  const handleIncrement = (index: number) => {
+    if (products[index]?.qty < products[index].maxQty) {
+      setProducts((prevProducts) => {
+        const updatedProducts = [...prevProducts];
+        updatedProducts[index] = {
+          ...updatedProducts[index],
+          qty: updatedProducts[index].qty + 1,
+        };
+        return updatedProducts;
+      });
+    }
   };
-  console.log("num", number);
-  const handleDecrement = () => {
-    if (number > 1) {
-      setNumber(number - 1);
+  const handleDecrement = (index: number) => {
+    if (products[index]?.qty > 1) {
+      setProducts((prevProducts) => {
+        const updatedProducts = [...prevProducts];
+        updatedProducts[index] = {
+          ...updatedProducts[index],
+          qty: updatedProducts[index].qty - 1,
+        };
+        return updatedProducts;
+      });
     }
   };
 
@@ -64,18 +78,19 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
               </div>
             </div>
             <div className=" flex justify-center items-center w-1/4">
-              <button className="bg-orange-400" onClick={handleDecrement}>
-                ----
-              </button>
+              <Button className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-xl" onClick={() => handleDecrement(index)}>
+                -
+              </Button>
               <InputNumber
+                className="mx-2"
                 min={1}
                 max={item?.maxQty | 1}
                 value={item?.qty}
                 onChange={(value) => handleChange(index, value)}
               />
-              <button className="bg-orange-400" onClick={handleIncrement}>
-                ++++
-              </button>
+              <Button className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-lg" onClick={() => handleIncrement(index)}>
+                +
+              </Button>
             </div>
             <div className=" flex justify-between items-center w-1/4">
               <div>
@@ -85,10 +100,10 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
                 </p>
               </div>
               <div
-                className="flex items-center mr-3"
+                className="flex items-center mr-3 cursor-pointer p-1"
                 onClick={() => handleDelete(item?._id)}
               >
-                delete
+                <DeleteFilled />
               </div>
             </div>
           </div>
