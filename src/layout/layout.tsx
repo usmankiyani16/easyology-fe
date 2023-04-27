@@ -35,10 +35,10 @@ const MainLayout: React.FC<any> = () => {
           collapsed={collapsed}
         >
           <div className="flex gap-4 items-center p-3">
-            <img className="w-16 h-16" src={logoIcon} alt="logo" />
+            {/* <img className="w-16 h-16" src={logoIcon} alt="logo" /> */}
             {!collapsed && (
               <span className="_easyology_sidebar text-3xl _primary-color">
-                Easyology
+                {/* Easyology */}
               </span>
             )}
           </div>

@@ -1,4 +1,4 @@
-// layout 
+// layout
 export const logoIcon = require("./layout/easyology.png");
 export const dashboardIcon = require("./layout/dashboard.png");
 export const purchaseOrderIcon = require("./layout/purchase-order.png");
@@ -19,5 +19,4 @@ export const cart2Icon = require("./layout/cart2.png");
 // dahsboard
 export const scannerIcon = require("./dashboard/scanner.png");
 export const addCustomereIcon = require("./dashboard/add-customer.png");
-
-
+export const backButtonIcon = require("./dashboard/back-button.png");
