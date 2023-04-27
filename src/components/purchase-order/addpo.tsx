@@ -153,7 +153,7 @@ const AddPO = () => {
     <div className="_add_po_wrap">
      
         <div>
-          <h1 className="font-lato mt-4 text-[2rem] ml-20">
+          <h1 className="font-lato mt-4 text-[2rem]">
             Purchase Order
           </h1>
         </div>
@@ -511,7 +511,7 @@ const AddPO = () => {
           <div className="_import_btn">
             <Form.Item className="">
               <Button
-                className="w-44"
+                className="sm:w-44 text-center"
                 type="primary"
                 onClick={() => dispatch(setImportModalOpen(true))}
               >
@@ -527,6 +527,7 @@ const AddPO = () => {
                 <Button
                   type="primary"
                   // htmlType="submit"
+
                   className="h-10 cursor-pointer"
                   onClick={() => setPreviewModalOpen(true)}
                 >
@@ -537,8 +538,8 @@ const AddPO = () => {
           )}
 
           <div className="_submit_btn">
-            <Form.Item className="mb-0">
-              <Button className="text-center" type="primary" htmlType="submit">
+            <Form.Item>
+              <Button className="xs:24 sm:w-44 text-center" type="primary" htmlType="submit">
                 {dataForm && dataForm?.products?.length
                   ? "Add More Product"
                   : "Add Product"}

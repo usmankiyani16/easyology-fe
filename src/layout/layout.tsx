@@ -64,7 +64,7 @@ const MainLayout: React.FC<any> = () => {
             ))}
           </Menu>
         </Sider>
-        <Layout className="site-layout">
+        <Layout className="site-layout w-[100vw]">
           <div className="flex">
             {React.createElement(
 
@@ -84,7 +84,7 @@ const MainLayout: React.FC<any> = () => {
             style={{
               // margin: "24px 16px",
               padding: 24,
-              minHeight: 280,
+              // minHeight: 280,
               // background: colorBgContainer,
             }}
           >

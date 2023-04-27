@@ -29,7 +29,7 @@ const Header = () => {
   return (
     <>
       <div className="_header_wrap flex justify-between items-center w-full pt-3 px-5">
-        <div className="flex gap-2 w-1/3">
+        <div className="flex gap-2">
           <div className="flex flex-col items-center">
             <img
               src={profileIcon}
@@ -41,7 +41,7 @@ const Header = () => {
           </div>
 
           <div className="flex flex-col justify-center">
-            <span className="_header_easyology _primary-color text-2xl">
+            <span className="_header_easyology _primary-color xs:text-lg sm:text-2xl">
               {data?.store_name}
             </span>
             <span className="_profile">{formattedDate}</span>
@@ -62,15 +62,15 @@ const Header = () => {
           </div>
         </div> */}
 
-        <div className="flex justify-end gap-9 ml-auto">
-          <img className="w-7 h-7 cursor-pointer" src={cartIcon} alt="cart" />
+        <div className="flex justify-end xs:gap-4  sm:gap-9 ml-auto">
+          <img className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer" src={cartIcon} alt="cart" />
           <img
             onClick={() => navigate(ROUTE_CONSTANTS.RECENT_INVOICES)}
-            className="w-7 h-7 cursor-pointer"
+            className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer"
             src={downloadIcon}
             alt="download"
           />
-          <img className="w-7 h-7 cursor-pointer" src={cart2Icon} alt="cart" />
+          <img className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer" src={cart2Icon} alt="cart" />
         </div>
       </div>
       <Profilemodal
