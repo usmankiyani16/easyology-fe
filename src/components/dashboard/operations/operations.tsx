@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./operations.scss";
 import { Button, InputNumber } from "antd";
+import CashPay from "./cash-pay/cash-pay";
 
 const Operations: React.FC<any> = ({ totalPrice }) => {
+  const [isCashPayOpen, setIsCashPayOpen] = useState(false);
   const [number, setNumber] = useState<number>(0);
   const taxRate = 0.025; // 2.5%
   const saleTax = totalPrice * taxRate;
@@ -28,7 +30,10 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
           </Button>
         </div>
         <div className="flex gap-5">
-          <Button className="w-32 flex items-center justify-center">
+          <Button
+            onClick={() => setIsCashPayOpen(true)}
+            className="w-32 flex items-center justify-center"
+          >
             Cash Pay
           </Button>
           <Button className="w-32 flex items-center justify-center">
@@ -48,6 +53,7 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
           <label>Discount </label>
           <label className=" rounded ">
             <InputNumber
+              type="number"
               min={0}
               max={totalPrice | 0}
               value={number}
@@ -67,6 +73,13 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
           <label>$ {total.toFixed(2)}</label>
         </div>
       </div>
+      {isCashPayOpen && (
+        <CashPay
+          total={total}
+          isCashPayOpen={isCashPayOpen}
+          setCashPayOpen={setIsCashPayOpen}
+        />
+      )}
     </div>
   );
 };

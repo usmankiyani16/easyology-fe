@@ -64,7 +64,10 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
       </div>
       <div className="h-[202px] overflow-auto _custom-scrollbar">
         {products?.map((item, index) => (
-          <div key={index} className="w-full my-2 flex justify-between shadow-md hover:shadow-xl">
+          <div
+            key={index}
+            className="w-full my-2 flex justify-between shadow-md hover:shadow-xl"
+          >
             <div className=" w-2/4">
               <div className="flex flex-col">
                 {/* <p className="_grey-color">{item?._id}</p> */}
@@ -88,6 +91,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
               <InputNumber
                 className="mx-2 "
                 min={1}
+                type="number"
                 max={item?.maxQty | 1}
                 value={item?.qty}
                 onChange={(value) => handleChange(index, value)}
