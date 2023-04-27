@@ -6,8 +6,10 @@ import ItemCard from "./item-card/item-card";
 import { useState } from "react";
 import { laptopImg } from "../../assets/images";
 import Operations from "./operations/operations";
+import OnHoldModal from "./on-hold/on-hold-modal";
 
 const Dashboard = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState();
   const [products, setProducts] = useState<any>([
@@ -24,6 +26,10 @@ const Dashboard = () => {
   const totalPrice = products.reduce((acc:any, product:any) => {
     return acc + (product.qty * product.price);
   }, 0);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
 
   const customerOptions = [
@@ -114,7 +120,7 @@ const Dashboard = () => {
             src={addCustomereIcon}
             alt="scanner"
           />
-          <Button className="bg-white font-semibold h-8 flex items-center justify-center">
+          <Button onClick={showModal} className="bg-white font-semibold h-8 flex items-center justify-center">
             On hold<span className="_primary-color ml-2">({`0`})</span>
           </Button>
         </div>
@@ -123,6 +129,7 @@ const Dashboard = () => {
         <ItemCard products={products} setProducts={setProducts} />
       </div>
       <Operations totalPrice={totalPrice} />
+      <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };
