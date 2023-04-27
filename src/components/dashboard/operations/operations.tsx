@@ -47,7 +47,12 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
         <div className="flex justify-between">
           <label>Discount </label>
           <label className=" rounded ">
-            <InputNumber min={0} max={totalPrice | 0} value={number} onChange={handleChange} />
+            <InputNumber
+              min={0}
+              max={totalPrice | 0}
+              value={number}
+              onChange={handleChange}
+            />
           </label>
         </div>
         <div className="flex justify-between">

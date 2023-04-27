@@ -1,4 +1,4 @@
-import { AutoComplete, Button, Input } from "antd";
+import { AutoComplete, Button, Form, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
@@ -8,6 +8,7 @@ import { laptopImg } from "../../assets/images";
 import Operations from "./operations/operations";
 
 const Dashboard = () => {
+  const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState();
   const [products, setProducts] = useState<any>([
@@ -21,10 +22,9 @@ const Dashboard = () => {
     },
   ]);
 
-  const totalPrice = products.reduce((acc:any, product:any) => {
-    return acc + (product.qty * product.price);
+  const totalPrice = products.reduce((acc: any, product: any) => {
+    return acc + product.qty * product.price;
   }, 0);
-
 
   const customerOptions = [
     { _id: "144444", value: "customer 1" },
@@ -57,55 +57,71 @@ const Dashboard = () => {
       price: 34,
     },
   ];
-  
+
   const handleCustomerSelect = (option: any) => {
-    console.log("customer", option);
     setSelectCustomer(option);
+    form.resetFields();
   };
 
   const handleProductSelect = (product: any) => {
-    console.log("product", product);
     product.name = product?.value;
     delete product.value;
     setProducts((prevProducts: any) => [...prevProducts, product]);
     setSelectProduct(product);
+    form.resetFields();
   };
   return (
     <div className="_dashboard">
       <div className="flex gap-3 justify-between items-center">
-        <h1>
-          Customer name:{" "}
-          <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
-        </h1>
+        <div>
+          <h1>
+            Customer name:{" "}
+            <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
+          </h1>
+          <h1>
+            Phone:{" "}
+            <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
+          </h1>
+          <h1>
+            <span className="_primary-color">Customer Type: </span>
+            <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
+          </h1>
+        </div>
         <div className="flex items-center gap-3">
-          <AutoComplete
-            onSelect={(value, option) => handleCustomerSelect(option)}
-            options={customerOptions}
-            filterOption={(inputValue, option) =>
-              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-              -1
-            }
-          >
-            <Input
-              className="h-8"
-              prefix={<SearchOutlined />}
-              placeholder="Search customer"
-            />
-          </AutoComplete>
-          <AutoComplete
-            onSelect={(value, option) => handleProductSelect(option)}
-            options={productOptions}
-            filterOption={(inputValue, option) =>
-              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-              -1
-            }
-          >
-            <Input
-              className="h-8"
-              prefix={<SearchOutlined />}
-              placeholder="Search products"
-            />
-          </AutoComplete>
+          <Form form={form}>
+            <AutoComplete
+              onSelect={(value, option) => handleCustomerSelect(option)}
+              options={customerOptions}
+              filterOption={(inputValue, option) =>
+                option!.value
+                  .toUpperCase()
+                  .indexOf(inputValue.toUpperCase()) !== -1
+              }
+            >
+              <Input
+                className="h-8"
+                prefix={<SearchOutlined />}
+                placeholder="Search customer"
+                name="customer"
+              />
+            </AutoComplete>
+            <AutoComplete
+              onSelect={(value, option) => handleProductSelect(option)}
+              options={productOptions}
+              filterOption={(inputValue, option) =>
+                option!.value
+                  .toUpperCase()
+                  .indexOf(inputValue.toUpperCase()) !== -1
+              }
+            >
+              <Input
+                className="h-8"
+                prefix={<SearchOutlined />}
+                placeholder="Search products"
+                name="product"
+              />
+            </AutoComplete>
+          </Form>
           <img src={scannerIcon} alt="scanner" />
         </div>
         <div className="flex items-center gap-3">
