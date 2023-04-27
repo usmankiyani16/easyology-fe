@@ -37,12 +37,12 @@ const Header = () => {
               className="cursor-pointer w-8 h-8"
               onClick={() => setProfileModalOpen(true)}
             />
-            <p className="_profile">{data?.first_name}</p>
+            <p className="_profile">{data?.firstName}</p>
           </div>
 
           <div className="flex flex-col justify-center">
             <span className="_header_easyology _primary-color text-2xl">
-              {data?.store_name}
+              {data?.storeName}
             </span>
             <span className="_profile">{formattedDate}</span>
           </div>

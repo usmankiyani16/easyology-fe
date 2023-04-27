@@ -8,6 +8,9 @@ const baseURL =
 
 const api: AxiosInstance = axios.create({
   baseURL,
+  headers:{
+    'X-accessType': 'pos'
+  }
 });
 
 // Authorization header with the access token
