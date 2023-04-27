@@ -65,7 +65,7 @@ const RecentInvoicesLazy = Loadable(
 
 const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
 let path = "";
-if (role === UserRole.ADMIN) {
+if (role === UserRole.SUPER_ADMIN) {
   path = "/admin-dashboard";
 } else {
   path = "/dashboard";
