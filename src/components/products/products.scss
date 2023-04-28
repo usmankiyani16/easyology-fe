@@ -17,9 +17,14 @@
 
   ._productname {
     display: inline-block;
-    width: 180px;
+    // width: 180px;
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis;
+   
   }
+  :where(.css-dev-only-do-not-override-e0k33r).ant-card .ant-card-body {
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+}
 }

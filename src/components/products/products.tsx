@@ -1,5 +1,6 @@
 import { Input, Pagination, Select } from "antd";
 import { useEffect } from "react";
+import './products.scss'
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
   getCatogaries,
@@ -25,8 +26,9 @@ const Products = () => {
     dispatch(getProducts());
   }, []);
 
+  console.log(products, 'products hai')
   return (
-    <div>
+    <div className="_products_wrap">
       <h1 className="font-semibold text-lg">Products</h1>
       <div className="flex justify-between mt-3">
         <div className="flex gap-3">
