@@ -6,7 +6,7 @@ import ItemCard from "./item-card/item-card";
 import { useState } from "react";
 import { laptopImg } from "../../assets/images";
 import Operations from "./operations/operations";
-import OnHoldModal from "./on-hold/on-hold-modal";
+import OnHoldModal from "./on-hold/on-hold";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
