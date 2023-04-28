@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../modals.scss";
+import "../../Modals/modals.scss";
 
 import { Button, Modal, Form, Input } from "antd";
 import { useAppDispatch } from "../../../store/store";

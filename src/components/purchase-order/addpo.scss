@@ -10,21 +10,34 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
   }
+  
 
   .ant-upload-wrapper.ant-upload-picture-card-wrapper
     .ant-upload.ant-upload-select {
-   
     background: #fdfdfd;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
   }
-  ::placeholder {
+
+  ::placeholder , .ant-select-single .ant-select-selector  {
     font-family: "Lato";
     font-style: normal;
     font-weight: 500;
     font-size: 0.8rem;
     line-height: 19px;
     color: #b9b7b7;
+  }
+
+  .ant-select-single .ant-select-selector {
+    color: #000000;
+  
+  
+  }
+
+
+
+  .ant-form-vertical .ant-form-item-label {
+     padding: 0 0 4px;
   }
 
   ._submit_btn_msg {
@@ -38,21 +51,14 @@
     text-align: center;
 
     color: #b9b7b7;
-   
   }
 
   ._import_btn_msg {
-  
     font-family: "Lato";
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
-    text-align: center;
-    
-
     color: #b9b7b7;
-    margin-left: 70px;
-   
   }
 
   // Addpo labels
@@ -73,25 +79,33 @@
 
   ._img_align {
     position: absolute;
-    right:180px;
-  
+    right: 180px;
   }
-  :where(.css-dev-only-do-not-override-e0k33r).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select{
+  :where(
+      .css-dev-only-do-not-override-e0k33r
+    ).ant-upload-wrapper.ant-upload-picture-card-wrapper
+    .ant-upload.ant-upload-select {
     width: 326px;
   }
-  :where(.css-dev-only-do-not-override-e0k33r).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container{
-    width:325px;
+  :where(
+      .css-dev-only-do-not-override-e0k33r
+    ).ant-upload-wrapper.ant-upload-picture-card-wrapper
+    .ant-upload-list.ant-upload-list-picture-card
+    .ant-upload-list-item-container {
+    width: 325px;
     background-color: #fdfdfd;
   }
-  ._po_field_label{
+  ._po_field_label {
+    font-family: "Lato";
 
-font-family: 'Lato';
+    // font-weight: 600;
+    font-size: 14px;
+    // line-height: 19px;
+    text-align: center;
 
-// font-weight: 600;
-font-size: 14px;
-line-height: 19px;
-text-align: center;
-
-color: #000000;
+    color: #000000;
+  }
+  .ant-form-item {
+    margin-bottom: 10px;
   }
 }
