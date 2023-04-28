@@ -3,7 +3,7 @@ import unchecked from "../../../assets/icons/layout/unchecked.png";
 import tabler_maximize from "../../../assets/icons/layout/tabler_maximize.png";
 import Laptop from "../../../assets/images/dashboard/laptop.png";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import "../../Modals/modals.scss";
+import "../../../sass/modals.scss";
 import { InputRef, Select } from "antd";
 import {
   Input,

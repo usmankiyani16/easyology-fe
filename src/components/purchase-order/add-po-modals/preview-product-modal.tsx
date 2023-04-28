@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import unchecked from "../../../assets/icons/layout/unchecked.png";
 import tabler_maximize from "../../../assets/icons/layout/tabler_maximize.png";
 import Laptop from "../../../assets/images/dashboard/laptop.png";
-import "../../Modals/modals.scss";
+import "../../../sass/modals.scss";
 import { SearchOutlined } from "@ant-design/icons";
 import { InputRef, Select } from "antd";
 import { Input, Space, Table, Button, Modal, Form, DatePicker } from "antd";
@@ -68,7 +68,6 @@ const PreviewModal: React.FC<any> = ({
     0
   );
 
-  const paidAmounts = totalPrice - newObject?.paidAmount;
 
   const columns: ColumnsType<DataType> = [
     {

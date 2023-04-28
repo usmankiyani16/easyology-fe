@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import { Button, Modal, Form, Upload, Input } from "antd";
+import { Button, Modal} from "antd";
 
 import * as XLSX from "xlsx";
 import { laptopImg } from "../../../assets/images";
 import Line from "../../../assets/images/Line.png";
-import "../../Modals/modals.scss";
+import "../../../sass/modals.scss";
 import PayModal from "./pay-modal";
 
 // interface ExportButtonProps {

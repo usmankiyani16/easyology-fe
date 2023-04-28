@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 
 const baseURL =
   "https://25sievoztd.execute-api.us-east-1.amazonaws.com/qa/api";
@@ -8,7 +9,7 @@ const baseURL =
 
 const api: AxiosInstance = axios.create({
   baseURL,
-  headers:{
+  headers: {
     'X-accessType': 'pos'
   }
 });
@@ -27,6 +28,33 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+api.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  async function (error) {
+    if (
+      error?.response?.status === 401 &&
+      error?.response?.data?.message === "Unauthorized"
+    ) {
+      localStorage.removeItem("user")
+    }
+    else {
+      throw new Error(error?.data?.message);
+    }
+
+  }
+);
+
+const checkSession = async (data: AxiosResponse) => {
+  const response = data;
+  if (response?.status === 401 && response?.data?.message === "Unauthorized") {
+    localStorage.removeItem("user");
+  } else {
+    throw new Error(response?.data?.message);
+  }
+};
 
 export const requestApi = async <T = any>(
   config: AxiosRequestConfig

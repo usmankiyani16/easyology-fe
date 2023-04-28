@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../Modals/modals.scss";
+import "../../../sass/modals.scss";
 
 import { Modal, Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
