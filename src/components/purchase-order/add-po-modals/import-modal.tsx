@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "../modals.scss";
+import "../../Modals/modals.scss";
 
 import { Button, Form, Modal, Select } from "antd";
 
-import ExportExcel from "../../purchase-order/po-card/po-import/export-excel";
-import Dummy_Add_PO from "../../purchase-order/po-card/po-import/dummy-add-po";
-import BulkUpload from "../../purchase-order/po-card/po-import/bulk-upload";
+import ExportExcel from "../po-card/po-import/export-excel";
+import Dummy_Add_PO from "../po-card/po-import/dummy-add-po";
+import BulkUpload from "../po-card/po-import/bulk-upload";
 import { capitalize } from "../../../utils/functions/functions";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { setImportModalOpen } from "../../../store/po/po.slice";

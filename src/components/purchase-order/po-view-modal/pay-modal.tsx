@@ -1,5 +1,6 @@
 import { SetStateAction, useState } from "react";
-import "../modals.scss";
+import "../../Modals/modals.scss";
+
 
 import { Modal, Form, Select, Button, Input } from "antd";
 

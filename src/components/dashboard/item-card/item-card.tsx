@@ -102,6 +102,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
               >
                 +
               </Button>
+              
             </div>
             <div className=" flex justify-between items-center w-1/4">
               <div>

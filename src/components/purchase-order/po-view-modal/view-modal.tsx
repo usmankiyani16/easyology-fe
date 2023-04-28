@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 
 import { Button, Modal, Form, Upload, Input } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+
+import * as XLSX from "xlsx";
 import { laptopImg } from "../../../assets/images";
 import Line from "../../../assets/images/Line.png";
-import "../modals.scss";
+import "../../Modals/modals.scss";
 import PayModal from "./pay-modal";
+
+// interface ExportButtonProps {
+//   data: Array<Object>; // Data to be exported in Excel file
+//   fileName: string; // Name of the exported file
+// }
 
 const Viewmodal: React.FC<any> = ({
   viewModalOpen,
@@ -13,6 +19,20 @@ const Viewmodal: React.FC<any> = ({
   purchaseOrders,
 }) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+
+  const handleExport = () => {
+    const data = [
+      { name: "Ali", age: 22 },
+      { name: "Usman", age: 25 },
+      { name: "Hasan", age: 40 },
+    ];
+    const fileName = "export";
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  };
   return (
     <div className="_view_modal_wrap">
       <PayModal
@@ -158,6 +178,12 @@ const Viewmodal: React.FC<any> = ({
               <span className="ml-2 _primary-color">$ 300</span>
             </span>
           </div>
+        </div>
+
+        <div className="flex justify-center">
+          <Button onClick={handleExport} className="">
+            Export Excel
+          </Button>
         </div>
       </Modal>
     </div>

@@ -2,7 +2,7 @@ import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
 import { capitalize } from "../../../utils/functions/functions";
 import "./po-card.scss";
-import Viewmodal from "../../Modals/po-view-modal/view-modal";
+import Viewmodal from "../po-view-modal/view-modal";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";

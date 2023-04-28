@@ -17,15 +17,23 @@ const MainLayout: React.FC<any> = () => {
     (item) => '/'+item.path === currentPath
   );
 
+  
+
   return (
     <div className="_login_wrap">
       <Layout>
         <Sider
+        className="xs:hidden md:block"
+
+        // className="hidden md:flex"
+        // className='${}'
+        // width={collapsed ? 0 : 0}
 
           width={245}
           style={{
             background: "white",
             height: "100vh",
+            
 
             // overflow: "hidden",
           }}
@@ -35,10 +43,10 @@ const MainLayout: React.FC<any> = () => {
           collapsed={collapsed}
         >
           <div className="flex gap-4 items-center p-3">
-            {/* <img className="w-16 h-16" src={logoIcon} alt="logo" /> */}
+            <img className="w-16 h-16" src={logoIcon} alt="logo" />
             {!collapsed && (
               <span className="_easyology_sidebar text-3xl _primary-color">
-                {/* Easyology */}
+                Easyology
               </span>
             )}
           </div>
@@ -66,6 +74,7 @@ const MainLayout: React.FC<any> = () => {
                 src: sidebar_icon,
                 className: "trigger _logo_menu",
                 onClick: () => setCollapsed(!collapsed),
+                
               }
             )}
             <Header />

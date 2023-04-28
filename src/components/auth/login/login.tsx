@@ -20,9 +20,9 @@ const Login = () => {
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
 
   useEffect(() => {
-    if (role === UserRole.ADMIN) {
+    if (role === UserRole.SUPER_ADMIN) {
       navigate("/admin-dashboard");
-    } else if (role && role !== UserRole.ADMIN) {
+    } else if (role && role !== UserRole.SUPER_ADMIN) {
       navigate("/dashboard");
     }
   }, [role]);
@@ -33,13 +33,13 @@ const Login = () => {
     await dispatch(signin(values));
   };
 
-  const onFinishFailed = (errorInfo: any) => {};
+  const onFinishFailed = (errorInfo: any) => { };
   return (
     <>
       <div className="_main-container sm:block">
 
         {/* ----------- Grid 1 in Top Header ------------ */}
-        
+
         <div className="_top-container grid md:grid-cols-2 xs:grid-cols-1">
           <div className="_welcome_back text-center">
             <div className="_welcome_back_text mt-12">
@@ -112,7 +112,7 @@ const Login = () => {
                 hasFeedback
               >
                 <Input
-                // sm:w-[320px] sm:h-[35px] 
+                  // sm:w-[320px] sm:h-[35px] 
                   className="sm:w-[379px] sm:h-[35px]"
                   placeholder="Enter email address"
                 />
