@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Upload, message, Modal } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
-import "../../../Modals/modals.scss";
+import "../../../../sass/modals.scss";
 import PreviewMax from "../../add-po-modals/preview-max";
 import { useAppSelector } from "../../../../store/store";
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../Modals/modals.scss";
+import "../../../sass/modals.scss";
 
 import { Button, Modal, Form, Input } from "antd";
 import { useAppDispatch } from "../../../store/store";
@@ -22,6 +22,7 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
         onCancel={() => setCatModalOpen(false)}
         destroyOnClose={true}
         className="_modal_wrap"
+     
       >
         <h3 className="_modal_header_poView">Add Category</h3>
 

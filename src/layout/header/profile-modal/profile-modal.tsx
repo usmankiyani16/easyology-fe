@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import '../../../components/Modals/modals.scss';
+import "../../../sass/modals.scss";
+
 
 import { Button, Modal, Form, Upload, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";

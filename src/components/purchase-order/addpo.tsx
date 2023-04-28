@@ -153,7 +153,7 @@ const AddPO = () => {
     <div className="_add_po_wrap">
      
         <div>
-          <h1 className="font-lato mt-4 text-[2rem] ml-20">
+          <h1 className="font-lato mt-4 text-[2rem]">
             Purchase Order
           </h1>
         </div>
