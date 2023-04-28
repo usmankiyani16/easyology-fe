@@ -20,17 +20,17 @@ import { ROUTE_CONSTANTS } from "./route-constants";
 
 //<img src={LoadingSvg} height={200} width={200} alt="LoadingSvg" />
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
-(
-  <Suspense
-    fallback={
-      <div className="flex items-center justify-center">
-        <Spin size="large" />
-      </div>
-    }
-  >
-    <Component {...props} />
-  </Suspense>
-);
+  (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center">
+          <Spin size="large" />
+        </div>
+      }
+    >
+      <Component {...props} />
+    </Suspense>
+  );
 
 const DashboardLazy = Loadable(lazy(() => import("../pages/dashboard/index")));
 const ProductsLazy = Loadable(lazy(() => import("../pages/products/index")));
@@ -63,7 +63,7 @@ const RecentInvoicesLazy = Loadable(
   lazy(() => import("../pages/recent-invoices/index"))
 );
 
-const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
+const { role }: any = JSON.parse(localStorage.getItem(UserRole.USER) || "{}");
 let path = "";
 if (role === UserRole.SUPER_ADMIN) {
   path = "/admin-dashboard";
@@ -81,7 +81,7 @@ export const routes: any = [
   {
     path: ROUTE_CONSTANTS.ADMIN_DASHBOARD,
     element: (
-      <RequireAuth allowedRoles={["admin"]}>
+      <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
         <AdminDashboardLazy />
       </RequireAuth>
     ),
@@ -93,7 +93,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.DASHBOARD,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <DashboardLazy />
           </RequireAuth>
         ),
@@ -101,7 +103,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.PRODUCTS,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <ProductsLazy />
           </RequireAuth>
         ),
@@ -109,7 +113,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.HISTORY,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <HistoryLazy />
           </RequireAuth>
         ),
@@ -117,7 +123,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.PURCHASE_ORDER,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <PurchaseOrderLazy />
           </RequireAuth>
         ),
@@ -125,7 +133,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.CASH_CHECKER,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <CashCheckLazy />
           </RequireAuth>
         ),
@@ -133,7 +143,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.DAILY_LEDGER,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <DailyLedgerLazy />
           </RequireAuth>
         ),
@@ -141,7 +153,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <MonthlyReportsLazy />
           </RequireAuth>
         ),
@@ -149,7 +163,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.NOTIFICATION,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <NotificatiosLazy />
           </RequireAuth>
         ),
@@ -157,7 +173,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.PAYMENTS,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <PaymentsLazy />
           </RequireAuth>
         ),
@@ -165,7 +183,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.SETTINGS,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <SettingsLazy />
           </RequireAuth>
         ),
@@ -173,7 +193,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.SUPPORT,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <SupportLazy />
           </RequireAuth>
         ),
@@ -181,7 +203,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.ADD_PURCHASE_ORDER,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <AddPO />
           </RequireAuth>
         ),
@@ -189,7 +213,9 @@ export const routes: any = [
       {
         path: ROUTE_CONSTANTS.RECENT_INVOICES,
         element: (
-          <RequireAuth allowedRoles={["user", "admin", "wholesaler"]}>
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
             <RecentInvoicesLazy />
           </RequireAuth>
         ),
