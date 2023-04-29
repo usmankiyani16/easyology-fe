@@ -9,7 +9,6 @@ import {
 import { capitalize } from "../../utils/functions/functions";
 import { SearchOutlined } from "@ant-design/icons";
 import CardComponent from "../products/card/card";
-import { mobileAccessoriesData } from "../products/tabs/tabs-mock-data";
 import { getProducts } from "../../store/products/products-slice";
 import { REQUEST_STATUS } from "../../utils/constants";
 import Spinner from "../common/spinner/spinner";
@@ -21,9 +20,11 @@ const Products = () => {
   );
   const { products, status } = useAppSelector((state) => state.products);
 
+  const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+  const payload = `storeId=${data?.storeId}`;
   useEffect(() => {
     dispatch(getCatogaries());
-    dispatch(getProducts());
+    dispatch(getProducts(payload));
   }, []);
 
   console.log(products, 'products hai')
