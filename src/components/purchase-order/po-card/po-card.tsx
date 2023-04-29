@@ -73,7 +73,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Inv Status:</span>
                   <span className="font-semibold _primary-color">
-                    {capitalize(data?.poStatus ?? '')}
+                    {capitalize(data?.paymentStatus ?? '')}
                   </span>
                 </div>
                 <div className="flex text-lg gap-4">
