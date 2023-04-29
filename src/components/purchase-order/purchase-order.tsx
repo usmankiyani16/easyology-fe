@@ -11,7 +11,7 @@ import Spinner from "../common/spinner/spinner";
 import { Pagination } from "antd";
 
 const PurchaseOrder = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
 
   const dispatch = useAppDispatch();
@@ -19,15 +19,15 @@ const PurchaseOrder = () => {
     dispatch(getPOS());
   }, []);
 
-  const pageSize = 10;
-  const total = purchaseOrders?.length ?? 0;
-  const startIdx = (currentPage - 1) * pageSize;
-  const endIdx = startIdx + pageSize;
-  const currentData = purchaseOrders?.slice(startIdx, endIdx);
+  // const pageSize = 10;
+  // const total = purchaseOrders?.length ?? 0;
+  // const startIdx = (currentPage - 1) * pageSize;
+  // const endIdx = startIdx + pageSize;
+  // const currentData = purchaseOrders?.slice(startIdx, endIdx);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  // const handlePageChange = (page: number) => {
+  //   setCurrentPage(page);
+  // };
 
   return (
     <div>
@@ -43,7 +43,7 @@ const PurchaseOrder = () => {
       <div className="_cards">
         {purchaseOrders?.length ? (
           <>
-            <POCard purchaseOrders={currentData} />
+            <POCard purchaseOrders={purchaseOrders} />
           </>
         ) : (
           <Spinner />
@@ -51,12 +51,7 @@ const PurchaseOrder = () => {
       </div>
 
       <Pagination
-        className="flex justify-end mt-4"
-        defaultCurrent={1}
-        current={currentPage}
-        pageSize={pageSize}
-        total={total}
-        onChange={handlePageChange}
+        className="flex justify-end" defaultCurrent={1} total={50} 
       />
     </div>
   );

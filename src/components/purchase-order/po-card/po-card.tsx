@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 const POCard: React.FC<any> = ({ purchaseOrders }) => {
   const [applyBorder, setApplyBorder] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
-  const [singlePO, setSinglePO] = useState<any>()
+  const [singlePO, setSinglePO] = useState<any>();
 
   useEffect(() => {
     function handleResize() {
@@ -28,20 +28,21 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
   }, []);
   return (
     <>
-      {viewModalOpen &&
+      {viewModalOpen && (
         <Viewmodal
           viewModalOpen={viewModalOpen}
           setViewModalOpen={setViewModalOpen}
           purchaseOrders={singlePO}
         />
-      }
+      )}
       <div className="flex flex-col gap-4">
         {purchaseOrders?.map((data: any) => (
           <Card key={data?.key} className="_po-card">
             <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
               <div
-                className={`flex flex-col justify-between${applyBorder ? " _border-r" : ""
-                  } pr-7 mr-7`}
+                className={`flex flex-col justify-between${
+                  applyBorder ? " _border-r" : ""
+                } pr-7 mr-7`}
               >
                 <div className="flex text-lg gap-4">
                   <span className="font-medium">PO Number:</span>
@@ -52,19 +53,20 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 <div className="flex text-lg gap-4">
                   <span className="font-medium">Vendor Name:</span>
                   <span className="font-medium _label-grey">
-                    {capitalize(data?.vendor[0]?.name ?? '')}
+                    {capitalize(data?.vendor[0]?.name ?? "")}
                   </span>
                 </div>
               </div>
               <div
-                className={`flex flex-col justify-between${applyBorder ? " _border-r" : ""
-                  } pr-7 mr-7`}
+                className={`flex flex-col justify-between${
+                  applyBorder ? " _border-r" : ""
+                } pr-7 mr-7`}
               >
                 {data?.products?.slice(0, 3).map((prod: any, index: number) => (
                   <div key={index} className="flex text-lg gap-4">
                     <span className="font-medium">x{prod?.quantity}</span>
                     <span className="font-medium _label-grey">
-                      {capitalize(prod?.name ?? '')}
+                      {capitalize(prod?.name ?? "")}
                     </span>
                   </div>
                 ))}
@@ -73,22 +75,35 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Inv Status:</span>
                   <span className="font-semibold _primary-color">
-                    {capitalize(data?.paymentStatus ?? '')}
+                    {capitalize(data?.paymentStatus ?? "")}
                   </span>
                 </div>
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Paid Amount:</span>
-                  {<span className="font-medium ">$ {data?.payments[0]?.paymentDetails?.paidAmount}</span>}
+                  {
+                    <span className="font-medium ">
+                      $ {data?.payments[0]?.paymentDetails?.paidAmount}
+                    </span>
+                  }
                 </div>
-                <div className="flex text-lg gap-4">
-                  <span className="font-medium _label-grey">Remaining Amount:</span>
-                  {<span className="font-medium ">$ {data?.remainingAmount}</span>}
-                </div>
+                {data?.paymentStatus === "Partially Paid" && (
+                  <div className="flex text-lg gap-4">
+                    <span className="font-medium _label-grey">
+                      Remaining Amount:
+                    </span>
+                    {
+                      <span className="font-medium ">
+                        $ {data?.remainingAmount}
+                      </span>
+                    }
+                  </div>
+                )}
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Due Date:</span>
                   <span className="font-medium ">
-                    {dayjs(data?.payments[0]?.paymentDetails?.dueDate)
-                      .format("MM/DD/YYYY")}
+                    {dayjs(data?.payments[0]?.paymentDetails?.dueDate).format(
+                      "MM/DD/YYYY"
+                    )}
                   </span>
                 </div>
               </div>
@@ -97,11 +112,14 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                   <span className="font-semibold text-3xl	 _primary-color">
                     ${data?.totalAmount}
                   </span>
-                  <Button onClick={() => {
-                    setViewModalOpen(true)
-                    setSinglePO(data)
-                  }
-                  }>View</Button>
+                  <Button
+                    onClick={() => {
+                      setViewModalOpen(true);
+                      setSinglePO(data);
+                    }}
+                  >
+                    View
+                  </Button>
                 </div>
               }
             </div>

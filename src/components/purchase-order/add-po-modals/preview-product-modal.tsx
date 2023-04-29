@@ -327,7 +327,7 @@ const PreviewModal: React.FC<any> = ({
               </>
             )}
 
-{showInput && (
+{/* {showInput && (
             <Form.Item label="Payment Method" name="inputField">
               <Select
                 className="_input h-10 w-[50px]"
@@ -363,7 +363,7 @@ const PreviewModal: React.FC<any> = ({
                 />
               </Form.Item>
             </div>
-          )}
+          )} */}
 
           {!isPartialChecked && (
             <div

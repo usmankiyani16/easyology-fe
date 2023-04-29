@@ -7,6 +7,8 @@ import { laptopImg } from "../../../assets/images";
 import Line from "../../../assets/images/Line.png";
 import "../../../sass/modals.scss";
 import PayModal from "./pay-modal";
+import { imageBaseUrl } from "../../../utils/constants";
+import { noImg } from "../../../assets/images";
 
 // interface ExportButtonProps {
 //   data: Array<Object>; // Data to be exported in Excel file
@@ -20,9 +22,17 @@ const Viewmodal: React.FC<any> = ({
 }) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
+  
+  console.log(purchaseOrders, 'PO Data View Modal')
+
+  const Product_Image= purchaseOrders?.products.map((product: { image: any; }) => product.image)
+  console.log(Product_Image, 'Product')
+
+  const image = imageBaseUrl + Product_Image;
+
   const handleExport = () => {
     const data = [
-      { name: "Ali", age: 22 },
+      { name: purchaseOrders?.poNumber, age: 22 },
       { name: "Usman", age: 25 },
       { name: "Hasan", age: 40 },
     ];
@@ -53,7 +63,7 @@ const Viewmodal: React.FC<any> = ({
         <h4 className="_po_Number text-xl mt-8">
           PO Number: <span className="text-red-500">#{purchaseOrders?.poNumber}</span>
         </h4>
-        <h4 className="_company_name">Lenovo Company</h4>
+        <h4 className="_company_name">{purchaseOrders?.vendor[0]?.companyName}</h4>
         {/* <p className="_sheduled_date font-medium">
           Sheduled:{" "}
           <span className="text-black font-medium"> Friday 12 AM EST</span>
@@ -71,21 +81,21 @@ const Viewmodal: React.FC<any> = ({
           <div className="flex justify-between items-center mt-2">
             <div className="flex items-center gap-3">
               <img
-                src={laptopImg}
+                src= {Product_Image[0]? image : noImg}
                 alt="Products"
                 className="w-[59px] h-[66px]"
               />
-              <p className="_product_name w-[112px] h-[66px] font-medium">
-                Laptop Lenovo Series 4
-              </p>
+              <span className="_product_name w-[112px] h-[66px] font-semibold">
+              {purchaseOrders?.products.map((product: { name: any; }) => product.name)}
+              </span>
             </div>
             <div>
-              <p className="_product_quantity w-[112px] h-[66p] font-medium">
-                x2
-              </p>
+              <span className="_product_quantity w-[112px] h-[66p] font-semibold">
+                {`x${purchaseOrders?.products.map((product: { quantity: any; }) => product.quantity)} `}
+              </span>
             </div>
             <div>
-              <p className="_product_price text-[18px] font-bold">$ 599.00</p>
+              <span className="_product_price text-[18px] font-bold">{`$ ${purchaseOrders?.products?.map((product: { amount: any; }) => product.amount)} `}</span>
             </div>
           </div>
 
@@ -143,8 +153,9 @@ const Viewmodal: React.FC<any> = ({
             <span className="text-[16px]">
               {" "}
               Inv Status:{" "}
-              <span className="ml-2 _primary-color">Partially Paid</span>
+              <span className="ml-2 _primary-color">{purchaseOrders?.paymentStatus}</span>
             </span>
+            {purchaseOrders?.paymentStatus === "Partially Paid" && (
             <Button
               className="_bg-primary-color text-white hover:text-white"
               onClick={() => {
@@ -154,20 +165,24 @@ const Viewmodal: React.FC<any> = ({
             >
               Pay
             </Button>
+            )}
           </div>
 
           <div className="_total_paid">
             <span>
               {" "}
-              Total Paid: <span className="ml-2 _success_color">$ 900</span>
+              Total Paid: <span className="ml-2 _success_color">{`$ ${purchaseOrders?.payments?.map((payment: { paymentDetails: any; }) => payment?.paymentDetails?.paidAmount)} `}</span>
             </span>
           </div>
+
+          {purchaseOrders?.paymentStatus === "Partially Paid" && (
+            <>
 
           <div className="_total_remaining">
             <span>
               {" "}
               Total Remaining:{" "}
-              <span className="ml-2 _primary-color">$ 300</span>
+              <span className="ml-2 _primary-color">{`$ ${purchaseOrders?.remainingAmount}`}</span>
             </span>
           </div>
 
@@ -175,10 +190,14 @@ const Viewmodal: React.FC<any> = ({
             <span>
               {" "}
               Remaining Due Date:{" "}
-              <span className="ml-2 _primary-color">$ 300</span>
+              <span className="ml-2 _primary-color">{purchaseOrders?.payments?.map((payment: { paymentDetails: any; }) => payment?.paymentDetails?.dueData)}</span>
             </span>
           </div>
+          </>
+
+          )}
         </div>
+        
 
         <div className="flex justify-center">
           <Button onClick={handleExport} className="">

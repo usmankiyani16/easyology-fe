@@ -5,6 +5,8 @@ import { imageBaseUrl } from "../../../utils/constants";
 
 const CardComponent: React.FC<any> = ({ item }) => {
   const image = imageBaseUrl + item?.image;
+
+  console.log(item, "dash");
   return (
     <Card style={{ width: "11.688rem", height: "16.063rem" }}>
       <img
