@@ -61,11 +61,15 @@ code {
 }
 
 ._primary-color {
-  color: $primary-color;
+  color: $primary-color !important;
 }
 
 ._bg-primary-color {
   background-color: $primary-color;
+}
+
+._bg-light-primary-color {
+  background-color: $light-primary-color;
 }
 
 ._white-color {

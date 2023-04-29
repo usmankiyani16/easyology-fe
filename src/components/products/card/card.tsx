@@ -12,34 +12,33 @@ const CardComponent: React.FC<any> = ({ item }) => {
       <img
         src={item?.image ? image : noImg}
         alt="laptop"
-  
+
         className="w-[160.69px] h-[107.74px]"
       />
-      {/* <div className="flex flex-col justify-between"> */}
+      <div className="flex flex-col ">
 
-      <div className="flex justify-between mt-1">
+        <div className="flex justify-between mt-1">
 
-        <div className="flex flex-col">
-        
-        <span className="_productname">{item?.name}</span>
-        <span className="_productname">{item?.variants?.options.color}</span>
-        <span className="_productname">{item?.variants?.options.size}</span>
-        <span className="_productname">{item?.variants?.stock.totalQuantity}</span>
+          <div className="flex flex-col">
+
+            <span className="_productname">{item?.name}</span>
+            <span className="_productname">{item?.variants?.options.color}</span>
+            <span className="_productname">{item?.variants?.options.size}</span>
+            <span className="_productname">{item?.variants?.stock.totalQuantity}</span>
+          </div>
+
+          <div className="flex items-end">
+
+            <span className="_productname _primary-color">{`$${item?.variants?.amount}`}</span>
+
+          </div>
+
         </div>
 
-        <div className="flex items-end">
 
-        <span className="_productname _primary-color">{`$${item?.variants?.amount}`}</span>
+        <button disabled={item?.variants?.stock.totalQuantity === 0} className={`${item?.variants?.stock.totalQuantity === 0 && 'cursor-not-allowed _bg-light-primary-color'} self-center _bg-primary-color rounded  px-6 _white-color flex justify-center mt-2`}>Add to cart</button>
 
-        </div>
-
-        </div>
-
-
-        <span className="cursor-pointer _bg-primary-color rounded self-center px-6 _white-color flex justify-center mt-2">Add to cart</span>
-
-    
-      {/* </div> */}
+      </div>
     </Card>
   );
 };

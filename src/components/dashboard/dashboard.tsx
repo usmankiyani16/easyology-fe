@@ -3,12 +3,12 @@ import { SearchOutlined } from "@ant-design/icons";
 import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { laptopImg, noImg } from "../../assets/images";
 import Operations from "./operations/operations";
 import OnHoldModal from "./on-hold/on-hold";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getProducts } from "../../store/products/products-slice";
+import { getProducts, setBadgeCount } from "../../store/products/products-slice";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch()
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState();
-  const { products, status } = useAppSelector((state) => state.products);
+  const { products, badgeCount } = useAppSelector((state) => state.products);
   const [selectedProducts, setProducts] = useState<any>([
     {
       _id: "0001",
@@ -27,7 +27,10 @@ const Dashboard = () => {
       price: 33,
     },
   ]);
-
+  console.log('seletecs', badgeCount)
+  useEffect(() => {
+    dispatch(setBadgeCount(selectedProducts?.length ?? 0))
+  }, [selectedProducts])
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
     return acc + product.qty * product.price;
   }, 0);
@@ -79,7 +82,6 @@ const Dashboard = () => {
       price: 34,
     },
   ];
-  console.log('temp', productOptions, temp);
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
     form.resetFields();

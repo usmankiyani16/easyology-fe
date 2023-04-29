@@ -13,6 +13,7 @@ import { Pagination } from "antd";
 const PurchaseOrder = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
+  console.log('purchaseorder', purchaseOrders)
 
   const dispatch = useAppDispatch();
   useEffect(() => {

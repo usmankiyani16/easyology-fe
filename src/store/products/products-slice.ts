@@ -38,18 +38,25 @@ interface productState {
   products: any | null;
   error: string | null;
   status: string;
+  badgeCount: any
 }
 
 const initialState: productState = {
   products: [],
   error: null,
   status: REQUEST_STATUS.IDLE,
+  badgeCount: []
 };
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setBadgeCount(state, action) {
+      console.log(action);
+      state.badgeCount = action?.payload
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
@@ -66,6 +73,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const { } = productsSlice.actions;
+export const { setBadgeCount } = productsSlice.actions;
 
 export default productsSlice.reducer;
