@@ -168,10 +168,11 @@ const PreviewModal: React.FC<any> = ({
       }
     }
     payload.paidAmount = paidAmount;
-    const res = await dispatch(addPO(payload));
-    if (res?.meta?.requestStatus === "fulfilled") {
-      setPreviewModalOpen(false);
-    }
+    console.log('payload--', payload)
+    // const res = await dispatch(addPO(payload));
+    // if (res?.meta?.requestStatus === "fulfilled") {
+    //   setPreviewModalOpen(false);
+    // }
   };
 
   const handleDateChange = (date: any) => {

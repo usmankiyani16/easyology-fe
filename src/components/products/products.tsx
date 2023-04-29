@@ -72,7 +72,7 @@ const Products = () => {
         <Spinner />
       ) : (
         <div className="my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 sm:gap-x-24 ">
-          {products?.map((item: any, index: number) => (
+          {products?.products?.map((item: any, index: number) => (
             <CardComponent key={index} item={item} />
           ))}
         </div>
