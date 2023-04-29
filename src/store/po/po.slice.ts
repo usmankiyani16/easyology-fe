@@ -10,8 +10,8 @@ export const getPOS = createAsyncThunk(
     async (payload, { rejectWithValue }) => {
         try {
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-            const userId = data?._id
-            const response = await getApi(`/vendor-product?userId=${userId}&page=1&perPage=10`);
+            const storeId = data?.storeId
+            const response = await getApi(`/vendor-product?storeId=${storeId}&page=1&perPage=10`);
             return response;
         } catch (error) {
             return rejectWithValue(error);

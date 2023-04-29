@@ -32,6 +32,7 @@ export const addVendor = createAsyncThunk(
       dispatch(setLoading(true));
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       payload.userId = data?._id;
+      payload.storeId = data?.storeId;
       const response = await postApi("/vendor", payload);
       Toast(response?.message);
       return response;

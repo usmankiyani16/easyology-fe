@@ -41,6 +41,7 @@ type AddCatogaryPayload = {
   name: string;
   userId: string;
   image?: string;
+  storeId: string
 };
 export const addCatogary = createAsyncThunk(
   "catogaries/add",
@@ -49,6 +50,7 @@ export const addCatogary = createAsyncThunk(
       dispatch(setLoading(true));
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       payload.userId = data?._id;
+      payload.storeId = data?.storeId;
       const response = await postApi("/category", payload);
       Toast(response?.message);
       return response;
@@ -68,6 +70,7 @@ export const addSubCatogary = createAsyncThunk(
       dispatch(setLoading(true));
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       payload.userId = data?._id;
+      payload.storeId = data?.storeId;
       const response = await postApi("/subcategory", payload);
       Toast(response?.message);
       return response;
@@ -116,7 +119,7 @@ const catogariesSlice = createSlice({
       })
       .addCase(getSubCatogaries.fulfilled, (state, action) => {
         state.status = REQUEST_STATUS.SUCCEEDED;
-        state.subCategories = action?.payload?.data;
+        state.subCategories = action?.payload?.data?.subCategory;
       })
       .addCase(getSubCatogaries.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
@@ -150,6 +153,6 @@ const catogariesSlice = createSlice({
   },
 });
 
-export const {} = catogariesSlice.actions;
+export const { } = catogariesSlice.actions;
 
 export default catogariesSlice.reducer;

@@ -151,13 +151,13 @@ const AddPO = () => {
 
   return (
     <div className="_add_po_wrap">
-     
-        <div>
-          <h1 className="font-lato mt-4 text-[2rem]">
-            Purchase Order
-          </h1>
-        </div>
-     
+
+      <div>
+        <h1 className="font-lato mt-4 text-[2rem]">
+          Purchase Order
+        </h1>
+      </div>
+
 
       {/* Add PO Form  */}
       {vendormodalOpen && (
@@ -196,7 +196,7 @@ const AddPO = () => {
         layout="vertical"
         onFinish={onFinish}
         autoComplete="off"
-        // className="mt-4"
+      // className="mt-4"
       >
         {/* grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto */}
         {/* ml-8 mr-24 */}
@@ -208,7 +208,7 @@ const AddPO = () => {
 
 
           <div className="_grid1_fields">
-            
+
 
             <div className="flex items-center gap-3">
               <Form.Item
@@ -388,7 +388,7 @@ const AddPO = () => {
                 ]}
               >
                 <Select
-                   {...selectProps}
+                  {...selectProps}
                   className="_input"
                   placeholder="Add or Select Category"
                   onChange={(value: any) => dispatch(getSubCatogaries(value))}
@@ -452,9 +452,9 @@ const AddPO = () => {
                   className="_input select_input"
                   placeholder="Select sub category"
                 >
-                  {subCategories?.sub_category?.map((data: any) => (
+                  {subCategories?.map((data: any) => (
                     <Select.Option key={data?._id} value={data?._id}>
-                      {data?.name}
+                      {capitalize(data?.name)}
                     </Select.Option>
                   ))}
                 </Select>
