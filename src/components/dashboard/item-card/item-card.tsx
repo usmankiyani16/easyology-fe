@@ -62,7 +62,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
         </label>
         <label className="text-xl font-semibold flex  w-1/4">Price</label>
       </div>
-      <div className="h-[202px] overflow-auto _custom-scrollbar">
+      <div className="h-[224px] overflow-auto _custom-scrollbar">
         {products?.map((item, index) => (
           <div
             key={index}
@@ -81,28 +81,33 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
                 </div>
               </div>
             </div>
-            <div className=" flex justify-center items-center w-1/4">
-              <Button
-                className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-xl"
-                onClick={() => handleDecrement(index)}
-              >
-                -
-              </Button>
-              <InputNumber
-                className="mx-2 "
-                min={1}
-                type="number"
-                max={item?.maxQty | 1}
-                value={item?.qty}
-                onChange={(value) => handleChange(index, value)}
-              />
-              <Button
-                className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-lg"
-                onClick={() => handleIncrement(index)}
-              >
-                +
-              </Button>
-              
+            <div className="flex flex-col w-1/4">
+              <div className="_grey-color text-center">{item?.maxQty}</div>
+              <div className=" flex justify-center items-center">
+                <Button
+                  disabled={item?.qty === 1}
+                  className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-xl"
+                  onClick={() => handleDecrement(index)}
+                >
+                  -
+                </Button>
+                <InputNumber
+                  className="mx-2 "
+                  min={1}
+                  type="number"
+                  max={item?.maxQty | 1}
+                  value={item?.qty}
+                  onChange={(value) => handleChange(index, value)}
+                />
+                <Button
+                  disabled={item?.qty === item.maxQty}
+                  className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-lg"
+                  onClick={() => handleIncrement(index)}
+                >
+                  +
+                </Button>
+
+              </div>
             </div>
             <div className=" flex justify-between items-center w-1/4">
               <div>

@@ -119,7 +119,7 @@ const PreviewModal: React.FC<any> = ({
 
 
 
-  const [remainingPrice, setRemainingPrice] = useState<number>();
+  const [remainingPrice, setRemainingPrice] = useState<number>(0);
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
     const isChecked = e.target.checked;
@@ -143,10 +143,9 @@ const PreviewModal: React.FC<any> = ({
   const priceChange = (e: any) => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value) && e.target.value.trim() !== '') {
-      setRemainingPrice(totalPrice - value);
-    } else {
-      setRemainingPrice(totalPrice);
+      setRemainingPrice(value);
     }
+    else setRemainingPrice(0)
   };
 
   const handleFinish = async (values: any) => {
@@ -185,9 +184,9 @@ const PreviewModal: React.FC<any> = ({
     setDueDate(date);
   };
 
-   // Price Validator
+  // Price Validator
 
-   const validatePrice = (rule: any, value: string) => {
+  const validatePrice = (rule: any, value: string) => {
     const price = parseFloat(value);
     if (isNaN(price)) {
       return Promise.reject("Please enter a valid quantity");
@@ -251,21 +250,24 @@ const PreviewModal: React.FC<any> = ({
 
         <Form form={form} onFinish={handleFinish}>
           <div className="_footer_modal mt-4">
-          <div className="flex justify-between">
-          <h1 className=" font-semibold mr-4 text-[16px]">
-            Total Amount: {totalPrice}
-          </h1>
+            <div className="flex justify-between">
+              <h1 className=" font-semibold mr-4 text-[16px]">
+                Total Amount: {totalPrice}
+              </h1>
 
-        {/*   className={`${
+              {/*   className={`${
               !isPartialChecked && "mt-6"
             } */}
 
-          <div
-           className="flex flex-col text-red-500  flex self-end ml-2"
-          >
-            Remaining amount: {remainingPrice}
-          </div>
-          </div>
+
+              {isPartialChecked && remainingPrice > 0 &&
+                <div
+                  className="flex flex-col text-red-500  flex self-end ml-2"
+                >
+                  Remaining amount: {totalPrice - remainingPrice}
+                </div>
+              }
+            </div>
             <div className="_payment flex justify-between">
               <div>
                 <p className="_payment_header">Payment Method</p>
@@ -293,6 +295,7 @@ const PreviewModal: React.FC<any> = ({
               <>
                 <div className="_partial_price mt-4">
                   <Form.Item
+                    className="flex flex-col"
                     label="Partial Payment Price"
                     rules={[
                       { required: isPartialChecked, validator: validatePrice },
@@ -323,97 +326,97 @@ const PreviewModal: React.FC<any> = ({
                   </Form.Item>
                 </div>
 
-              
+
               </>
             )}
 
-{showInput && (
-            <Form.Item label="Payment Method" name="inputField">
-              <Select
-                className="_input h-10 w-[50px]"
-                placeholder="Payment Method"
-                style={{ width: "280px" }}
-                onChange={handleSelect}
-              >
-                <Select.Option value="Check">Check</Select.Option>
-                <Select.Option value="Cash">Cash</Select.Option>
-                <Select.Option value="CC">CC</Select.Option>
-              </Select>
-            </Form.Item>
-          )}
-
-          {selectedChoiceOption === "Check" && (
-            <div>
-              <Form.Item
-                label={<span className="_po_field_label">Check Number</span>}
-                name="serial"
-                required
-                tooltip="This is a required field"
-                rules={[
-                  {
-                    required: true,
-                    // type: 'email',
-                    message: "Required field",
-                  },
-                ]}
-              >
-                <Input
-                  className="_input_field w-[280px]"
-                  placeholder="Check Number"
-                />
+            {showInput && (
+              <Form.Item label="Payment Method" name="inputField">
+                <Select
+                  className="_input h-10 w-[50px]"
+                  placeholder="Payment Method"
+                  style={{ width: "280px" }}
+                  onChange={handleSelect}
+                >
+                  <Select.Option value="Check">Check</Select.Option>
+                  <Select.Option value="Cash">Cash</Select.Option>
+                  <Select.Option value="CC">CC</Select.Option>
+                </Select>
               </Form.Item>
-            </div>
-          )}
+            )}
 
-          {!isPartialChecked && (
-            <div
-              className={`${!isPartialChecked && "mt-8"} flex flex-col ml-4`}
-            >
-              <Checkbox
-                checked={selectedOption === "Check"}
-                onChange={() => handleCheckboxChange("Check")}
-              >
-                By Check
-              </Checkbox>
+            {selectedChoiceOption === "Check" && (
+              <div>
+                <Form.Item
+                  label={<span className="_po_field_label">Check Number</span>}
+                  name="serial"
+                  required
+                  tooltip="This is a required field"
+                  rules={[
+                    {
+                      required: true,
+                      // type: 'email',
+                      message: "Required field",
+                    },
+                  ]}
+                >
+                  <Input
+                    className="_input_field w-[280px]"
+                    placeholder="Check Number"
+                  />
+                </Form.Item>
+              </div>
+            )}
 
-              {selectedOption === "Check" && (
-                <div className="ml-4">
-                  <Form.Item
-                    label={
-                      <span className="_po_field_label">Check Number</span>
-                    }
-                    name="serial"
-                    required
-                    tooltip="This is a required field"
-                    rules={[
-                      {
-                        required: true,
-                        // type: 'email',
-                        message: "Required field",
-                      },
-                    ]}
-                  >
-                    <Input
-                      className="_input_field w-48"
-                      placeholder="Check Number"
-                    />
-                  </Form.Item>
-                </div>
-              )}
-              <Checkbox
-                checked={selectedOption === "cash"}
-                onChange={() => handleCheckboxChange("cash")}
+            {!isPartialChecked && (
+              <div
+                className={`${!isPartialChecked && "mt-8"} flex flex-col ml-4`}
               >
-                By Cash
-              </Checkbox>
-              <Checkbox
-                checked={selectedOption === "cc"}
-                onChange={() => handleCheckboxChange("cc")}
-              >
-                By CC
-              </Checkbox>
-            </div>
-          )}
+                <Checkbox
+                  checked={selectedOption === "Check"}
+                  onChange={() => handleCheckboxChange("Check")}
+                >
+                  By Check
+                </Checkbox>
+
+                {selectedOption === "Check" && (
+                  <div className="ml-4">
+                    <Form.Item
+                      label={
+                        <span className="_po_field_label">Check Number</span>
+                      }
+                      name="serial"
+                      required
+                      tooltip="This is a required field"
+                      rules={[
+                        {
+                          required: true,
+                          // type: 'email',
+                          message: "Required field",
+                        },
+                      ]}
+                    >
+                      <Input
+                        className="_input_field w-48"
+                        placeholder="Check Number"
+                      />
+                    </Form.Item>
+                  </div>
+                )}
+                <Checkbox
+                  checked={selectedOption === "cash"}
+                  onChange={() => handleCheckboxChange("cash")}
+                >
+                  By Cash
+                </Checkbox>
+                <Checkbox
+                  checked={selectedOption === "cc"}
+                  onChange={() => handleCheckboxChange("cc")}
+                >
+                  By CC
+                </Checkbox>
+              </div>
+            )}
 
             <br />
 

@@ -1,3 +1,15 @@
-._operations{
-    
+@import "../../../sass/variables";
+
+._operations {
+    ._remove-icon {
+        .ant-input-number-handler-wrap {
+            display: none;
+        }
+
+        .ant-input-number-input {
+            text-align: right;
+            // padding: 0 4px;
+            background-color: $light-grey-color;
+        }
+    }
 }

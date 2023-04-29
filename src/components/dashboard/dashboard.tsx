@@ -4,16 +4,20 @@ import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
 import { useState } from "react";
-import { laptopImg } from "../../assets/images";
+import { laptopImg, noImg } from "../../assets/images";
 import Operations from "./operations/operations";
 import OnHoldModal from "./on-hold/on-hold";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getProducts } from "../../store/products/products-slice";
 
 const Dashboard = () => {
+  const dispatch = useAppDispatch()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState();
-  const [products, setProducts] = useState<any>([
+  const { products, status } = useAppSelector((state) => state.products);
+  const [selectedProducts, setProducts] = useState<any>([
     {
       _id: "0001",
       name: "Laptop Lenovo Series 4",
@@ -24,7 +28,7 @@ const Dashboard = () => {
     },
   ]);
 
-  const totalPrice = products.reduce((acc: any, product: any) => {
+  const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
     return acc + product.qty * product.price;
   }, 0);
 
@@ -38,6 +42,17 @@ const Dashboard = () => {
     { _id: "13232", value: "customer 2" },
     { _id: "15555", value: "customer 3" },
   ];
+  const temp = products?.products?.slice(0, 3).map((prod: any) => ({
+    _id: prod?._id,
+    value: prod?.name,
+    image: prod?.image ?? noImg,
+    qty: 1,
+    maxQty: prod?.variants?.stock?.totalQuantity,
+    price: prod?.variants?.amount,
+    options: prod?.variants?.options
+  }))
+
+
   const productOptions = [
     {
       _id: "112222",
@@ -64,7 +79,7 @@ const Dashboard = () => {
       price: 34,
     },
   ];
-
+  console.log('temp', productOptions, temp);
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
     form.resetFields();
@@ -77,6 +92,15 @@ const Dashboard = () => {
     setSelectProduct(product);
     form.resetFields();
   };
+
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let queryParam: any = {
+      name: event.target.value
+    }
+    console.log('value', queryParam)
+    dispatch(getProducts(queryParam))
+  }
+
   return (
     <div className="_dashboard">
       <div className="flex gap-3 justify-between items-center">
@@ -122,6 +146,7 @@ const Dashboard = () => {
               }
             >
               <Input
+                onChange={handleChangeProduct}
                 className="h-8"
                 prefix={<SearchOutlined />}
                 placeholder="Search products"
@@ -143,7 +168,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="mt-7">
-        <ItemCard products={products} setProducts={setProducts} />
+        <ItemCard products={selectedProducts} setProducts={setProducts} />
       </div>
       <Operations totalPrice={totalPrice} />
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

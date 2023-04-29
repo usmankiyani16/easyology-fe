@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
+import { useNavigate } from "react-router-dom";
 
 const baseURL =
   "https://25sievoztd.execute-api.us-east-1.amazonaws.com/qa/api";
@@ -38,7 +39,9 @@ api.interceptors.response.use(
       error?.response?.status === 401 &&
       error?.response?.data?.message === "Unauthorized"
     ) {
+      console.log('errrrrrrr')
       localStorage.removeItem("user")
+      window.location.href=ROUTE_CONSTANTS.LOGIN
     }
     else {
       throw new Error(error?.data?.message);

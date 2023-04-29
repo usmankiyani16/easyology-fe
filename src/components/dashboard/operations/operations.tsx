@@ -53,6 +53,7 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
           <label>Discount </label>
           <label className=" rounded ">
             <InputNumber
+              className="_remove-icon shadow-lg"
               type="number"
               min={0}
               max={totalPrice | 0}

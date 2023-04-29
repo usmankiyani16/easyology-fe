@@ -6,12 +6,27 @@ import { Toast } from "../../components/common/toast/toast";
 
 export const getProducts = createAsyncThunk(
   "products/get",
-  async (payload, { rejectWithValue }) => {
+  async (payload: any, { rejectWithValue }) => {
     try {
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
-      let queryParam;
-      const response = await getApi(`/product?storeId=${storeId}`);
+      let queryParams = '';
+      if (payload?.name) {
+        queryParams += `&name=${payload.name}`;
+      }
+      if (payload?.categoryId) {
+        queryParams += `&categoryId=${payload.categoryId}`;
+      }
+      if (payload?.subCategoryId) {
+        queryParams += `&subCategoryId=${payload.subCategoryId}`;
+      }
+      if (payload?.page) {
+        queryParams += `&page=${payload.page}`;
+      }
+      if (payload?.perPage) {
+        queryParams += `&perPage=${payload.perPage}`;
+      }
+      const response = await getApi(`/product?storeId=${storeId}${queryParams}`);
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -51,6 +66,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const {} = productsSlice.actions;
+export const { } = productsSlice.actions;
 
 export default productsSlice.reducer;
