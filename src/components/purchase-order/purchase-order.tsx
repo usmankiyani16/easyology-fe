@@ -13,12 +13,13 @@ import { Pagination } from "antd";
 const PurchaseOrder = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getPOS());
   }, []);
 
-  const pageSize = 10 ;
+  const pageSize = 10;
   const total = purchaseOrders?.length ?? 0;
   const startIdx = (currentPage - 1) * pageSize;
   const endIdx = startIdx + pageSize;

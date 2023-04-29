@@ -51,7 +51,7 @@ const Viewmodal: React.FC<any> = ({
         className="_modal_wrap"
       >
         <h4 className="_po_Number text-xl mt-8">
-          PO Number: <span className="text-red-500">#456</span>
+          PO Number: <span className="text-red-500">#{purchaseOrders?.poNumber}</span>
         </h4>
         <h4 className="_company_name">Lenovo Company</h4>
         {/* <p className="_sheduled_date font-medium">
