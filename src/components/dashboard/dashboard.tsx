@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState();
-  const { products, badgeCount } = useAppSelector((state) => state.products);
+  const { products, } = useAppSelector((state) => state.products);
   const [selectedProducts, setProducts] = useState<any>([
     {
       _id: "0001",
@@ -27,7 +27,6 @@ const Dashboard = () => {
       price: 33,
     },
   ]);
-  console.log('seletecs', badgeCount)
   useEffect(() => {
     dispatch(setBadgeCount(selectedProducts?.length ?? 0))
   }, [selectedProducts])
