@@ -15,7 +15,7 @@ import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useAppSelector } from "../../store/store";
 
 const Header = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [profilemodalOpen, setProfileModalOpen] = useState(false);
 
   const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
@@ -26,7 +26,7 @@ const Header = () => {
   const day = today.getDate();
   const year = today.getFullYear();
   const formattedDate = `${month}/${day}/${year}`;
-  const { badgeCount } = useAppSelector((state) => state.products);
+  const { selectedProducts } = useAppSelector((state) => state.products);
 
   return (
     <>
@@ -65,8 +65,14 @@ const Header = () => {
         </div> */}
 
         <div className="flex justify-end xs:gap-4  sm:gap-9 ml-auto">
-          <Badge count={badgeCount > 0 ? badgeCount : ''}>
-            <img className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer" src={cartIcon} alt="cart" />
+          <Badge
+            count={selectedProducts?.length > 0 ? selectedProducts?.length : ""}
+          >
+            <img
+              className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer"
+              src={cartIcon}
+              alt="cart"
+            />
           </Badge>
           <img
             onClick={() => navigate(ROUTE_CONSTANTS.RECENT_INVOICES)}
@@ -74,7 +80,11 @@ const Header = () => {
             src={downloadIcon}
             alt="download"
           />
-          <img className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer" src={cart2Icon} alt="cart" />
+          <img
+            className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer"
+            src={cart2Icon}
+            alt="cart"
+          />
         </div>
       </div>
       <Profilemodal

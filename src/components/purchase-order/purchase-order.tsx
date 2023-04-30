@@ -48,11 +48,15 @@ const PurchaseOrder = () => {
           <Spinner />
         )}
       </div>
-      {purchaseOrders?.length &&
+      {purchaseOrders?.length ? (
         <Pagination
-          className="flex justify-end" defaultCurrent={1} total={50}
+          className="flex justify-end"
+          defaultCurrent={1}
+          total={50}
         />
-      }
+      ) : (
+        ""
+      )}
     </div>
   );
 };

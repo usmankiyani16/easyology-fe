@@ -3,53 +3,29 @@ import "./item-card.scss";
 import { DeleteFilled } from "@ant-design/icons";
 import { Button, InputNumber } from "antd";
 import { deleteIcon } from "../../../assets/images";
-interface ItemCardProps {
-  products: any[];
-  setProducts: Dispatch<SetStateAction<any[]>>;
-}
-const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import {
+  decrementProduct,
+  deleteSelectedProducts,
+  incrementProduct,
+} from "../../../store/products/products-slice";
+const ItemCard = () => {
+  const { selectedProducts } = useAppSelector((state) => state.products);
+  const dispatch = useAppDispatch();
   const handleDelete = (productId: string) => {
-    const updatedProducts = products.filter(
-      (product: { _id: string }) => product._id !== productId
-    );
-    setProducts(updatedProducts);
+    dispatch(deleteSelectedProducts(productId));
   };
 
-  // const [number, setNumber] = useState<number>(1);
-
-  const handleChange = (index: number, value: any) => {
-    setProducts((prevProducts) => {
-      const updatedProducts = [...prevProducts];
-      updatedProducts[index] = {
-        ...updatedProducts[index],
-        qty: value,
-      };
-      return updatedProducts;
-    });
-  };
+  const handleChange = (index: number, value: any) => {};
 
   const handleIncrement = (index: number) => {
-    if (products[index]?.qty < products[index].maxQty) {
-      setProducts((prevProducts) => {
-        const updatedProducts = [...prevProducts];
-        updatedProducts[index] = {
-          ...updatedProducts[index],
-          qty: updatedProducts[index].qty + 1,
-        };
-        return updatedProducts;
-      });
+    if (selectedProducts[index]?.qty < selectedProducts[index].maxQty) {
+      dispatch(incrementProduct(index));
     }
   };
   const handleDecrement = (index: number) => {
-    if (products[index]?.qty > 1) {
-      setProducts((prevProducts) => {
-        const updatedProducts = [...prevProducts];
-        updatedProducts[index] = {
-          ...updatedProducts[index],
-          qty: updatedProducts[index].qty - 1,
-        };
-        return updatedProducts;
-      });
+    if (selectedProducts[index]?.qty > 1) {
+      dispatch(decrementProduct(index));
     }
   };
 
@@ -63,7 +39,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
         <label className="text-xl font-semibold flex  w-1/4">Price</label>
       </div>
       <div className="h-[224px] overflow-auto _custom-scrollbar">
-        {products?.map((item, index) => (
+        {selectedProducts?.map((item: any, index: number) => (
           <div
             key={index}
             className="w-full my-2 flex justify-between shadow-md hover:shadow-xl"
@@ -106,7 +82,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ products, setProducts }) => {
                 >
                   +
                 </Button>
-
               </div>
             </div>
             <div className=" flex justify-between items-center w-1/4">

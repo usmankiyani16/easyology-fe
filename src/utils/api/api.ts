@@ -2,8 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useNavigate } from "react-router-dom";
 
-const baseURL =
-  "https://25sievoztd.execute-api.us-east-1.amazonaws.com/qa/api";
+const baseURL = "https://25sievoztd.execute-api.us-east-1.amazonaws.com/qa/api";
 
 // const baseURL =
 //   "https://01hj7ks3ih.execute-api.us-east-1.amazonaws.com/dev/api";
@@ -11,14 +10,16 @@ const baseURL =
 const api: AxiosInstance = axios.create({
   baseURL,
   headers: {
-    'X-accessType': 'pos'
-  }
+    "X-accessType": "pos",
+  },
 });
 
 // Authorization header with the access token
 api.interceptors.request.use(
   (config) => {
-    const { accessToken }: any = JSON.parse(localStorage.getItem("user") || "{}");
+    const { accessToken }: any = JSON.parse(
+      localStorage.getItem("user") || "{}"
+    );
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -39,25 +40,13 @@ api.interceptors.response.use(
       error?.response?.status === 401 &&
       error?.response?.data?.message === "Unauthorized"
     ) {
-      console.log('errrrrrrr')
-      localStorage.removeItem("user")
-      window.location.href=ROUTE_CONSTANTS.LOGIN
-    }
-    else {
+      localStorage.removeItem("user");
+      window.location.href = ROUTE_CONSTANTS.LOGIN;
+    } else {
       throw new Error(error?.data?.message);
     }
-
   }
 );
-
-const checkSession = async (data: AxiosResponse) => {
-  const response = data;
-  if (response?.status === 401 && response?.data?.message === "Unauthorized") {
-    localStorage.removeItem("user");
-  } else {
-    throw new Error(response?.data?.message);
-  }
-};
 
 export const requestApi = async <T = any>(
   config: AxiosRequestConfig

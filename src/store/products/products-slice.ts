@@ -10,7 +10,7 @@ export const getProducts = createAsyncThunk(
     try {
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
-      let queryParams = '&perPage=8';
+      let queryParams = "&perPage=8";
       if (payload?.name) {
         queryParams += `&name=${payload.name}`;
       }
@@ -26,7 +26,9 @@ export const getProducts = createAsyncThunk(
       // if (payload?.perPage) {
       //   queryParams += `&perPage=${payload.perPage}`;
       // }
-      const response = await getApi(`/product?storeId=${storeId}${queryParams}`);
+      const response = await getApi(
+        `/product?storeId=${storeId}${queryParams}`
+      );
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -38,24 +40,39 @@ interface productState {
   products: any | null;
   error: string | null;
   status: string;
-  badgeCount: any
+  selectedProducts: any;
 }
 
 const initialState: productState = {
   products: [],
   error: null,
   status: REQUEST_STATUS.IDLE,
-  badgeCount: []
+  selectedProducts: [],
 };
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setBadgeCount(state, action) {
-      console.log(action);
-      state.badgeCount = action?.payload
-    }
+    addSelectedProducts(state, action) {
+      state.selectedProducts.push(action?.payload);
+    },
+    deleteSelectedProducts(state, action) {
+      const updatedProducts = state.selectedProducts?.filter(
+        (product: { _id: string }) => product._id !== action?.payload
+      );
+      state.selectedProducts = updatedProducts;
+    },
+    incrementProduct(state, action) {
+      const index = action.payload;
+      const selectedProduct = state.selectedProducts[index];
+      selectedProduct.qty += 1;
+    },
+    decrementProduct(state, action) {
+      const index = action.payload;
+      const selectedProduct = state.selectedProducts[index];
+      selectedProduct.qty -= 1;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -73,6 +90,11 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setBadgeCount } = productsSlice.actions;
+export const {
+  addSelectedProducts,
+  deleteSelectedProducts,
+  incrementProduct,
+  decrementProduct,
+} = productsSlice.actions;
 
 export default productsSlice.reducer;
