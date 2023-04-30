@@ -8,7 +8,10 @@ import { laptopImg, noImg } from "../../assets/images";
 import Operations from "./operations/operations";
 import OnHoldModal from "./on-hold/on-hold";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getProducts, setBadgeCount } from "../../store/products/products-slice";
+import {
+  addSelectedProducts,
+  getProducts,
+} from "../../store/products/products-slice";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -16,20 +19,9 @@ const Dashboard = () => {
   const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState();
-  const { products, } = useAppSelector((state) => state.products);
-  const [selectedProducts, setProducts] = useState<any>([
-    {
-      _id: "0001",
-      name: "Laptop Lenovo Series 4",
-      image: laptopImg,
-      qty: 1,
-      maxQty: 23,
-      price: 33,
-    },
-  ]);
-  useEffect(() => {
-    dispatch(setBadgeCount(selectedProducts?.length ?? 0))
-  }, [selectedProducts])
+  const { products, selectedProducts } = useAppSelector(
+    (state) => state.products
+  );
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
     return acc + product.qty * product.price;
   }, 0);
@@ -52,9 +44,6 @@ const Dashboard = () => {
     price: prod?.variants?.amount,
     options: prod?.variants?.options,
   }));
-  console.log(products, 'aliiiii')
-  console.log(temp , 'bulli')
-
   const productOptions = [
     {
       _id: "112222",
@@ -89,7 +78,8 @@ const Dashboard = () => {
   const handleProductSelect = (product: any) => {
     product.name = product?.value;
     delete product.value;
-    setProducts((prevProducts: any) => [...prevProducts, product]);
+    dispatch(addSelectedProducts(product));
+    // setProducts((prevProducts: any) => [...prevProducts, product]);
     setSelectProduct(product);
     form.resetFields();
   };
@@ -172,7 +162,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="mt-7">
-        <ItemCard products={selectedProducts} setProducts={setProducts} />
+        <ItemCard />
       </div>
       <Operations totalPrice={totalPrice} />
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
