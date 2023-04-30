@@ -36,4 +36,19 @@
     padding: 15px;
     border-radius: 0 0 8px 8px;
   }
+
+  ._form {
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .ant-empty-description {
+    color: red;
+  }
+
+  .ant-empty-image {
+    filter: invert(20%);
+  }
+
 }

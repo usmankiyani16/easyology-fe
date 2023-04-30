@@ -100,7 +100,11 @@ const initialState: CatogariesState = {
 const catogariesSlice = createSlice({
   name: "catogaries",
   initialState,
-  reducers: {},
+  reducers: {
+    setSubCategory(state) {
+      state.subCategories = []
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCatogaries.pending, (state) => {
@@ -153,6 +157,6 @@ const catogariesSlice = createSlice({
   },
 });
 
-export const { } = catogariesSlice.actions;
+export const { setSubCategory } = catogariesSlice.actions;
 
 export default catogariesSlice.reducer;

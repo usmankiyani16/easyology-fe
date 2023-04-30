@@ -39,13 +39,15 @@ interface productState {
   error: string | null;
   status: string;
   badgeCount: any
+  selectedProducts: any
 }
 
 const initialState: productState = {
   products: [],
   error: null,
   status: REQUEST_STATUS.IDLE,
-  badgeCount: []
+  badgeCount: 0,
+  selectedProducts: []
 };
 
 const productsSlice = createSlice({
@@ -55,6 +57,15 @@ const productsSlice = createSlice({
     setBadgeCount(state, action) {
       console.log(action);
       state.badgeCount = action?.payload
+    },
+    addSelectedProducts(state, action) {
+      state.selectedProducts.push = action?.payload
+    },
+    deleteSelectedProducts(state, action) {
+      const updatedProducts = state.selectedProducts?.filter(
+        (product: { _id: string }) => product._id !== action?.payload
+      );
+      state.selectedProducts = updatedProducts
     }
   },
   extraReducers: (builder) => {
