@@ -38,9 +38,13 @@ const PreviewModal: React.FC<any> = ({
   const { vendors } = useAppSelector((state) => state.vendors);
   const [previewMaxmodalOpen, setPreviewMaxModalOpen] = useState(false);
   const [showInput, setShowInput] = useState(false);
+  const [isPartialChecked, setIsPartialChecked] = useState(true);
+  const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
+  const [dueDate, setDueDate] = useState(null);
+  const [selectedChoiceOption, setSelectedChoiceOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("cash");
 
-  const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
+ 
   const searchInput = useRef<InputRef>(null);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
@@ -108,10 +112,7 @@ const PreviewModal: React.FC<any> = ({
     // },
   ];
 
-  const [isPartialChecked, setIsPartialChecked] = useState(true);
-  const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
-  const [dueDate, setDueDate] = useState(null);
-  const [selectedChoiceOption, setSelectedChoiceOption] = useState(null);
+ 
 
   function handleSelect(value: any) {
     setSelectedChoiceOption(value);
@@ -133,7 +134,7 @@ const PreviewModal: React.FC<any> = ({
     setIsPartialChecked(!isChecked);
   };
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  
 
   const handleCheckboxChange = (option: any) => {
     setSelectedOption(option);
@@ -372,7 +373,22 @@ const PreviewModal: React.FC<any> = ({
               <div
                 className={`${!isPartialChecked && "mt-8"} flex flex-col ml-4`}
               >
+                
                 <Checkbox
+                  checked={selectedOption === "cash"}
+                  onChange={() => handleCheckboxChange("cash")}
+                >
+                  By Cash
+                </Checkbox>
+                <Checkbox
+                  checked={selectedOption === "cc"}
+                  onChange={() => handleCheckboxChange("cc")}
+                >
+                  By CC
+                </Checkbox>
+
+                <Checkbox
+                  
                   checked={selectedOption === "Check"}
                   onChange={() => handleCheckboxChange("Check")}
                 >
@@ -403,19 +419,9 @@ const PreviewModal: React.FC<any> = ({
                     </Form.Item>
                   </div>
                 )}
-                <Checkbox
-                  checked={selectedOption === "cash"}
-                  onChange={() => handleCheckboxChange("cash")}
-                >
-                  By Cash
-                </Checkbox>
-                <Checkbox
-                  checked={selectedOption === "cc"}
-                  onChange={() => handleCheckboxChange("cc")}
-                >
-                  By CC
-                </Checkbox>
               </div>
+
+
             )}
 
             <br />

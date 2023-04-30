@@ -30,12 +30,42 @@ const Viewmodal: React.FC<any> = ({
 
   const image = imageBaseUrl + Product_Image;
 
+  /* [
+    { name: purchaseOrders?.poNumber, age: 22 },
+    { name: "Usman", age: 25 },
+    { name: "Hasan", age: 40 },
+  ] */
+
   const handleExport = () => {
-    const data = [
-      { name: purchaseOrders?.poNumber, age: 22 },
-      { name: "Usman", age: 25 },
-      { name: "Hasan", age: 40 },
-    ];
+    const data = purchaseOrders.products?.map((product:any) => ({ 
+      
+
+      productName:product?.name,
+      quantity:product?.quantity,
+      price: product?.amount,
+      image: product?.image ?? noImg,
+      productId: purchaseOrders?._id,
+      poNo: purchaseOrders?.poNumber,
+      company: purchaseOrders?.vendor[0]?.companyName,
+      inventoryStatus: purchaseOrders?.paymentStatus,
+      totalPaid: purchaseOrders?.payments[0]?.paymentDetails?.paidAmount,
+      remaining: purchaseOrders?.remainingAmount,
+      dueDate: purchaseOrders?.payments[0]?.paymentDetails?.dueData
+
+
+ }));
+
+ console.log(data, 'Exported Data')
+ console.log(data, 'Exported Data')
+
+
+ 
+ 
+
+
+
+    
+
     const fileName = "export";
 
     const worksheet = XLSX.utils.json_to_sheet(data);
@@ -75,7 +105,7 @@ const Viewmodal: React.FC<any> = ({
           {/* --------- Purchase Order data ka map yaha lagega -------------- */}
 
           <p className="_product_id font-bold">
-            Product ID <span>#6784</span>
+              Product ID <span>#{purchaseOrders?._id}</span>
           </p>
 
           <div className="flex justify-between items-center mt-2">

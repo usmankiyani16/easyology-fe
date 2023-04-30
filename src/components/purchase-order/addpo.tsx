@@ -507,11 +507,11 @@ const AddPO = () => {
           </div>
         </div>
 
-        <div className="_btn-footer flex justify-around mt-8">
+        <div className="_btn-footer flex justify-between mt-8 sm:ml-8 sm:mr-8">
           <div className="_import_btn">
-            <Form.Item className="">
+            <Form.Item className="m-0">
               <Button
-                className="sm:w-44 text-center"
+                className="sm:w-40 text-center"
                 type="primary"
                 onClick={() => dispatch(setImportModalOpen(true))}
               >
@@ -539,7 +539,7 @@ const AddPO = () => {
 
           <div className="_submit_btn">
             <Form.Item>
-              <Button className="xs:24 sm:w-44 text-center" type="primary" htmlType="submit">
+              <Button className="text-center" type="primary" htmlType="submit">
                 {dataForm && dataForm?.products?.length
                   ? "Add More Product"
                   : "Add Product"}

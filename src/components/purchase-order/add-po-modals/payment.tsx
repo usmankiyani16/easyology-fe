@@ -38,10 +38,11 @@ const Payment: React.FC<any> = ({
 
   const [isPartialChecked, setIsPartialChecked] = useState(true);
   const [isFullyPaidChecked, setIsFullyPaidChecked] = useState(false);
-  const [remainingPrice, setRemainingPrice] = useState<number>();
+  // const [remainingPrice, setRemainingPrice] = useState<number>();
   const [showInput, setShowInput] = useState(false);
+  const [remainingPrice, setRemainingPrice] = useState<number>(0);
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("cash");
   const [dueDate, setDueDate] = useState(null);
 
   const [selectedChoiceOption, setSelectedChoiceOption] = useState(null);
@@ -98,10 +99,9 @@ const Payment: React.FC<any> = ({
   const priceChange = (e: any) => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value) && e.target.value.trim() !== '') {
-      setRemainingPrice(totalPrice - value);
-    } else {
-      setRemainingPrice(totalPrice);
+      setRemainingPrice(value);
     }
+    else setRemainingPrice(0)
   };
 
   // Price Validator
@@ -132,19 +132,19 @@ const Payment: React.FC<any> = ({
       <Form form={form} onFinish={handleFinish}>
         <div className="_footer_modal mt-4">
           <div className="flex justify-between">
-          <h1 className=" font-semibold mr-4 text-[16px]">
-            Total Amount: {totalPrice}
-          </h1>
+            <h1 className=" font-semibold mr-4 text-[16px]">
+              Total Amount: {totalPrice}
+            </h1>
 
-        {/*   className={`${
+            {/*   className={`${
               !isPartialChecked && "mt-6"
             } */}
 
-          <div
-           className="flex flex-col text-red-500  flex self-end ml-2"
-          >
-            Remaining amount: {remainingPrice}
-          </div>
+            {isPartialChecked && remainingPrice > 0 && (
+              <div className="flex flex-col text-red-500  flex self-end ml-2">
+                Remaining amount: {remainingPrice}
+              </div>
+            )}
           </div>
 
           {/* {<h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice-paidAmount}</h1>} */}
@@ -182,7 +182,6 @@ const Payment: React.FC<any> = ({
                   ]}
                   name="price"
                 >
-                  {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
                   <Input
                     onChange={(e) => priceChange(e)}
                     className="_input_field h-10 w-[280px]"
@@ -197,12 +196,9 @@ const Payment: React.FC<any> = ({
                   label="Due Date"
                   rules={[{ required: isPartialChecked }]}
                   name="dueDate"
+                  
                 >
-                  <DatePicker
-                    // className="sm:ml-[116px] xs:ml-4"
-                    onChange={handleDateChange}
-                    value={dueDate}
-                  />
+                  <DatePicker onChange={handleDateChange} value={dueDate} />
                 </Form.Item>
               </div>
             </>
@@ -251,6 +247,18 @@ const Payment: React.FC<any> = ({
               className={`${!isPartialChecked && "mt-8"} flex flex-col ml-4`}
             >
               <Checkbox
+                checked={selectedOption === "cash"}
+                onChange={() => handleCheckboxChange("cash")}
+              >
+                By Cash
+              </Checkbox>
+              <Checkbox
+                checked={selectedOption === "cc"}
+                onChange={() => handleCheckboxChange("cc")}
+              >
+                By CC
+              </Checkbox>
+              <Checkbox
                 checked={selectedOption === "Check"}
                 onChange={() => handleCheckboxChange("Check")}
               >
@@ -281,18 +289,6 @@ const Payment: React.FC<any> = ({
                   </Form.Item>
                 </div>
               )}
-              <Checkbox
-                checked={selectedOption === "cash"}
-                onChange={() => handleCheckboxChange("cash")}
-              >
-                By Cash
-              </Checkbox>
-              <Checkbox
-                checked={selectedOption === "cc"}
-                onChange={() => handleCheckboxChange("cc")}
-              >
-                By CC
-              </Checkbox>
             </div>
           )}
 
@@ -310,5 +306,3 @@ const Payment: React.FC<any> = ({
 };
 
 export default Payment;
-
-

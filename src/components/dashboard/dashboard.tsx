@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getProducts } from "../../store/products/products-slice";
 
 const Dashboard = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
@@ -36,7 +36,6 @@ const Dashboard = () => {
     setIsModalOpen(true);
   };
 
-
   const customerOptions = [
     { _id: "144444", value: "customer 1" },
     { _id: "13232", value: "customer 2" },
@@ -49,9 +48,10 @@ const Dashboard = () => {
     qty: 1,
     maxQty: prod?.variants?.stock?.totalQuantity,
     price: prod?.variants?.amount,
-    options: prod?.variants?.options
-  }))
-
+    options: prod?.variants?.options,
+  }));
+  console.log(products, 'aliiiii')
+  console.log(temp , 'bulli')
 
   const productOptions = [
     {
@@ -79,7 +79,7 @@ const Dashboard = () => {
       price: 34,
     },
   ];
-  console.log('temp', productOptions, temp);
+  console.log("temp", productOptions, temp);
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
     form.resetFields();
@@ -95,11 +95,11 @@ const Dashboard = () => {
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
     let queryParam: any = {
-      name: event.target.value
-    }
-    console.log('value', queryParam)
-    dispatch(getProducts(queryParam))
-  }
+      name: event.target.value,
+    };
+    console.log("value", queryParam);
+    dispatch(getProducts(queryParam));
+  };
 
   return (
     <div className="_dashboard">
@@ -162,7 +162,10 @@ const Dashboard = () => {
             src={addCustomereIcon}
             alt="scanner"
           />
-          <Button onClick={showModal} className="bg-white font-semibold h-8 flex items-center justify-center">
+          <Button
+            onClick={showModal}
+            className="bg-white font-semibold h-8 flex items-center justify-center"
+          >
             On hold<span className="_primary-color ml-2">({`0`})</span>
           </Button>
         </div>
