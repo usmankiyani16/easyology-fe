@@ -50,10 +50,11 @@ const PurchaseOrder = () => {
           <Spinner />
         )}
       </div>
-
-      <Pagination
-        className="flex justify-end" defaultCurrent={1} total={50} 
-      />
+      {purchaseOrders?.length &&
+        <Pagination
+          className="flex justify-end" defaultCurrent={1} total={50}
+        />
+      }
     </div>
   );
 };

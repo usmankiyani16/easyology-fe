@@ -10,7 +10,7 @@ export const getProducts = createAsyncThunk(
     try {
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
-      let queryParams = '';
+      let queryParams = '&perPage=8';
       if (payload?.name) {
         queryParams += `&name=${payload.name}`;
       }
@@ -23,9 +23,9 @@ export const getProducts = createAsyncThunk(
       if (payload?.page) {
         queryParams += `&page=${payload.page}`;
       }
-      if (payload?.perPage) {
-        queryParams += `&perPage=${payload.perPage}`;
-      }
+      // if (payload?.perPage) {
+      //   queryParams += `&perPage=${payload.perPage}`;
+      // }
       const response = await getApi(`/product?storeId=${storeId}${queryParams}`);
       return response;
     } catch (error) {
