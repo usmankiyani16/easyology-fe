@@ -13,6 +13,7 @@ import { Pagination } from "antd";
 const PurchaseOrder = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
+  console.log("purchaseOrders", purchaseOrders);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -41,18 +42,16 @@ const PurchaseOrder = () => {
         </NavLink>
       </div>
       <div className="_cards">
-        {purchaseOrders?.length ? (
+        {purchaseOrders?.products?.length ? (
           <>
-            <POCard purchaseOrders={purchaseOrders} />
+            <POCard purchaseOrders={purchaseOrders?.products} />
           </>
         ) : (
           <Spinner />
         )}
       </div>
 
-      <Pagination
-        className="flex justify-end" defaultCurrent={1} total={50} 
-      />
+      <Pagination className="flex justify-end" defaultCurrent={1} total={50} />
     </div>
   );
 };
