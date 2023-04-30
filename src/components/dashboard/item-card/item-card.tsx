@@ -2,13 +2,14 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import "./item-card.scss";
 import { DeleteFilled } from "@ant-design/icons";
 import { Button, InputNumber } from "antd";
-import { deleteIcon } from "../../../assets/images";
+import { deleteIcon, noImg } from "../../../assets/images";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {
   decrementProduct,
   deleteSelectedProducts,
   incrementProduct,
 } from "../../../store/products/products-slice";
+import { imageBaseUrl } from "../../../utils/constants";
 const ItemCard = () => {
   const { selectedProducts } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
@@ -50,7 +51,7 @@ const ItemCard = () => {
                 <div className="flex items-center gap-3 ">
                   <img
                     className="w-20 h-16 rounded "
-                    src={item?.image}
+                    src={item?.image ? imageBaseUrl + item?.image : noImg}
                     alt="img"
                   />
                   <h1 className="font-semibold text-sm">{item?.name}</h1>

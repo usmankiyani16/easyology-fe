@@ -10,7 +10,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Badge, Input } from "antd";
 import "./header.scss";
 import Profilemodal from "./profile-modal/profile-modal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useAppSelector } from "../../store/store";
 
@@ -68,11 +68,14 @@ const Header = () => {
           <Badge
             count={selectedProducts?.length > 0 ? selectedProducts?.length : ""}
           >
-            <img
-              className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer"
-              src={cartIcon}
-              alt="cart"
-            />
+            <Link to={ROUTE_CONSTANTS.DASHBOARD}>
+              <img
+                // onClick={() => navigate(ROUTE_CONSTANTS.DASHBOARD)}
+                className="xs:w-5 xs:h-5  sm:w-7 sm:h-7 cursor-pointer"
+                src={cartIcon}
+                alt="cart"
+              />
+            </Link>
           </Badge>
           <img
             onClick={() => navigate(ROUTE_CONSTANTS.RECENT_INVOICES)}
