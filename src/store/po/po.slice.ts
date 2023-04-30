@@ -32,7 +32,8 @@ export const addPO = createAsyncThunk(
         try {
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-            payload.userId = data?._id
+            payload.userId = data?._id;
+            payload.storeId = data?.storeId;
             const response = await postApi('/product/single-po', payload);
             Toast(response?.message)
             return response;
@@ -51,7 +52,8 @@ export const addPOinBulk = createAsyncThunk(
         try {
             dispatch(setLoading(true))
             const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-            payload.userId = data?._id
+            payload.userId = data?._id;
+            payload.storeId = data?.storeId;
             const response = await postApi('/product/bulk-po', payload);
             Toast(response?.message)
             return response;

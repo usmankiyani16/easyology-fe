@@ -22,7 +22,9 @@ const Importmodal: React.FC<any> = () => {
     setvendorId(value);
     setIsVendorSelected(true);
   };
-  const onFinish = (values: any) => {};
+  const onFinish = (values: any) => {
+    console.log("values ===========> ", values);
+  };
 
   const selectProps = {
     dropdownStyle: { maxHeight: 140 },
@@ -38,9 +40,9 @@ const Importmodal: React.FC<any> = () => {
         onCancel={() => dispatch(setImportModalOpen(false))}
         destroyOnClose={true}
         className="_modal_wrap"
-        
-        
-        
+
+
+
       >
         <h3 className="_modal_header text-red-500">Import PO In Bulk</h3>
         <Form

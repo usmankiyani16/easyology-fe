@@ -4,7 +4,7 @@ import tabler_maximize from "../../../assets/icons/layout/tabler_maximize.png";
 import Laptop from "../../../assets/images/dashboard/laptop.png";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../../../sass/modals.scss";
-import { InputRef, Select } from "antd";
+import { Col, InputRef, Row, Select } from "antd";
 import {
   Input,
   Space,
@@ -25,6 +25,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { capitalize } from "../../../utils/functions/functions";
 import { addPOinBulk, setImportModalOpen } from "../../../store/po/po.slice";
 import { Toast } from "../../common/toast/toast";
+import dayjs from "dayjs";
 
 const Payment: React.FC<any> = ({
   dataSource1,
@@ -75,20 +76,38 @@ const Payment: React.FC<any> = ({
     let paidAmount;
     let payload: any = {
       vendorId,
-      poducts: dataSource1,
-      totalAmount: totalPrice,
+      products: dataSource1,
+      paymentDetails: {},
     };
     if (isFullyPaidChecked) {
       paidAmount = totalPrice;
     } else {
       paidAmount = Number(values?.price);
-      payload.dueDate = values?.dueDate.toISOString().substr(0, 10);
+      let dueDate = values?.dueDate.toISOString().substr(0, 10);
+      payload.paymentDetails.dueDate = dayjs(dueDate).format("MM-DD-YYYY");
       if (payload?.totalAmount < paidAmount) {
         Toast("Total Balance is low", "error");
         return;
       }
     }
-    payload.paidAmount = paidAmount;
+    payload.paymentStatus = (isPartialChecked && "Partially Paid") || (isFullyPaidChecked && "Paid");
+    payload.paymentDetails = {
+      ...payload.paymentDetails,
+      totalAmount: totalPrice,
+      discount: 0,
+      salesTax: 0,
+      paidAmount,
+      remainingAmount: totalPrice - paidAmount,
+    }
+    if (selectedChoiceOption === "check") {
+      payload.paymentTypeDetails = {
+        checkNumber: values?.serial,
+        routingNumber: "1231",
+        accountNumber: "12313",
+      }
+    }
+
+    console.log("payload =============> ", payload);
     const res = await dispatch(addPOinBulk(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       setPreviewMaxModalOpen(false);
@@ -152,7 +171,8 @@ const Payment: React.FC<any> = ({
           {/* <h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice-paidAmount}</h1> */}
           <div className="_payment flex mt-4">
             <div>
-              <p className="_payment_header ml-[13px]">Payment Method</p>
+              {/*  ml-[13px] */}
+              <p className="_payment_header">Payment Method</p>
             </div>
             <div className="flex items-center">
               <Checkbox
@@ -174,52 +194,76 @@ const Payment: React.FC<any> = ({
           </div>
           {isPartialChecked && (
             <>
-              <div className="_partial_price mt-4">
-                <Form.Item
-                  label="Partial Payment Price"
-                  rules={[
-                    { required: isPartialChecked, validator: validatePrice },
-                  ]}
-                  name="price"
-                >
-                  <Input
-                    onChange={(e) => priceChange(e)}
-                    className="_input_field h-10 w-[280px]"
-                    placeholder="0.00"
-                    type="number"
-                    prefix="$"
-                  />
-                </Form.Item>
-              </div>
-              <div className={`${!isPartialChecked && "mt-4"} flex flex-col`}>
-                <Form.Item
-                  label="Due Date"
-                  rules={[{ required: isPartialChecked }]}
-                  name="dueDate"
-                  
-                >
-                  <DatePicker onChange={handleDateChange} value={dueDate} />
-                </Form.Item>
-              </div>
+              {/* <div className="_partial_price mt-4"> */}
+              <Row className="_partial_price mt-4 mb-1">
+                <Col xs={5} className="pt-2">
+                  <label htmlFor="">Partial Payment Price</label>
+                </Col>
+                <Col xs={8}>
+                  <Form.Item
+                    // label=""
+                    rules={[
+                      { required: isPartialChecked, validator: validatePrice },
+                    ]}
+                    name="price"
+                  >
+                    <Input
+                      onChange={(e) => priceChange(e)}
+                      className="_input_field h-10 w-[280px]"
+                      placeholder="0.00"
+                      type="number"
+                      prefix="$"
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              {/* </div> */}
+              {/* <div className={`${!isPartialChecked && "mt-4"} flex flex-col`}> */}
+              <Row className="_partial_price mt-4 mb-1">
+                <Col xs={5} className="pt-1">
+                  <label htmlFor="">Due Date</label>
+                </Col>
+                <Col xs={8}>
+                  <Form.Item
+                    // label=""
+                    rules={[{ required: isPartialChecked }]}
+                    name="dueDate"
+                  >
+                    <DatePicker onChange={handleDateChange} value={dueDate} style={{ width: "100%" }} />
+                  </Form.Item></Col>
+              </Row>
+
+              {/* </div> */}
             </>
           )}
 
           {showInput && (
-            <Form.Item label="Payment Method" name="inputField">
-              <Select
-                className="_input h-10 w-[50px]"
-                placeholder="Payment Method"
-                style={{ width: "280px" }}
-                onChange={handleSelect}
-              >
-                <Select.Option value="Check">Check</Select.Option>
-                <Select.Option value="Cash">Cash</Select.Option>
-                <Select.Option value="CC">CC</Select.Option>
-              </Select>
-            </Form.Item>
+            <Row>
+              <Col xs={5} className="pt-3">
+                <label htmlFor="">Payment Method</label>
+              </Col>
+              <Col xs={8}>
+                <Form.Item name="inputField">
+                  <Select
+                    // w-[50px]
+                    className="_input h-10 "
+                    placeholder="Payment Method"
+                    style={{ width: "292px" }}
+                    onChange={handleSelect}
+                  >
+                    <Select.Option value="check">Check</Select.Option>
+                    <Select.Option value="cash">Cash</Select.Option>
+                    <Select.Option value="CC">CC</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+
           )}
 
-          {selectedChoiceOption === "Check" && (
+          {selectedChoiceOption === "check" && (
             <div>
               <Form.Item
                 label={<span className="_po_field_label">Check Number</span>}

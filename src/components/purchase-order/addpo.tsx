@@ -58,9 +58,11 @@ const AddPO = () => {
       iemeNumber: values.imeiNumber,
       description: values.productDescription,
       categoryId: values.category,
-      color: values.color,
       image: productImage,
-      size: values.size,
+      // options: {
+      //   color: values.color,
+      //   size: values.size,
+      // },
       subCategoryId: values.subCategory,
       quantity: Number(values.quantity),
       serialNumber: values.serial,
