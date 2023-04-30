@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
-  const [selectProduct, setSelectProduct] = useState();
+  const [selectProduct, setSelectProduct] = useState<any>(null);
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
   );
@@ -90,7 +90,9 @@ const Dashboard = () => {
     };
     console.log("value", queryParam);
     dispatch(getProducts(queryParam));
+    setSelectProduct(null);
   };
+
 
   return (
     <div className="_dashboard">
@@ -130,6 +132,7 @@ const Dashboard = () => {
             <AutoComplete
               onSelect={(value, option) => handleProductSelect(option)}
               options={productOptions}
+              value={selectProduct}
               filterOption={(inputValue, option) =>
                 option!.value
                   .toUpperCase()
