@@ -86,16 +86,16 @@ const Viewmodal: React.FC<any> = ({
                 className="w-[59px] h-[66px]"
               />
               <span className="_product_name w-[112px] h-[66px] font-semibold">
-              {purchaseOrders?.products.map((product: { name: any; }) => product.name)}
+              {purchaseOrders?.products[0].name}
               </span>
             </div>
             <div>
               <span className="_product_quantity w-[112px] h-[66p] font-semibold">
-                {`x${purchaseOrders?.products.map((product: { quantity: any; }) => product.quantity)} `}
+                {`x${purchaseOrders?.products[0].quantity}`}
               </span>
             </div>
             <div>
-              <span className="_product_price text-[18px] font-bold">{`$ ${purchaseOrders?.products?.map((product: { amount: any; }) => product.amount)} `}</span>
+              <span className="_product_price text-[18px] font-bold">{`$ ${purchaseOrders?.products[0].amount} `}</span>
             </div>
           </div>
 
@@ -159,8 +159,8 @@ const Viewmodal: React.FC<any> = ({
             <Button
               className="_bg-primary-color text-white hover:text-white"
               onClick={() => {
+                // setViewModalOpen(false);
                 setPaymentModalOpen(true);
-                setViewModalOpen(false);
               }}
             >
               Pay
@@ -171,7 +171,7 @@ const Viewmodal: React.FC<any> = ({
           <div className="_total_paid">
             <span>
               {" "}
-              Total Paid: <span className="ml-2 _success_color">{`$ ${purchaseOrders?.payments?.map((payment: { paymentDetails: any; }) => payment?.paymentDetails?.paidAmount)} `}</span>
+              Total Paid: <span className="ml-2 _success_color">{`$ ${purchaseOrders?.payments[0]?.paymentDetails?.paidAmount} `}</span>
             </span>
           </div>
 
@@ -190,7 +190,7 @@ const Viewmodal: React.FC<any> = ({
             <span>
               {" "}
               Remaining Due Date:{" "}
-              <span className="ml-2 _primary-color">{purchaseOrders?.payments?.map((payment: { paymentDetails: any; }) => payment?.paymentDetails?.dueData)}</span>
+              <span className="ml-2 _primary-color">{purchaseOrders?.payments[0]?.paymentDetails?.dueData}</span>
             </span>
           </div>
           </>

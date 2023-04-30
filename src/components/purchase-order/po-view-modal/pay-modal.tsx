@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import {  useState } from "react";
 import "../../../sass/modals.scss";
 
 

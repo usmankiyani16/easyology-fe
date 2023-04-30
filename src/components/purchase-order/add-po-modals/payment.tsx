@@ -17,7 +17,7 @@ import {
 } from "antd";
 import type { ColumnsType, ColumnType } from "antd/es/table";
 import type { FilterConfirmProps } from "antd/es/table/interface";
-import PreviewMax from "./preview-max";
+import PreviewMax from "./preview-bulk-import";
 
 import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";

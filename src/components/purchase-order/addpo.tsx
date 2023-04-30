@@ -7,7 +7,7 @@ import "./addpo.scss";
 import { Form, Input, Button, Select, Upload } from "antd";
 import AddVendorModal from "./add-po-modals/add-vendor-modal";
 import AddCategoryModal from "./add-po-modals/add-cat-modal";
-import PreviewModal from "./add-po-modals/preview-product-modal";
+import PreviewModal from "./add-po-modals/finalize-po";
 import Importmodal from "./add-po-modals/import-modal";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {

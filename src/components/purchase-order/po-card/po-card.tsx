@@ -87,6 +87,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                   }
                 </div>
                 {data?.paymentStatus === "Partially Paid" && (
+                  <>
                   <div className="flex text-lg gap-4">
                     <span className="font-medium _label-grey">
                       Remaining Amount:
@@ -97,7 +98,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                       </span>
                     }
                   </div>
-                )}
+               
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Due Date:</span>
                   <span className="font-medium ">
@@ -106,6 +107,8 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                     )}
                   </span>
                 </div>
+                </>
+                 )}
               </div>
               {
                 <div className="flex flex-col justify-self-end items-center justify-between">
