@@ -10,7 +10,7 @@ export const getProducts = createAsyncThunk(
     try {
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
-      let queryParams = '';
+      let queryParams = '&perPage=8';
       if (payload?.name) {
         queryParams += `&name=${payload.name}`;
       }
@@ -23,9 +23,9 @@ export const getProducts = createAsyncThunk(
       if (payload?.page) {
         queryParams += `&page=${payload.page}`;
       }
-      if (payload?.perPage) {
-        queryParams += `&perPage=${payload.perPage}`;
-      }
+      // if (payload?.perPage) {
+      //   queryParams += `&perPage=${payload.perPage}`;
+      // }
       const response = await getApi(`/product?storeId=${storeId}${queryParams}`);
       return response;
     } catch (error) {
@@ -38,18 +38,25 @@ interface productState {
   products: any | null;
   error: string | null;
   status: string;
+  badgeCount: any
 }
 
 const initialState: productState = {
   products: [],
   error: null,
   status: REQUEST_STATUS.IDLE,
+  badgeCount: []
 };
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setBadgeCount(state, action) {
+      console.log(action);
+      state.badgeCount = action?.payload
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
@@ -66,6 +73,6 @@ const productsSlice = createSlice({
   },
 });
 
-export const { } = productsSlice.actions;
+export const { setBadgeCount } = productsSlice.actions;
 
 export default productsSlice.reducer;

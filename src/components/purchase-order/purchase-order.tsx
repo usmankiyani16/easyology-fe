@@ -13,8 +13,6 @@ import { Pagination } from "antd";
 const PurchaseOrder = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
-  console.log("purchaseOrders", purchaseOrders);
-
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getPOS());
@@ -50,8 +48,11 @@ const PurchaseOrder = () => {
           <Spinner />
         )}
       </div>
-
-      <Pagination className="flex justify-end" defaultCurrent={1} total={50} />
+      {purchaseOrders?.length &&
+        <Pagination
+          className="flex justify-end" defaultCurrent={1} total={50}
+        />
+      }
     </div>
   );
 };

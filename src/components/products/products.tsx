@@ -1,6 +1,6 @@
 import { Input, Pagination, Select } from "antd";
 import { useEffect } from "react";
-import './products.scss'
+import "./products.scss";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {
   getCatogaries,
@@ -18,6 +18,7 @@ const Products = () => {
   const { catogaries, subCategories } = useAppSelector(
     (state) => state.catogaries
   );
+  console.log("subCategories", subCategories);
   const { products, status } = useAppSelector((state) => state.products);
 
   const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
@@ -27,7 +28,7 @@ const Products = () => {
     dispatch(getProducts(payload));
   }, []);
 
-  console.log(products, 'products hai')
+  console.log(products, "products hai");
   return (
     <div className="_products_wrap">
       <h1 className="font-semibold text-lg">Products</h1>
@@ -38,7 +39,9 @@ const Products = () => {
             <Select
               className="w-44 h-8"
               placeholder="Select Category"
-              onChange={(value: any) => dispatch(getSubCatogaries(value))}
+              onChange={(value: any) =>
+                value && dispatch(getSubCatogaries(value))
+              }
             >
               <Select.Option value="">All</Select.Option>
               {catogaries?.map((catogary: any, index: number) => (
@@ -52,9 +55,9 @@ const Products = () => {
             {/* <label>Sub category: </label> */}
             <Select className="w-44 h-8" placeholder="Select sub category">
               <Select.Option value="">All</Select.Option>
-              {subCategories?.sub_category?.map((data: any) => (
+              {subCategories?.map((data: any) => (
                 <Select.Option key={data?._id} value={data?._id}>
-                  {data?.name}
+                  {capitalize(data?.name ?? "")}
                 </Select.Option>
               ))}
             </Select>
@@ -69,16 +72,22 @@ const Products = () => {
         </div>
       </div>
       {/* products */}
-      {status === REQUEST_STATUS.PENDING ? (
+      {!products?.products?.length ? (
         <Spinner />
       ) : (
-        <div className="my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 sm:gap-x-24 ">
-          {products?.products?.map((item: any, index: number) => (
-            <CardComponent key={index} item={item} />
-          ))}
-        </div>
+        <>
+          <div className="my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 sm:gap-x-24 ">
+            {products?.products?.map((item: any, index: number) => (
+              <CardComponent key={index} item={item} />
+            ))}
+          </div>
+          <Pagination
+            className="flex justify-end"
+            defaultCurrent={1}
+            total={products?.pagination?.totalCount}
+          />
+        </>
       )}
-      <Pagination className="flex justify-end" defaultCurrent={1} total={50} />
     </div>
   );
 };

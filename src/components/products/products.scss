@@ -5,6 +5,7 @@
     margin-top: 10px;
     margin-left: 15px;
   }
+
   // Tabs Sizing
   .ant-tabs-tab-btn {
     font-family: "Lato";
@@ -23,15 +24,16 @@
     text-overflow: ellipsis;
     font-family: 'Lato';
 
-font-weight: 600;
-font-size: 12px;
+    font-weight: 600;
+    font-size: 12px;
 
 
-color: #000000;
-   
+    color: #000000;
+
   }
+
   :where(.css-dev-only-do-not-override-e0k33r).ant-card .ant-card-body {
     padding: 15px;
     border-radius: 0 0 8px 8px;
-}
+  }
 }
