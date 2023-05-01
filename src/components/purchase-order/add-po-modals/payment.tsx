@@ -92,7 +92,8 @@ const Payment: React.FC<any> = ({
         return;
       }
     }
-    payload.paymentStatus = (isPartialChecked && "Partially Paid") || (isFullyPaidChecked && "Paid");
+    payload.paymentStatus =
+      (isPartialChecked && "Partially Paid") || (isFullyPaidChecked && "Paid");
     payload.paymentDetails = {
       ...payload.paymentDetails,
       totalAmount: totalPrice,
@@ -100,13 +101,13 @@ const Payment: React.FC<any> = ({
       salesTax: 0,
       paidAmount,
       remainingAmount: totalPrice - paidAmount,
-    }
+    };
     if (selectedChoiceOption === "check" && isPartialChecked) {
       payload.paymentTypeDetails = {
         checkNumber: values?.serial,
         routingNumber: "1231",
         accountNumber: "12313",
-      }
+      };
     }
 
     console.log("payload =============> ", payload);
@@ -119,10 +120,9 @@ const Payment: React.FC<any> = ({
 
   const priceChange = (e: any) => {
     const value = parseFloat(e.target.value);
-    if (!isNaN(value) && e.target.value.trim() !== '') {
+    if (!isNaN(value) && e.target.value.trim() !== "") {
       setRemainingPrice(value);
-    }
-    else setRemainingPrice(0)
+    } else setRemainingPrice(0);
   };
 
   // Price Validator
@@ -165,7 +165,7 @@ const Payment: React.FC<any> = ({
 
             {isPartialChecked && remainingPrice > 0 && (
               <div className="flex flex-col text-red-500  flex self-end ml-2">
-                Remaining amount: {remainingPrice}
+                Remaining amount: {totalPrice - remainingPrice}
               </div>
             )}
           </div>
@@ -235,15 +235,20 @@ const Payment: React.FC<any> = ({
                     rules={[{ required: isPartialChecked }]}
                     name="dueDate"
                   >
-                    <DatePicker onChange={handleDateChange} value={dueDate ?? null} style={{ width: "100%" }} />
-                  </Form.Item></Col>
+                    <DatePicker
+                      onChange={handleDateChange}
+                      value={dueDate ?? null}
+                      style={{ width: "100%" }}
+                    />
+                  </Form.Item>
+                </Col>
               </Row>
 
               {/* </div> */}
             </>
           )}
 
-          {(dueDate && isPartialChecked) && (
+          {dueDate && isPartialChecked && (
             <Row>
               <Col xs={6} className="pt-3">
                 <label htmlFor="">Payment Method</label>
@@ -264,13 +269,14 @@ const Payment: React.FC<any> = ({
                 </Form.Item>
               </Col>
             </Row>
-
           )}
 
-          {(selectedChoiceOption === "check" && isPartialChecked) && (
+          {selectedChoiceOption === "check" && isPartialChecked && (
             <Row>
               <Col xs={6}>
-                <label htmlFor="" className="_po_field_label">Check Number</label>
+                <label htmlFor="" className="_po_field_label">
+                  Check Number
+                </label>
               </Col>
               <Col xs={10}>
                 <Form.Item
@@ -292,7 +298,6 @@ const Payment: React.FC<any> = ({
                   />
                 </Form.Item>
               </Col>
-
             </Row>
           )}
 
@@ -323,7 +328,9 @@ const Payment: React.FC<any> = ({
                 // <div className="ml-4">
                 <Row>
                   <Col xs={6} className="pt-2">
-                    <label htmlFor="" className="_po_field_label">Check Number</label>
+                    <label htmlFor="" className="_po_field_label">
+                      Check Number
+                    </label>
                   </Col>
                   <Col xs={10}>
                     <Form.Item
