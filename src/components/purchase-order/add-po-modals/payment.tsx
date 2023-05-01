@@ -61,6 +61,7 @@ const Payment: React.FC<any> = ({
     const isChecked = e.target.checked;
     setIsPartialChecked(isChecked);
     setIsFullyPaidChecked(!isChecked);
+    form.resetFields();
   };
 
   const handleFullyPaidChange = (e: CheckboxChangeEvent) => {
@@ -99,7 +100,7 @@ const Payment: React.FC<any> = ({
       paidAmount,
       remainingAmount: totalPrice - paidAmount,
     }
-    if (selectedChoiceOption === "check") {
+    if (selectedChoiceOption === "check" && isPartialChecked) {
       payload.paymentTypeDetails = {
         checkNumber: values?.serial,
         routingNumber: "1231",
@@ -145,6 +146,8 @@ const Payment: React.FC<any> = ({
     }
     setDueDate(date);
   };
+
+  console.log(dueDate);
 
   return (
     <div>
@@ -196,10 +199,10 @@ const Payment: React.FC<any> = ({
             <>
               {/* <div className="_partial_price mt-4"> */}
               <Row className="_partial_price mt-4 mb-1">
-                <Col xs={5} className="pt-2">
+                <Col xs={6} className="pt-2">
                   <label htmlFor="">Partial Payment Price</label>
                 </Col>
-                <Col xs={8}>
+                <Col xs={10}>
                   <Form.Item
                     // label=""
                     rules={[
@@ -222,16 +225,16 @@ const Payment: React.FC<any> = ({
               {/* </div> */}
               {/* <div className={`${!isPartialChecked && "mt-4"} flex flex-col`}> */}
               <Row className="_partial_price mt-4 mb-1">
-                <Col xs={5} className="pt-1">
+                <Col xs={6} className="pt-1">
                   <label htmlFor="">Due Date</label>
                 </Col>
-                <Col xs={8}>
+                <Col xs={10}>
                   <Form.Item
                     // label=""
                     rules={[{ required: isPartialChecked }]}
                     name="dueDate"
                   >
-                    <DatePicker onChange={handleDateChange} value={dueDate} style={{ width: "100%" }} />
+                    <DatePicker onChange={handleDateChange} value={dueDate ?? null} style={{ width: "100%" }} />
                   </Form.Item></Col>
               </Row>
 
@@ -239,18 +242,18 @@ const Payment: React.FC<any> = ({
             </>
           )}
 
-          {showInput && (
+          {(dueDate && isPartialChecked) && (
             <Row>
-              <Col xs={5} className="pt-3">
+              <Col xs={6} className="pt-3">
                 <label htmlFor="">Payment Method</label>
               </Col>
-              <Col xs={8}>
+              <Col xs={10}>
                 <Form.Item name="inputField">
                   <Select
                     // w-[50px]
                     className="_input h-10 "
                     placeholder="Payment Method"
-                    style={{ width: "292px" }}
+                    style={{ width: "100%" }}
                     onChange={handleSelect}
                   >
                     <Select.Option value="check">Check</Select.Option>
@@ -263,27 +266,33 @@ const Payment: React.FC<any> = ({
 
           )}
 
-          {selectedChoiceOption === "check" && (
-            <div>
-              <Form.Item
-                label={<span className="_po_field_label">Check Number</span>}
-                name="serial"
-                required
-                tooltip="This is a required field"
-                rules={[
-                  {
-                    required: true,
-                    // type: 'email',
-                    message: "Required field",
-                  },
-                ]}
-              >
-                <Input
-                  className="_input_field w-[280px]"
-                  placeholder="Check Number"
-                />
-              </Form.Item>
-            </div>
+          {(selectedChoiceOption === "check" && isPartialChecked) && (
+            <Row>
+              <Col xs={6}>
+                <label htmlFor="" className="_po_field_label">Check Number</label>
+              </Col>
+              <Col xs={10}>
+                <Form.Item
+                  // label={<span className="_po_field_label">Check Number</span>}
+                  name="serial"
+                  required
+                  tooltip="This is a required field"
+                  rules={[
+                    {
+                      required: true,
+                      // type: 'email',
+                      message: "Required field",
+                    },
+                  ]}
+                >
+                  <Input
+                    className="_input_field w-[280px]"
+                    placeholder="Check Number"
+                  />
+                </Form.Item>
+              </Col>
+
+            </Row>
           )}
 
           {!isPartialChecked && (
@@ -310,28 +319,36 @@ const Payment: React.FC<any> = ({
               </Checkbox>
 
               {selectedOption === "Check" && (
-                <div className="ml-4">
-                  <Form.Item
-                    label={
-                      <span className="_po_field_label">Check Number</span>
-                    }
-                    name="serial"
-                    required
-                    tooltip="This is a required field"
-                    rules={[
-                      {
-                        required: true,
-                        // type: 'email',
-                        message: "Required field",
-                      },
-                    ]}
-                  >
-                    <Input
-                      className="_input_field w-48"
-                      placeholder="Check Number"
-                    />
-                  </Form.Item>
-                </div>
+                // <div className="ml-4">
+                <Row>
+                  <Col xs={6} className="pt-2">
+                    <label htmlFor="" className="_po_field_label">Check Number</label>
+                  </Col>
+                  <Col xs={10}>
+                    <Form.Item
+                      // label={
+                      //   <span className="_po_field_label">Check Number</span>
+                      // }
+                      name="serial"
+                      required
+                      tooltip="This is a required field"
+                      rules={[
+                        {
+                          required: true,
+                          // type: 'email',
+                          message: "Required field",
+                        },
+                      ]}
+                    >
+                      <Input
+                        className="_input_field w-48"
+                        placeholder="Check Number"
+                        style={{ width: "100%" }}
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                // </div>
               )}
             </div>
           )}
