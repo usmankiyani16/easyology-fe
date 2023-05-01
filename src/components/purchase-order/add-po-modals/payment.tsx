@@ -68,8 +68,8 @@ const Payment: React.FC<any> = ({
     const isChecked = e.target.checked;
     setIsFullyPaidChecked(isChecked);
     setIsPartialChecked(!isChecked);
-
     setShowInput(false);
+    setSelectedChoiceOption(null);
     setDueDate(null);
   };
 
@@ -97,8 +97,8 @@ const Payment: React.FC<any> = ({
     payload.paymentDetails = {
       ...payload.paymentDetails,
       totalAmount: totalPrice,
-      discount: 0,
-      salesTax: 0,
+      // discount: 0,
+      // salesTax: 0,
       paidAmount,
       remainingAmount: totalPrice - paidAmount,
     };
@@ -108,6 +108,14 @@ const Payment: React.FC<any> = ({
         routingNumber: "1231",
         accountNumber: "12313",
       };
+    }
+
+    if (selectedOption === "check" && isFullyPaidChecked) {
+      payload.paymentTypeDetails = {
+        checkNumber: values?.serial,
+        routingNumber: "1231",
+        accountNumber: "12313",
+      }
     }
 
     console.log("payload =============> ", payload);

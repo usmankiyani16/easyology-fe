@@ -121,6 +121,8 @@ const PreviewModal: React.FC<any> = ({
     const isChecked = e.target.checked;
     setIsPartialChecked(isChecked);
     setIsFullyPaidChecked(!isChecked);
+    setShowInput(false);
+    setSelectedChoiceOption(null);
   };
 
   const handleFullyPaidChange = (e: CheckboxChangeEvent) => {
@@ -148,7 +150,7 @@ const PreviewModal: React.FC<any> = ({
       paymentStatus:
         (isPartialChecked && "Partially Paid") ||
         (isFullyPaidChecked && "Paid"),
-      paymentType: selectedChoiceOption,
+      paymentType: selectedChoiceOption ?? selectedOption,
       paymentDetails: {
         totalAmount: totalPrice,
       },
@@ -173,6 +175,14 @@ const PreviewModal: React.FC<any> = ({
       payload.paymentTypeDetails = {
         checkNumber: values?.serial,
       };
+    }
+
+    if (selectedOption === "check" && isFullyPaidChecked) {
+      payload.paymentTypeDetails = {
+        checkNumber: values?.serial,
+        routingNumber: "1231",
+        accountNumber: "12313",
+      }
     }
 
     // dispatch(addPO(payload));
@@ -423,13 +433,13 @@ const PreviewModal: React.FC<any> = ({
                 </Checkbox>
 
                 <Checkbox
-                  checked={selectedOption === "Check"}
-                  onChange={() => handleCheckboxChange("Check")}
+                  checked={selectedOption === "check"}
+                  onChange={() => handleCheckboxChange("check")}
                 >
                   By Check
                 </Checkbox>
 
-                {selectedOption === "Check" && (
+                {selectedOption === "check" && (
                   // <div className="ml-4">
                   <Row>
                     <Col xs={10} className="pt-2">
