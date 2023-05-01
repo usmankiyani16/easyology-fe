@@ -53,9 +53,9 @@ const AddPO = () => {
     setShowUpload(true);
     const newFormData: any = {
       name: values.product,
-      price: Number(values.price),
+      amount: Number(values.price),
       threshold: values.threshold,
-      iemeNumber: values.imeiNumber,
+      iemiNumber: values.imeiNumber,
       description: values.productDescription,
       categoryId: values.category,
       image: productImage,
