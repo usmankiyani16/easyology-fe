@@ -16,7 +16,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
     let product = {
       _id: item?._id,
       value: item?.name,
-      image: item?.image ?? noImg,
+      image: item?.image,
       qty: 1,
       maxQty: item?.variants?.stock?.totalQuantity,
       price: item?.variants?.amount,
@@ -53,8 +53,8 @@ const CardComponent: React.FC<any> = ({ item }) => {
           onClick={addToCart}
           disabled={item?.variants?.stock.totalQuantity === 0 || !!findOne}
           className={`${
-            item?.variants?.stock.totalQuantity === 0 ||
-            (!!findOne && "cursor-not-allowed _bg-light-primary-color")
+            (item?.variants?.stock.totalQuantity === 0 || !!findOne) &&
+            "cursor-not-allowed _bg-light-primary-color"
           } self-center _bg-primary-color rounded  px-6 _white-color flex justify-center mt-2`}
         >
           Add to cart
