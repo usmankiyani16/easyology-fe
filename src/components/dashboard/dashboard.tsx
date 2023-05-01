@@ -1,10 +1,10 @@
-import { AutoComplete, Button, Form, Input } from "antd";
+import { AutoComplete, Button, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
-import { useEffect, useState } from "react";
-import { laptopImg, noImg } from "../../assets/images";
+import { useState } from "react";
+import { noImg } from "../../assets/images";
 import Operations from "./operations/operations";
 import OnHoldModal from "./on-hold/on-hold";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -30,9 +30,24 @@ const Dashboard = () => {
   };
 
   const customerOptions = [
-    { _id: "144444", value: "customer 1" },
-    { _id: "13232", value: "customer 2" },
-    { _id: "15555", value: "customer 3" },
+    {
+      _id: "144444",
+      value: "customer 1",
+      mob: "0236353535",
+      type: "whole seller",
+    },
+    {
+      _id: "13232",
+      value: "customer 2",
+      mob: "0236353535",
+      type: "whole seller",
+    },
+    {
+      _id: "15555",
+      value: "customer 3",
+      mob: "0236353535",
+      type: "whole seller",
+    },
   ];
   const temp = products?.products?.slice(0, 3).map((prod: any) => ({
     _id: prod?._id,
@@ -77,7 +92,6 @@ const Dashboard = () => {
     product.name = product?.value;
     delete product.value;
     dispatch(addSelectedProducts(product));
-    // setProducts((prevProducts: any) => [...prevProducts, product]);
     setSelectProduct(product);
   };
 
@@ -86,30 +100,33 @@ const Dashboard = () => {
       name: event.target.value,
     };
     dispatch(getProducts(queryParam));
-    setSelectProduct(null);
   };
 
   return (
     <div className="_dashboard">
-      <div className="flex gap-3 justify-between items-center">
+      <div className="flex gap-3 justify-between ">
         <div>
+          <h1 className="font-bold text-lg">Invoice # {"1262"}</h1>
           <h1>
             Customer name:{" "}
             <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
           </h1>
           <h1>
             Phone:{" "}
-            <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
+            <span className="font-semibold">{selectCustomer?.mob ?? ""}</span>
           </h1>
           <h1>
-            <span className="_primary-color">Customer Type: </span>
-            <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
+            <span className="_primary-color font-semibold">
+              Customer Type:{" "}
+            </span>
+            <span className="font-semibold">{selectCustomer?.type ?? ""}</span>
           </h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 self-start">
           <AutoComplete
             onSelect={(value, option) => handleCustomerSelect(option)}
             options={customerOptions}
+            value={""}
             filterOption={(inputValue, option) =>
               option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
               -1
@@ -125,7 +142,7 @@ const Dashboard = () => {
           <AutoComplete
             onSelect={(value, option) => handleProductSelect(option)}
             options={productOptions}
-            value={selectProduct}
+            value={""}
             filterOption={(inputValue, option) =>
               option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
               -1
@@ -141,7 +158,7 @@ const Dashboard = () => {
           </AutoComplete>
           <img src={scannerIcon} alt="scanner" />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 self-start">
           <img
             className="cursor-pointer"
             src={addCustomereIcon}
