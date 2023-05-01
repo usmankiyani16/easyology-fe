@@ -156,7 +156,6 @@ const Payment: React.FC<any> = ({
     setDueDate(date);
   };
 
-  console.log(dueDate);
 
   return (
     <div>

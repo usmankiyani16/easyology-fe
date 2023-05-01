@@ -4,7 +4,7 @@ import "../../../sass/modals.scss";
 import { Modal, Input, Table } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Payment from "./payment";
-import { useAppDispatch } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { uploadMedia } from "../../../store/media/media-slice";
 import { Toast } from "../../common/toast/toast";
 import { setImportModalOpen } from "../../../store/po/po.slice";
@@ -20,8 +20,14 @@ const PreviewMax: React.FC<any> = ({
   keys,
 }) => {
   const dispatch = useAppDispatch();
+  const { vendors } = useAppSelector((state) => state.vendors);
   const [isEditing, setIsEditing] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>();
+  const vendorData = vendors?.find((vendor: any) => {
+    if (vendor?._id == vendorId) {
+      return { vendor };
+    }
+  });
 
   const imageUpload = async (e: any, index: number) => {
     if (e.target.files) {
@@ -67,7 +73,6 @@ const PreviewMax: React.FC<any> = ({
     },
     0
   );
-
 
   const columns = [
     {
@@ -199,10 +204,12 @@ const PreviewMax: React.FC<any> = ({
         <div className="m-4">
           <p className="_modal_para">
             Vendor Name :
-            <span className="text-stone-400 font-bold ml-2">ABC Company</span>{" "}
+            <span className="text-stone-400 font-bold ml-2">
+              {vendorData?.name}
+            </span>{" "}
           </p>
           <p className="_modal_para">
-            PO Number : <span className="text-red-500 ml-4"> #456 </span>
+            {/* PO Number : <span className="text-red-500 ml-4"> #456 </span> */}
           </p>
         </div>
         <Table
