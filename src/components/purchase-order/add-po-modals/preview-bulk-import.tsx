@@ -46,13 +46,15 @@ const PreviewMax: React.FC<any> = ({
       id: index + 1,
       categoryName: data?.category,
       image: "",
-      serial: data?.serial,
+      serialNumber: data?.serial,
       name: data?.product,
       subCategoryName: data?.productType,
       quantity: Number(data?.quantity),
-      price: Number(data?.price),
-      color: data?.color,
-      size: data?.size,
+      amount: Number(data?.price),
+      options: {
+        color: data?.color,
+        size: data?.size,
+      },
       description: data?.productDescription,
       threshold: data?.threshold,
       iemiNumber: data?.imeiNumber,
@@ -60,11 +62,12 @@ const PreviewMax: React.FC<any> = ({
   );
 
   const totalPrice = dataSource1?.reduce(
-    (accumulator: number, product: { price: number; quantity: number }) => {
-      return accumulator + Number(product.price) * Number(product.quantity);
+    (accumulator: number, product: { amount: number; quantity: number }) => {
+      return accumulator + Number(product.amount) * Number(product.quantity);
     },
     0
   );
+
 
   const columns = [
     {

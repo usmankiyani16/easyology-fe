@@ -48,7 +48,7 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
           {}
         );
       });
-
+      // found
       setColoumn(keys);
       setDataSource(objectData);
 
@@ -87,7 +87,7 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
           dataSource={dataSource}
           keys={coloumn}
           vendorId={vendorId}
-          // dataSource={dataSource} columns={coloumn}
+        // dataSource={dataSource} columns={coloumn}
         />
       )}
 

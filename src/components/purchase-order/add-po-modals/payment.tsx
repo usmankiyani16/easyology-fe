@@ -79,6 +79,7 @@ const Payment: React.FC<any> = ({
       vendorId,
       products: dataSource1,
       paymentDetails: {},
+      paymentType: selectedChoiceOption ?? selectedOption,
     };
     if (isFullyPaidChecked) {
       paidAmount = totalPrice;
@@ -312,13 +313,13 @@ const Payment: React.FC<any> = ({
                 By CC
               </Checkbox>
               <Checkbox
-                checked={selectedOption === "Check"}
-                onChange={() => handleCheckboxChange("Check")}
+                checked={selectedOption === "check"}
+                onChange={() => handleCheckboxChange("check")}
               >
                 By Check
               </Checkbox>
 
-              {selectedOption === "Check" && (
+              {selectedOption === "check" && (
                 // <div className="ml-4">
                 <Row>
                   <Col xs={6} className="pt-2">
