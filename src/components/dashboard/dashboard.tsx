@@ -3,7 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { noImg } from "../../assets/images";
 import Operations from "./operations/operations";
 import OnHoldModal from "./on-hold/on-hold";
@@ -12,9 +12,12 @@ import {
   addSelectedProducts,
   getProducts,
 } from "../../store/products/products-slice";
+import { getInvoiceNumber } from "../../store/order/order-slice";
+import Loader from "../common/loader/loader";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
+  const { invoiceNumber } = useAppSelector((state) => state.order);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState<any>(null);
@@ -24,6 +27,9 @@ const Dashboard = () => {
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
     return acc + product.qty * product.price;
   }, 0);
+  useEffect(() => {
+    dispatch(getInvoiceNumber());
+  }, []);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -106,7 +112,7 @@ const Dashboard = () => {
     <div className="_dashboard">
       <div className="flex gap-3 justify-between ">
         <div>
-          <h1 className="font-bold text-lg">Invoice # {"1262"}</h1>
+          <h1 className="font-bold text-lg">Invoice # {invoiceNumber ?? ""}</h1>
           <h1>
             Customer name:{" "}
             <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
