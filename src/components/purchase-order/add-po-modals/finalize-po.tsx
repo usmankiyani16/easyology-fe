@@ -45,7 +45,6 @@ const PreviewModal: React.FC<any> = ({
   const [selectedChoiceOption, setSelectedChoiceOption] = useState(null);
   const [selectedOption, setSelectedOption] = useState("cash");
 
-
   const searchInput = useRef<InputRef>(null);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
@@ -57,22 +56,21 @@ const PreviewModal: React.FC<any> = ({
   // Getting Data when submitting form
 
   const myData = newObject?.products?.map(
-    ({ name, quantity, price }: any, index: any) => ({
+    ({ name, quantity, amount }: any, index: any) => ({
       key: index,
       id: index + 1,
       name,
       quantity,
-      price: `$${price}`,
+      price: `$${amount}`,
     })
   );
 
   const totalPrice = newObject?.products?.reduce(
-    (accumulator: number, product: { price: number; quantity: number }) => {
-      return accumulator + product.price * product.quantity;
+    (accumulator: number, product: { amount: number; quantity: number }) => {
+      return accumulator + product.amount * product.quantity;
     },
     0
   );
-
 
   const columns: ColumnsType<DataType> = [
     {
@@ -113,13 +111,9 @@ const PreviewModal: React.FC<any> = ({
     // },
   ];
 
-
-
   function handleSelect(value: any) {
     setSelectedChoiceOption(value);
   }
-
-
 
   const [remainingPrice, setRemainingPrice] = useState<number>(0);
 
@@ -135,32 +129,28 @@ const PreviewModal: React.FC<any> = ({
     setIsPartialChecked(!isChecked);
   };
 
-
-
   const handleCheckboxChange = (option: any) => {
     setSelectedOption(option);
-    console.log(option);
   };
 
   const priceChange = (e: any) => {
     const value = parseFloat(e.target.value);
-    if (!isNaN(value) && e.target.value.trim() !== '') {
+    if (!isNaN(value) && e.target.value.trim() !== "") {
       setRemainingPrice(value);
-    }
-    else setRemainingPrice(0)
+    } else setRemainingPrice(0);
   };
 
   const handleFinish = async (values: any) => {
-    // newObject.products = newObject.products;
-    // delete newObject.products;
     let paidAmount;
     let payload: any = {
       ...newObject,
-      paymentStatus: (isPartialChecked && "Partially Paid") || (isFullyPaidChecked && "Paid"),
+      paymentStatus:
+        (isPartialChecked && "Partially Paid") ||
+        (isFullyPaidChecked && "Paid"),
       paymentType: selectedChoiceOption,
-      paymentDetials: {
+      paymentDetails: {
         totalAmount: totalPrice,
-      }
+      },
     };
 
     if (isFullyPaidChecked) {
@@ -169,27 +159,26 @@ const PreviewModal: React.FC<any> = ({
       paidAmount = Number(values?.price);
       let dueDate = values?.dueDate?.toISOString().substr(0, 10);
 
-      payload.paymentDetials.dueDate = dayjs(dueDate).format("DD-MM-YYYY");
-      if (payload.paymentDetials.totalAmount < paidAmount) {
+      payload.paymentDetails.dueDate = dayjs(dueDate).format("DD-MM-YYYY");
+      if (payload.paymentDetails.totalAmount < paidAmount) {
         Toast("Total Balance is low", "error");
         return;
       }
     }
-    payload.paymentDetials.paidAmount = paidAmount;
-    payload.paymentDetials.remainingAmount = totalPrice - paidAmount;
+    payload.paymentDetails.paidAmount = paidAmount;
+    payload.paymentDetails.remainingAmount = totalPrice - paidAmount;
 
     if (selectedChoiceOption === "check") {
       payload.paymentTypeDetails = {
         checkNumber: values?.serial,
-      }
+      };
     }
 
-    console.log('payload ===========> ', payload);
-    dispatch(addPO(payload));
-    // const res = await dispatch(addPO(payload));
-    // if (res?.meta?.requestStatus === "fulfilled") {
-    //   setPreviewModalOpen(false);
-    // }
+    // dispatch(addPO(payload));
+    const res = await dispatch(addPO(payload));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setPreviewModalOpen(false);
+    }
   };
 
   const handleDateChange = (date: any) => {
@@ -277,14 +266,11 @@ const PreviewModal: React.FC<any> = ({
               !isPartialChecked && "mt-6"
             } */}
 
-
-              {isPartialChecked && remainingPrice > 0 &&
-                <div
-                  className="flex flex-col text-red-500  flex self-end ml-2"
-                >
+              {isPartialChecked && remainingPrice > 0 && (
+                <div className="flex flex-col text-red-500  flex self-end ml-2">
                   Remaining amount: {totalPrice - remainingPrice}
                 </div>
-              }
+              )}
             </div>
             <div className="_payment flex justify-between">
               <div>
@@ -321,7 +307,10 @@ const PreviewModal: React.FC<any> = ({
                       // className="flex flex-col"
                       // label="Partial Payment Price"
                       rules={[
-                        { required: isPartialChecked, validator: validatePrice },
+                        {
+                          required: isPartialChecked,
+                          validator: validatePrice,
+                        },
                       ]}
                       name="price"
                     >
@@ -343,7 +332,6 @@ const PreviewModal: React.FC<any> = ({
                     <label htmlFor="">Due Date</label>
                   </Col>
                   <Col xs={14}>
-
                     <Form.Item
                       // label="Due Date"
                       rules={[{ required: isPartialChecked }]}
@@ -355,20 +343,21 @@ const PreviewModal: React.FC<any> = ({
                         onChange={handleDateChange}
                         value={dueDate}
                       />
-                    </Form.Item></Col>
+                    </Form.Item>
+                  </Col>
                 </Row>
                 {/* <div  className={`${!isPartialChecked && "mt-4"}`}> */}
 
                 {/* </div> */}
-
-
               </>
             )}
 
             {showInput && (
-              <Row >
+              <Row>
                 <Col xs={10}>
-                  <label htmlFor="" className="pt-2">Payment Method</label>
+                  <label htmlFor="" className="pt-2">
+                    Payment Method
+                  </label>
                 </Col>
                 <Col xs={14}>
                   <Form.Item name="inputField">
@@ -414,7 +403,6 @@ const PreviewModal: React.FC<any> = ({
               <div
                 className={`${!isPartialChecked && "mt-8"} flex flex-col ml-4`}
               >
-
                 <Checkbox
                   checked={selectedOption === "cash"}
                   onChange={() => handleCheckboxChange("cash")}
@@ -429,7 +417,6 @@ const PreviewModal: React.FC<any> = ({
                 </Checkbox>
 
                 <Checkbox
-
                   checked={selectedOption === "Check"}
                   onChange={() => handleCheckboxChange("Check")}
                 >
@@ -461,8 +448,6 @@ const PreviewModal: React.FC<any> = ({
                   </div>
                 )}
               </div>
-
-
             )}
 
             <br />
