@@ -11,8 +11,21 @@ const PurchaseOrder = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
   const dispatch = useAppDispatch();
+
+  const handlePagination = async (value: Number) => {
+    let queryParam: any = {};
+    if (value) {
+      queryParam = {
+        page: value,
+      };
+      dispatch(getPOS(queryParam));
+    }
+  };
   useEffect(() => {
-    dispatch(getPOS());
+    let queryParam = {
+      page: 1,
+    };
+    dispatch(getPOS(queryParam));
   }, []);
 
   // const pageSize = 10;
@@ -45,15 +58,17 @@ const PurchaseOrder = () => {
           <Spinner />
         )}
       </div>
-      {purchaseOrders?.length ? (
+      {purchaseOrders?.products?.length ? (
         <Pagination
+          onChange={handlePagination}
           className="flex justify-end"
           defaultCurrent={1}
-          total={50}
+          defaultPageSize={8}
+          total={purchaseOrders?.pagination?.totalCount}
         />
-      ) : (
-        ""
-      )}
+       ) : (
+         ""
+       )}
     </div>
   );
 };
