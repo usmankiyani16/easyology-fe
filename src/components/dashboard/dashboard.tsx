@@ -16,7 +16,6 @@ import {
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm();
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectProduct, setSelectProduct] = useState<any>(null);
   const { products, selectedProducts } = useAppSelector(
@@ -48,7 +47,7 @@ const Dashboard = () => {
     {
       _id: "112222",
       value: "product 1",
-      image: laptopImg,
+      image: "",
       qty: 1,
       maxQty: 12,
       price: 24,
@@ -56,7 +55,7 @@ const Dashboard = () => {
     {
       _id: "122222",
       value: "product 2",
-      image: laptopImg,
+      image: "",
       qty: 1,
       maxQty: 23,
       price: 23,
@@ -64,7 +63,7 @@ const Dashboard = () => {
     {
       _id: "133333",
       value: "product 3",
-      image: laptopImg,
+      image: "",
       qty: 1,
       maxQty: 32,
       price: 34,
@@ -72,7 +71,6 @@ const Dashboard = () => {
   ];
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
-    form.resetFields();
   };
 
   const handleProductSelect = (product: any) => {
@@ -81,18 +79,15 @@ const Dashboard = () => {
     dispatch(addSelectedProducts(product));
     // setProducts((prevProducts: any) => [...prevProducts, product]);
     setSelectProduct(product);
-    form.resetFields();
   };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
     let queryParam: any = {
       name: event.target.value,
     };
-    console.log("value", queryParam);
     dispatch(getProducts(queryParam));
     setSelectProduct(null);
   };
-
 
   return (
     <div className="_dashboard">
@@ -112,42 +107,38 @@ const Dashboard = () => {
           </h1>
         </div>
         <div className="flex items-center gap-3">
-          <Form form={form}>
-            <AutoComplete
-              onSelect={(value, option) => handleCustomerSelect(option)}
-              options={customerOptions}
-              filterOption={(inputValue, option) =>
-                option!.value
-                  .toUpperCase()
-                  .indexOf(inputValue.toUpperCase()) !== -1
-              }
-            >
-              <Input
-                className="h-8"
-                prefix={<SearchOutlined />}
-                placeholder="Search customer"
-                name="customer"
-              />
-            </AutoComplete>
-            <AutoComplete
-              onSelect={(value, option) => handleProductSelect(option)}
-              options={productOptions}
-              value={selectProduct}
-              filterOption={(inputValue, option) =>
-                option!.value
-                  .toUpperCase()
-                  .indexOf(inputValue.toUpperCase()) !== -1
-              }
-            >
-              <Input
-                onChange={handleChangeProduct}
-                className="h-8"
-                prefix={<SearchOutlined />}
-                placeholder="Search products"
-                name="product"
-              />
-            </AutoComplete>
-          </Form>
+          <AutoComplete
+            onSelect={(value, option) => handleCustomerSelect(option)}
+            options={customerOptions}
+            filterOption={(inputValue, option) =>
+              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+              -1
+            }
+          >
+            <Input
+              className="h-8"
+              prefix={<SearchOutlined />}
+              placeholder="Search customer"
+              name="customer"
+            />
+          </AutoComplete>
+          <AutoComplete
+            onSelect={(value, option) => handleProductSelect(option)}
+            options={productOptions}
+            value={selectProduct}
+            filterOption={(inputValue, option) =>
+              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+              -1
+            }
+          >
+            <Input
+              onChange={handleChangeProduct}
+              className="h-8"
+              prefix={<SearchOutlined />}
+              placeholder="Search products"
+              name="product"
+            />
+          </AutoComplete>
           <img src={scannerIcon} alt="scanner" />
         </div>
         <div className="flex items-center gap-3">

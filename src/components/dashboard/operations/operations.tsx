@@ -44,15 +44,16 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
           </Button>
         </div>
       </div>
-      <div className="w-3/12 pr-5 flex flex-col gap-5">
-        <div className="flex justify-between">
-          <label>Sub-Total </label>
-          <label>$ {totalPrice}</label>
+      <div className="w-3/12 pr-10 flex flex-col gap-5">
+        <div className="flex ">
+          <label className="w-9/12">Sub-Total </label>
+          <label className="w-3/12">$ {totalPrice}</label>
         </div>
-        <div className="flex justify-between">
-          <label>Discount </label>
-          <label className=" rounded ">
+        <div className="flex ">
+          <label className="w-9/12">Discount </label>
+          <label className=" rounded w-3/12">
             <InputNumber
+              style={{ width: "100%" }}
               className="_remove-icon shadow-lg"
               type="number"
               min={0}
@@ -62,16 +63,16 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
             />
           </label>
         </div>
-        <div className="flex justify-between">
-          <div>
+        <div className="flex ">
+          <div className="w-9/12">
             <label className="_grey-color">Sales Tax </label>
             <label>(2.5%) </label>
           </div>
-          <label>$ {saleTax.toFixed(2)}</label>
+          <label className="w-3/12">$ {saleTax.toFixed(2)}</label>
         </div>
-        <div className="flex justify-between">
-          <label className="_primary-color">Total </label>
-          <label>$ {total.toFixed(2)}</label>
+        <div className="flex ">
+          <label className="_primary-color w-9/12">Total </label>
+          <label className="w-3/12">$ {total.toFixed(2)}</label>
         </div>
       </div>
       {isCashPayOpen && (

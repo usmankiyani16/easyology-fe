@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import Loader from "../common/loader/loader";
-// import { purchaseOrders } from "./mock-data/po-data";
 import POCard from "./po-card/po-card";
 import AddPO from "../../assets/icons/layout/AddPO.png";
-import Viewmodal from "./po-view-modal/view-modal";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getPOS } from "../../store/po/po.slice";
 import Spinner from "../common/spinner/spinner";

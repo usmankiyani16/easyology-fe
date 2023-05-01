@@ -15,13 +15,15 @@ const CardComponent: React.FC<any> = ({ item }) => {
   const addToCart = () => {
     let product = {
       _id: item?._id,
-      value: item?.name,
+      name: item?.name,
       image: item?.image,
       qty: 1,
       maxQty: item?.variants?.stock?.totalQuantity,
       price: item?.variants?.amount,
       options: item?.variants?.options,
     };
+    console.log("product", product);
+
     dispatch(addSelectedProducts(product));
   };
   return (

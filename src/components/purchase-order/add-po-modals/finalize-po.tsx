@@ -181,8 +181,6 @@ const PreviewModal: React.FC<any> = ({
     if (selectedChoiceOption === "check") {
       payload.paymentTypeDetails = {
         checkNumber: values?.serial,
-        routingNumber: "1231",
-        accountNumber: "12313",
       }
     }
 

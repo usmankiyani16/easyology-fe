@@ -59,14 +59,17 @@ const AddPO = () => {
       description: values.productDescription,
       categoryId: values.category,
       image: productImage,
-      // options: {
-      //   color: values.color,
-      //   size: values.size,
-      // },
+      options: {
+        color: values.color ?? "",
+        size: values.size ?? "",
+      },
       subCategoryId: values.subCategory,
       quantity: Number(values.quantity),
       serialNumber: values.serial,
     };
+    if (!values.color && !values.size) {
+      delete newFormData.options;
+    }
 
     Object.keys(newFormData).forEach((key) => {
       if (newFormData[key] === undefined) {
@@ -78,6 +81,7 @@ const AddPO = () => {
       vendorId: selectedVendor?._id,
       products: formData.concat(newFormData),
     };
+    console.log("newObject", newObject);
     form.resetFields();
     setFile(null);
 
@@ -153,13 +157,9 @@ const AddPO = () => {
 
   return (
     <div className="_add_po_wrap">
-
       <div>
-        <h1 className="font-lato mt-4 text-[2rem]">
-          Purchase Order
-        </h1>
+        <h1 className="font-lato mt-4 text-[2rem]">Purchase Order</h1>
       </div>
-
 
       {/* Add PO Form  */}
       {vendormodalOpen && (
@@ -198,7 +198,7 @@ const AddPO = () => {
         layout="vertical"
         onFinish={onFinish}
         autoComplete="off"
-      // className="mt-4"
+        // className="mt-4"
       >
         {/* grid lg:grid-cols-2 sm:grid-cols-1 sm:m-auto */}
         {/* ml-8 mr-24 */}
@@ -207,11 +207,7 @@ const AddPO = () => {
         <div className="_parent_form flex xs:flex-col lg:flex-row lg:justify-around mt-4">
           {/* --------------- Grid 1 --------------------- */}
 
-
-
           <div className="_grid1_fields">
-
-
             <div className="flex items-center gap-3">
               <Form.Item
                 label={<span className="_po_field_label">Select Vendor</span>}
@@ -231,7 +227,7 @@ const AddPO = () => {
               >
                 <Select
                   {...selectProps}
-                  defaultValue={selectedVendor?._id}
+                  // defaultValue={selectedVendor?._id}
                   value={selectedVendor?._id}
                   className="_input"
                   placeholder={
@@ -286,7 +282,12 @@ const AddPO = () => {
               rules={[{ required: true, validator: validatePrice }]}
             >
               {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
-              <Input className="_input" type="number" placeholder="0.00" prefix="$" />
+              <Input
+                className="_input"
+                type="number"
+                placeholder="0.00"
+                prefix="$"
+              />
             </Form.Item>
             <Form.Item
               label={<span className="_po_field_label">Threshold</span>}
@@ -374,8 +375,6 @@ const AddPO = () => {
             </Form.Item>
 
             <div className="flex items-center gap-3">
-
-
               <Form.Item
                 label={<span className="_po_field_label">Category</span>}
                 name="category"
@@ -473,11 +472,7 @@ const AddPO = () => {
             </div>
 
             <Form.Item
-              label={
-                <span className="_po_field_label">
-                  Product Serial #
-                </span>
-              }
+              label={<span className="_po_field_label">Product Serial #</span>}
               name="serial"
               required
               tooltip="This is a required field"
