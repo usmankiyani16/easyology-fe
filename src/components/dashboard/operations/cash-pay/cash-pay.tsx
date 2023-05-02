@@ -15,6 +15,7 @@ import {
   holdInvoice,
 } from "../../../../store/order/order-slice";
 import { setSelectedProductsToNull } from "../../../../store/products/products-slice";
+import dayjs from "dayjs";
 enum paymentStatusE {
   PAID = "Paid",
   PARTIALLY_PAID = "Partially Paid",
@@ -62,6 +63,8 @@ const CashPay: React.FC<any> = ({
   };
   const onFinish = (values: any) => {
     console.log(values, { amount });
+    const dueDate = dayjs(values?.dueDate).format("MM-DD-YYYY");
+    handleCashPay(paymentStatusE.PARTIALLY_PAID, amount, dueDate);
   };
 
   // Price Validator
@@ -82,7 +85,11 @@ const CashPay: React.FC<any> = ({
     }
   };
 
-  const handleCashPay = async (paymentStatus: string) => {
+  const handleCashPay = async (
+    paymentStatus: string,
+    paidAmount?: number,
+    dueData?: any
+  ) => {
     const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
     const storeId = data?.storeId;
     let products = selectedProducts?.map((prod: any) => ({
@@ -107,13 +114,22 @@ const CashPay: React.FC<any> = ({
       paymentType: "cash",
       products,
     };
-    if (paymentStatusE.PARTIALLY_PAID) {
-      payload.paymentDetails.paidAmount = 12;
+    if (dueData) {
+      payload.paymentDetails.dueData = dueData;
     }
+    if (paymentStatus === paymentStatusE.PARTIALLY_PAID) {
+      payload.paymentDetails.paidAmount = paidAmount;
+    }
+    console.log("payload", payload);
+
     const res = await dispatch(addOrder(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       setShowOkButton(true);
       dispatch(getInvoiceNumber());
+      dispatch(setSelectedProductsToNull());
+      if (paidAmount) {
+        setCashPayOpen(false);
+      }
       // dispatch(setSelectedProductsToNull());
       // setSelectCustomer(null);
     }
@@ -133,8 +149,8 @@ const CashPay: React.FC<any> = ({
 
   const handlePartial = () => {
     setShowPartialPay(true);
-    setShowOkButton(false)
-  }
+    setShowOkButton(false);
+  };
   return (
     <div>
       <Modal
