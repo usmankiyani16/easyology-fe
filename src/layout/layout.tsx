@@ -5,6 +5,7 @@ import { sidebarData } from "./sidebar/sidebar-mock-data";
 import { logoIcon } from "../assets/icons";
 import sidebar_icon from '../assets/icons/layout/sidebar_icon.png';
 import { Link, Outlet, useLocation } from "react-router-dom";
+import AddPO from "../components/purchase-order/addpo";
 const { Sider, Content } = Layout;
 
 const MainLayout: React.FC<any> = () => {
@@ -20,8 +21,11 @@ const MainLayout: React.FC<any> = () => {
   
 
   return (
+
+   
     <div className="_login_wrap">
       <Layout>
+        
         <Sider
         className="xs:hidden md:block"
 

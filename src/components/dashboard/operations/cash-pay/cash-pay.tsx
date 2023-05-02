@@ -6,17 +6,19 @@ import {
   Input,
   InputNumber,
   Modal,
+  
 } from "antd";
-import React, { useState } from "react";
+import React, { useState , useRef} from "react";
 import { backButtonIcon } from "../../../../assets/icons";
 
 const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
   const [amountReceived, setAmountReceived] = useState<number>(0);
   const [amount, setAmount] = useState<number>(0);
-  const [showOkButton, setShowOkButton] = useState(true);
+  const [showOkButton, setShowOkButton] = useState(false);
 
   const [showPartialPay, setShowPartialPay] = useState<boolean>(false);
   const [showPay, setShowPay] = useState<boolean>(false);
+  const datePickerRef = useRef();
   const handleOk = () => {
     setCashPayOpen(false);
   };
@@ -26,6 +28,7 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
   };
 
   const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
+   
     console.log(date, dateString);
     if (date) {
       setShowPay(true);
@@ -56,7 +59,16 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
   };
 
   const handleOkClick = () => {
-    setShowOkButton(false); // set showOkButton to false when OK button is clicked
+    setShowOkButton(false);
+    setCashPayOpen(false);
+  };
+
+  const handleback = () => {
+    setShowPartialPay(false)
+    setShowPay(false)
+   /*  if (datePickerRef.current) {
+      datePickerRef.current.picker.input.value = '';
+    } */
   }
   return (
     <div>
@@ -108,6 +120,7 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                   className="w-[147px]"
                   type="primary"
                   htmlType="submit"
+                  onClick={() => setShowOkButton(true)}
                 >
                   Cash
                 </Button>
@@ -120,13 +133,24 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                 </Button>
               </div>
 
-              {amountReceived >= total && showOkButton && (
+              {amountReceived >= total && (
                 <div className="text-xl text-semibold flex gap-3 self-center flex-col">
                   <div>
-                  <label>Change</label>
-                  <label>$ {(total - amountReceived).toFixed(2)}</label>
+                    <label>Change</label>
+                    <label>$ {(total - amountReceived).toFixed(2)}</label>
                   </div>
-                  <Button className="_bg-primary-color _white-color hover:_white-color" onClick={handleOkClick}>OK</Button>
+                </div>
+              )}
+
+              {showOkButton && (
+
+                <div className="flex justify-center">
+                <Button
+                  className="_bg-primary-color _white-color m-auto"
+                  onClick={handleOkClick}
+                >
+                  OK
+                </Button>
                 </div>
               )}
             </div>
@@ -134,7 +158,7 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
             <div className="flex flex-col gap-4 h-[280px] ">
               <div className="flex items-center gap-9">
                 <img
-                  onClick={() => setShowPartialPay(false)}
+                  onClick={handleback}
                   className="h-[15px] w-[15px] cursor-pointer"
                   src={backButtonIcon}
                   alt="back"
@@ -148,7 +172,7 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
               </span>
               <div className="flex gap-3 flex-col w-[250px] self-center">
                 <Form.Item
-                  label={<label className="font-bold">Amount:</label>}
+                  label={<label className="font-bold">Amount</label>}
                   name="amount"
                   required
                   tooltip="This is a required field"
@@ -167,8 +191,6 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                       placeholder="Enter amount"
                       prefix="$"
                       onChange={(value) => setAmount(value || 0)}
-                      
-
                     />
                   </div>
                 </Form.Item>
@@ -177,7 +199,7 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                   <Form.Item
                     label={
                       <label className="font-bold whitespace-nowrap">
-                        Due Date:
+                        Due Date
                       </label>
                     }
                     name="dueDate"
@@ -185,22 +207,21 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                     tooltip="This is a required field"
                     className="mb-0"
                   >
-                    <DatePicker onChange={onChangeDate} />
+                    {/* ref={datePickerRef} */}
+                    <DatePicker onChange={onChangeDate}  />
                   </Form.Item>
                 </div>
 
                 {showPay && (
                   <>
                     <div className="flex justify-between">
-                      <span className="w-48">
-                        Total Remaining Amount 
-                      </span>
-                      <span>$ {(total - amount).toFixed(2)}</span>
+                      <span className="w-40">Total Remaining Amount</span>
+                      <span className="whitespace-nowrap">$ {(total - amount).toFixed(2)}</span>
                     </div>
 
                     <Form.Item className="mb-0">
                       <Button
-                         disabled={Number(amount) <= 0}
+                        disabled={Number(amount) <= 0}
                         type="primary"
                         htmlType="submit"
                         className="text-center text-lg flex justify-center m-auto"

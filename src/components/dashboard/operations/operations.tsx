@@ -8,6 +8,7 @@ import {
   holdInvoice,
 } from "../../../store/order/order-slice";
 import { setSelectedProductsToNull } from "../../../store/products/products-slice";
+import VoidInvoice from "./void-invoice/void-invoice";
 
 const Operations: React.FC<any> = ({
   totalPrice,
@@ -18,6 +19,7 @@ const Operations: React.FC<any> = ({
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { selectedProducts } = useAppSelector((state) => state.products);
   const [isCashPayOpen, setIsCashPayOpen] = useState(false);
+  const [isVoidOpen, setIsVoidOpen] = useState(false);
   const [discount, setDiscount] = useState<number>(0);
   const taxRate = 0.025; // 2.5%
   const salesTax = totalPrice * taxRate;
@@ -69,6 +71,7 @@ const Operations: React.FC<any> = ({
           <Button
             disabled={disableButton || !selectCustomer?._id}
             className="w-32 flex items-center justify-center"
+            onClick={() => setIsVoidOpen(true)}
           >
             Void Invoice
           </Button>
@@ -149,6 +152,13 @@ const Operations: React.FC<any> = ({
           setCashPayOpen={setIsCashPayOpen}
         />
       )}
+
+      {isVoidOpen && (
+          <VoidInvoice isVoidOpen={isVoidOpen} setIsVoidOpen={setIsVoidOpen} />
+
+      )}
+
+       
     </div>
   );
 };

@@ -15,12 +15,14 @@ import {
   getHoldInvoices,
   getInvoiceNumber,
 } from "../../store/order/order-slice";
+import VoidInvoice from "./operations/void-invoice/void-invoice";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { holdInvoices } = useAppSelector((state) => state.order);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
   const { products, selectedProducts } = useAppSelector(
@@ -188,6 +190,7 @@ const Dashboard = () => {
         setSelectCustomer={setSelectCustomer}
       />
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      
     </div>
   );
 };
