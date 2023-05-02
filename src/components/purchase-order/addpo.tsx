@@ -67,9 +67,9 @@ const AddPO = () => {
       quantity: Number(values.quantity),
       serialNumber: values.serial,
     };
-    if (!values.color && !values.size) {
+   /*  if (!values.color && !values.size) {
       delete newFormData.options;
-    }
+    } */
 
     Object.keys(newFormData).forEach((key) => {
       if (newFormData[key] === undefined) {
@@ -158,7 +158,7 @@ const AddPO = () => {
   return (
     <div className="_add_po_wrap">
       <div>
-        <h1 className="font-lato mt-4 text-[2rem]">Purchase Order</h1>
+        <h1 className="font-lato mt-4 text-[2rem] xl:ml-12">Purchase Order</h1>
       </div>
 
       {/* Add PO Form  */}
@@ -208,7 +208,7 @@ const AddPO = () => {
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">
-            <div className="flex items-center gap-3">
+          
               <Form.Item
                 label={<span className="_po_field_label">Select Vendor</span>}
                 name="selectedVendor"
@@ -225,6 +225,11 @@ const AddPO = () => {
                   },
                 ]}
               >
+                  
+                <div className="flex items-center gap-3">
+
+                  <>
+                
                 <Select
                   {...selectProps}
                   // defaultValue={selectedVendor?._id}
@@ -244,15 +249,21 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
-              </Form.Item>
-
+                
               <img
                 onClick={() => setVendorModalOpen(true)}
                 src={add_vendor}
                 className=" cursor-pointer"
                 alt="Add Vendor Icon"
               />
+              </>
+              
             </div>
+                
+              </Form.Item>
+              
+
+         
 
             <Form.Item
               label={<span className="_po_field_label">Product Name</span>}
@@ -343,16 +354,31 @@ const AddPO = () => {
             </Form.Item>
 
             <Form.Item
+              
+              
               label={
-                <span className="_po_field_label  ml-[10px]">
+                <span className="_po_field_label">
                   Product Description
                 </span>
               }
               name="productDescription"
+             required
+              tooltip="This is a required field"
+              rules={[
+                {
+                  required: true,
+
+                  message: "Required Field",
+                },
+               
+              ]}
+
+           
             >
               <Input
-                className="_input"
-                placeholder="Enter Product Description"
+                className="_input_field xs:w-[326px] xl:w-[523px] xl:h-[75px]"
+                placeholder="Lenovo ThinkPad · Display size 14.00-inch · Display resolution 1920x1080 pixels · Processor Core i7 · RAM 12GB · OS Windows 10 · Hard disk No · SSD 256GB"
+                
               />
             </Form.Item>
           </div>
@@ -388,6 +414,8 @@ const AddPO = () => {
                   },
                 ]}
               >
+                 
+
                 <Select
                   {...selectProps}
                   className="_input"
@@ -400,8 +428,11 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
-              </Form.Item>
+            
 
+                
+              </Form.Item>
+             
               <img
                 src={add_category}
                 alt="add_cat_modal"
@@ -410,7 +441,11 @@ const AddPO = () => {
                   setCatModalOpen(true);
                 }}
               />
+              
+            
             </div>
+
+             
 
             <Form.Item
               label={<span className="_po_field_label  ml-[10px]">Color</span>}
@@ -448,6 +483,7 @@ const AddPO = () => {
                 }
                 name="subCategory"
               >
+                
                 <Select
                   {...selectProps}
                   className="_input select_input"
@@ -459,8 +495,9 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
+                
+            
               </Form.Item>
-
               <img
                 src={add_category}
                 alt="add_cat_modal"
@@ -470,6 +507,7 @@ const AddPO = () => {
                 }}
               />
             </div>
+
 
             <Form.Item
               label={<span className="_po_field_label">Product Serial #</span>}
@@ -504,9 +542,9 @@ const AddPO = () => {
           </div>
         </div>
 
-        <div className="_btn-footer flex justify-between mt-8 sm:ml-8 sm:mr-8">
-          <div className="_import_btn">
-            <Form.Item className="m-0">
+        <div className="_btn-footer flex justify-between mt-8">
+          <div className="_import_btn xl:ml-12">
+            <Form.Item >
               <Button
                 className="sm:w-40 text-center"
                 type="primary"
@@ -534,7 +572,7 @@ const AddPO = () => {
             </div>
           )}
 
-          <div className="_submit_btn">
+          <div className="_submit_btn xl:mr-12">
             <Form.Item>
               <Button className="text-center" type="primary" htmlType="submit">
                 {dataForm && dataForm?.products?.length

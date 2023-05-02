@@ -36,7 +36,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
         className="w-[160.69px] h-[107.74px]"
       />
       <div className="flex flex-col ">
-        <div className="flex justify-between mt-1">
+      <div className="flex justify-between mt-2 h-[80px]">
           <div className="flex flex-col">
             <span className="_productname">{item?.name}</span>
             <span className="_productname">

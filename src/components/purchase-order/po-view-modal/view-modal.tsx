@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Modal} from "antd";
+import { Button, Modal } from "antd";
 
 import * as XLSX from "xlsx";
 import { laptopImg } from "../../../assets/images";
@@ -22,11 +22,12 @@ const Viewmodal: React.FC<any> = ({
 }) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
-  
-  console.log(purchaseOrders, 'PO Data View Modal')
+  console.log(purchaseOrders, "PO Data View Modal");
 
-  const Product_Image= purchaseOrders?.products.map((product: { image: any; }) => product.image)
-  console.log(Product_Image, 'Product')
+  const Product_Image = purchaseOrders?.products.map(
+    (product: { image: any }) => product.image
+  );
+  console.log(Product_Image, "Product");
 
   const image = imageBaseUrl + Product_Image;
 
@@ -37,34 +38,28 @@ const Viewmodal: React.FC<any> = ({
   ] */
 
   const handleExport = () => {
-    const data = purchaseOrders.products?.map((product:any) => ({ 
-      
-
-      productName:product?.name,
-      quantity:product?.quantity,
+    const inventoryStatus = purchaseOrders?.paymentStatus;
+    const partialPaid = inventoryStatus === "Partially Paid";
+  
+    const data = purchaseOrders.products?.map((product: any) => ({
+      productName: product?.name,
+      quantity: product?.quantity,
       price: product?.amount,
       image: product?.image ?? noImg,
       productId: purchaseOrders?._id,
       poNo: purchaseOrders?.poNumber,
       company: purchaseOrders?.vendor[0]?.companyName,
-      inventoryStatus: purchaseOrders?.paymentStatus,
+      inventoryStatus,
       totalPaid: purchaseOrders?.payments[0]?.paymentDetails?.paidAmount,
-      remaining: purchaseOrders?.remainingAmount,
-      dueDate: purchaseOrders?.payments[0]?.paymentDetails?.dueData
+      ...(partialPaid && {
+        remaining: purchaseOrders?.remainingAmount,
+        dueDate: purchaseOrders?.payments[0]?.paymentDetails?.dueData,
+      }),
+    }));
+  
 
-
- }));
-
- console.log(data, 'Exported Data')
- console.log(data, 'Exported Data')
-
-
- 
- 
-
-
-
-    
+    console.log(data, "Exported Data");
+    console.log(data, "Exported Data");
 
     const fileName = "export";
 
@@ -90,10 +85,14 @@ const Viewmodal: React.FC<any> = ({
         destroyOnClose={true}
         className="_modal_wrap"
       >
-        <h4 className="_po_Number text-xl mt-8">
-          PO Number: <span className="text-red-500">#{purchaseOrders?.poNumber}</span>
+        <h4 className="_po_Number mt-8 text-2xl">
+          PO Number:{" "}
+          <span className="text-red-500">#{purchaseOrders?.poNumber}</span>
         </h4>
-        <h4 className="_company_name">{purchaseOrders?.vendor[0]?.companyName}</h4>
+        <h4 className="_company_name text-xl">
+          Vendor Name: 
+         <span className="font-medium _label-grey"> {purchaseOrders?.vendor[0]?.companyName} </span>
+        </h4>
         {/* <p className="_sheduled_date font-medium">
           Sheduled:{" "}
           <span className="text-black font-medium"> Friday 12 AM EST</span>
@@ -101,22 +100,18 @@ const Viewmodal: React.FC<any> = ({
 
         {/* --------------- Products Container -------------------- */}
 
-        <div className="mt-2" style={{ height: "290px", overflowY: "auto" }}>
+        <div className="mt-2" style={{ height: "305px", overflowY: "auto" }}>
           {/* --------- Purchase Order data ka map yaha lagega -------------- */}
-
-          <p className="_product_id font-bold">
-              Product ID <span>#{purchaseOrders?._id}</span>
-          </p>
 
           <div className="flex justify-between items-center mt-2">
             <div className="flex items-center gap-3">
               <img
-                src= {Product_Image[0]? image : noImg}
+                src={Product_Image[0] ? image : noImg}
                 alt="Products"
                 className="w-[59px] h-[66px]"
               />
-              <span className="_product_name w-[112px] h-[66px] font-semibold">
-              {purchaseOrders?.products[0].name}
+              <span className="_product_name w-[160px] h-[66px] font-semibold flex items-center">
+                {purchaseOrders?.products[0].name}
               </span>
             </div>
             <div>
@@ -125,109 +120,79 @@ const Viewmodal: React.FC<any> = ({
               </span>
             </div>
             <div>
-              <span className="_product_price text-[18px] font-bold">{`$ ${purchaseOrders?.products[0].amount} `}</span>
+              <span className="_product_price text-[18px] font-bold ">{`$ ${purchaseOrders?.totalAmount} `}</span>
             </div>
           </div>
 
           <img src={Line} alt="" />
+
+          
         </div>
 
-        {/* //! Donot touch This commented code as it will be used in upcoming release */}
-
-        {/*   <div className="_contact_details mt-4">
-          <p className="flex font-bold">
-            Address:
-            <span className="_address_details ml-[12px]">
-              Street #05, Times square, Buidling icon tower, Near Timmies.
-              Dallas/Texas.
-            </span>
-          </p>
-          <p className="_label font-bold">
-            Contact: <span className="ml-[12px]">+001 48976 543</span>
-          </p>
-          <p className="_label font-bold">
-            Payment:{" "}
-            <span className="text-red-500 ml-[10px]">Full Payment</span>
-          </p>
-          <p className="_label font-bold">
-            Delivery Type: <span className=" text-red-500">Standard</span>
-          </p>
-        </div> */}
-
-        {/* ----------------- Footer ------------------------------ */}
-
-        {/*    <div className="_footer mt-6 font-bold">
-          <div className="flex justify-between">
-            <p className="_label">Total Discount</p>
-            <p>$ 1500</p>
-          </div>
-          <div className="flex justify-between font-bold">
-            <p className="_label">Discount</p>
-            <p>$ 1500</p>
-          </div>
-          <div className="flex justify-between">
-            <p className="_label">
-              Sales Tax <span>(2%)</span>
-            </p>
-            <p>$ 1500</p>
-          </div>
-
-          <div className="flex justify-between">
-            <p className="_label _label_total">Total</p>
-            <p className="_label_total">$ 1500</p>
-          </div>
-        </div> */}
 
         <div className="_footer mb-6">
           <div className="_inv_status flex justify-between items-center">
             <span className="text-[16px]">
               {" "}
               Inv Status:{" "}
-              <span className="ml-2 _primary-color">{purchaseOrders?.paymentStatus}</span>
+              <span  className={`${
+                  purchaseOrders?.paymentStatus === "Partially Paid"
+                    ? "_primary-color"
+                    : "_success_color"
+                }   ml-2`}>
+                {purchaseOrders?.paymentStatus}
+              </span>
             </span>
             {purchaseOrders?.paymentStatus === "Partially Paid" && (
-            <Button
-              className="_bg-primary-color text-white hover:text-white"
-              onClick={() => {
-                // setViewModalOpen(false);
-                setPaymentModalOpen(true);
-              }}
-            >
-              Pay
-            </Button>
+              <Button
+                className="_bg-primary-color text-white hover:text-white _hover"
+                onClick={() => {
+                  // setViewModalOpen(false);
+                  setPaymentModalOpen(true);
+                }}
+                
+              >
+                Pay
+              </Button>
             )}
           </div>
 
           <div className="_total_paid">
             <span>
               {" "}
-              Total Paid: <span className="ml-2 _success_color">{`$ ${purchaseOrders?.payments[0]?.paymentDetails?.paidAmount} `}</span>
+              Total Paid:{" "}
+              <span
+                className={`${
+                  purchaseOrders?.paymentStatus === "Partially Paid"
+                    ? "_success_color"
+                    : "_primary-color"
+                }   ml-2 `}
+              >{`$ ${purchaseOrders?.payments[0]?.paymentDetails?.paidAmount} `}</span>
             </span>
           </div>
 
           {purchaseOrders?.paymentStatus === "Partially Paid" && (
             <>
+              <div className="_total_remaining">
+                <span>
+                  {" "}
+                  Total Remaining:{" "}
+                  <span className="ml-2 _primary-color">{`$ ${purchaseOrders?.remainingAmount}`}</span>
+                </span>
+              </div>
 
-          <div className="_total_remaining">
-            <span>
-              {" "}
-              Total Remaining:{" "}
-              <span className="ml-2 _primary-color">{`$ ${purchaseOrders?.remainingAmount}`}</span>
-            </span>
-          </div>
-
-          <div className="_remaining_due_date">
-            <span>
-              {" "}
-              Remaining Due Date:{" "}
-              <span className="ml-2 _primary-color">{purchaseOrders?.payments[0]?.paymentDetails?.dueData}</span>
-            </span>
-          </div>
-          </>
-
+              <div className="_remaining_due_date">
+                <span>
+                  {" "}
+                  Remaining Due Date:{" "}
+                  <span className="ml-2 _primary-color">
+                  {` ${purchaseOrders?.payments[0]?.paymentDetails?.dueDate} `}
+                  </span>
+                </span>
+              </div>
+            </>
           )}
         </div>
-        
 
         <div className="flex justify-center">
           <Button onClick={handleExport} className="">
