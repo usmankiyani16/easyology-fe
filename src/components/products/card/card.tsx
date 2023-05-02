@@ -11,6 +11,8 @@ const CardComponent: React.FC<any> = ({ item }) => {
   const findOne = selectedProducts?.find(
     (prod: any) => prod?._id === item?._id
   );
+  console.log('findOne', findOne);
+  
   const image = imageBaseUrl + item?.image;
   const addToCart = () => {
     let product = {
@@ -38,11 +40,11 @@ const CardComponent: React.FC<any> = ({ item }) => {
           <div className="flex flex-col">
             <span className="_productname">{item?.name}</span>
             <span className="_productname">
-              {item?.variants?.options.color}
+              {item?.variants?.options?.color}
             </span>
-            <span className="_productname">{item?.variants?.options.size}</span>
+            <span className="_productname">{item?.variants?.options?.size}</span>
             <span className="_productname">
-              {item?.variants?.stock.totalQuantity}
+              {item?.variants?.stock?.totalQuantity}
             </span>
           </div>
 
@@ -53,9 +55,9 @@ const CardComponent: React.FC<any> = ({ item }) => {
 
         <button
           onClick={addToCart}
-          disabled={item?.variants?.stock.totalQuantity === 0 || !!findOne}
+          disabled={item?.variants?.stock?.totalQuantity === 0 || !!findOne}
           className={`${
-            (item?.variants?.stock.totalQuantity === 0 || !!findOne) &&
+            (item?.variants?.stock?.totalQuantity === 0 || !!findOne) &&
             "cursor-not-allowed _bg-light-primary-color"
           } self-center _bg-primary-color rounded  px-6 _white-color flex justify-center mt-2`}
         >
