@@ -11,7 +11,6 @@ const CardComponent: React.FC<any> = ({ item }) => {
   const findOne = selectedProducts?.find(
     (prod: any) => prod?._id === item?._id
   );
-  console.log('findOne', findOne);
   
   const image = imageBaseUrl + item?.image;
   const addToCart = () => {
