@@ -65,7 +65,7 @@ const productsSlice = createSlice({
     deleteSelectedProducts(state, action) {
       const index = action.payload;
       const updatedProducts = state.selectedProducts?.filter(
-        (product:any, i:number) => i !== index
+        (product: any, i: number) => i !== index
       );
       state.selectedProducts = updatedProducts;
     },
@@ -74,10 +74,18 @@ const productsSlice = createSlice({
       const selectedProduct = state.selectedProducts[index];
       selectedProduct.quantity += 1;
     },
+    chnageProductQuantity(state, action) {
+      const { index, value } = action.payload;
+      const selectedProduct = state.selectedProducts[index];
+      selectedProduct.quantity = value;
+    },
     decrementProduct(state, action) {
       const index = action.payload;
       const selectedProduct = state.selectedProducts[index];
       selectedProduct.quantity -= 1;
+    },
+    setSelectedProductsToNull(state) {
+      state.selectedProducts = [];
     },
   },
   extraReducers: (builder) => {
@@ -101,6 +109,8 @@ export const {
   deleteSelectedProducts,
   incrementProduct,
   decrementProduct,
+  chnageProductQuantity,
+  setSelectedProductsToNull
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

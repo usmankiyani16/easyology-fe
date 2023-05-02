@@ -4,7 +4,6 @@ import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
 import ItemCard from "./item-card/item-card";
 import { useEffect, useState } from "react";
-import { noImg } from "../../assets/images";
 import Operations from "./operations/operations";
 import OnHoldModal from "./on-hold/on-hold";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -16,7 +15,6 @@ import {
   getHoldInvoices,
   getInvoiceNumber,
 } from "../../store/order/order-slice";
-import Loader from "../common/loader/loader";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -60,7 +58,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getHoldInvoices(queryParamInvoices));
-  }, []);
+  }, [invoiceNumber]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -68,19 +66,19 @@ const Dashboard = () => {
 
   const customerOptions = [
     {
-      _id: "144444",
+      _id: "9dc55d0012d14689b8a00940",
       value: "customer 1",
       mob: "0236353535",
       type: "whole seller",
     },
     {
-      _id: "13232",
+      _id: "9dc55d0012d14689b8a00940",
       value: "customer 2",
       mob: "0236353535",
       type: "whole seller",
     },
     {
-      _id: "15555",
+      _id: "9dc55d0012d14689b8a00940",
       value: "customer 3",
       mob: "0236353535",
       type: "whole seller",
@@ -104,13 +102,6 @@ const Dashboard = () => {
     dispatch(addSelectedProducts(product));
     setSelectCustomerValue(null);
   };
-
-  // const handleChangeProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   let queryParam: any = {
-  //     name: event.target.value,
-  //   };
-  //   dispatch(getProducts(queryParam));
-  // };
 
   return (
     <div className="_dashboard">
@@ -191,7 +182,11 @@ const Dashboard = () => {
       <div className="mt-7">
         <ItemCard />
       </div>
-      <Operations totalPrice={totalPrice} />
+      <Operations
+        totalPrice={totalPrice}
+        selectCustomer={selectCustomer}
+        setSelectCustomer={setSelectCustomer}
+      />
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );

@@ -4,9 +4,12 @@ import { SearchOutlined } from "@ant-design/icons";
 import { capitalize } from "../../../utils/functions/functions";
 import "./onhold.scss";
 import OnHoldInvoice from "./on-hold-invoice/onhold-invoice";
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { getProducts } from "../../../store/products/products-slice";
+import { getHoldInvoices } from "../../../store/order/order-slice";
 
 const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
+  const dispatch = useAppDispatch();
   const { holdInvoices } = useAppSelector((state) => state.order);
   const [onHoldModal, setOnHoldModal] = useState(false);
   const [singleOnHoldInvoice, setSingleOnHoldInvoice] = useState();
@@ -24,13 +27,26 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
     setIsModalOpen(false);
     setOnHoldModal(true);
   };
+  const searchInvoice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value?.trim();
+    console.log(value);
+    let queryParam: any = {};
+    if (value) {
+      queryParam = {
+        invoiceNumber: value,
+      };
+      dispatch(getHoldInvoices(queryParam));
+    } else {
+      dispatch(getHoldInvoices(queryParam));
+    }
+  };
   const handlePagination = async (value: Number) => {
     let queryParam: any = {};
     if (value) {
       queryParam = {
         page: value,
       };
-      // dispatch(getProducts(queryParam));
+      dispatch(getHoldInvoices(queryParam));
     }
   };
   return (
@@ -53,6 +69,7 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
         <div className="flex flex-col gap-4 ">
           <div className="self-center mt-4">
             <Input
+              onChange={searchInvoice}
               className="w-44 h-8"
               prefix={<SearchOutlined />}
               placeholder="Search invoice"

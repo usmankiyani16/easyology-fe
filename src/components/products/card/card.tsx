@@ -7,14 +7,15 @@ import { addSelectedProducts } from "../../../store/products/products-slice";
 
 const CardComponent: React.FC<any> = ({ item }) => {
   const dispatch = useAppDispatch();
-  const { selectedProducts } = useAppSelector((state) => state.products);  
+  const { selectedProducts } = useAppSelector((state) => state.products);
   const findOne = selectedProducts?.find(
     (prod: any) => prod?.variants?._id === item?.variants?._id
   );
 
   const image = imageBaseUrl + item?.image;
   const addToCart = () => {
-    dispatch(addSelectedProducts(item));
+    let product: any = { ...item, quantity: 1 };
+    dispatch(addSelectedProducts(product));
   };
   return (
     <Card style={{ width: "11.688rem", height: "16.063rem" }}>
@@ -51,7 +52,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
 
           {/* ${ (!item?.variants?.stock?.totalQuantity || !item?.variants?.options?.color || !item?.variants?.options?.size) && "h-[60px]"}  */}
 
-        <div className={`flex justify-between `}>
+          <div className={`flex justify-between `}>
             <span className="_productname">
               {item?.variants?.stock?.totalQuantity}
             </span>
