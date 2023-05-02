@@ -68,10 +68,10 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
       <div className="w-3/12 pr-10 flex flex-col gap-5">
         <div className="flex ">
           <label className="w-9/12">Sub-Total </label>
-          <label className="w-3/12">$ {totalPrice}</label>
+          <label className="w-3/12 whitespace-nowrap">$ {totalPrice}</label>
         </div>
         <div className="flex ">
-          <label className="w-9/12">Discount </label>
+          <label className="w-9/12 whitespace-nowrap">Discount </label>
           <label className=" rounded w-3/12">
             <InputNumber
               style={{ width: "100%" }}
@@ -89,7 +89,7 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
             <label className="_grey-color">Sales Tax </label>
             <label>(2.5%) </label>
           </div>
-          <label className="w-3/12">$ {saleTax.toFixed(2)}</label>
+          <label className="w-3/12 whitespace-nowrap">$ {saleTax.toFixed(2)}</label>
         </div>
         <div className="flex ">
           <label className="_primary-color w-9/12 ">Total </label>

@@ -12,6 +12,9 @@ import { backButtonIcon } from "../../../../assets/icons";
 
 const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
   const [amountReceived, setAmountReceived] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(0);
+  const [showOkButton, setShowOkButton] = useState(true);
+
   const [showPartialPay, setShowPartialPay] = useState<boolean>(false);
   const [showPay, setShowPay] = useState<boolean>(false);
   const handleOk = () => {
@@ -51,6 +54,10 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
       callback();
     }
   };
+
+  const handleOkClick = () => {
+    setShowOkButton(false); // set showOkButton to false when OK button is clicked
+  }
   return (
     <div>
       <Modal
@@ -71,7 +78,7 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
           autoComplete="off"
         >
           {!showPartialPay ? (
-            <div className="flex flex-col gap-4 h-[250px]">
+            <div className="flex flex-col gap-4 h-[280px]">
               <div className="flex flex-col gap-3">
                 <h1 className="flex justify-between text-xl text-semibold">
                   <span>Amount Due</span>
@@ -113,15 +120,18 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                 </Button>
               </div>
 
-              {amountReceived >= total && (
-                <div className="text-xl text-semibold flex gap-3 self-center">
+              {amountReceived >= total && showOkButton && (
+                <div className="text-xl text-semibold flex gap-3 self-center flex-col">
+                  <div>
                   <label>Change</label>
                   <label>$ {(total - amountReceived).toFixed(2)}</label>
+                  </div>
+                  <Button className="_bg-primary-color _white-color hover:_white-color" onClick={handleOkClick}>OK</Button>
                 </div>
               )}
             </div>
           ) : (
-            <div className="flex flex-col gap-4 h-[250px] ">
+            <div className="flex flex-col gap-4 h-[280px] ">
               <div className="flex items-center gap-9">
                 <img
                   onClick={() => setShowPartialPay(false)}
@@ -156,6 +166,9 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                       type="number"
                       placeholder="Enter amount"
                       prefix="$"
+                      onChange={(value) => setAmount(value || 0)}
+                      
+
                     />
                   </div>
                 </Form.Item>
@@ -180,13 +193,14 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                   <>
                     <div className="flex justify-between">
                       <span className="w-48">
-                        Total Remaining Amount on Due Date
+                        Total Remaining Amount 
                       </span>
-                      <span>$70</span>
+                      <span>$ {(total - amount).toFixed(2)}</span>
                     </div>
 
                     <Form.Item className="mb-0">
                       <Button
+                         disabled={Number(amount) <= 0}
                         type="primary"
                         htmlType="submit"
                         className="text-center text-lg flex justify-center m-auto"

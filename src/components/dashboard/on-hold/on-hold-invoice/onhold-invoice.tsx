@@ -10,6 +10,7 @@ import { noImg } from "../../../../assets/images";
 import { backButtonIcon } from "../../../../assets/icons";
 import { capitalize } from "../../../../utils/functions/functions";
 import dayjs from "dayjs";
+import download_scanner from "../../../../assets/images/download_scanner.png";
 
 // interface ExportButtonProps {
 //   data: Array<Object>; // Data to be exported in Excel file
@@ -72,50 +73,51 @@ const OnHoldInvoice: React.FC<any> = ({
           Scheduled:{" "}
           <span className="text-black font-medium capitalize">
             {" "}
-            {dayjs(singleOnHoldInvoice?.createdAt).format('M/D/YYYY') ??
+            {dayjs(singleOnHoldInvoice?.createdAt).format("M/D/YYYY") ??
               "not available"}
           </span>
         </span>
 
         {/* --------------- Products Container -------------------- */}
+        <div
+          // key={index}
+          className="mt-2"
+          style={{ height: "230px", overflowY: "auto" }}
+        >
+          {singleOnHoldInvoice?.products?.map((data: any, index: number) => (
+            <>
+              <span className="_product_id font-bold"></span>
+              <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={
+                      data?.product?.image
+                        ? imageBaseUrl + data?.product?.image
+                        : noImg
+                    }
+                    alt="Products"
+                    className="w-[59px] h-[66px]"
+                  />
+                  <span className="_product_name w-[112px] h-[66px] font-semibold flex items-center ">
+                    {data?.product?.name}
+                  </span>
+                </div>
+                <div>
+                  <span className="_product_quantity w-[112px] h-[66p] font-semibold">
+                    {data?.quantity} X {data?.product?.variants?.amount}
+                  </span>
+                </div>
+                <div>
+                  <span className="_product_price text-[18px] font-bold _primary-color">
+                    $ {data?.quantity * data?.product?.variants?.amount}
+                  </span>
+                </div>
+              </div>
 
-        {singleOnHoldInvoice?.products?.map((data: any, index: number) => (
-          <div
-            key={index}
-            className="mt-2"
-            style={{ height: "200px", overflowY: "auto" }}
-          >
-            <span className="_product_id font-bold"></span>
-            <div className="flex justify-between items-center mt-2">
-              <div className="flex items-center gap-3">
-                <img
-                  src={
-                    data?.product?.image
-                      ? imageBaseUrl + data?.product?.image
-                      : noImg
-                  }
-                  alt="Products"
-                  className="w-[59px] h-[66px]"
-                />
-                <span className="_product_name w-[112px] h-[66px] font-semibold flex items-center ">
-                  {data?.product?.name}
-                </span>
-              </div>
-              <div>
-                <span className="_product_quantity w-[112px] h-[66p] font-semibold">
-                  {data?.quantity} X {data?.product?.variants?.amount}
-                </span>
-              </div>
-              <div>
-                <span className="_product_price text-[18px] font-bold _primary-color">
-                  $ {data?.quantity * data?.product?.variants?.amount}
-                </span>
-              </div>
-            </div>
-
-            <img src={Line} alt="" />
-          </div>
-        ))}
+              <img src={Line} alt="" />
+            </>
+          ))}
+        </div>
 
         {/* <div className="_contact_details mt-4">
           <p className="flex font-bold">
@@ -152,6 +154,16 @@ const OnHoldInvoice: React.FC<any> = ({
             <span className="_label _label_total _primary-color">Total</span>
             <span className="_label_total _primary-color">
               $ {singleOnHoldInvoice?.totalAmount}
+            </span>
+          </div>
+
+          <div className="flex justify-center mt-4">
+            <img className="w-16 h-14" src={download_scanner} alt="" />
+          </div>
+          <div className="text-center">
+            <span className="_grey-color text-[14px]">
+              Please download our mobile app for promotion and shout outs by
+              scanning the QR Code
             </span>
           </div>
         </div>
