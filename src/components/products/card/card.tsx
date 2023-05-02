@@ -7,25 +7,14 @@ import { addSelectedProducts } from "../../../store/products/products-slice";
 
 const CardComponent: React.FC<any> = ({ item }) => {
   const dispatch = useAppDispatch();
-  const { selectedProducts } = useAppSelector((state) => state.products);
+  const { selectedProducts } = useAppSelector((state) => state.products);  
   const findOne = selectedProducts?.find(
-    (prod: any) => prod?._id === item?._id
+    (prod: any) => prod?.variants?._id === item?.variants?._id
   );
 
   const image = imageBaseUrl + item?.image;
   const addToCart = () => {
-    let product = {
-      _id: item?._id,
-      name: item?.name,
-      image: item?.image,
-      qty: 1,
-      maxQty: item?.variants?.stock?.totalQuantity,
-      price: item?.variants?.amount,
-      options: item?.variants?.options,
-    };
-    console.log("product", product);
-
-    dispatch(addSelectedProducts(product));
+    dispatch(addSelectedProducts(item));
   };
   return (
     <Card style={{ width: "11.688rem", height: "16.063rem" }}>
