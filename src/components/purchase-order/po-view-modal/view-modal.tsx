@@ -27,7 +27,6 @@ const Viewmodal: React.FC<any> = ({
   const Product_Image = purchaseOrders?.products.map(
     (product: { image: any }) => product.image
   );
-  console.log(Product_Image, "Product");
 
   const image = imageBaseUrl + Product_Image;
 
@@ -40,7 +39,7 @@ const Viewmodal: React.FC<any> = ({
   const handleExport = () => {
     const inventoryStatus = purchaseOrders?.paymentStatus;
     const partialPaid = inventoryStatus === "Partially Paid";
-  
+
     const data = purchaseOrders.products?.map((product: any) => ({
       productName: product?.name,
       quantity: product?.quantity,
@@ -56,10 +55,8 @@ const Viewmodal: React.FC<any> = ({
         dueDate: purchaseOrders?.payments[0]?.paymentDetails?.dueData,
       }),
     }));
-  
 
-    console.log(data, "Exported Data");
-    console.log(data, "Exported Data");
+    console.log("purchaseOrders", purchaseOrders);
 
     const fileName = "export";
 
@@ -71,6 +68,9 @@ const Viewmodal: React.FC<any> = ({
   return (
     <div className="_view_modal_wrap">
       <PayModal
+        setViewModalOpen={setViewModalOpen}
+        paidAmount={purchaseOrders?.remainingAmount}
+        poId={purchaseOrders?._id}
         paymentModalOpen={paymentModalOpen}
         setPaymentModalOpen={setPaymentModalOpen}
       />
@@ -90,8 +90,11 @@ const Viewmodal: React.FC<any> = ({
           <span className="text-red-500">#{purchaseOrders?.poNumber}</span>
         </h4>
         <h4 className="_company_name text-xl">
-          Vendor Name: 
-         <span className="font-medium _label-grey"> {purchaseOrders?.vendor[0]?.companyName} </span>
+          Vendor Name:
+          <span className="font-medium _label-grey">
+            {" "}
+            {purchaseOrders?.vendor[0]?.companyName}{" "}
+          </span>
         </h4>
         {/* <p className="_sheduled_date font-medium">
           Sheduled:{" "}
@@ -125,21 +128,20 @@ const Viewmodal: React.FC<any> = ({
           </div>
 
           <img src={Line} alt="" />
-
-          
         </div>
-
 
         <div className="_footer mb-6">
           <div className="_inv_status flex justify-between items-center">
             <span className="text-[16px]">
               {" "}
               Inv Status:{" "}
-              <span  className={`${
+              <span
+                className={`${
                   purchaseOrders?.paymentStatus === "Partially Paid"
                     ? "_primary-color"
                     : "_success_color"
-                }   ml-2`}>
+                }   ml-2`}
+              >
                 {purchaseOrders?.paymentStatus}
               </span>
             </span>
@@ -150,7 +152,6 @@ const Viewmodal: React.FC<any> = ({
                   // setViewModalOpen(false);
                   setPaymentModalOpen(true);
                 }}
-                
               >
                 Pay
               </Button>
@@ -186,7 +187,7 @@ const Viewmodal: React.FC<any> = ({
                   {" "}
                   Remaining Due Date:{" "}
                   <span className="ml-2 _primary-color">
-                  {` ${purchaseOrders?.payments[0]?.paymentDetails?.dueDate} `}
+                    {` ${purchaseOrders?.payments[0]?.paymentDetails?.dueDate} `}
                   </span>
                 </span>
               </div>

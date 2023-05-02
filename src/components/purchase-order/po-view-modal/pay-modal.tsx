@@ -1,23 +1,48 @@
-import {  useState } from "react";
+import { useState } from "react";
 import "../../../sass/modals.scss";
 
-
 import { Modal, Form, Select, Button, Input } from "antd";
+import { useAppDispatch } from "../../../store/store";
+import { getPOS, payPO } from "../../../store/po/po.slice";
 
-const PayModal: React.FC<any> = ({ paymentModalOpen, setPaymentModalOpen }) => {
+const PayModal: React.FC<any> = ({
+  paymentModalOpen,
+  setPaymentModalOpen,
+  poId,
+  paidAmount,
+  setViewModalOpen,
+}) => {
+  const dispatch = useAppDispatch();
   const [selectedOption, setSelectedOption] = useState(null);
-
   function handleSelect(value: any) {
     setSelectedOption(value);
-  
   }
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log(values, "Ye values hai");
-    
+    let payload: any = {
+      poId,
+      paidAmount,
+      paymentTypeDetails: {},
+    };
+    payload.paymentType = values?.payCategory;
+    if (values?.payCategory === "check") {
+      payload.paymentTypeDetails.checkNumber = values?.checkNumber;
+    }
+    console.log("payload", payload);
+
+    const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+    // payloaduserId = data?._id;
+    // payload.storeId = data?.storeId;
+    const res = await dispatch(payPO(payload));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setViewModalOpen(false);
+      let queryParam = {
+        page: 1,
+      };
+      dispatch(getPOS(queryParam));
+    }
   };
-
-
 
   return (
     <div>
@@ -57,20 +82,19 @@ const PayModal: React.FC<any> = ({ paymentModalOpen, setPaymentModalOpen }) => {
               className="_input_field ml-16 w-[700px]"
               placeholder="Payment Method"
               onChange={handleSelect}
-       
             >
-              <Select.Option value="Check">Check</Select.Option>
-              <Select.Option value="Cash">Cash</Select.Option>
-              <Select.Option value="CC">CC</Select.Option>
+              <Select.Option value="check">Check</Select.Option>
+              <Select.Option value="cash">Cash</Select.Option>
+              <Select.Option value="cc">CC</Select.Option>
             </Select>
           </Form.Item>
 
-          {selectedOption === "Check" && (
+          {selectedOption === "check" && (
             <div>
               <Form.Item
                 className="mt-12 ml-16"
                 label={<span className="_po_field_label">Check Number</span>}
-                name="serial"
+                name="checkNumber"
                 required
                 tooltip="This is a required field"
                 rules={[
@@ -100,7 +124,7 @@ const PayModal: React.FC<any> = ({ paymentModalOpen, setPaymentModalOpen }) => {
             </div>
           )}
 
-          {(selectedOption === "Cash" || selectedOption === "CC") && (
+          {(selectedOption === "cash" || selectedOption === "cc") && (
             <div className="flex justify-center mt-16">
               <Form.Item>
                 <Button

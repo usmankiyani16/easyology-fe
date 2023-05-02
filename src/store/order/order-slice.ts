@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getApi, postApi } from "../../utils/api/api";
+import { getApi, patchApi, postApi, putApi } from "../../utils/api/api";
 import { REQUEST_STATUS } from "../../utils/constants";
 import { setLoading } from "../loader/loader-slice";
 import { Toast } from "../../components/common/toast/toast";
+import { delApi } from "../../utils/api/api";
 
 export const getInvoiceNumber = createAsyncThunk(
   "order/getInvoiceNumber",
@@ -26,10 +27,59 @@ export const holdInvoice = createAsyncThunk(
     try {
       dispatch(setLoading(true));
       const response = await postApi("/holdInvoice", payload);
-      Toast("Invoice saved");
+      Toast(response?.message);
       return response;
     } catch (error: any) {
-      Toast(error?.response?.data?.error, "error");
+      Toast(error?.message, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
+export const voidInvoice = createAsyncThunk(
+  "order/voidInvoice",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await putApi("/holdInvoice", payload);
+      Toast(response?.message);
+      return response;
+    } catch (error: any) {
+      Toast(error?.message, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
+export const addOrder = createAsyncThunk(
+  "order/addOrder",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await postApi("/order", payload);
+      Toast(response?.message);
+      return response;
+    } catch (error: any) {
+      Toast(error?.message, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
+export const releaseInvoice = createAsyncThunk(
+  "order/releaseInvoice",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      let invoiceId = `invoiceId=${payload}`;
+      const response = await delApi(`/holdInvoice?${invoiceId}`);
+      Toast(response?.message);
+      return response;
+    } catch (error: any) {
+      Toast(error?.message, "error");
       return rejectWithValue(error);
     } finally {
       dispatch(setLoading(false));

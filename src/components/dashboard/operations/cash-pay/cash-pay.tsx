@@ -3,15 +3,36 @@ import {
   DatePicker,
   DatePickerProps,
   Form,
-  Input,
   InputNumber,
   Modal,
   
 } from "antd";
 import React, { useState , useRef} from "react";
 import { backButtonIcon } from "../../../../assets/icons";
-
-const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import {
+  addOrder,
+  getInvoiceNumber,
+  holdInvoice,
+} from "../../../../store/order/order-slice";
+import { setSelectedProductsToNull } from "../../../../store/products/products-slice";
+enum paymentStatusE {
+  PAID = "Paid",
+  PARTIALLY_PAID = "Partially Paid",
+}
+const CashPay: React.FC<any> = ({
+  totalPrice,
+  total,
+  isCashPayOpen,
+  setCashPayOpen,
+  selectCustomer,
+  setSelectCustomer,
+  discount,
+  salesTax,
+}) => {
+  const dispatch = useAppDispatch();
+  const { invoiceNumber } = useAppSelector((state) => state.order);
+  const { selectedProducts } = useAppSelector((state) => state.products);
   const [amountReceived, setAmountReceived] = useState<number>(0);
   const [amount, setAmount] = useState<number>(0);
   const [showOkButton, setShowOkButton] = useState(false);
@@ -58,6 +79,42 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
     }
   };
 
+  const handleCashPay = async (paymentStatus: string) => {
+    const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+    const storeId = data?.storeId;
+    let products = selectedProducts?.map((prod: any) => ({
+      productId: prod?._id,
+      variantId: prod?.variants?._id,
+      quantity: prod?.quantity,
+      stockId: prod?.variants?.stock?._id,
+    }));
+    let payload: any = {
+      storeId,
+      userId: data?._id,
+      customerId: selectCustomer?._id,
+      orderNumber: invoiceNumber,
+      paymentStatus,
+      paymentDetails: {
+        subTotalAmount: totalPrice,
+        discount: discount,
+        salesTax,
+        totalAmount: total,
+        paidAmount: total,
+      },
+      paymentType: "cash",
+      products,
+    };
+    if (paymentStatusE.PARTIALLY_PAID) {
+      payload.paymentDetails.paidAmount = 12;
+    }
+    const res = await dispatch(addOrder(payload));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setShowOkButton(true)
+      dispatch(getInvoiceNumber());
+      // dispatch(setSelectedProductsToNull());
+      // setSelectCustomer(null);
+    }
+  };
   const handleOkClick = () => {
     setShowOkButton(false);
     setCashPayOpen(false);
@@ -116,11 +173,14 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
               </div>
               <div className="flex justify-between">
                 <Button
-                  disabled={Number(amountReceived) <= 0}
+                  onClick={() => handleCashPay(paymentStatusE.PAID)}
+                  disabled={
+                    Number(amountReceived) <= 0 ||
+                    Number(amountReceived) < total
+                  }
                   className="w-[147px]"
                   type="primary"
                   htmlType="submit"
-                  onClick={() => setShowOkButton(true)}
                 >
                   Cash
                 </Button>

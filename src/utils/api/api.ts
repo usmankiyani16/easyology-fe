@@ -43,7 +43,7 @@ api.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.href = ROUTE_CONSTANTS.LOGIN;
     } else {
-      throw new Error(error?.data?.message);
+      throw new Error(error);
     }
   }
 );
