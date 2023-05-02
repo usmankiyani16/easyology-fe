@@ -12,7 +12,7 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
   const dispatch = useAppDispatch();
   const { holdInvoices } = useAppSelector((state) => state.order);
   const [onHoldModal, setOnHoldModal] = useState(false);
-  const [singleOnHoldInvoice, setSingleOnHoldInvoice] = useState();
+  const [singleOnHoldInvoice, setSingleOnHoldInvoice] = useState<any>();
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -52,6 +52,7 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
   return (
     <div className="_onhold">
       <OnHoldInvoice
+        key={singleOnHoldInvoice?._id}
         singleOnHoldInvoice={singleOnHoldInvoice}
         onHoldModal={onHoldModal}
         setOnHoldModal={setOnHoldModal}

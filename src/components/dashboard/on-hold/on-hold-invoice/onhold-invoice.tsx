@@ -11,6 +11,8 @@ import { backButtonIcon } from "../../../../assets/icons";
 import { capitalize } from "../../../../utils/functions/functions";
 import dayjs from "dayjs";
 import download_scanner from "../../../../assets/images/download_scanner.png";
+import { useAppDispatch } from "../../../../store/store";
+import { getInvoiceNumber, releaseInvoice } from "../../../../store/order/order-slice";
 
 // interface ExportButtonProps {
 //   data: Array<Object>; // Data to be exported in Excel file
@@ -23,9 +25,19 @@ const OnHoldInvoice: React.FC<any> = ({
   setIsModalOpen,
   singleOnHoldInvoice,
 }) => {
+  const dispatch = useAppDispatch();
   const handleback = () => {
     setOnHoldModal(false);
     setIsModalOpen(true);
+  };
+
+  const handleReleaseInvoice = async () => {
+    const res = await dispatch(releaseInvoice(singleOnHoldInvoice?._id));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setOnHoldModal(false);
+      setIsModalOpen(false);
+      dispatch(getInvoiceNumber());
+    }
   };
   return (
     <div className="_onhold">
@@ -54,7 +66,7 @@ const OnHoldInvoice: React.FC<any> = ({
             </span>
           </h4>
 
-          <Button>Release</Button>
+          <Button onClick={handleReleaseInvoice}>Release</Button>
         </div>
         <div className="flex items-center justify-between">
           <h4 className="_company_name capitalize">

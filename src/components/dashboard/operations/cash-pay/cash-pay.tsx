@@ -3,20 +3,42 @@ import {
   DatePicker,
   DatePickerProps,
   Form,
-  Input,
   InputNumber,
   Modal,
 } from "antd";
 import React, { useState } from "react";
 import { backButtonIcon } from "../../../../assets/icons";
-
-const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import {
+  addOrder,
+  getInvoiceNumber,
+  holdInvoice,
+} from "../../../../store/order/order-slice";
+import { setSelectedProductsToNull } from "../../../../store/products/products-slice";
+enum paymentStatusE {
+  PAID = "Paid",
+  PARTIALLY_PAID = "Partially Paid",
+}
+const CashPay: React.FC<any> = ({
+  totalPrice,
+  total,
+  isCashPayOpen,
+  setCashPayOpen,
+  selectCustomer,
+  setSelectCustomer,
+  discount,
+  salesTax,
+}) => {
+  const dispatch = useAppDispatch();
+  const { invoiceNumber } = useAppSelector((state) => state.order);
+  const { selectedProducts } = useAppSelector((state) => state.products);
   const [amountReceived, setAmountReceived] = useState<number>(0);
   const [amount, setAmount] = useState<number>(0);
   const [showOkButton, setShowOkButton] = useState(true);
-
   const [showPartialPay, setShowPartialPay] = useState<boolean>(false);
   const [showPay, setShowPay] = useState<boolean>(false);
+  console.log("selectCustomer", selectCustomer);
+
   const handleOk = () => {
     setCashPayOpen(false);
   };
@@ -55,9 +77,44 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
     }
   };
 
+  const handleCashPay = async (paymentStatus: string) => {
+    const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+    const storeId = data?.storeId;
+    let products = selectedProducts?.map((prod: any) => ({
+      productId: prod?._id,
+      variantId: prod?.variants?._id,
+      quantity: prod?.quantity,
+      stockId: prod?.variants?.stock?._id,
+    }));
+    let payload: any = {
+      storeId,
+      userId: data?._id,
+      customerId: selectCustomer?._id,
+      orderNumber: invoiceNumber,
+      paymentStatus,
+      paymentDetails: {
+        subTotalAmount: totalPrice,
+        discount: discount,
+        salesTax,
+        totalAmount: total,
+        paidAmount: total,
+      },
+      paymentType: "cash",
+      products,
+    };
+    if (paymentStatusE.PARTIALLY_PAID) {
+      payload.paymentDetails.paidAmount = 12;
+    }
+    const res = await dispatch(addOrder(payload));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      dispatch(getInvoiceNumber());
+      // dispatch(setSelectedProductsToNull());
+      // setSelectCustomer(null);
+    }
+  };
   const handleOkClick = () => {
     setShowOkButton(false); // set showOkButton to false when OK button is clicked
-  }
+  };
   return (
     <div>
       <Modal
@@ -104,7 +161,11 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
               </div>
               <div className="flex justify-between">
                 <Button
-                  disabled={Number(amountReceived) <= 0}
+                  onClick={() => handleCashPay(paymentStatusE.PAID)}
+                  disabled={
+                    Number(amountReceived) <= 0 ||
+                    Number(amountReceived) < total
+                  }
                   className="w-[147px]"
                   type="primary"
                   htmlType="submit"
@@ -123,10 +184,15 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
               {amountReceived >= total && showOkButton && (
                 <div className="text-xl text-semibold flex gap-3 self-center flex-col">
                   <div>
-                  <label>Change</label>
-                  <label>$ {(total - amountReceived).toFixed(2)}</label>
+                    <label>Change</label>
+                    <label>$ {(total - amountReceived).toFixed(2)}</label>
                   </div>
-                  <Button className="_bg-primary-color _white-color hover:_white-color" onClick={handleOkClick}>OK</Button>
+                  <Button
+                    className="_bg-primary-color _white-color hover:_white-color"
+                    onClick={handleOkClick}
+                  >
+                    OK
+                  </Button>
                 </div>
               )}
             </div>
@@ -167,8 +233,6 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                       placeholder="Enter amount"
                       prefix="$"
                       onChange={(value) => setAmount(value || 0)}
-                      
-
                     />
                   </div>
                 </Form.Item>
@@ -192,15 +256,13 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                 {showPay && (
                   <>
                     <div className="flex justify-between">
-                      <span className="w-48">
-                        Total Remaining Amount 
-                      </span>
+                      <span className="w-48">Total Remaining Amount</span>
                       <span>$ {(total - amount).toFixed(2)}</span>
                     </div>
 
                     <Form.Item className="mb-0">
                       <Button
-                         disabled={Number(amount) <= 0}
+                        disabled={Number(amount) <= 0}
                         type="primary"
                         htmlType="submit"
                         className="text-center text-lg flex justify-center m-auto"

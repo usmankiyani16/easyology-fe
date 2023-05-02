@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {
   getInvoiceNumber,
   holdInvoice,
+  voidInvoice,
 } from "../../../store/order/order-slice";
 import { setSelectedProductsToNull } from "../../../store/products/products-slice";
 
@@ -29,6 +30,33 @@ const Operations: React.FC<any> = ({
       if ((value !== undefined || value !== null) && Number(value) >= 0) {
         setDiscount(Number(value));
       }
+    }
+  };
+  const handleVoidInvoice = async () => {
+    const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+    const storeId = data?.storeId;
+    let products = selectedProducts?.map((prod: any) => ({
+      productId: prod?._id,
+      variantId: prod?.variants?._id,
+      quantity: prod?.quantity,
+    }));
+    let payload: any = {
+      invoiceNumber,
+      reason: "reason",
+      storeId,
+      userId: data?._id,
+      customerId: selectCustomer?._id,
+      subTotalAmount: totalPrice,
+      discount: discount,
+      salesTax,
+      totalAmount: total,
+      products,
+    };
+    const res = await dispatch(voidInvoice(payload));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      dispatch(getInvoiceNumber());
+      dispatch(setSelectedProductsToNull());
+      setSelectCustomer(null);
     }
   };
   const handleNoSale = () => {
@@ -67,6 +95,7 @@ const Operations: React.FC<any> = ({
       <div className="flex flex-col gap-10 w-9/12">
         <div className="flex gap-5">
           <Button
+            onClick={handleVoidInvoice}
             disabled={disableButton || !selectCustomer?._id}
             className="w-32 flex items-center justify-center"
           >
@@ -133,7 +162,9 @@ const Operations: React.FC<any> = ({
             <label className="_grey-color">Sales Tax </label>
             <label>(2.5%) </label>
           </div>
-          <label className="w-3/12 whitespace-nowrap">$ {salesTax.toFixed(2)}</label>
+          <label className="w-3/12 whitespace-nowrap">
+            $ {salesTax.toFixed(2)}
+          </label>
         </div>
         <div className="flex ">
           <label className="_primary-color w-9/12 ">Total </label>
@@ -144,6 +175,11 @@ const Operations: React.FC<any> = ({
       </div>
       {isCashPayOpen && (
         <CashPay
+          selectCustomer={selectCustomer}
+          setSelectCustomer={setSelectCustomer}
+          salesTax={salesTax}
+          discount={discount}
+          totalPrice={totalPrice}
           total={total}
           isCashPayOpen={isCashPayOpen}
           setCashPayOpen={setIsCashPayOpen}
