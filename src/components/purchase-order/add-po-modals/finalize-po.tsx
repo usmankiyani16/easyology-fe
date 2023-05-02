@@ -44,6 +44,8 @@ const PreviewModal: React.FC<any> = ({
   const [dueDate, setDueDate] = useState(null);
   const [selectedChoiceOption, setSelectedChoiceOption] = useState(null);
   const [selectedOption, setSelectedOption] = useState("cash");
+  const [remainingPrice, setRemainingPrice] = useState<number>(0);
+  const [enteredPrice, setEnteredPrice] = useState<number | undefined>();
 
   const searchInput = useRef<InputRef>(null);
   const [form] = Form.useForm();
@@ -115,7 +117,7 @@ const PreviewModal: React.FC<any> = ({
     setSelectedChoiceOption(value);
   }
 
-  const [remainingPrice, setRemainingPrice] = useState<number>(0);
+  
 
   const handlePartialChange = (e: CheckboxChangeEvent) => {
     const isChecked = e.target.checked;
@@ -138,12 +140,25 @@ const PreviewModal: React.FC<any> = ({
 
   const priceChange = (e: any) => {
     const value = parseFloat(e.target.value);
+
+    setEnteredPrice(value > totalPrice ? totalPrice : value);
+
     if (!isNaN(value) && e.target.value.trim() !== "") {
       setRemainingPrice(value);
     } else setRemainingPrice(0);
   };
 
+  const handlePriceKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const price = Number(`${enteredPrice}${e.key}`);
+    const willExceedTotalPrice = price > totalPrice - remainingPrice;
+    const willEqualTotalPrice = price === totalPrice - remainingPrice;
+    if (willExceedTotalPrice && !willEqualTotalPrice && price !== totalPrice) {
+      e.preventDefault();
+    }
+  };
+
   const handleFinish = async (values: any) => {
+    console.log(values, "all");
     let paidAmount;
     let payload: any = {
       ...newObject,
@@ -182,7 +197,7 @@ const PreviewModal: React.FC<any> = ({
         checkNumber: values?.serial,
         routingNumber: "1231",
         accountNumber: "12313",
-      }
+      };
     }
 
     // dispatch(addPO(payload));
@@ -332,6 +347,8 @@ const PreviewModal: React.FC<any> = ({
                         placeholder="0.00"
                         type="number"
                         prefix="$"
+                        value={enteredPrice}
+                        onKeyPress={handlePriceKeyPress}
                       />
                     </Form.Item>
                   </Col>
@@ -387,10 +404,12 @@ const PreviewModal: React.FC<any> = ({
               </Row>
             )}
 
-            {(selectedChoiceOption === "check" && isPartialChecked) && (
+            {selectedChoiceOption === "check" && isPartialChecked && (
               <Row>
                 <Col xs={10} className="pt-2">
-                  <label htmlFor="" className="_po_field_label">Check Number</label>
+                  <label htmlFor="" className="_po_field_label">
+                    Check Number
+                  </label>
                 </Col>
                 <Col xs={14}>
                   <Form.Item
@@ -443,7 +462,9 @@ const PreviewModal: React.FC<any> = ({
                   // <div className="ml-4">
                   <Row>
                     <Col xs={10} className="pt-2">
-                      <label htmlFor="" className="_po_field_label">Check Number</label>
+                      <label htmlFor="" className="_po_field_label">
+                        Check Number
+                      </label>
                     </Col>
                     <Col xs={14}>
                       <Form.Item

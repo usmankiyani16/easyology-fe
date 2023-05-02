@@ -111,7 +111,7 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
               {amountReceived >= total && (
                 <div className="text-xl text-semibold flex gap-3 self-center">
                   <label>Change</label>
-                  <label>$ {total - amountReceived}</label>
+                  <label>$ {(total - amountReceived).toFixed(2)}</label>
                 </div>
               )}
             </div>

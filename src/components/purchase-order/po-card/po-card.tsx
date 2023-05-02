@@ -74,7 +74,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
               <div className="flex flex-col">
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Inv Status:</span>
-                  <span className="font-semibold _primary-color">
+                  <span className={`font-semibold ${data?.paymentStatus === "Partially Paid" ?  '_primary-color': '_success_color' } `}>
                     {capitalize(data?.paymentStatus ?? "")}
                   </span>
                 </div>
@@ -116,6 +116,8 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                     ${data?.totalAmount}
                   </span>
                   <Button
+                   className="flex self-end"
+                   
                     onClick={() => {
                       setViewModalOpen(true);
                       setSinglePO(data);

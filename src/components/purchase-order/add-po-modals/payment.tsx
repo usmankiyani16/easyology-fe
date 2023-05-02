@@ -47,6 +47,7 @@ const Payment: React.FC<any> = ({
   const [dueDate, setDueDate] = useState(null);
 
   const [selectedChoiceOption, setSelectedChoiceOption] = useState(null);
+  const [enteredPrice, setEnteredPrice] = useState<number | undefined>();
 
   function handleSelect(value: any) {
     setSelectedChoiceOption(value);
@@ -128,9 +129,21 @@ const Payment: React.FC<any> = ({
 
   const priceChange = (e: any) => {
     const value = parseFloat(e.target.value);
+    setEnteredPrice(value > totalPrice ? totalPrice : value);
     if (!isNaN(value) && e.target.value.trim() !== "") {
       setRemainingPrice(value);
     } else setRemainingPrice(0);
+  };
+
+  const handlePriceKeyPress = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    const price = Number(`${enteredPrice}${e.key}`);
+    const willExceedTotalPrice = price > totalPrice - remainingPrice;
+    const willEqualTotalPrice = price === totalPrice - remainingPrice;
+    if (willExceedTotalPrice && !willEqualTotalPrice && price !== totalPrice) {
+      e.preventDefault();
+    }
   };
 
   // Price Validator
@@ -180,11 +193,12 @@ const Payment: React.FC<any> = ({
           {/* {<h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice-paidAmount}</h1>} */}
 
           {/* <h1 className="text-right font-semibold mr-4 mt-6 text-[16px]">Total Amount: {totalPrice-paidAmount}</h1> */}
-          <div className="_payment flex mt-4">
+          <div className="_payment flex gap-24 mt-4">
             <div>
               {/*  ml-[13px] */}
               <p className="_payment_header">Payment Method</p>
             </div>
+            
             <div className="flex items-center">
               <Checkbox
                 checked={isPartialChecked}
@@ -202,6 +216,7 @@ const Payment: React.FC<any> = ({
                 <p>Fully Paid</p>
               </Checkbox>{" "}
             </div>
+           
           </div>
           {isPartialChecked && (
             <>
@@ -225,6 +240,8 @@ const Payment: React.FC<any> = ({
                       type="number"
                       prefix="$"
                       style={{ width: "100%" }}
+                      value={enteredPrice}
+                      onKeyPress={handlePriceKeyPress}
                     />
                   </Form.Item>
                 </Col>
@@ -264,7 +281,7 @@ const Payment: React.FC<any> = ({
                 <Form.Item name="inputField">
                   <Select
                     // w-[50px]
-                    className="_input h-10 "
+                    className="_input h-6 "
                     placeholder="Payment Method"
                     style={{ width: "100%" }}
                     onChange={handleSelect}
