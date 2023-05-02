@@ -24,7 +24,7 @@ export const signin = createAsyncThunk(
             localStorage.setItem("user", JSON.stringify(obj));
             return response;
         } catch (error: any) {
-            Toast(error?.response?.data?.error, 'error')
+            Toast('Incorecct username or password', 'error')
             return rejectWithValue(error?.response?.data);
         } finally {
             dispatch(setLoading(false));
