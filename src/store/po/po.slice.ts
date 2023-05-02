@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getApi, postApi } from "../../utils/api/api";
+import { getApi, postApi, putApi } from "../../utils/api/api";
 import { REQUEST_STATUS } from "../../utils/constants";
 import { setLoading } from "../loader/loader-slice";
 import { Toast } from "../../components/common/toast/toast";
@@ -40,6 +40,23 @@ export const addPO = createAsyncThunk(
       payload.userId = data?._id;
       payload.storeId = data?.storeId;
       const response = await postApi("/product/single-po", payload);
+      Toast(response?.message);
+      return response;
+    } catch (error: any) {
+      Toast(error?.response?.data?.error, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
+
+export const payPO = createAsyncThunk(
+  "purchaseOrders/payPO",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await putApi("/product", payload);
       Toast(response?.message);
       return response;
     } catch (error: any) {
