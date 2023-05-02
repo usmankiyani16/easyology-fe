@@ -34,33 +34,7 @@ const Operations: React.FC<any> = ({
       }
     }
   };
-  const handleVoidInvoice = async () => {
-    const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-    const storeId = data?.storeId;
-    let products = selectedProducts?.map((prod: any) => ({
-      productId: prod?._id,
-      variantId: prod?.variants?._id,
-      quantity: prod?.quantity,
-    }));
-    let payload: any = {
-      invoiceNumber,
-      reason: "reason",
-      storeId,
-      userId: data?._id,
-      customerId: selectCustomer?._id,
-      subTotalAmount: totalPrice,
-      discount: discount,
-      salesTax,
-      totalAmount: total,
-      products,
-    };
-    const res = await dispatch(voidInvoice(payload));
-    if (res?.meta?.requestStatus === "fulfilled") {
-      dispatch(getInvoiceNumber());
-      dispatch(setSelectedProductsToNull());
-      setSelectCustomer(null);
-    }
-  };
+
   const handleNoSale = () => {
     dispatch(getInvoiceNumber());
     dispatch(setSelectedProductsToNull());
@@ -190,11 +164,17 @@ const Operations: React.FC<any> = ({
       )}
 
       {isVoidOpen && (
-          <VoidInvoice isVoidOpen={isVoidOpen} setIsVoidOpen={setIsVoidOpen} />
-
+        <VoidInvoice
+          salesTax={salesTax}
+          discount={discount}
+          totalPrice={totalPrice}
+          total={total}
+          isVoidOpen={isVoidOpen}
+          setIsVoidOpen={setIsVoidOpen}
+          selectCustomer={selectCustomer}
+          setSelectCustomer={setSelectCustomer}
+        />
       )}
-
-       
     </div>
   );
 };

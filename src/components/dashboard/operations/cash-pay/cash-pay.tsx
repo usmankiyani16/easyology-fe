@@ -36,6 +36,11 @@ const CashPay: React.FC<any> = ({
   const [amount, setAmount] = useState<number>(0);
   const [showOkButton, setShowOkButton] = useState(false);
 
+  const handleChangeAmount = (value: any) => {
+    if (value < total) {
+      setAmount(value);
+    }
+  };
   const [showPartialPay, setShowPartialPay] = useState<boolean>(false);
   const [showPay, setShowPay] = useState<boolean>(false);
   const datePickerRef = useRef();
@@ -56,7 +61,7 @@ const CashPay: React.FC<any> = ({
     }
   };
   const onFinish = (values: any) => {
-    console.log(values);
+    console.log(values, { amount });
   };
 
   // Price Validator
@@ -127,7 +132,7 @@ const CashPay: React.FC<any> = ({
   };
 
   const handlePartial = () => {
-    setShowOkButton(true)
+    setShowPartialPay(true);
     setShowOkButton(false)
   }
   return (
@@ -252,7 +257,8 @@ const CashPay: React.FC<any> = ({
                       type="number"
                       placeholder="Enter amount"
                       prefix="$"
-                      onChange={(value) => setAmount(value || 0)}
+                      value={amount}
+                      onChange={handleChangeAmount}
                     />
                   </div>
                 </Form.Item>
