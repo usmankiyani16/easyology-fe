@@ -5,9 +5,8 @@ import {
   Form,
   InputNumber,
   Modal,
-  
 } from "antd";
-import React, { useState , useRef} from "react";
+import React, { useState, useRef } from "react";
 import { backButtonIcon } from "../../../../assets/icons";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import {
@@ -49,7 +48,6 @@ const CashPay: React.FC<any> = ({
   };
 
   const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
-   
     console.log(date, dateString);
     if (date) {
       setShowPay(true);
@@ -109,7 +107,7 @@ const CashPay: React.FC<any> = ({
     }
     const res = await dispatch(addOrder(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
-      setShowOkButton(true)
+      setShowOkButton(true);
       dispatch(getInvoiceNumber());
       // dispatch(setSelectedProductsToNull());
       // setSelectCustomer(null);
@@ -121,11 +119,16 @@ const CashPay: React.FC<any> = ({
   };
 
   const handleback = () => {
-    setShowPartialPay(false)
-    setShowPay(false)
-   /*  if (datePickerRef.current) {
+    setShowPartialPay(false);
+    setShowPay(false);
+    /*  if (datePickerRef.current) {
       datePickerRef.current.picker.input.value = '';
     } */
+  };
+
+  const handlePartial = () => {
+    setShowOkButton(true)
+    setShowOkButton(false)
   }
   return (
     <div>
@@ -185,7 +188,7 @@ const CashPay: React.FC<any> = ({
                   Cash
                 </Button>
                 <Button
-                  onClick={() => setShowPartialPay(true)}
+                  onClick={handlePartial}
                   className="w-[147px]"
                   type="primary"
                 >
@@ -203,14 +206,13 @@ const CashPay: React.FC<any> = ({
               )}
 
               {showOkButton && (
-
                 <div className="flex justify-center">
-                <Button
-                  className="_bg-primary-color _white-color m-auto"
-                  onClick={handleOkClick}
-                >
-                  OK
-                </Button>
+                  <Button
+                    className="_bg-primary-color _hover-white-color hover:text-green-600 _white-color m-auto"
+                    onClick={handleOkClick}
+                  >
+                    OK
+                  </Button>
                 </div>
               )}
             </div>
@@ -268,7 +270,7 @@ const CashPay: React.FC<any> = ({
                     className="mb-0"
                   >
                     {/* ref={datePickerRef} */}
-                    <DatePicker onChange={onChangeDate}  />
+                    <DatePicker onChange={onChangeDate} />
                   </Form.Item>
                 </div>
 
@@ -276,7 +278,9 @@ const CashPay: React.FC<any> = ({
                   <>
                     <div className="flex justify-between">
                       <span className="w-40">Total Remaining Amount</span>
-                      <span className="whitespace-nowrap">$ {(total - amount).toFixed(2)}</span>
+                      <span className="whitespace-nowrap">
+                        $ {(total - amount).toFixed(2)}
+                      </span>
                     </div>
 
                     <Form.Item className="mb-0">

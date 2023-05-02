@@ -139,6 +139,10 @@ code {
   ;
 }
 
+._hover-white-color:hover {
+  color: $hover-white-color
+}
+
 /* for WebKit browsers */
 ._custom-scrollbar::-webkit-scrollbar {
   width: 5px;
