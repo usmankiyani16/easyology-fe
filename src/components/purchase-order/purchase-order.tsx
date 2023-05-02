@@ -54,6 +54,7 @@ const PurchaseOrder = () => {
           defaultCurrent={1}
           defaultPageSize={8}
           total={purchaseOrders?.pagination?.totalCount}
+          showSizeChanger={false}
         />
        ) : (
          ""

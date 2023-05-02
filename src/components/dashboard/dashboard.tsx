@@ -87,11 +87,12 @@ const Dashboard = () => {
     },
   ];
   let productOptions = products?.products?.slice(0, 3);
-  //   if(selectedProducts?.length){
-  //     productOptions?.filter((prod:any)=>({
-  // prod?._id!==selectedProducts[0]
-  //     }))
-  //   }
+  const filteredProductOptions = productOptions?.filter(
+    (option: any) =>
+      !selectedProducts?.some(
+        (selected: any) => selected?.variants?._id === option?.variants?._id
+      )
+  );
   console.log("selectedProducts", selectedProducts);
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
@@ -150,7 +151,7 @@ const Dashboard = () => {
           </AutoComplete>
           <AutoComplete
             onSelect={(value, option) => handleProductSelect(option)}
-            options={productOptions?.map((option: any) => ({
+            options={filteredProductOptions?.map((option: any) => ({
               ...option,
               quantity: 1,
               value: option?.variants?.options?.color

@@ -96,7 +96,12 @@ const CashPay: React.FC<any> = ({ total, isCashPayOpen, setCashPayOpen }) => {
                 </Form.Item>
               </div>
               <div className="flex justify-between">
-                <Button className="w-[147px]" type="primary" htmlType="submit">
+                <Button
+                  disabled={Number(amountReceived) <= 0}
+                  className="w-[147px]"
+                  type="primary"
+                  htmlType="submit"
+                >
                   Cash
                 </Button>
                 <Button

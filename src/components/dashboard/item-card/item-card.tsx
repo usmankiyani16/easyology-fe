@@ -13,8 +13,8 @@ import { imageBaseUrl } from "../../../utils/constants";
 const ItemCard = () => {
   const { selectedProducts } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
-  const handleDelete = (productId: string) => {
-    dispatch(deleteSelectedProducts(productId));
+  const handleDelete = (index: number) => {
+    dispatch(deleteSelectedProducts(index));
   };
 
   const handleChange = (index: number, value: any) => {};
@@ -101,7 +101,7 @@ const ItemCard = () => {
               </div>
               <div
                 className="flex items-center mr-3 cursor-pointer p-1"
-                onClick={() => handleDelete(item?._id)}
+                onClick={() => handleDelete(index)}
               >
                 <img src={deleteIcon} alt="delete" />
               </div>
