@@ -11,8 +11,10 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
   const total = totalPrice + saleTax - number;
 
   const handleChange = (value: number | undefined | null) => {
-    if ((value !== undefined || value !== null) && Number(value) >= 0) {
-      setNumber(Number(value));
+    if (Number(value) < totalPrice) {
+      if ((value !== undefined || value !== null) && Number(value) >= 0) {
+        setNumber(Number(value));
+      }
     }
   };
   return (
@@ -58,7 +60,7 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
               type="number"
               min={0}
               max={totalPrice | 0}
-              value={number}
+              value={number > totalPrice ? 0 : number}
               onChange={handleChange}
             />
           </label>
@@ -71,8 +73,10 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
           <label className="w-3/12">$ {saleTax.toFixed(2)}</label>
         </div>
         <div className="flex ">
-          <label className="_primary-color w-9/12">Total </label>
-          <label className="w-3/12">$ {total.toFixed(2)}</label>
+          <label className="_primary-color w-9/12 ">Total </label>
+          <label className="w-3/12 whitespace-nowrap">
+            $ {total.toFixed(2)}
+          </label>
         </div>
       </div>
       {isCashPayOpen && (

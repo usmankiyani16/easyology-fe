@@ -68,23 +68,30 @@ const OnHoldInvoice: React.FC<any> = ({
           </span>
         </div>
         <span className="_sheduled_date font-medium">
-          Sheduled:{" "}
+          Scheduled:{" "}
           <span className="text-black font-medium capitalize">
             {" "}
-            {singleOnHoldInvoice?.singleOnHoldInvoice ?? "not available"}
+            {singleOnHoldInvoice?.createdAt?.slice(0, 10) ?? "not available"}
           </span>
         </span>
 
         {/* --------------- Products Container -------------------- */}
 
         {singleOnHoldInvoice?.products?.map((data: any, index: number) => (
-          <div key={index} className="mt-2" style={{ height: "200px", overflowY: "auto" }}>
-            <span className="_product_id font-bold">
-            </span>
+          <div
+            key={index}
+            className="mt-2"
+            style={{ height: "200px", overflowY: "auto" }}
+          >
+            <span className="_product_id font-bold"></span>
             <div className="flex justify-between items-center mt-2">
               <div className="flex items-center gap-3">
                 <img
-                  src={data?.product?.image ? imageBaseUrl + data?.product?.image : noImg}
+                  src={
+                    data?.product?.image
+                      ? imageBaseUrl + data?.product?.image
+                      : noImg
+                  }
                   alt="Products"
                   className="w-[59px] h-[66px]"
                 />
@@ -94,12 +101,12 @@ const OnHoldInvoice: React.FC<any> = ({
               </div>
               <div>
                 <span className="_product_quantity w-[112px] h-[66p] font-semibold">
-                 {data?.quantity} X {data?.product?.variants?.amount}
+                  {data?.quantity} X {data?.product?.variants?.amount}
                 </span>
               </div>
               <div>
                 <span className="_product_price text-[18px] font-bold _primary-color">
-                  $  {data?.quantity * data?.product?.variants?.amount}
+                  $ {data?.quantity * data?.product?.variants?.amount}
                 </span>
               </div>
             </div>
@@ -141,7 +148,9 @@ const OnHoldInvoice: React.FC<any> = ({
           </div>
           <div className="flex justify-between">
             <span className="_label _label_total _primary-color">Total</span>
-            <span className="_label_total _primary-color">$ {singleOnHoldInvoice?.totalAmount}</span>
+            <span className="_label_total _primary-color">
+              $ {singleOnHoldInvoice?.totalAmount}
+            </span>
           </div>
         </div>
       </Modal>
