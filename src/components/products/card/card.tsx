@@ -9,22 +9,12 @@ const CardComponent: React.FC<any> = ({ item }) => {
   const dispatch = useAppDispatch();
   const { selectedProducts } = useAppSelector((state) => state.products);
   const findOne = selectedProducts?.find(
-    (prod: any) => prod?._id === item?._id
+    (prod: any) => prod?.variants?._id === item?.variants?._id
   );
 
   const image = imageBaseUrl + item?.image;
   const addToCart = () => {
-    let product = {
-      _id: item?._id,
-      name: item?.name,
-      image: item?.image,
-      qty: 1,
-      maxQty: item?.variants?.stock?.totalQuantity,
-      price: item?.variants?.amount,
-      options: item?.variants?.options,
-    };
-    console.log("product", product);
-
+    let product: any = { ...item, quantity: 1 };
     dispatch(addSelectedProducts(product));
   };
   return (
@@ -62,7 +52,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
 
           {/* ${ (!item?.variants?.stock?.totalQuantity || !item?.variants?.options?.color || !item?.variants?.options?.size) && "h-[60px]"}  */}
 
-        <div className={`flex justify-between `}>
+          <div className={`flex justify-between `}>
             <span className="_productname">
               {item?.variants?.stock?.totalQuantity}
             </span>

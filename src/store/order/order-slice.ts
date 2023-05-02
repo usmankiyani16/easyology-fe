@@ -20,6 +20,23 @@ export const getInvoiceNumber = createAsyncThunk(
   }
 );
 
+export const holdInvoice = createAsyncThunk(
+  "order/holdInvoice",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await postApi("/holdInvoice", payload);
+      Toast("Invoice saved");
+      return response;
+    } catch (error: any) {
+      Toast(error?.response?.data?.error, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
+
 export const getHoldInvoices = createAsyncThunk(
   "order/getHoldInvoices",
   async (payload: any, { rejectWithValue }) => {
@@ -28,7 +45,7 @@ export const getHoldInvoices = createAsyncThunk(
       const storeId = data?.storeId;
       let queryParams = "&perPage=8";
       if (payload?.invoiceNumber) {
-        queryParams += `&invoiceNumber=${payload.categoryId}`;
+        queryParams += `&invoiceNumber=${payload.invoiceNumber}`;
       }
       if (payload?.page) {
         queryParams += `&page=${payload.page}`;

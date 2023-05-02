@@ -5,6 +5,7 @@ import { Button, InputNumber } from "antd";
 import { deleteIcon, noImg } from "../../../assets/images";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {
+  chnageProductQuantity,
   decrementProduct,
   deleteSelectedProducts,
   incrementProduct,
@@ -17,7 +18,16 @@ const ItemCard = () => {
     dispatch(deleteSelectedProducts(index));
   };
 
-  const handleChange = (index: number, value: any) => {};
+  const handleChange = (index: number, value: any) => {
+    let totalQuantity = selectedProducts[index]?.variants?.stock?.totalQuantity;
+    if (value > 0 && selectedProducts[index]?.quantity <= totalQuantity) {
+      let payload = {
+        index,
+        value,
+      };
+      dispatch(chnageProductQuantity(payload));
+    }
+  };
 
   const handleIncrement = (index: number) => {
     if (
@@ -77,7 +87,7 @@ const ItemCard = () => {
                   className="mx-2 "
                   min={1}
                   type="number"
-                  max={item?.variants?.stock?.totalQuantity | 10}
+                  max={item?.variants?.stock?.totalQuantity}
                   value={item?.quantity}
                   onChange={(value) => handleChange(index, value)}
                 />
