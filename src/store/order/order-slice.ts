@@ -16,17 +16,42 @@ export const getInvoiceNumber = createAsyncThunk(
       return response;
     } catch (error) {
       return rejectWithValue(error);
-    } 
+    }
   }
 );
 
-interface mediaUploadState {
+export const getHoldInvoices = createAsyncThunk(
+  "order/getHoldInvoices",
+  async (payload: any, { rejectWithValue }) => {
+    try {
+      const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+      const storeId = data?.storeId;
+      let queryParams = "&perPage=8";
+      if (payload?.invoiceNumber) {
+        queryParams += `&invoiceNumber=${payload.categoryId}`;
+      }
+      if (payload?.page) {
+        queryParams += `&page=${payload.page}`;
+      }
+      const response = await getApi(
+        `/holdInvoice?storeId=${storeId}${queryParams}`
+      );
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+interface orderState {
+  holdInvoices: any;
   invoiceNumber: any;
   error: string | null;
   status: string;
 }
 
-const initialState: mediaUploadState = {
+const initialState: orderState = {
+  holdInvoices: [],
   invoiceNumber: null,
   error: null,
   status: REQUEST_STATUS.IDLE,
@@ -46,6 +71,17 @@ const orderSlice = createSlice({
         state.invoiceNumber = action?.payload?.data?.invoiceNumber;
       })
       .addCase(getInvoiceNumber.rejected, (state, action: any) => {
+        state.status = REQUEST_STATUS.FAILED;
+        state.error = action.payload?.error;
+      })
+      .addCase(getHoldInvoices.pending, (state, action) => {
+        state.status = REQUEST_STATUS.PENDING;
+      })
+      .addCase(getHoldInvoices.fulfilled, (state, action) => {
+        state.status = REQUEST_STATUS.SUCCEEDED;
+        state.holdInvoices = action?.payload?.data;
+      })
+      .addCase(getHoldInvoices.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload?.error;
       });

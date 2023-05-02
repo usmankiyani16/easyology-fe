@@ -23,9 +23,9 @@ export const getProducts = createAsyncThunk(
       if (payload?.page) {
         queryParams += `&page=${payload.page}`;
       }
-      // if (payload?.perPage) {
-      //   queryParams += `&perPage=${payload.perPage}`;
-      // }
+      if (payload?.nullProduct) {
+        queryParams += `&nullProduct=true`;
+      }
       const response = await getApi(
         `/product?storeId=${storeId}${queryParams}`
       );

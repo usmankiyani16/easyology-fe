@@ -2,10 +2,10 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useNavigate } from "react-router-dom";
 
-const baseURL = "https://25sievoztd.execute-api.us-east-1.amazonaws.com/qa/api";
+const baseURL = "https://ob3sjdtack.execute-api.us-east-1.amazonaws.com/qa/api";
 
 // const baseURL =
-//   "https://01hj7ks3ih.execute-api.us-east-1.amazonaws.com/dev/api";
+// //   "https://01hj7ks3ih.execute-api.us-east-1.amazonaws.com/dev/api";
 
 const api: AxiosInstance = axios.create({
   baseURL,

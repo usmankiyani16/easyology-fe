@@ -12,7 +12,10 @@ import {
   addSelectedProducts,
   getProducts,
 } from "../../store/products/products-slice";
-import { getInvoiceNumber } from "../../store/order/order-slice";
+import {
+  getHoldInvoices,
+  getInvoiceNumber,
+} from "../../store/order/order-slice";
 import Loader from "../common/loader/loader";
 
 const Dashboard = () => {
@@ -27,8 +30,19 @@ const Dashboard = () => {
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
     return acc + product.qty * product.price;
   }, 0);
+
+  let queryParamInvoices = "";
   useEffect(() => {
+    let queryParamProducts = {
+      nullProduct: "true",
+    };
     dispatch(getInvoiceNumber());
+    dispatch(getProducts(queryParamProducts));
+    dispatch(getHoldInvoices(queryParamInvoices));
+  }, []);
+  
+  useEffect(() => {
+    dispatch(getHoldInvoices(queryParamInvoices));
   }, []);
 
   const showModal = () => {

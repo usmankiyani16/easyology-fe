@@ -1,13 +1,15 @@
-import { Button, Card, Input, InputNumber, Modal } from "antd";
+import { Button, Card, Input, InputNumber, Modal, Pagination } from "antd";
 import React, { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import { capitalize } from "../../../utils/functions/functions";
 import "./onhold.scss";
-import { invoices } from '../on-hold/on-hold-invoice/mock-data/invoice-data';
 import OnHoldInvoice from "./on-hold-invoice/onhold-invoice";
+import { useAppSelector } from "../../../store/store";
 
 const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
+  const { holdInvoices } = useAppSelector((state) => state.order);
   const [onHoldModal, setOnHoldModal] = useState(false);
+  const [singleOnHoldInvoice, setSingleOnHoldInvoice] = useState();
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -17,17 +19,27 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
     setIsModalOpen(false);
   };
 
-  const OpenHoldModal = () => {
+  const OpenHoldModal = (data: any) => {
+    setSingleOnHoldInvoice(data);
     setIsModalOpen(false);
     setOnHoldModal(true);
-    
+  };
+  const handlePagination = async (value: Number) => {
+    let queryParam: any = {};
+    if (value) {
+      queryParam = {
+        page: value,
+      };
+      // dispatch(getProducts(queryParam));
+    }
   };
   return (
     <div className="_onhold">
       <OnHoldInvoice
+        singleOnHoldInvoice={singleOnHoldInvoice}
         onHoldModal={onHoldModal}
         setOnHoldModal={setOnHoldModal}
-        setIsModalOpen= {setIsModalOpen}
+        setIsModalOpen={setIsModalOpen}
       />
       <Modal
         // width={360}
@@ -53,10 +65,10 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
           </div>
 
           <div style={{ height: "365px", overflowY: "auto" }}>
-            {invoices?.map((data: any) => (
+            {holdInvoices?.holdInvoice?.map((data: any) => (
               <Card
                 className="_onhold cursor-pointer mb-4"
-                onClick={OpenHoldModal}
+                onClick={() => OpenHoldModal(data)}
               >
                 {/* grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1  */}
                 <div className="flex w-full justify-between">
@@ -66,7 +78,7 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
                         Invoice Number:
                       </span>
                       <span className="_primary-color">
-                        #{`${data.invoiceNo}`}
+                        #{`${data?.invoiceNumber}`}
                       </span>
                     </div>
                     <div className="flex gap-4">
@@ -74,28 +86,30 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
                         Customer Type:
                       </span>
                       <span className=" _label-grey">
-                        {capitalize(data.customerType)}
+                        {capitalize(data?.customerType ?? "Not available")}
                       </span>
                     </div>
                     <div className="flex gap-4 ">
                       <span className="_grey-color whitespace-nowrap">
                         Conatct Details:
                       </span>
-                      <span className=" ">{data.contactDetails}</span>
+                      <span className=" ">
+                        {data?.contactDetails ?? "Not available"}
+                      </span>
                     </div>
                   </div>
 
                   <div className="flex flex-col">
                     <span className="text-2xl self-end">
-                      $ {`${data.price}`}
+                      $ {`${data?.totalAmount}`}
                     </span>
 
                     <div className="">
-                      <span className="_grey-color  ">
-                        Hold By:
-                      </span>
+                      <span className="_grey-color  ">Hold By:</span>
 
-                      <span className="w-8">{data.holdBy}</span>
+                      <span className="w-8">
+                        {data.holdBy ?? "Not available"}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -103,6 +117,17 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
             ))}
           </div>
         </div>
+        {holdInvoices?.holdInvoice?.length ? (
+          <Pagination
+            onChange={handlePagination}
+            className="flex justify-end"
+            defaultCurrent={1}
+            defaultPageSize={8}
+            total={holdInvoices?.pagination?.totalCount}
+          />
+        ) : (
+          ""
+        )}
       </Modal>
     </div>
   );
