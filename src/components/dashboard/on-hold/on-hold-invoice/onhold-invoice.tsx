@@ -9,6 +9,7 @@ import { imageBaseUrl } from "../../../../utils/constants";
 import { noImg } from "../../../../assets/images";
 import { backButtonIcon } from "../../../../assets/icons";
 import { capitalize } from "../../../../utils/functions/functions";
+import dayjs from "dayjs";
 
 // interface ExportButtonProps {
 //   data: Array<Object>; // Data to be exported in Excel file
@@ -71,7 +72,8 @@ const OnHoldInvoice: React.FC<any> = ({
           Scheduled:{" "}
           <span className="text-black font-medium capitalize">
             {" "}
-            {singleOnHoldInvoice?.createdAt?.slice(0, 10) ?? "not available"}
+            {dayjs(singleOnHoldInvoice?.createdAt).format('M/D/YYYY') ??
+              "not available"}
           </span>
         </span>
 
