@@ -11,7 +11,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
   const findOne = selectedProducts?.find(
     (prod: any) => prod?._id === item?._id
   );
-  
+
   const image = imageBaseUrl + item?.image;
   const addToCart = () => {
     let product = {
@@ -35,13 +35,15 @@ const CardComponent: React.FC<any> = ({ item }) => {
         className="w-[160.69px] h-[107.74px]"
       />
       <div className="flex flex-col ">
-      <div className="flex justify-between mt-2 h-[80px]">
+        {/*  <div className="flex justify-between mt-2 h-[80px]">
           <div className="flex flex-col">
             <span className="_productname">{item?.name}</span>
             <span className="_productname">
               {item?.variants?.options?.color}
             </span>
-            <span className="_productname">{item?.variants?.options?.size}</span>
+            <span className="_productname">
+              {item?.variants?.options?.size}
+            </span>
             <span className="_productname">
               {item?.variants?.stock?.totalQuantity}
             </span>
@@ -51,7 +53,25 @@ const CardComponent: React.FC<any> = ({ item }) => {
             <span className="_productname _primary-color">{`$${item?.variants?.amount}`}</span>
           </div>
         </div>
+ */}
 
+        <div className="flex flex-col h-[80px] mt-2">
+          <span className="_productname">{item?.name}</span>
+          <span className="_productname">{item?.variants?.options?.color}</span>
+          <span className="_productname">{item?.variants?.options?.size}</span>
+
+          {/* ${ (!item?.variants?.stock?.totalQuantity || !item?.variants?.options?.color || !item?.variants?.options?.size) && "h-[60px]"}  */}
+
+        <div className={`flex justify-between `}>
+            <span className="_productname">
+              {item?.variants?.stock?.totalQuantity}
+            </span>
+
+            <div className="flex items-end">
+              <span className="_productname _primary-color flex items-end">{`$${item?.variants?.amount}`}</span>
+            </div>
+          </div>
+        </div>
         <button
           onClick={addToCart}
           disabled={item?.variants?.stock?.totalQuantity === 0 || !!findOne}

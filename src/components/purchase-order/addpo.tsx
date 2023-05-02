@@ -572,7 +572,7 @@ const AddPO = () => {
             </div>
           )}
 
-          <div className="_submit_btn xl:mr-12">
+          <div className={`_submit_btn xl:mr-[60px] ${dataForm && dataForm?.products?.length && "xl:mr-[75px]"}`}>
             <Form.Item>
               <Button className="text-center" type="primary" htmlType="submit">
                 {dataForm && dataForm?.products?.length
