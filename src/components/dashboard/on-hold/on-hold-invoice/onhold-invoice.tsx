@@ -71,35 +71,35 @@ const OnHoldInvoice: React.FC<any> = ({
           Sheduled:{" "}
           <span className="text-black font-medium capitalize">
             {" "}
-            {singleOnHoldInvoice?.customerType ?? "not available"}
+            {singleOnHoldInvoice?.singleOnHoldInvoice ?? "not available"}
           </span>
         </span>
 
         {/* --------------- Products Container -------------------- */}
 
-        {singleOnHoldInvoice?.product?.map((data: any, index: number) => (
-          <div className="mt-2" style={{ height: "200px", overflowY: "auto" }}>
+        {singleOnHoldInvoice?.products?.map((data: any, index: number) => (
+          <div key={index} className="mt-2" style={{ height: "200px", overflowY: "auto" }}>
             <span className="_product_id font-bold">
             </span>
-            <div key={index} className="flex justify-between items-center mt-2">
+            <div className="flex justify-between items-center mt-2">
               <div className="flex items-center gap-3">
                 <img
-                  src={data?.image ? imageBaseUrl + data?.image : noImg}
+                  src={data?.product?.image ? imageBaseUrl + data?.product?.image : noImg}
                   alt="Products"
                   className="w-[59px] h-[66px]"
                 />
                 <span className="_product_name w-[112px] h-[66px] font-semibold flex items-center ">
-                  {data?.name}
+                  {data?.product?.name}
                 </span>
               </div>
               <div>
                 <span className="_product_quantity w-[112px] h-[66p] font-semibold">
-                  x10
+                 {data?.quantity} X {data?.product?.variants?.amount}
                 </span>
               </div>
               <div>
                 <span className="_product_price text-[18px] font-bold _primary-color">
-                  $ 1000
+                  $  {data?.quantity * data?.product?.variants?.amount}
                 </span>
               </div>
             </div>

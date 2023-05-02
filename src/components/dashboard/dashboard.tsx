@@ -21,26 +21,43 @@ import Loader from "../common/loader/loader";
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
+  const { holdInvoices } = useAppSelector((state) => state.order);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectCustomer, setSelectCustomer] = useState<any>({});
-  const [selectProduct, setSelectProduct] = useState<any>(null);
+  const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
   );
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
-    return acc + product.qty * product.price;
+    return acc + product?.quantity * product?.variants?.amount;
   }, 0);
 
+  const searchProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let queryParam: any = {};
+    let name = event.target.value?.trim();
+    setSelectCustomerValue(event.target.value);
+    if (name) {
+      queryParam = {
+        name,
+        nullProduct: "true",
+        perPage: 3,
+      };
+      dispatch(getProducts(queryParam));
+    } else {
+      dispatch(getProducts(queryParam));
+    }
+  };
   let queryParamInvoices = "";
   useEffect(() => {
     let queryParamProducts = {
       nullProduct: "true",
+      perPage: 3,
     };
     dispatch(getInvoiceNumber());
     dispatch(getProducts(queryParamProducts));
     dispatch(getHoldInvoices(queryParamInvoices));
   }, []);
-  
+
   useEffect(() => {
     dispatch(getHoldInvoices(queryParamInvoices));
   }, []);
@@ -69,41 +86,13 @@ const Dashboard = () => {
       type: "whole seller",
     },
   ];
-  const temp = products?.products?.slice(0, 3).map((prod: any) => ({
-    _id: prod?._id,
-    value: prod?.name,
-    image: prod?.image ?? noImg,
-    qty: 1,
-    maxQty: prod?.variants?.stock?.totalQuantity,
-    price: prod?.variants?.amount,
-    options: prod?.variants?.options,
-  }));
-  const productOptions = [
-    {
-      _id: "112222",
-      value: "product 1",
-      image: "",
-      qty: 1,
-      maxQty: 12,
-      price: 24,
-    },
-    {
-      _id: "122222",
-      value: "product 2",
-      image: "",
-      qty: 1,
-      maxQty: 23,
-      price: 23,
-    },
-    {
-      _id: "133333",
-      value: "product 3",
-      image: "",
-      qty: 1,
-      maxQty: 32,
-      price: 34,
-    },
-  ];
+  let productOptions = products?.products?.slice(0, 3);
+  //   if(selectedProducts?.length){
+  //     productOptions?.filter((prod:any)=>({
+  // prod?._id!==selectedProducts[0]
+  //     }))
+  //   }
+  console.log("selectedProducts", selectedProducts);
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
   };
@@ -112,15 +101,15 @@ const Dashboard = () => {
     product.name = product?.value;
     delete product.value;
     dispatch(addSelectedProducts(product));
-    setSelectProduct(product);
+    setSelectCustomerValue(null);
   };
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let queryParam: any = {
-      name: event.target.value,
-    };
-    dispatch(getProducts(queryParam));
-  };
+  // const handleChangeProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   let queryParam: any = {
+  //     name: event.target.value,
+  //   };
+  //   dispatch(getProducts(queryParam));
+  // };
 
   return (
     <div className="_dashboard">
@@ -161,15 +150,18 @@ const Dashboard = () => {
           </AutoComplete>
           <AutoComplete
             onSelect={(value, option) => handleProductSelect(option)}
-            options={productOptions}
-            value={""}
-            filterOption={(inputValue, option) =>
-              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-              -1
-            }
+            options={productOptions?.map((option: any) => ({
+              ...option,
+              quantity: 1,
+              value: option?.variants?.options?.color
+                ? option?.name + "(" + option?.variants?.options?.color + ")"
+                : option?.name,
+            }))}
+            value={selectCustomerValue}
           >
             <Input
-              onChange={handleChangeProduct}
+              // value={selectCustomerValue}
+              onChange={searchProduct}
               className="h-8"
               prefix={<SearchOutlined />}
               placeholder="Search products"
@@ -188,7 +180,10 @@ const Dashboard = () => {
             onClick={showModal}
             className="bg-white font-semibold h-8 flex items-center justify-center"
           >
-            On hold<span className="_primary-color ml-2">({`0`})</span>
+            On hold
+            <span className="_primary-color ml-2">
+              ({holdInvoices?.holdInvoice?.length})
+            </span>
           </Button>
         </div>
       </div>

@@ -20,12 +20,15 @@ const ItemCard = () => {
   const handleChange = (index: number, value: any) => {};
 
   const handleIncrement = (index: number) => {
-    if (selectedProducts[index]?.qty < selectedProducts[index].maxQty) {
+    if (
+      selectedProducts[index]?.quantity <
+      selectedProducts[index]?.variants?.stock?.totalQuantity
+    ) {
       dispatch(incrementProduct(index));
     }
   };
   const handleDecrement = (index: number) => {
-    if (selectedProducts[index]?.qty > 1) {
+    if (selectedProducts[index]?.quantity > 1) {
       dispatch(decrementProduct(index));
     }
   };
@@ -59,10 +62,12 @@ const ItemCard = () => {
               </div>
             </div>
             <div className="flex flex-col w-1/4">
-              <div className="_grey-color text-center">{item?.maxQty}</div>
+              <div className="_grey-color text-center">
+                {item?.variants?.stock?.totalQuantity}
+              </div>
               <div className=" flex justify-center items-center">
                 <Button
-                  disabled={item?.qty === 1}
+                  disabled={item?.quantity === 1}
                   className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-xl"
                   onClick={() => handleDecrement(index)}
                 >
@@ -72,12 +77,14 @@ const ItemCard = () => {
                   className="mx-2 "
                   min={1}
                   type="number"
-                  max={item?.maxQty | 1}
-                  value={item?.qty}
+                  max={item?.variants?.stock?.totalQuantity | 10}
+                  value={item?.quantity}
                   onChange={(value) => handleChange(index, value)}
                 />
                 <Button
-                  disabled={item?.qty === item.maxQty}
+                  disabled={
+                    item?.quantity === item?.variants?.stock?.totalQuantity
+                  }
                   className="flex items-center justify-center _primary-color rounded px-4 h-[30px] text-lg"
                   onClick={() => handleIncrement(index)}
                 >
@@ -87,9 +94,9 @@ const ItemCard = () => {
             </div>
             <div className=" flex justify-between items-center w-1/4">
               <div>
-                <p className="_grey-color">$ 103.00</p>
+                {/* <p className="_grey-color">$ 103.00</p> */}
                 <p className="shadow px-1 rounded">
-                  $ {item?.qty * item?.price}
+                  $ {item?.variants?.amount * item?.quantity}
                 </p>
               </div>
               <div

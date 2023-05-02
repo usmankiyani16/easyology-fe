@@ -10,7 +10,7 @@ export const getProducts = createAsyncThunk(
     try {
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
-      let queryParams = "&perPage=8";
+      let queryParams = "";
       if (payload?.name) {
         queryParams += `&name=${payload.name}`;
       }
@@ -25,6 +25,11 @@ export const getProducts = createAsyncThunk(
       }
       if (payload?.nullProduct) {
         queryParams += `&nullProduct=true`;
+      }
+      if (payload?.perPage) {
+        queryParams += `&perPage=${payload.perPage}`;
+      } else {
+        queryParams += "&perPage=8";
       }
       const response = await getApi(
         `/product?storeId=${storeId}${queryParams}`
@@ -66,12 +71,12 @@ const productsSlice = createSlice({
     incrementProduct(state, action) {
       const index = action.payload;
       const selectedProduct = state.selectedProducts[index];
-      selectedProduct.qty += 1;
+      selectedProduct.quantity += 1;
     },
     decrementProduct(state, action) {
       const index = action.payload;
       const selectedProduct = state.selectedProducts[index];
-      selectedProduct.qty -= 1;
+      selectedProduct.quantity -= 1;
     },
   },
   extraReducers: (builder) => {
