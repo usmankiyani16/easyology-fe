@@ -174,7 +174,7 @@ const Dashboard = () => {
           >
             On hold
             <span className="_primary-color ml-2">
-              ({holdInvoices?.holdInvoice?.length})
+              ({holdInvoices?.pagination?.totalCount})
             </span>
           </Button>
         </div>

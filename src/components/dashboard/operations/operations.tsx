@@ -3,7 +3,10 @@ import "./operations.scss";
 import { Button, InputNumber } from "antd";
 import CashPay from "./cash-pay/cash-pay";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { getInvoiceNumber, holdInvoice } from "../../../store/order/order-slice";
+import {
+  getInvoiceNumber,
+  holdInvoice,
+} from "../../../store/order/order-slice";
 import { setSelectedProductsToNull } from "../../../store/products/products-slice";
 
 const Operations: React.FC<any> = ({
@@ -28,7 +31,11 @@ const Operations: React.FC<any> = ({
       }
     }
   };
-
+  const handleNoSale = () => {
+    dispatch(getInvoiceNumber());
+    dispatch(setSelectedProductsToNull());
+    setSelectCustomer(null);
+  };
   const handleHoldInvoice = async () => {
     const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
     const storeId = data?.storeId;
@@ -66,6 +73,7 @@ const Operations: React.FC<any> = ({
             Void Invoice
           </Button>
           <Button
+            onClick={handleNoSale}
             disabled={disableButton}
             className="w-32 flex items-center justify-center"
           >
