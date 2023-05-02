@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import "./operations.scss";
 import { Button, InputNumber } from "antd";
 import CashPay from "./cash-pay/cash-pay";
+import { useAppSelector } from "../../../store/store";
 
 const Operations: React.FC<any> = ({ totalPrice }) => {
+  const { selectedProducts } = useAppSelector((state) => state.products);
   const [isCashPayOpen, setIsCashPayOpen] = useState(false);
   const [number, setNumber] = useState<number>(0);
   const taxRate = 0.025; // 2.5%
   const saleTax = totalPrice * taxRate;
   const total = totalPrice + saleTax - number;
+  const disableButton = !selectedProducts?.length;
 
   const handleChange = (value: number | undefined | null) => {
     if (Number(value) < totalPrice) {
@@ -21,27 +24,43 @@ const Operations: React.FC<any> = ({ totalPrice }) => {
     <div className="_operations flex justify-between w-full mt-10">
       <div className="flex flex-col gap-10 w-9/12">
         <div className="flex gap-5">
-          <Button className="w-32 flex items-center justify-center">
+          <Button
+            disabled={disableButton}
+            className="w-32 flex items-center justify-center"
+          >
             Void Invoice
           </Button>
-          <Button className="w-32 flex items-center justify-center">
+          <Button
+            disabled={disableButton}
+            className="w-32 flex items-center justify-center"
+          >
             No Sale
           </Button>
-          <Button className="w-32 flex items-center justify-center">
+          <Button
+            disabled={disableButton}
+            className="w-32 flex items-center justify-center"
+          >
             Hold Invoice
           </Button>
         </div>
         <div className="flex gap-5">
           <Button
+            disabled={disableButton}
             onClick={() => setIsCashPayOpen(true)}
             className="w-32 flex items-center justify-center"
           >
             Cash Pay
           </Button>
-          <Button className="w-32 flex items-center justify-center">
+          <Button
+            disabled={disableButton}
+            className="w-32 flex items-center justify-center"
+          >
             Ach Pay
           </Button>
-          <Button className="w-32 flex items-center justify-center">
+          <Button
+            disabled={disableButton}
+            className="w-32 flex items-center justify-center"
+          >
             Credit Card
           </Button>
         </div>

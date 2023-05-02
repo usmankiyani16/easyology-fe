@@ -63,7 +63,7 @@ const productsSlice = createSlice({
       state.selectedProducts.push(action?.payload);
     },
     deleteSelectedProducts(state, action) {
-      const index = action.payload; // index of product to be deleted
+      const index = action.payload;
       const updatedProducts = state.selectedProducts?.filter(
         (product:any, i:number) => i !== index
       );
