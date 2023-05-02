@@ -146,6 +146,7 @@ const Products = () => {
               defaultCurrent={1}
               defaultPageSize={8}
               total={products?.pagination?.totalCount}
+              showSizeChanger={false}
             />
           ) : (
             ""
