@@ -117,8 +117,6 @@ const PreviewModal: React.FC<any> = ({
     setSelectedChoiceOption(value);
   }
 
-  
-
   const handlePartialChange = (e: CheckboxChangeEvent) => {
     const isChecked = e.target.checked;
     setIsPartialChecked(isChecked);
@@ -294,7 +292,7 @@ const PreviewModal: React.FC<any> = ({
 
               {isPartialChecked && remainingPrice > 0 && (
                 <div className="flex flex-col text-red-500  flex self-end ml-2">
-                  Remaining amount: {totalPrice - remainingPrice}
+                  Remaining amount: {(totalPrice - remainingPrice).toFixed(2)}
                 </div>
               )}
             </div>
