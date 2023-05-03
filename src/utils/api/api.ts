@@ -44,8 +44,7 @@ api.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.href = ROUTE_CONSTANTS.LOGIN;
     } else {
-      Toast(error?.response?.data?.error,'error')
-      throw new Error(error);
+      return Promise.reject(error);
     }
   }
 );

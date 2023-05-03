@@ -41,7 +41,7 @@ type AddCatogaryPayload = {
   name: string;
   userId: string;
   image?: string;
-  storeId: string
+  storeId: string;
 };
 export const addCatogary = createAsyncThunk(
   "catogaries/add",
@@ -102,8 +102,8 @@ const catogariesSlice = createSlice({
   initialState,
   reducers: {
     setSubCategory(state) {
-      state.subCategories = []
-    }
+      state.subCategories = [];
+    },
   },
   extraReducers: (builder) => {
     builder

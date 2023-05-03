@@ -34,12 +34,19 @@ const CashPay: React.FC<any> = ({
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { selectedProducts } = useAppSelector((state) => state.products);
   const [amountReceived, setAmountReceived] = useState<number>(0);
+  const [remaingAmount, setRemainingAmount] = useState<number>(0);
   const [amount, setAmount] = useState<number>(0);
   const [showOkButton, setShowOkButton] = useState(false);
 
-  const handleChangeAmount = (value: any) => {
+  const handleChangePartialAmount = (value: any) => {
     if (value < total) {
       setAmount(value);
+    }
+  };
+  const handleChangeFullAmount = (value: any) => {
+    setAmountReceived(value);
+    if (value >= total) {
+      setRemainingAmount(value - total);
     }
   };
   const [showPartialPay, setShowPartialPay] = useState<boolean>(false);
@@ -187,7 +194,7 @@ const CashPay: React.FC<any> = ({
                 >
                   <InputNumber
                     style={{ width: "100%" }}
-                    onChange={(value) => setAmountReceived(value || 0)}
+                    onChange={handleChangeFullAmount}
                     min={0}
                     placeholder="Amount received"
                     type="number"
@@ -221,7 +228,7 @@ const CashPay: React.FC<any> = ({
                 <div className="text-xl text-semibold flex gap-3 self-center flex-col">
                   <div>
                     <label>Change</label>
-                    <label>$ {(total - amountReceived).toFixed(2)}</label>
+                    <label> $ {remaingAmount.toFixed(2)}</label>
                   </div>
                 </div>
               )}
@@ -274,7 +281,7 @@ const CashPay: React.FC<any> = ({
                       placeholder="Enter amount"
                       prefix="$"
                       value={amount}
-                      onChange={handleChangeAmount}
+                      onChange={handleChangePartialAmount}
                     />
                   </div>
                 </Form.Item>
