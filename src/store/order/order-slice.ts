@@ -30,7 +30,7 @@ export const holdInvoice = createAsyncThunk(
       Toast(response?.message);
       return response;
     } catch (error: any) {
-      Toast(error?.message, "error");
+      Toast(error?.response?.data?.error, "error");
       return rejectWithValue(error);
     } finally {
       dispatch(setLoading(false));
@@ -46,7 +46,7 @@ export const voidInvoice = createAsyncThunk(
       Toast(response?.message);
       return response;
     } catch (error: any) {
-      Toast(error?.message, "error");
+      Toast(error?.response?.data?.error, "error");
       return rejectWithValue(error);
     } finally {
       dispatch(setLoading(false));
@@ -62,7 +62,7 @@ export const addOrder = createAsyncThunk(
       Toast(response?.message);
       return response;
     } catch (error: any) {
-      Toast(error?.message, "error");
+      Toast(error?.response?.data?.error, "error");
       return rejectWithValue(error);
     } finally {
       dispatch(setLoading(false));
@@ -79,7 +79,7 @@ export const releaseInvoice = createAsyncThunk(
       Toast(response?.message);
       return response;
     } catch (error: any) {
-      Toast(error?.message, "error");
+      Toast(error?.response?.data?.error, "error");
       return rejectWithValue(error);
     } finally {
       dispatch(setLoading(false));
