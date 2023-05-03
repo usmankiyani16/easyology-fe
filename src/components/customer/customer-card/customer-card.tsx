@@ -12,7 +12,7 @@ const CustomerCard = () => {
         <Card key={1} className="_po-card">
         <div className="flex w-full justify-between items-center grid grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1">
           <div className='flex flex-col gap-4 justify-between'>
-            <div className="flex text-lg gap-4">
+            <div className="flex text-lg sm:gap-4">
               <span className="font-medium">Customer ID:</span>
               <span className="_primary-color font-semibold"># {data?.customerId}</span>
             </div>
@@ -22,9 +22,9 @@ const CustomerCard = () => {
               <span className="_grey-color font-medium ">{data?.customerName}</span>
             </div>
           </div>
-          <div className="flex text-lg gap-4">
-          <div className="flex  text-lg gap-4 items-center">
-              <span className="_black-color whitespace-nowrap">Outstanding Balance:</span>
+          <div className="flex text-lg sm:gap-4">
+          <div className="flex  text-lg sm:gap-4 sm:items-center">
+              <span className="_black-color sm:whitespace-nowrap">Outstanding Balance:</span>
               <span className="_primary-color whitespace-nowrap font-semibold text-2xl">$ {data?.balance}</span>
             </div>
           </div>

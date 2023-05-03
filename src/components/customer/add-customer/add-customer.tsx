@@ -9,7 +9,16 @@ const AddCustomer: React.FC<any> = ({isModalOpen,setIsModalOpen}) => {
   const onFinish = async (values: any) => {
         console.log(values);
   }
-
+  const validateMobileNumber = (
+    rule: any,
+    value: string,
+    callback: (arg0?: string | undefined) => void
+  ) => {
+    const mobileNumberRegex = /^[0-9]{10,12}$/;
+    if (!mobileNumberRegex.test(value)) {
+      callback("Must be number between 10 to 12 digits");
+    } else callback();
+  }
   return (
     <div>
       <Modal
@@ -54,7 +63,7 @@ const AddCustomer: React.FC<any> = ({isModalOpen,setIsModalOpen}) => {
                 },
               ]}
             >
-              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Product Name" />
+              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter First Name" />
             </Form.Item>
 
             <Form.Item
@@ -75,12 +84,12 @@ const AddCustomer: React.FC<any> = ({isModalOpen,setIsModalOpen}) => {
                 },
               ]}
             >
-              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Product Name" />
+              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Last Name" />
             </Form.Item>
             <Form.Item
               className=""
-              label={<span className="_po_field_label">Product Name</span>}
-              name="product"
+              label={<span className="_po_field_label">Store Name</span>}
+              name="storenumber"
               required
               tooltip="This is a required field"
               rules={[
@@ -95,27 +104,25 @@ const AddCustomer: React.FC<any> = ({isModalOpen,setIsModalOpen}) => {
                 },
               ]}
             >
-              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Product Name" />
+              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Store Name" />
             </Form.Item>
             <Form.Item
               className=""
-              label={<span className="_po_field_label">Product Name</span>}
-              name="product"
+              label={<span className="_po_field_label">Phone Number</span>}
+              name="phoneNumber"
               required
               tooltip="This is a required field"
-              rules={[
-                {
-                  required: true,
-
-                  message: "Required Field",
-                },
-                {
-                  pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
-                  message: "Special characters not allowed",
-                },
-              ]}
+              rules={[{ validator: validateMobileNumber }]}
             >
-              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Product Name" />
+              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Phone Number" />
+            </Form.Item>
+
+             <Form.Item
+              className=""
+              label={<span className="_po_field_label ml-[10px]">Tax Identification</span>}
+              name="taxIdentifier"
+             >
+              <Input className="_input_field w-[300px] h-[40px]" placeholder="Enter Phone Number" />
             </Form.Item>
 
             </div>
