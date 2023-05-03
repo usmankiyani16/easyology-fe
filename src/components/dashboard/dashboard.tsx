@@ -70,20 +70,20 @@ const Dashboard = () => {
     {
       _id: "9dc55d0012d14689b8a00940",
       value: "customer 1",
-      mob: "0236353535",
-      type: "whole seller",
+      mob: "02363500365",
+      type: "Retailer",
     },
     {
       _id: "9dc55d0012d14689b8a00940",
       value: "customer 2",
-      mob: "0236353535",
-      type: "whole seller",
+      mob: "02363453933",
+      type: "Retailer",
     },
     {
       _id: "9dc55d0012d14689b8a00940",
       value: "customer 3",
-      mob: "0236353535",
-      type: "whole seller",
+      mob: "0236373737",
+      type: "Retailer",
     },
   ];
   let productOptions = products?.products?.slice(0, 3);
@@ -190,7 +190,6 @@ const Dashboard = () => {
         setSelectCustomer={setSelectCustomer}
       />
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      
     </div>
   );
 };

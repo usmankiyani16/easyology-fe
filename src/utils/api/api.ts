@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useNavigate } from "react-router-dom";
+import { Toast } from "../../components/common/toast/toast";
 
 const baseURL = "https://ob3sjdtack.execute-api.us-east-1.amazonaws.com/qa/api";
 
@@ -43,7 +44,7 @@ api.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.href = ROUTE_CONSTANTS.LOGIN;
     } else {
-      throw new Error(error);
+      return Promise.reject(error);
     }
   }
 );

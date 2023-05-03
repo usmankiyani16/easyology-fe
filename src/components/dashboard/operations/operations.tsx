@@ -102,13 +102,15 @@ const Operations: React.FC<any> = ({
             Cash Pay
           </Button>
           <Button
-            disabled={disableButton || !selectCustomer?._id}
+            disabled={true}
+            // disabled={disableButton || !selectCustomer?._id}
             className="w-32 flex items-center justify-center"
           >
             Ach Pay
           </Button>
           <Button
-            disabled={disableButton || !selectCustomer?._id}
+            disabled={true}
+            // disabled={disableButton || !selectCustomer?._id}
             className="w-32 flex items-center justify-center"
           >
             Credit Card

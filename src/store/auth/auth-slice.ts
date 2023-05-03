@@ -24,8 +24,10 @@ export const signin = createAsyncThunk(
             localStorage.setItem("user", JSON.stringify(obj));
             return response;
         } catch (error: any) {
-            Toast(error?.response?.data?.error, 'error')
-            return rejectWithValue(error?.response?.data);
+            console.log('qqqqqqqq',error);
+            
+            Toast(error, 'error')
+            return rejectWithValue(error);
         } finally {
             dispatch(setLoading(false));
         }
