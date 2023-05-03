@@ -35,7 +35,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
           purchaseOrders={singlePO}
         />
       )}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mt-3">
         {purchaseOrders?.map((data: any) => (
           <Card key={data?.key} className="_po-card">
             <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">

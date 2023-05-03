@@ -33,7 +33,7 @@ const PurchaseOrder = () => {
       <div className="flex items-center justify-between mt-3">
         <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
         <NavLink to="/add-purchase-order">
-          <div>
+          <div className="mt-4">
             <img src={AddPO} alt="Add PO logo" className="h-8" />
           </div>
         </NavLink>

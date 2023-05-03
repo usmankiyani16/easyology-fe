@@ -38,9 +38,9 @@ export const sidebarData = [
   },
   {
     key: 3,
-    icon: <img className="w-7" src={historyIcon} alt="historyIcon" />,
-    label: "History",
-    path: ROUTE_CONSTANTS.HISTORY,
+    icon: <img className="w-7" src={historyIcon} alt="cutomerIcon" />,
+    label: "Customers",
+    path: ROUTE_CONSTANTS.CUSTOMER,
   },
   {
     key: 4,
