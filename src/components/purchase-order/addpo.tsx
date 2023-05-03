@@ -417,10 +417,13 @@ const AddPO = () => {
                  
 
                 <Select
-                  {...selectProps}
+                  // {...selectProps}
                   className="_input"
+                  // style={{height:'40px'}}
+                  listHeight={135}
                   placeholder="Add or Select Category"
                   onChange={(value: any) => dispatch(getSubCatogaries(value))}
+                  
                 >
                   {catogaries?.map((catogary: any, index: number) => (
                     <Select.Option key={catogary?._id} value={catogary?._id}>
@@ -485,9 +488,11 @@ const AddPO = () => {
               >
                 
                 <Select
-                  {...selectProps}
-                  className="_input select_input"
+                  // {...selectProps}
+                  className="_input"
+                  listHeight={135}
                   placeholder="Select sub category"
+
                 >
                   {subCategories?.map((data: any) => (
                     <Select.Option key={data?._id} value={data?._id}>

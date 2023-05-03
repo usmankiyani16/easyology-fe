@@ -76,7 +76,8 @@ const Importmodal: React.FC<any> = () => {
               style={{ width: "210px" }}
               placeholder="Select Vendor"
               onSelect={handleVendorSelect}
-              {...selectProps}
+              // {...selectProps}
+              listHeight={140}
             >
               {vendors?.map((vendor: any, index: number) => (
                 <Select.Option key={vendor?._id} value={vendor?._id}>
