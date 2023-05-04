@@ -10,7 +10,6 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
   }
-  
 
   .ant-upload-wrapper.ant-upload-picture-card-wrapper
     .ant-upload.ant-upload-select {
@@ -19,7 +18,8 @@
     border-radius: 10px;
   }
 
-  ::placeholder , .ant-select-single .ant-select-selector  {
+  ::placeholder,
+  .ant-select-single .ant-select-selector {
     font-family: "Lato";
     font-style: normal;
     font-weight: 500;
@@ -30,14 +30,10 @@
 
   .ant-select-single .ant-select-selector {
     color: #000000;
-  
-  
   }
 
-
-
   .ant-form-vertical .ant-form-item-label {
-     padding: 0 0 4px;
+    padding: 0 0 4px;
   }
 
   ._submit_btn_msg {
@@ -112,8 +108,9 @@
     background: #fdfdfd;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    
   }
 
+  ._dropdown {
+    line-height: 135px !important;
+  }
 }
-

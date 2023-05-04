@@ -235,6 +235,7 @@ const AddPO = () => {
                   // defaultValue={selectedVendor?._id}
                   value={selectedVendor?._id}
                   className="_input"
+                  listHeight={135}
                   placeholder={
                     selectedVendor?._id ? selectedVendor?.name : `Select Vendor`
                   }

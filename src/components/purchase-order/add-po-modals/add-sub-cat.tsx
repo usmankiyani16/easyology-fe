@@ -68,6 +68,7 @@ const AddSubCategoryModal: React.FC<any> = ({
               className="_input_field ml-6"
               placeholder="Add or Select Category"
               {...selectProps}
+              listHeight={135}
             >
               {catogaries?.map((catogary: any, index: number) => (
                 <Select.Option key={catogary?._id} value={catogary?._id}>
