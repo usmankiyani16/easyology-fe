@@ -52,11 +52,11 @@ const ItemCard = () => {
         </label>
         <label className="text-xl font-semibold flex  w-1/4">Price</label>
       </div>
-      <div className="h-[224px] overflow-auto _custom-scrollbar">
+      <div className="h-[272px] overflow-auto _custom-scrollbar">
         {selectedProducts?.map((item: any, index: number) => (
           <div
             key={index}
-            className="w-full my-2 flex justify-between shadow-md hover:shadow-xl"
+            className="p-2 _bg-white-color rounded w-full my-2 flex justify-between shadow-md "
           >
             <div className=" w-2/4">
               <div className="flex flex-col">

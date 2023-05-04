@@ -29,6 +29,7 @@ const CashPay: React.FC<any> = ({
   setSelectCustomer,
   discount,
   salesTax,
+  orderCategory,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -71,32 +72,28 @@ const CashPay: React.FC<any> = ({
   const onFinish = (values: any) => {
     console.log(values, { amount });
     const dueDate = dayjs(values?.dueDate).format("MM-DD-YYYY");
-    handleCashPay(paymentStatusE.PARTIALLY_PAID, amount, dueDate);
+    cashPay(paymentStatusE.PARTIALLY_PAID, amount, dueDate);
   };
 
   // Price Validator
 
-  const validatePrice = (
-    rule: any,
-    value: string,
-    callback: (error?: string) => void
-  ) => {
+  const validatePrice = (rule: any, value: string) => {
     const price = parseFloat(value);
 
     if (isNaN(price) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
-      callback("Required valid");
+      return Promise.reject("Required valid");
     } else if (price <= 0) {
-      callback("Price must be greater than zero");
+      return Promise.reject("Price must be greater than zero");
     } else {
-      callback();
+      return Promise.resolve();
     }
   };
 
-  const handleCashPay = async (
+  async function cashPay(
     paymentStatus: string,
     paidAmount?: number,
     dueData?: any
-  ) => {
+  ) {
     const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
     const storeId = data?.storeId;
     let products = selectedProducts?.map((prod: any) => ({
@@ -119,6 +116,7 @@ const CashPay: React.FC<any> = ({
         paidAmount: total,
       },
       paymentType: "cash",
+      orderCategory,
       products,
     };
     if (dueData) {
@@ -127,7 +125,6 @@ const CashPay: React.FC<any> = ({
     if (paymentStatus === paymentStatusE.PARTIALLY_PAID) {
       payload.paymentDetails.paidAmount = paidAmount;
     }
-    console.log("payload", payload);
 
     const res = await dispatch(addOrder(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
@@ -137,9 +134,11 @@ const CashPay: React.FC<any> = ({
       if (paidAmount) {
         setCashPayOpen(false);
       }
-      // dispatch(setSelectedProductsToNull());
-      // setSelectCustomer(null);
+      setSelectCustomer(null);
     }
+  }
+  const handleCashPay = async (paymentStatus: string) => {
+    cashPay(paymentStatus);
   };
   const handleOkClick = () => {
     setShowOkButton(false);
@@ -209,9 +208,9 @@ const CashPay: React.FC<any> = ({
                     Number(amountReceived) <= 0 ||
                     Number(amountReceived) < total
                   }
-                  className="w-[147px]"
+                  className="w-[147px] _primary-button"
                   type="primary"
-                  htmlType="submit"
+                  htmlType="button"
                 >
                   Cash
                 </Button>

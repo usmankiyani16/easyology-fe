@@ -6,15 +6,16 @@ import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {
   getInvoiceNumber,
   holdInvoice,
-  voidInvoice,
 } from "../../../store/order/order-slice";
 import { setSelectedProductsToNull } from "../../../store/products/products-slice";
 import VoidInvoice from "./void-invoice/void-invoice";
+import { customerType } from "./interfaces/operations.interface";
 
 const Operations: React.FC<any> = ({
   totalPrice,
   selectCustomer,
   setSelectCustomer,
+  orderCategory,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -23,7 +24,8 @@ const Operations: React.FC<any> = ({
   const [isVoidOpen, setIsVoidOpen] = useState(false);
   const [discount, setDiscount] = useState<number>(0);
   const taxRate = 0.025; // 2.5%
-  const salesTax = totalPrice * taxRate;
+  const salesTax =
+    selectCustomer?.type == customerType.wholeseller ? 0 : totalPrice * taxRate;
   const total = totalPrice + salesTax - discount;
   const disableButton = !selectedProducts?.length;
 
@@ -57,6 +59,7 @@ const Operations: React.FC<any> = ({
       discount: discount,
       salesTax,
       totalAmount: total,
+      orderCategory,
       products,
     };
     const res = await dispatch(holdInvoice(payload));
@@ -73,7 +76,7 @@ const Operations: React.FC<any> = ({
           <Button
             // onClick={handleVoidInvoice}
             disabled={disableButton || !selectCustomer?._id}
-            className="w-32 flex items-center justify-center"
+            className="w-32 flex items-center justify-center _primary-button"
             onClick={() => setIsVoidOpen(true)}
           >
             Void Invoice
@@ -81,14 +84,14 @@ const Operations: React.FC<any> = ({
           <Button
             onClick={handleNoSale}
             disabled={disableButton}
-            className="w-32 flex items-center justify-center"
+            className="w-32 flex items-center justify-center _primary-button"
           >
             No Sale
           </Button>
           <Button
             onClick={handleHoldInvoice}
             disabled={disableButton || !selectCustomer?._id}
-            className="w-32 flex items-center justify-center"
+            className="w-32 flex items-center justify-center _primary-button"
           >
             Hold Invoice
           </Button>
@@ -97,21 +100,21 @@ const Operations: React.FC<any> = ({
           <Button
             disabled={disableButton || !selectCustomer?._id}
             onClick={() => setIsCashPayOpen(true)}
-            className="w-32 flex items-center justify-center"
+            className="w-32 flex items-center justify-center _primary-button"
           >
             Cash Pay
           </Button>
           <Button
             disabled={true}
             // disabled={disableButton || !selectCustomer?._id}
-            className="w-32 flex items-center justify-center"
+            className="w-32 flex items-center justify-center _primary-button"
           >
             Ach Pay
           </Button>
           <Button
             disabled={true}
             // disabled={disableButton || !selectCustomer?._id}
-            className="w-32 flex items-center justify-center"
+            className="w-32 flex items-center justify-center _primary-button"
           >
             Credit Card
           </Button>
@@ -154,6 +157,7 @@ const Operations: React.FC<any> = ({
       </div>
       {isCashPayOpen && (
         <CashPay
+          orderCategory={orderCategory}
           selectCustomer={selectCustomer}
           setSelectCustomer={setSelectCustomer}
           salesTax={salesTax}

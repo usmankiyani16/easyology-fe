@@ -17,7 +17,7 @@ export const theme = {
       paddingContentHorizontal: 35,
       fontSize: 16,
       colorPrimary: "#FD0F00 !important",
-      // colorPrimaryHover: "none",
+      colorPrimaryHover: "none",
     },
     Input: {
       controlHeight: 40,

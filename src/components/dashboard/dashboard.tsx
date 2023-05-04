@@ -1,4 +1,4 @@
-import { AutoComplete, Button, Input } from "antd";
+import { AutoComplete, Button, Input, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import "./dashboard.scss";
 import { addCustomereIcon, scannerIcon } from "../../assets/icons";
@@ -15,13 +15,13 @@ import {
   getHoldInvoices,
   getInvoiceNumber,
 } from "../../store/order/order-slice";
-import VoidInvoice from "./operations/void-invoice/void-invoice";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { holdInvoices } = useAppSelector((state) => state.order);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [orderCategory, setOrderCategory] = useState<string>("store");
 
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
@@ -69,21 +69,21 @@ const Dashboard = () => {
   const customerOptions = [
     {
       _id: "9dc55d0012d14689b8a00940",
-      value: "customer 1",
+      name: "customer 1",
       mob: "02363500365",
-      type: "Retailer",
+      type: "retailer",
     },
     {
       _id: "9dc55d0012d14689b8a00940",
-      value: "customer 2",
+      name: "customer 2",
       mob: "02363453933",
-      type: "Retailer",
+      type: "retailer",
     },
     {
       _id: "9dc55d0012d14689b8a00940",
-      value: "customer 3",
+      name: "retailer",
       mob: "0236373737",
-      type: "Retailer",
+      type: "wholeseller",
     },
   ];
   let productOptions = products?.products?.slice(0, 3);
@@ -112,7 +112,9 @@ const Dashboard = () => {
           <h1 className="font-bold text-lg">Invoice # {invoiceNumber ?? ""}</h1>
           <h1>
             Customer name:{" "}
-            <span className="font-semibold">{selectCustomer?.value ?? ""}</span>
+            <span className="font-semibold capitalize">
+              {selectCustomer?.value ?? ""}
+            </span>
           </h1>
           <h1>
             Phone:{" "}
@@ -122,18 +124,19 @@ const Dashboard = () => {
             <span className="_primary-color font-semibold">
               Customer Type:{" "}
             </span>
-            <span className="font-semibold">{selectCustomer?.type ?? ""}</span>
+            <span className="font-semibold capitalize">
+              {selectCustomer?.type ?? ""}
+            </span>
           </h1>
         </div>
         <div className="flex items-center gap-3 self-start">
           <AutoComplete
             onSelect={(value, option) => handleCustomerSelect(option)}
-            options={customerOptions}
+            options={customerOptions?.map((customer: any) => ({
+              ...customer,
+              value: customer?.name,
+            }))}
             value={""}
-            filterOption={(inputValue, option) =>
-              option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-              -1
-            }
           >
             <Input
               className="h-8"
@@ -162,6 +165,15 @@ const Dashboard = () => {
               name="product"
             />
           </AutoComplete>
+          <Select
+            className="w-32"
+            value={orderCategory}
+            onChange={setOrderCategory}
+            placeholder="Select order type"
+          >
+            <Select.Option value="store">Store</Select.Option>
+            <Select.Option value="call">Call</Select.Option>
+          </Select>
           <img src={scannerIcon} alt="scanner" />
         </div>
         <div className="flex items-center gap-3 self-start">
@@ -171,11 +183,12 @@ const Dashboard = () => {
             alt="scanner"
           />
           <Button
+            disabled={holdInvoices?.pagination?.totalCount === 0}
             onClick={showModal}
-            className="bg-white font-semibold h-8 flex items-center justify-center"
+            className="font-semibold h-8 flex items-center justify-center _primary-button"
           >
             On hold
-            <span className="_primary-color ml-2">
+            <span className=" ml-2 ">
               ({holdInvoices?.pagination?.totalCount})
             </span>
           </Button>
@@ -185,6 +198,7 @@ const Dashboard = () => {
         <ItemCard />
       </div>
       <Operations
+        orderCategory={orderCategory}
         totalPrice={totalPrice}
         selectCustomer={selectCustomer}
         setSelectCustomer={setSelectCustomer}
