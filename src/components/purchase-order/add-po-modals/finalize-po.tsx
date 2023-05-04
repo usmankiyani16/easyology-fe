@@ -19,6 +19,7 @@ import { values } from "@antv/util";
 import { Toast } from "../../common/toast/toast";
 import Payment from "./payment";
 import dayjs from "dayjs";
+import { setSelectedProductsToNull } from "../../../store/products/products-slice";
 
 interface DataType {
   key: string;
@@ -35,6 +36,8 @@ const PreviewModal: React.FC<any> = ({
   previewmodalOpen,
   setPreviewModalOpen,
   newObject,
+  setSeletedVendor,
+  setDataForm,
 }) => {
   const { vendors } = useAppSelector((state) => state.vendors);
   const [previewMaxmodalOpen, setPreviewMaxModalOpen] = useState(false);
@@ -156,7 +159,6 @@ const PreviewModal: React.FC<any> = ({
   };
 
   const handleFinish = async (values: any) => {
-    console.log(values, "all");
     let paidAmount;
     let payload: any = {
       ...newObject,
@@ -202,6 +204,8 @@ const PreviewModal: React.FC<any> = ({
     const res = await dispatch(addPO(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       setPreviewModalOpen(false);
+      setSeletedVendor(null);
+      setDataForm(null)
     }
   };
 

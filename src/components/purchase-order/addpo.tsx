@@ -67,7 +67,7 @@ const AddPO = () => {
       quantity: Number(values.quantity),
       serialNumber: values.serial,
     };
-   /*  if (!values.color && !values.size) {
+    /*  if (!values.color && !values.size) {
       delete newFormData.options;
     } */
 
@@ -177,6 +177,8 @@ const AddPO = () => {
 
       {previewmodalOpen && (
         <PreviewModal
+          setDataForm={setDataForm}
+          setSeletedVendor={setSeletedVendor}
           previewmodalOpen={previewmodalOpen}
           setPreviewModalOpen={setPreviewModalOpen}
           newObject={dataForm}
@@ -208,63 +210,58 @@ const AddPO = () => {
           {/* --------------- Grid 1 --------------------- */}
 
           <div className="_grid1_fields">
-          
-              <Form.Item
-                label={<span className="_po_field_label">Select Vendor</span>}
-                name="selectedVendor"
-                required
-                tooltip="This is a required field"
-                rules={[
-                  {
-                    required: selectedVendor?._id ? false : true,
-                    // type: 'email',
-                    message: "Required Field",
-                  },
-                  {
-                    type: "string",
-                  },
-                ]}
-              >
-                  
-                <div className="flex items-center gap-3">
+            <Form.Item
+              label={<span className="_po_field_label">Select Vendor</span>}
+              name="selectedVendor"
+              required
+              tooltip="This is a required field"
+              rules={[
+                {
+                  required: selectedVendor?._id ? false : true,
+                  // type: 'email',
+                  message: "Required Field",
+                },
+                {
+                  type: "string",
+                },
+              ]}
+            >
+              <div className="flex items-center gap-3">
+                <>
+                  <Select
+                    {...selectProps}
+                    // defaultValue={selectedVendor?._id}
+                    value={selectedVendor?._id}
+                    className="_input"
+                    listHeight={135}
+                    placeholder={
+                      selectedVendor?._id
+                        ? selectedVendor?.name
+                        : `Select Vendor`
+                    }
+                    onChange={handleOptionChange}
+                    disabled={
+                      selectedVendor && dataForm?.products?.length
+                        ? true
+                        : false
+                    }
+                  >
+                    {vendors?.map((vendor: any, index: number) => (
+                      <Select.Option key={vendor?._id} value={vendor?._id}>
+                        {capitalize(vendor?.name)}
+                      </Select.Option>
+                    ))}
+                  </Select>
 
-                  <>
-                
-                <Select
-                  {...selectProps}
-                  // defaultValue={selectedVendor?._id}
-                  value={selectedVendor?._id}
-                  className="_input"
-                  listHeight={135}
-                  placeholder={
-                    selectedVendor?._id ? selectedVendor?.name : `Select Vendor`
-                  }
-                  onChange={handleOptionChange}
-                  disabled={
-                    selectedVendor && dataForm?.products?.length ? true : false
-                  }
-                >
-                  {vendors?.map((vendor: any, index: number) => (
-                    <Select.Option key={vendor?._id} value={vendor?._id}>
-                      {capitalize(vendor?.name)}
-                    </Select.Option>
-                  ))}
-                </Select>
-                
-              <img
-                onClick={() => setVendorModalOpen(true)}
-                src={add_vendor}
-                className=" cursor-pointer"
-                alt="Add Vendor Icon"
-              />
-              </>
-              
-            </div>
-                
-              </Form.Item>
-              
-
-         
+                  <img
+                    onClick={() => setVendorModalOpen(true)}
+                    src={add_vendor}
+                    className=" cursor-pointer"
+                    alt="Add Vendor Icon"
+                  />
+                </>
+              </div>
+            </Form.Item>
 
             <Form.Item
               label={<span className="_po_field_label">Product Name</span>}
@@ -355,15 +352,11 @@ const AddPO = () => {
             </Form.Item>
 
             <Form.Item
-              
-              
               label={
-                <span className="_po_field_label">
-                  Product Description
-                </span>
+                <span className="_po_field_label">Product Description</span>
               }
               name="productDescription"
-             required
+              required
               tooltip="This is a required field"
               rules={[
                 {
@@ -371,15 +364,11 @@ const AddPO = () => {
 
                   message: "Required Field",
                 },
-               
               ]}
-
-           
             >
               <Input
                 className="_input_field xs:w-[326px] xl:w-[523px] xl:h-[75px]"
                 placeholder="Lenovo ThinkPad · Display size 14.00-inch · Display resolution 1920x1080 pixels · Processor Core i7 · RAM 12GB · OS Windows 10 · Hard disk No · SSD 256GB"
-                
               />
             </Form.Item>
           </div>
@@ -415,8 +404,6 @@ const AddPO = () => {
                   },
                 ]}
               >
-                 
-
                 <Select
                   // {...selectProps}
                   className="_input"
@@ -424,7 +411,6 @@ const AddPO = () => {
                   listHeight={135}
                   placeholder="Add or Select Category"
                   onChange={(value: any) => dispatch(getSubCatogaries(value))}
-                  
                 >
                   {catogaries?.map((catogary: any, index: number) => (
                     <Select.Option key={catogary?._id} value={catogary?._id}>
@@ -432,11 +418,8 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
-            
-
-                
               </Form.Item>
-             
+
               <img
                 src={add_category}
                 alt="add_cat_modal"
@@ -445,11 +428,7 @@ const AddPO = () => {
                   setCatModalOpen(true);
                 }}
               />
-              
-            
             </div>
-
-             
 
             <Form.Item
               label={<span className="_po_field_label  ml-[10px]">Color</span>}
@@ -487,13 +466,11 @@ const AddPO = () => {
                 }
                 name="subCategory"
               >
-                
                 <Select
                   // {...selectProps}
                   className="_input"
                   listHeight={135}
                   placeholder="Select sub category"
-
                 >
                   {subCategories?.map((data: any) => (
                     <Select.Option key={data?._id} value={data?._id}>
@@ -501,8 +478,6 @@ const AddPO = () => {
                     </Select.Option>
                   ))}
                 </Select>
-                
-            
               </Form.Item>
               <img
                 src={add_category}
@@ -513,7 +488,6 @@ const AddPO = () => {
                 }}
               />
             </div>
-
 
             <Form.Item
               label={<span className="_po_field_label">Product Serial #</span>}
@@ -550,7 +524,7 @@ const AddPO = () => {
 
         <div className="_btn-footer flex justify-between mt-8">
           <div className="_import_btn xl:ml-12">
-            <Form.Item >
+            <Form.Item>
               <Button
                 className="sm:w-40 text-center"
                 type="primary"
@@ -578,7 +552,11 @@ const AddPO = () => {
             </div>
           )}
 
-          <div className={`_submit_btn xl:mr-[60px] ${dataForm && dataForm?.products?.length && "xl:mr-[75px]"}`}>
+          <div
+            className={`_submit_btn xl:mr-[60px] ${
+              dataForm && dataForm?.products?.length && "xl:mr-[75px]"
+            }`}
+          >
             <Form.Item>
               <Button className="text-center" type="primary" htmlType="submit">
                 {dataForm && dataForm?.products?.length
