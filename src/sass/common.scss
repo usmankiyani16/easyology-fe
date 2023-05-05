@@ -21,6 +21,13 @@
     background-color: $light-primary-color !important;
   }
 }
+._white-background {
+  color: $grey-color !important;
+  background-color: $white-color !important;
+  &:disabled {
+    background-color: $light-grey-color !important;
+  }
+}
 
 ._white-color {
   color: $white-color;

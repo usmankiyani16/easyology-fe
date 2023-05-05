@@ -9,7 +9,7 @@ import CashChecker from "../components/cash-checker/cash-checker";
 import DailyLedger from "../components/daily-ledger/daily-ledger";
 import MonthlyReports from "../components/monthly-reports/monthly-reports";
 import Notification from "../components/notification/notification";
-import Payments from "../components/payments/payments";
+import Payments from "../components/orders/orders";
 import AddPO from "../components/purchase-order/addpo";
 import PurchaseOrder from "../components/purchase-order/purchase-order";
 import Settings from "../components/settings/settings";
@@ -40,7 +40,8 @@ const PurchaseOrderLazy = Loadable(
 
 const CustomerLazy = Loadable(lazy(() => import("../pages/customer/index")));
 const ViewCustomerLazy = Loadable(lazy(() => import("../pages/view-customers/index")));
-const PaymentsLazy = Loadable(lazy(() => import("../pages/payments/index")));
+const ORDERSLazy = Loadable(lazy(() => import("../pages/orders/index")));
+const VIEWORDERSLazy = Loadable(lazy(() => import("../pages/view-orders/index")));
 const SettingsLazy = Loadable(lazy(() => import("../pages/settings/index")));
 const MonthlyReportsLazy = Loadable(
   lazy(() => import("../pages/monthly-reports/index"))
@@ -183,12 +184,22 @@ export const routes: any = [
         ),
       },
       {
-        path: ROUTE_CONSTANTS.PAYMENTS,
+        path: ROUTE_CONSTANTS.ORDERS,
         element: (
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <PaymentsLazy />
+            <ORDERSLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.VIEW_ORDERS,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <VIEWORDERSLazy />
           </RequireAuth>
         ),
       },

@@ -123,7 +123,7 @@ const Operations: React.FC<any> = ({
           </Button>
         </div>
       </div>
-      <div className="w-3/12 pr-10 flex flex-col gap-5">
+      <div className="w-3/12 pr-10 flex flex-col gap-5  font-semibold">
         <div className="flex ">
           <label className="w-9/12">Sub-Total </label>
           <label className="w-3/12 whitespace-nowrap">$ {totalPrice}</label>

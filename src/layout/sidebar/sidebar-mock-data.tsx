@@ -45,8 +45,8 @@ export const sidebarData = [
   {
     key: 4,
     icon: <img className="w-7" src={paymentsIcon} alt="paymentsIcon" />,
-    label: "Payments",
-    path: ROUTE_CONSTANTS.PAYMENTS,
+    label: "Orders",
+    path: ROUTE_CONSTANTS.ORDERS,
   },
   {
     key: 5,
