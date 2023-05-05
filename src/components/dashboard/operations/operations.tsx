@@ -26,6 +26,7 @@ const Operations: React.FC<any> = ({
   const taxRate = 0.025; // 2.5%
   const salesTax =
     selectCustomer?.type == customerType.wholeseller ? 0 : totalPrice * taxRate;
+   const salesTaxCount = selectCustomer?.type == customerType.retailer ? 2.5 : 0
   const total = totalPrice + salesTax - discount;
   const disableButton = !selectedProducts?.length;
 
@@ -142,7 +143,7 @@ const Operations: React.FC<any> = ({
         <div className="flex ">
           <div className="w-9/12">
             <label className="_grey-color">Sales Tax </label>
-            <label>(2.5%) </label>
+            <label>{`(${salesTaxCount}%)`} </label>
           </div>
           <label className="w-3/12 whitespace-nowrap">
             $ {salesTax.toFixed(2)}

@@ -39,6 +39,7 @@ const PurchaseOrderLazy = Loadable(
 );
 
 const CustomerLazy = Loadable(lazy(() => import("../pages/customer/index")));
+const ViewCustomerLazy = Loadable(lazy(() => import("../pages/view-customers/index")));
 const PaymentsLazy = Loadable(lazy(() => import("../pages/payments/index")));
 const SettingsLazy = Loadable(lazy(() => import("../pages/settings/index")));
 const MonthlyReportsLazy = Loadable(
@@ -110,6 +111,17 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
+     
+      {
+        path: ROUTE_CONSTANTS.PURCHASE_ORDER,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <PurchaseOrderLazy />
+          </RequireAuth>
+        ),
+      },
       {
         path: ROUTE_CONSTANTS.CUSTOMER,
         element: (
@@ -121,12 +133,12 @@ export const routes: any = [
         ),
       },
       {
-        path: ROUTE_CONSTANTS.PURCHASE_ORDER,
+        path: ROUTE_CONSTANTS.VIEW_CUSTOMERS,
         element: (
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <PurchaseOrderLazy />
+            <ViewCustomerLazy />
           </RequireAuth>
         ),
       },

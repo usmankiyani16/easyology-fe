@@ -5,7 +5,11 @@ import "./po-card.scss";
 import Viewmodal from "../po-view-modal/view-modal";
 import dayjs from "dayjs";
 
-const POCard: React.FC<any> = ({ purchaseOrders }) => {
+interface poCardTypes {
+  purchaseOrders: any;
+}
+
+const POCard: React.FC<poCardTypes> = ({ purchaseOrders }) => {
   const [applyBorder, setApplyBorder] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [singlePO, setSinglePO] = useState<any>();
@@ -74,7 +78,13 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
               <div className="flex flex-col">
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Inv Status:</span>
-                  <span className={`font-semibold ${data?.paymentStatus === "Partially Paid" ?  '_primary-color': '_success_color' } `}>
+                  <span
+                    className={`font-semibold ${
+                      data?.paymentStatus === "Partially Paid"
+                        ? "_primary-color"
+                        : "_success_color"
+                    } `}
+                  >
                     {capitalize(data?.paymentStatus ?? "")}
                   </span>
                 </div>
@@ -88,27 +98,27 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                 </div>
                 {data?.paymentStatus === "Partially Paid" && (
                   <>
-                  <div className="flex text-lg gap-4">
-                    <span className="font-medium _label-grey">
-                      Remaining Amount:
-                    </span>
-                    {
-                      <span className="font-medium ">
-                        $ {data?.remainingAmount}
+                    <div className="flex text-lg gap-4">
+                      <span className="font-medium _label-grey">
+                        Remaining Amount:
                       </span>
-                    }
-                  </div>
-               
-                <div className="flex text-lg gap-4">
-                  <span className="font-medium _label-grey">Due Date:</span>
-                  <span className="font-medium ">
-                    {dayjs(data?.payments[0]?.paymentDetails?.dueDate).format(
-                      "MM/DD/YYYY"
-                    )}
-                  </span>
-                </div>
-                </>
-                 )}
+                      {
+                        <span className="font-medium ">
+                          $ {data?.remainingAmount}
+                        </span>
+                      }
+                    </div>
+
+                    <div className="flex text-lg gap-4">
+                      <span className="font-medium _label-grey">Due Date:</span>
+                      <span className="font-medium ">
+                        {dayjs(
+                          data?.payments[0]?.paymentDetails?.dueDate
+                        ).format("MM/DD/YYYY")}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
               {
                 <div className="flex flex-col justify-self-end items-center justify-between">
@@ -116,8 +126,7 @@ const POCard: React.FC<any> = ({ purchaseOrders }) => {
                     ${data?.totalAmount}
                   </span>
                   <Button
-                   className="flex self-end"
-                   
+                    className="flex self-end"
                     onClick={() => {
                       setViewModalOpen(true);
                       setSinglePO(data);

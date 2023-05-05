@@ -52,7 +52,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
 
           {/* ${ (!item?.variants?.stock?.totalQuantity || !item?.variants?.options?.color || !item?.variants?.options?.size) && "h-[60px]"}  */}
 
-          <div className={`flex justify-between `}>
+          <div className={`flex justify-between`}>
             <span className="_productname">
               {item?.variants?.stock?.totalQuantity}
             </span>

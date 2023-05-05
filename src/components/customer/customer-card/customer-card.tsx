@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card } from "antd";
 import customerData from "../mock-data/customer";
+import { NavLink } from "react-router-dom";
 
 const CustomerCard = () => {
   return (
@@ -29,9 +30,12 @@ const CustomerCard = () => {
             </div>
           </div>
 
+
+         <NavLink to='/view-customer'>
           <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">
             <Button>View</Button>
           </div>
+          </NavLink>
         </div>
         </Card>
 
