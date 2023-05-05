@@ -63,7 +63,7 @@ const ItemCard = () => {
                 {/* <p className="_grey-color">{item?._id}</p> */}
                 <div className="flex items-center gap-3 ">
                   <img
-                    className="w-20 h-16 rounded "
+                    className="w-20 h-16 rounded object-cover	"
                     src={item?.image ? imageBaseUrl + item?.image : noImg}
                     alt="img"
                   />
