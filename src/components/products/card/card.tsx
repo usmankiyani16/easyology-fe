@@ -22,7 +22,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
       <img
         src={item?.image ? image : noImg}
         alt="laptop"
-        className="w-[160.69px] h-[107.74px]"
+        className="w-[160.69px] h-[107.74px] object-cover"
       />
       <div className="flex flex-col ">
         {/*  <div className="flex justify-between mt-2 h-[80px]">

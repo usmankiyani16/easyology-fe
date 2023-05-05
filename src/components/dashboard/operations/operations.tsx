@@ -10,6 +10,7 @@ import {
 import { setSelectedProductsToNull } from "../../../store/products/products-slice";
 import VoidInvoice from "./void-invoice/void-invoice";
 import { customerType } from "./interfaces/operations.interface";
+import { Toast } from "../../common/toast/toast";
 
 const Operations: React.FC<any> = ({
   totalPrice,
@@ -39,9 +40,10 @@ const Operations: React.FC<any> = ({
   };
 
   const handleNoSale = () => {
-    dispatch(getInvoiceNumber());
-    dispatch(setSelectedProductsToNull());
-    setSelectCustomer(null);
+    Toast("Drawer opened");
+    // dispatch(getInvoiceNumber());
+    // dispatch(setSelectedProductsToNull());
+    // setSelectCustomer(null);
   };
   const handleHoldInvoice = async () => {
     const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
