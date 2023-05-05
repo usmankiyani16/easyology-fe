@@ -106,7 +106,7 @@ const ItemCard = () => {
               <div>
                 {/* <p className="_grey-color">$ 103.00</p> */}
                 <p className="shadow px-1 rounded">
-                  $ {item?.variants?.amount * item?.quantity}
+                  $ {(item?.variants?.amount * item?.quantity).toFixed(2)}
                 </p>
               </div>
               <div
