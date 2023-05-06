@@ -45,7 +45,7 @@ const ItemCard = () => {
   };
 
   const handlePriceChange = (index: number, value: any) => {
-    if (value > 0 ) {
+    if (value > 0) {
       let payload = {
         index,
         value,
@@ -68,7 +68,7 @@ const ItemCard = () => {
           Total
         </label>
       </div>
-      <div className="h-[272px] overflow-auto _custom-scrollbar">
+      <div className="h-[184px] overflow-auto _custom-scrollbar">
         {selectedProducts?.map((item: any, index: number) => (
           <div
             key={index}
