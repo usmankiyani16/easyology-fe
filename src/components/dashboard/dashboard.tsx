@@ -93,7 +93,6 @@ const Dashboard = () => {
         (selected: any) => selected?.variants?._id === option?.variants?._id
       )
   );
-  console.log("selectedProducts", selectedProducts);
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
   };

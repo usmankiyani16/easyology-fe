@@ -26,7 +26,7 @@ const Operations: React.FC<any> = ({
   const taxRate = 0.025; // 2.5%
   const salesTax =
     selectCustomer?.type == customerType.wholeseller ? 0 : totalPrice * taxRate;
-   const salesTaxCount = selectCustomer?.type == customerType.retailer ? 2.5 : 0
+  const salesTaxCount = selectCustomer?.type == customerType.retailer ? 2.5 : 0;
   const total = totalPrice + salesTax - discount;
   const disableButton = !selectedProducts?.length;
 
@@ -61,7 +61,7 @@ const Operations: React.FC<any> = ({
       discount: discount,
       salesTax,
       totalAmount: total,
-      orderCategory:'store',
+      orderCategory: "store",
       products,
     };
     const res = await dispatch(holdInvoice(payload));
