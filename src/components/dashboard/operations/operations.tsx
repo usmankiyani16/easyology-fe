@@ -125,7 +125,7 @@ const Operations: React.FC<any> = ({
       <div className="w-3/12 pr-10 flex flex-col gap-5  font-semibold">
         <div className="flex ">
           <label className="w-9/12">Sub-Total </label>
-          <label className="w-3/12 whitespace-nowrap">$ {totalPrice}</label>
+          <label className="w-3/12 whitespace-nowrap">$ {totalPrice.toFixed(2)}</label>
         </div>
         <div className="flex ">
           <label className="w-9/12 whitespace-nowrap">Discount </label>
@@ -144,7 +144,7 @@ const Operations: React.FC<any> = ({
         <div className="flex ">
           <div className="w-9/12">
             <label className="_grey-color">Sales Tax </label>
-            <label>{`(${salesTaxCount}%)`} </label>
+            <label>{`(${salesTaxCount.toFixed(2)}%)`} </label>
           </div>
           <label className="w-3/12 whitespace-nowrap">
             $ {salesTax.toFixed(2)}
