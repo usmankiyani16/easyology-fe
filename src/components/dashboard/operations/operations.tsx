@@ -16,7 +16,6 @@ const Operations: React.FC<any> = ({
   totalPrice,
   selectCustomer,
   setSelectCustomer,
-  orderCategory,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -62,7 +61,7 @@ const Operations: React.FC<any> = ({
       discount: discount,
       salesTax,
       totalAmount: total,
-      orderCategory,
+      orderCategory:'store',
       products,
     };
     const res = await dispatch(holdInvoice(payload));
@@ -160,7 +159,6 @@ const Operations: React.FC<any> = ({
       </div>
       {isCashPayOpen && (
         <CashPay
-          orderCategory={orderCategory}
           selectCustomer={selectCustomer}
           setSelectCustomer={setSelectCustomer}
           salesTax={salesTax}
