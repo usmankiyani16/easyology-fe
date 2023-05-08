@@ -16,7 +16,7 @@ import Settings from "../components/settings/settings";
 import Support from "../components/support/support";
 import MainLayout from "../layout/layout";
 import { UserRole } from "../utils/interfaces";
-import { ROUTE_CONSTANTS } from "./route-constants";
+import { ADMIN_ROUTES, ROUTE_CONSTANTS } from "./route-constants";
 
 //<img src={LoadingSvg} height={200} width={200} alt="LoadingSvg" />
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
@@ -39,9 +39,13 @@ const PurchaseOrderLazy = Loadable(
 );
 
 const CustomerLazy = Loadable(lazy(() => import("../pages/customer/index")));
-const ViewCustomerLazy = Loadable(lazy(() => import("../pages/view-customers/index")));
+const ViewCustomerLazy = Loadable(
+  lazy(() => import("../pages/view-customers/index"))
+);
 const ORDERSLazy = Loadable(lazy(() => import("../pages/orders/index")));
-const VIEWORDERSLazy = Loadable(lazy(() => import("../pages/view-orders/index")));
+const VIEWORDERSLazy = Loadable(
+  lazy(() => import("../pages/view-orders/index"))
+);
 const SettingsLazy = Loadable(lazy(() => import("../pages/settings/index")));
 const MonthlyReportsLazy = Loadable(
   lazy(() => import("../pages/monthly-reports/index"))
@@ -68,7 +72,7 @@ const RecentInvoicesLazy = Loadable(
 const { role }: any = JSON.parse(localStorage.getItem(UserRole.USER) || "{}");
 let path = "";
 if (role === UserRole.SUPER_ADMIN) {
-  path = "/admin-dashboard";
+  path = "/admin/dashboard";
 } else {
   path = "/dashboard";
 }
@@ -81,7 +85,7 @@ export const routes: any = [
   },
   { path: ROUTE_CONSTANTS.LOGIN, element: <Login /> },
   {
-    path: ROUTE_CONSTANTS.ADMIN_DASHBOARD,
+    path: ADMIN_ROUTES.ADMIN_DASHBOARD,
     element: (
       <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
         <AdminDashboardLazy />
@@ -112,7 +116,7 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
-     
+
       {
         path: ROUTE_CONSTANTS.PURCHASE_ORDER,
         element: (
