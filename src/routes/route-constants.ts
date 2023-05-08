@@ -23,4 +23,6 @@ export const ROUTE_CONSTANTS = {
 // admin's pages
 export const ADMIN_ROUTES = {
   ADMIN_DASHBOARD: "admin/dashboard",
+  ADD_SUBSCRIPTION: "admin/add-subscription",
+
 };
