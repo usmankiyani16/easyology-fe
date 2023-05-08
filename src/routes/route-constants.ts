@@ -7,6 +7,7 @@ export const ROUTE_CONSTANTS = {
   // HISTORY: "history",
   CUSTOMER: "customer",
   VIEW_CUSTOMERS: 'view-customer',
+  VIEW_ALL_INVOICES: 'view-all-invoices',
   CASH_CHECKER: "cash-checker",
   DAILY_LEDGER: "daily-ledger",
   MONTHLY_REPORTS: "monthly-reports",

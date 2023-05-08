@@ -19,6 +19,8 @@ const Viewmodal: React.FC<any> = ({
   viewModalOpen,
   setViewModalOpen,
   purchaseOrders,
+  Name,
+  Number
 }) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
@@ -86,13 +88,13 @@ const Viewmodal: React.FC<any> = ({
         className="_modal_wrap"
       >
         <h4 className="_po_Number mt-8 text-2xl">
-          PO Number:{" "}
+          {Number}:
           <span className="text-red-500">#{purchaseOrders?.poNumber}</span>
         </h4>
         <h4 className="_company_name text-xl">
-          Vendor Name:
+          {Name}:
           <span className="font-medium _label-grey">
-            {" "}
+       
             {purchaseOrders?.vendor[0]?.companyName}{" "}
           </span>
         </h4>

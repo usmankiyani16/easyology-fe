@@ -7,7 +7,10 @@ import { getPOS } from "../../store/po/po.slice";
 import Spinner from "../common/spinner/spinner";
 import { Pagination } from "antd";
 
-const PurchaseOrder = () => {
+const PoNumber = 'PO Number'
+const VendorName = 'Vendor Name'
+const PurchaseOrder:any = () => {
+
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
   const dispatch = useAppDispatch();
 
@@ -41,7 +44,7 @@ const PurchaseOrder = () => {
       <div className="_cards">
         {purchaseOrders?.products?.length ? (
           <>
-            <POCard purchaseOrders={purchaseOrders?.products} />
+          <POCard cardData={purchaseOrders?.products} Number ={PoNumber} Name={VendorName}/>
           </>
         ) : (
           <Spinner />

@@ -9,7 +9,8 @@ interface poCardTypes {
   purchaseOrders: any;
 }
 
-const POCard: React.FC<poCardTypes> = ({ purchaseOrders }) => {
+const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name}:any) => {
+  console.log(cardData ,'PO Card data')
   const [applyBorder, setApplyBorder] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [singlePO, setSinglePO] = useState<any>();
@@ -37,10 +38,13 @@ const POCard: React.FC<poCardTypes> = ({ purchaseOrders }) => {
           viewModalOpen={viewModalOpen}
           setViewModalOpen={setViewModalOpen}
           purchaseOrders={singlePO}
+          Number={Number}
+          Name={Name}
         />
       )}
       <div className="flex flex-col gap-4 mt-3">
-        {purchaseOrders?.map((data: any) => (
+       
+        {cardData?.map((data: any) => (
           <Card key={data?.key} className="_po-card">
             <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
               <div
@@ -49,13 +53,13 @@ const POCard: React.FC<poCardTypes> = ({ purchaseOrders }) => {
                 } pr-7 mr-7`}
               >
                 <div className="flex text-lg gap-4">
-                  <span className="font-medium">PO Number:</span>
+                  <span className="font-medium">{Number}:</span>
                   <span className="font-semibold _primary-color">
                     #{data?.poNumber}
                   </span>
                 </div>
                 <div className="flex text-lg gap-4">
-                  <span className="font-medium">Vendor Name:</span>
+                  <span className="font-medium">{Name}:</span>
                   <span className="font-medium _label-grey">
                     {capitalize(data?.vendor[0]?.name ?? "")}
                   </span>
