@@ -65,7 +65,14 @@ const AdminDashboardLazy = Loadable(
   lazy(() => import("../pages/admin/dashboard/index"))
 );
 const AddSubscriptionLazy = Loadable(
-  lazy(() => import("../pages/admin/add-subscription/index"))
+  lazy(
+    () => import("../pages/admin/manage-subscription/add-subscription/index")
+  )
+);
+const SubscriptionsListLazy = Loadable(
+  lazy(
+    () => import("../pages/admin/manage-subscription/subscriptions-list/index")
+  )
 );
 
 const RecentInvoicesLazy = Loadable(
@@ -250,6 +257,16 @@ export const routes: any = [
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
             <AdminDashboardLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ADMIN_ROUTES.SUBSCRIPTIONS_LIST,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <SubscriptionsListLazy />
           </RequireAuth>
         ),
       },
