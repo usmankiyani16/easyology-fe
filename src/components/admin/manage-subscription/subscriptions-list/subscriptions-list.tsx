@@ -1,5 +1,10 @@
 import { Button, Col, Row, Select } from "antd";
 import SubsciptionTable from "./table/table";
+import {
+  ADMIN_ROUTES,
+  ROUTE_CONSTANTS,
+} from "../../../../routes/route-constants";
+import { Link } from "react-router-dom";
 const { Option } = Select;
 
 const SubscriptionsList = () => {
@@ -34,7 +39,9 @@ const SubscriptionsList = () => {
           </Select>
         </Col>
         <Col className="ml-auto">
-          <Button className="_primary-button">Add Subscription</Button>
+          <Link to={ROUTE_CONSTANTS.SLASH + ADMIN_ROUTES.ADD_SUBSCRIPTION}>
+            <Button className="_primary-button">Add Subscription</Button>
+          </Link>
         </Col>
       </Row>
       <SubsciptionTable />

@@ -28,7 +28,7 @@ const SubsciptionTable = () => {
         if (record?.subscriptionStatus?.toLowerCase() === "active") {
           color = "#176e14";
         } else if (record?.subscriptionStatus?.toLowerCase() === "suspended") {
-          color = "#bd34eb";
+          color = "#f56d3b";
         } else if (record?.subscriptionStatus?.toLowerCase() === "cancel") {
           color = "#eb3434";
         } else if (record?.subscriptionStatus?.toLowerCase() === "callback") {
@@ -144,7 +144,7 @@ const SubsciptionTable = () => {
       nextPaymentDate: "06-25-2023",
     },
   ];
-  return <Table dataSource={dataSource} columns={tableColumns} />;
+  return <Table pagination={false} dataSource={dataSource} columns={tableColumns} />;
 };
 
 export default SubsciptionTable;

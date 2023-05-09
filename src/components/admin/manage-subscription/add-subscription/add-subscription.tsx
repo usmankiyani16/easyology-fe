@@ -9,7 +9,13 @@ const AddSubscription = () => {
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
     useState(false);
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    if (values.buttonType === "submit") {
+      // Handle submit logic
+      console.log("Submitting:", values);
+    } else if (values.buttonType === "finalize") {
+      // Handle finalize later logic
+      console.log("Finalizing later:", values);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -55,7 +61,11 @@ const AddSubscription = () => {
               label="Email Address"
               name="emailAddress"
               rules={[
-                { required: true, message: "Please input your email address!" },
+                {
+                  required: true,
+                  type: "email",
+                  message: "Please input your email address!",
+                },
               ]}
             >
               <Input />
@@ -123,7 +133,7 @@ const AddSubscription = () => {
               >
                 <Checkbox value="wholesaleFeature">Wholesale Feature</Checkbox>
                 {showWholesaleList && (
-                  <ul>
+                  <ul className="pl-8 underline list-disc">
                     <li>Hold Invoice</li>
                     <li>Partial Payment</li>
                     <li>Ach Payment</li>
@@ -134,14 +144,14 @@ const AddSubscription = () => {
                   Mobile Application
                 </Checkbox>
                 {showMobileAppContent && (
-                  <ul>
+                  <ul className="pl-8 underline list-disc">
                     <li>Mobile Feature 1</li>
                     <li>Mobile Feature 2</li>
                   </ul>
                 )}
                 <Checkbox value="checkingCashing">Checking Cashing</Checkbox>
                 {showCheckingCashingContent && (
-                  <ul>
+                  <ul className="pl-8 underline list-disc">
                     <li>Checking Cashing Feature 1</li>
                     <li>Checking Cashing Feature 2</li>
                   </ul>
@@ -209,7 +219,21 @@ const AddSubscription = () => {
         </Row>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            name="buttonType"
+            value="finalize"
+          >
+            Finalize Later
+          </Button>
+          <Button
+            className="ml-4"
+            type="primary"
+            htmlType="submit"
+            name="buttonType"
+            value="submit"
+          >
             Submit
           </Button>
         </Form.Item>
