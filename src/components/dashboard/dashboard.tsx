@@ -21,7 +21,7 @@ const Dashboard = () => {
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { holdInvoices } = useAppSelector((state) => state.order);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [orderCategory, setOrderCategory] = useState<string>("store");
+  // const [orderCategory, setOrderCategory] = useState<string>("store");
 
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
@@ -93,7 +93,6 @@ const Dashboard = () => {
         (selected: any) => selected?.variants?._id === option?.variants?._id
       )
   );
-  console.log("selectedProducts", selectedProducts);
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
   };
@@ -165,23 +164,9 @@ const Dashboard = () => {
               name="product"
             />
           </AutoComplete>
-          <Select
-            className="w-32"
-            value={orderCategory}
-            onChange={setOrderCategory}
-            placeholder="Select order type"
-          >
-            <Select.Option value="store">Store</Select.Option>
-            <Select.Option value="call">Call</Select.Option>
-          </Select>
           <img src={scannerIcon} alt="scanner" />
         </div>
         <div className="flex items-center gap-3 self-start">
-          <img
-            className="cursor-pointer"
-            src={addCustomereIcon}
-            alt="scanner"
-          />
           <Button
             disabled={holdInvoices?.pagination?.totalCount === 0}
             onClick={showModal}
@@ -198,7 +183,6 @@ const Dashboard = () => {
         <ItemCard />
       </div>
       <Operations
-        orderCategory={orderCategory}
         totalPrice={totalPrice}
         selectCustomer={selectCustomer}
         setSelectCustomer={setSelectCustomer}

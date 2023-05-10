@@ -16,7 +16,6 @@ const Operations: React.FC<any> = ({
   totalPrice,
   selectCustomer,
   setSelectCustomer,
-  orderCategory,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -27,7 +26,7 @@ const Operations: React.FC<any> = ({
   const taxRate = 0.025; // 2.5%
   const salesTax =
     selectCustomer?.type == customerType.wholeseller ? 0 : totalPrice * taxRate;
-   const salesTaxCount = selectCustomer?.type == customerType.retailer ? 2.5 : 0
+  const salesTaxCount = selectCustomer?.type == customerType.retailer ? 2.5 : 0;
   const total = totalPrice + salesTax - discount;
   const disableButton = !selectedProducts?.length;
 
@@ -62,7 +61,7 @@ const Operations: React.FC<any> = ({
       discount: discount,
       salesTax,
       totalAmount: total,
-      orderCategory,
+      orderCategory: "store",
       products,
     };
     const res = await dispatch(holdInvoice(payload));
@@ -126,7 +125,7 @@ const Operations: React.FC<any> = ({
       <div className="w-3/12 pr-10 flex flex-col gap-5  font-semibold">
         <div className="flex ">
           <label className="w-9/12">Sub-Total </label>
-          <label className="w-3/12 whitespace-nowrap">$ {totalPrice}</label>
+          <label className="w-3/12 whitespace-nowrap">$ {totalPrice.toFixed(2)}</label>
         </div>
         <div className="flex ">
           <label className="w-9/12 whitespace-nowrap">Discount </label>
@@ -145,7 +144,7 @@ const Operations: React.FC<any> = ({
         <div className="flex ">
           <div className="w-9/12">
             <label className="_grey-color">Sales Tax </label>
-            <label>{`(${salesTaxCount}%)`} </label>
+            <label>{`(${salesTaxCount.toFixed(2)}%)`} </label>
           </div>
           <label className="w-3/12 whitespace-nowrap">
             $ {salesTax.toFixed(2)}
@@ -160,7 +159,6 @@ const Operations: React.FC<any> = ({
       </div>
       {isCashPayOpen && (
         <CashPay
-          orderCategory={orderCategory}
           selectCustomer={selectCustomer}
           setSelectCustomer={setSelectCustomer}
           salesTax={salesTax}

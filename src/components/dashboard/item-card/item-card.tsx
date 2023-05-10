@@ -5,7 +5,8 @@ import { Button, InputNumber } from "antd";
 import { deleteIcon, noImg } from "../../../assets/images";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {
-  chnageProductQuantity,
+  changeProductPrice,
+  changeProductQuantity,
   decrementProduct,
   deleteSelectedProducts,
   incrementProduct,
@@ -25,7 +26,7 @@ const ItemCard = () => {
         index,
         value,
       };
-      dispatch(chnageProductQuantity(payload));
+      dispatch(changeProductQuantity(payload));
     }
   };
 
@@ -43,16 +44,31 @@ const ItemCard = () => {
     }
   };
 
+  const handlePriceChange = (index: number, value: any) => {
+    if (value > 0) {
+      let payload = {
+        index,
+        value,
+      };
+      dispatch(changeProductPrice(payload));
+    }
+  };
+
   return (
-    <div>
+    <div className="_item-card">
       <div className="w-full flex justify-between">
         <label className="text-xl font-semibold  w-2/4">Items</label>
         <label className="text-xl font-semibold flex justify-center w-1/4">
           Qty
         </label>
-        <label className="text-xl font-semibold flex  w-1/4">Price</label>
+        <label className="text-xl font-semibold flex  w-1/4 justify-center pr-2">
+          Price
+        </label>
+        <label className="text-xl font-semibold flex  w-1/4 _primary-color">
+          Total
+        </label>
       </div>
-      <div className="h-[272px] overflow-auto _custom-scrollbar">
+      <div className="h-[184px] overflow-auto _custom-scrollbar">
         {selectedProducts?.map((item: any, index: number) => (
           <div
             key={index}
@@ -71,7 +87,7 @@ const ItemCard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-1/4">
+            <div className="flex flex-col w-1/4 ">
               <div className="_grey-color text-center">
                 {item?.variants?.stock?.totalQuantity}
               </div>
@@ -102,10 +118,17 @@ const ItemCard = () => {
                 </Button>
               </div>
             </div>
-            <div className=" flex justify-between items-center w-1/4">
+            <div className="_price flex flex-col w-1/4 justify-center items-center mt-2  ">
+              <InputNumber
+                onChange={(value) => handlePriceChange(index, value)}
+                value={item?.variants?.amount}
+                prefix="$"
+              />
+            </div>
+            <div className=" flex justify-between items-center w-1/4 mt-2">
               <div>
                 {/* <p className="_grey-color">$ 103.00</p> */}
-                <p className="shadow px-1 rounded">
+                <p className=" font-semibold _primary-color">
                   $ {(item?.variants?.amount * item?.quantity).toFixed(2)}
                 </p>
               </div>

@@ -14,12 +14,18 @@ export const ROUTE_CONSTANTS = {
   MONTHLY_REPORTS: "monthly-reports",
   NOTIFICATION: "notification",
   ORDERS: "orders",
-  VIEW_ORDERS:'view-orders',
+  VIEW_ORDERS: "view-orders",
   PURCHASE_ORDER: "purchase-order",
   // SETTINGS: "settings",
   EXPENSES: 'expenses',
   SUPPORT: "support",
   ADD_PURCHASE_ORDER: "add-purchase-order",
-  ADMIN_DASHBOARD: "admin-dashboard",
   RECENT_INVOICES: "recent-invoices",
+};
+
+// admin's pages
+export const ADMIN_ROUTES = {
+  ADMIN_DASHBOARD: "admin/dashboard",
+  ADD_SUBSCRIPTION: "admin/add-subscription",
+  SUBSCRIPTIONS_LIST: "admin/subscriptions-list",
 };

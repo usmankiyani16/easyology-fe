@@ -74,7 +74,7 @@ const productsSlice = createSlice({
       const selectedProduct = state.selectedProducts[index];
       selectedProduct.quantity += 1;
     },
-    chnageProductQuantity(state, action) {
+    changeProductQuantity(state, action) {
       const { index, value } = action.payload;
       const selectedProduct = state.selectedProducts[index];
       selectedProduct.quantity = value;
@@ -86,6 +86,11 @@ const productsSlice = createSlice({
     },
     setSelectedProductsToNull(state) {
       state.selectedProducts = [];
+    },
+    changeProductPrice(state, action) {
+      const { index, value } = action.payload;
+      const selectedProduct = state.selectedProducts[index];
+      selectedProduct.variants.amount = value;
     },
   },
   extraReducers: (builder) => {
@@ -109,8 +114,9 @@ export const {
   deleteSelectedProducts,
   incrementProduct,
   decrementProduct,
-  chnageProductQuantity,
-  setSelectedProductsToNull
+  changeProductQuantity,
+  setSelectedProductsToNull,
+  changeProductPrice
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

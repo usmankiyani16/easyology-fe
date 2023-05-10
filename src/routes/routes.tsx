@@ -16,7 +16,7 @@ import Settings from "../components/expenses/expenses";
 import Support from "../components/support/support";
 import MainLayout from "../layout/layout";
 import { UserRole } from "../utils/interfaces";
-import { ROUTE_CONSTANTS } from "./route-constants";
+import { ADMIN_ROUTES, ROUTE_CONSTANTS } from "./route-constants";
 
 //<img src={LoadingSvg} height={200} width={200} alt="LoadingSvg" />
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
@@ -62,6 +62,16 @@ const SupportLazy = Loadable(lazy(() => import("../pages/support/index")));
 const AdminDashboardLazy = Loadable(
   lazy(() => import("../pages/admin/dashboard/index"))
 );
+const AddSubscriptionLazy = Loadable(
+  lazy(
+    () => import("../pages/admin/manage-subscription/add-subscription/index")
+  )
+);
+const SubscriptionsListLazy = Loadable(
+  lazy(
+    () => import("../pages/admin/manage-subscription/subscriptions-list/index")
+  )
+);
 
 const RecentInvoicesLazy = Loadable(
   lazy(() => import("../pages/recent-invoices/index"))
@@ -70,7 +80,7 @@ const RecentInvoicesLazy = Loadable(
 const { role }: any = JSON.parse(localStorage.getItem(UserRole.USER) || "{}");
 let path = "";
 if (role === UserRole.SUPER_ADMIN) {
-  path = "/admin-dashboard";
+  path = "/admin/dashboard";
 } else {
   path = "/dashboard";
 }
@@ -82,14 +92,7 @@ export const routes: any = [
     element: <Navigate to={path} />,
   },
   { path: ROUTE_CONSTANTS.LOGIN, element: <Login /> },
-  {
-    path: ROUTE_CONSTANTS.ADMIN_DASHBOARD,
-    element: (
-      <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
-        <AdminDashboardLazy />
-      </RequireAuth>
-    ),
-  },
+
   {
     path: ROUTE_CONSTANTS.SLASH,
     element: <MainLayout />,
@@ -114,7 +117,7 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
-     
+
       {
         path: ROUTE_CONSTANTS.PURCHASE_ORDER,
         element: (
@@ -252,6 +255,36 @@ export const routes: any = [
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
             <RecentInvoicesLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ADMIN_ROUTES.ADMIN_DASHBOARD,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <AdminDashboardLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ADMIN_ROUTES.SUBSCRIPTIONS_LIST,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <SubscriptionsListLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ADMIN_ROUTES.ADD_SUBSCRIPTION,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <AddSubscriptionLazy />
           </RequireAuth>
         ),
       },

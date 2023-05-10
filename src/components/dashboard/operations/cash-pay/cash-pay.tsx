@@ -29,7 +29,6 @@ const CashPay: React.FC<any> = ({
   setSelectCustomer,
   discount,
   salesTax,
-  orderCategory,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -116,7 +115,7 @@ const CashPay: React.FC<any> = ({
         paidAmount: total,
       },
       paymentType: "cash",
-      orderCategory,
+      orderCategory:'store',
       products,
     };
     if (dueData) {
