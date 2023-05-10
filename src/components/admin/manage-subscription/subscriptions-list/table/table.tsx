@@ -56,7 +56,7 @@ const SubsciptionTable = () => {
 
         if (
           record?.subscriptionStatus?.toLowerCase() === "suspended" ||
-          record?.subscriptionStatus?.toLowerCase() === "cancel"
+          record?.subscriptionStatus?.toLowerCase() === "canceled"
         ) {
           color = "red";
         }
