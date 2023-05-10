@@ -99,6 +99,17 @@ const AddSubscription = () => {
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
+              label="Store Name"
+              name="storeName"
+              rules={[
+                { required: true, message: "Please input your store name!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
               label="Store Address"
               name="storeAddress"
               rules={[
@@ -119,7 +130,7 @@ const AddSubscription = () => {
                 },
               ]}
             >
-              <Input type="number" />
+              <Input min={1} type="number" />
             </Form.Item>
           </Col>
         </Row>
@@ -170,7 +181,7 @@ const AddSubscription = () => {
                 },
               ]}
             >
-              <Input type="number" />
+              <Input min={1} type="number" />
             </Form.Item>
           </Col>
         </Row>
@@ -212,7 +223,7 @@ const AddSubscription = () => {
                 },
               ]}
             >
-              <Input type="number" />
+              <Input min={1} type="number" />
             </Form.Item>
           </Col>
           <Col span={12}></Col>

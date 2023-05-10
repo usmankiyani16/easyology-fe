@@ -1,5 +1,4 @@
 import { Button, Table, Tag } from "antd";
-import React from "react";
 
 const SubsciptionTable = () => {
   const tableColumns = [
@@ -29,7 +28,7 @@ const SubsciptionTable = () => {
           color = "#176e14";
         } else if (record?.subscriptionStatus?.toLowerCase() === "suspended") {
           color = "#f56d3b";
-        } else if (record?.subscriptionStatus?.toLowerCase() === "cancel") {
+        } else if (record?.subscriptionStatus?.toLowerCase() === "canceled") {
           color = "#eb3434";
         } else if (record?.subscriptionStatus?.toLowerCase() === "callback") {
           color = "#575659";
@@ -57,7 +56,7 @@ const SubsciptionTable = () => {
 
         if (
           record?.subscriptionStatus?.toLowerCase() === "suspended" ||
-          record?.subscriptionStatus?.toLowerCase() === "cancel"
+          record?.subscriptionStatus?.toLowerCase() === "canceled"
         ) {
           color = "red";
         }
@@ -115,7 +114,7 @@ const SubsciptionTable = () => {
       storeId: "5786",
       storeName: "Wall Mart",
       subscriptionType: "6 Months",
-      subscriptionStatus: "Cancel",
+      subscriptionStatus: "Canceled",
       subscriptionStartDate: "01-24-2023",
       subscriptionEndDate: "01-30-2023",
       daysPastDue: "7",
