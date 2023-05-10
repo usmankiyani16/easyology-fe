@@ -11,7 +11,7 @@ import {
   expensesIcon,
   supportIcon,
 } from "../../assets/icons";
-import { ROUTE_CONSTANTS } from "../../routes/route-constants";
+import { ADMIN_ROUTES, ROUTE_CONSTANTS } from "../../routes/route-constants";
 import "./sidebar.scss";
 
 export const sidebarData = [
@@ -86,4 +86,19 @@ export const sidebarData = [
   //   label: "Support",
   //   path: ROUTE_CONSTANTS.SUPPORT,
   // },
+];
+
+export const SASidebarData = [
+  {
+    key: 0,
+    icon: <img className="w-7" src={dashboardIcon} alt="dashboard" />,
+    label: "Dashboard",
+    path: ADMIN_ROUTES.ADMIN_DASHBOARD,
+  },
+  {
+    key: 1,
+    icon: <img className="w-7" src={productsIcon} alt="dashboard" />,
+    label: "Manage Subscription",
+    path: ADMIN_ROUTES.SUBSCRIPTIONS_LIST,
+  },
 ];

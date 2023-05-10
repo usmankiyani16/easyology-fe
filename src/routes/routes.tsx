@@ -39,11 +39,17 @@ const PurchaseOrderLazy = Loadable(
 );
 
 const CustomerLazy = Loadable(lazy(() => import("../pages/customer/index")));
-const ViewCustomerLazy = Loadable(lazy(() => import("../pages/customer/view-customers/index")));
-const ViewAllInvoicesLazy = Loadable(lazy(() => import("../pages/customer/view-all-invoices/index")));
+const ViewCustomerLazy = Loadable(
+  lazy(() => import("../pages/customer/view-customers/index"))
+);
+const ViewAllInvoicesLazy = Loadable(
+  lazy(() => import("../pages/customer/view-all-invoices/index"))
+);
 
 const ORDERSLazy = Loadable(lazy(() => import("../pages/orders/index")));
-const VIEWORDERSLazy = Loadable(lazy(() => import("../pages/orders/view-orders/index")));
+const VIEWORDERSLazy = Loadable(
+  lazy(() => import("../pages/orders/view-orders/index"))
+);
 const ExpensesLazy = Loadable(lazy(() => import("../pages/expenses/index")));
 const MonthlyReportsLazy = Loadable(
   lazy(() => import("../pages/monthly-reports/index"))
@@ -154,7 +160,7 @@ export const routes: any = [
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <ViewAllInvoicesLazy/>
+            <ViewAllInvoicesLazy />
           </RequireAuth>
         ),
       },
@@ -174,7 +180,7 @@ export const routes: any = [
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <AccessControlLazy/>
+            <AccessControlLazy />
           </RequireAuth>
         ),
       },
@@ -261,9 +267,7 @@ export const routes: any = [
       {
         path: ADMIN_ROUTES.ADMIN_DASHBOARD,
         element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
+          <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
             <AdminDashboardLazy />
           </RequireAuth>
         ),
@@ -271,9 +275,7 @@ export const routes: any = [
       {
         path: ADMIN_ROUTES.SUBSCRIPTIONS_LIST,
         element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
+          <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
             <SubscriptionsListLazy />
           </RequireAuth>
         ),
@@ -281,9 +283,7 @@ export const routes: any = [
       {
         path: ADMIN_ROUTES.ADD_SUBSCRIPTION,
         element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
+          <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
             <AddSubscriptionLazy />
           </RequireAuth>
         ),
