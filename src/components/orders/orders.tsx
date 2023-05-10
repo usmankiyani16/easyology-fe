@@ -27,8 +27,7 @@ const Orders = () => {
       </div>
 
       <div>
-
-      <OrderCard />
+        <OrderCard />
       </div>
     </div>
   );

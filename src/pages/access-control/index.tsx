@@ -1,5 +1,5 @@
 import React from "react";
-import DailyLedger from "../../components/daily-ledger/daily-ledger";
+import DailyLedger from "../../components/access-control/access-control";
 
 const DailyLedgerPage = () => {
   return (

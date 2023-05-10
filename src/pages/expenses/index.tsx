@@ -1,10 +1,10 @@
 import React from "react";
-import Settings from "../../components/settings/settings";
+import Expenses from "../../components/expenses/expenses";
 
 const SettingsPage = () => {
   return (
     <div>
-      <Settings />
+      <Expenses />
     </div>
   );
 };

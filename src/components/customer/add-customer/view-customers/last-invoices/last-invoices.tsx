@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import "./last-invoices.scss";
 import { Card } from "antd";
 
-
-
 const LastInvoices = () => {
-
   const [applyBorder, setApplyBorder] = useState(false);
 
   useEffect(() => {

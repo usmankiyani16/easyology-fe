@@ -110,7 +110,8 @@ const AddPO = () => {
 
   // Price Validator
 
-  const validatePrice = (
+
+  /* const validatePrice = (
     rule: any,
     value: string,
     callback: (error?: string) => void
@@ -124,11 +125,24 @@ const AddPO = () => {
     } else {
       callback();
     }
+  }; */
+   const validatePrice = (rule: any, value: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const price = parseFloat(value);
+  
+      if (isNaN(price) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
+        reject("Please enter a positive number");
+      } else if (price <= 0) {
+        reject("Price must be greater than zero");
+      } else {
+        resolve();
+      }
+    });
   };
 
   // Quantity Validator
 
-  const validateQuantity = (
+  /* const validateQuantity = (
     rule: any,
     value: string,
     callback: (error?: string) => void
@@ -144,6 +158,22 @@ const AddPO = () => {
     } else {
       callback();
     }
+  }; */
+
+  const validateQuantity = (rule: any, value: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const quantity = parseFloat(value);
+  
+      if (isNaN(quantity) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
+        reject("Please enter a positive number");
+      } else if (quantity <= 0) {
+        reject("Quantity must be greater than zero");
+      } else if (quantity === 0) {
+        reject("Quantity cannot be 0");
+      } else {
+        resolve();
+      }
+    });
   };
 
   const handleOptionChange = (value: any) => {
@@ -502,7 +532,7 @@ const AddPO = () => {
                 },
               ]}
             >
-              <Input className="_input" placeholder="IMEI" />
+              <Input className="_input" placeholder="Serial Number" />
             </Form.Item>
 
             <Form.Item

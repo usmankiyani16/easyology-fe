@@ -6,13 +6,13 @@ import NotFound from "../components/auth/not-found/not-found";
 import RequireAuth from "../components/auth/RequireAuth";
 import Unauthorized from "../components/auth/unauthorized/unauthorized";
 import CashChecker from "../components/cash-checker/cash-checker";
-import DailyLedger from "../components/daily-ledger/daily-ledger";
+import DailyLedger from "../components/access-control/access-control";
 import MonthlyReports from "../components/monthly-reports/monthly-reports";
 import Notification from "../components/notification/notification";
 import Payments from "../components/orders/orders";
 import AddPO from "../components/purchase-order/addpo";
 import PurchaseOrder from "../components/purchase-order/purchase-order";
-import Settings from "../components/settings/settings";
+import Settings from "../components/expenses/expenses";
 import Support from "../components/support/support";
 import MainLayout from "../layout/layout";
 import { UserRole } from "../utils/interfaces";
@@ -44,12 +44,12 @@ const ViewAllInvoicesLazy = Loadable(lazy(() => import("../pages/customer/view-a
 
 const ORDERSLazy = Loadable(lazy(() => import("../pages/orders/index")));
 const VIEWORDERSLazy = Loadable(lazy(() => import("../pages/orders/view-orders/index")));
-const SettingsLazy = Loadable(lazy(() => import("../pages/settings/index")));
+const ExpensesLazy = Loadable(lazy(() => import("../pages/expenses/index")));
 const MonthlyReportsLazy = Loadable(
   lazy(() => import("../pages/monthly-reports/index"))
 );
-const DailyLedgerLazy = Loadable(
-  lazy(() => import("../pages/daily-ledger/index"))
+const AccessControlLazy = Loadable(
+  lazy(() => import("../pages/access-control/index"))
 );
 const CashCheckLazy = Loadable(
   lazy(() => import("../pages/cash-checker/index"))
@@ -166,12 +166,12 @@ export const routes: any = [
         ),
       },
       {
-        path: ROUTE_CONSTANTS.DAILY_LEDGER,
+        path: ROUTE_CONSTANTS.ACCESS_CONTROL,
         element: (
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <DailyLedgerLazy />
+            <AccessControlLazy/>
           </RequireAuth>
         ),
       },
@@ -216,12 +216,12 @@ export const routes: any = [
         ),
       },
       {
-        path: ROUTE_CONSTANTS.SETTINGS,
+        path: ROUTE_CONSTANTS.EXPENSES,
         element: (
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <SettingsLazy />
+            <ExpensesLazy />
           </RequireAuth>
         ),
       },

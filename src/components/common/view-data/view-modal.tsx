@@ -4,9 +4,9 @@ import { Button, Modal } from "antd";
 
 import * as XLSX from "xlsx";
 import { laptopImg } from "../../../assets/images";
-import Line from "../../../assets/images/Line.png";
+import Line from "../../../assets/images/dashboard/Line.png";
 import "../../../sass/modals.scss";
-import PayModal from "./pay-modal";
+import PayModal from "../../purchase-order/po-view-modal/pay-modal";
 import { imageBaseUrl } from "../../../utils/constants";
 import { noImg } from "../../../assets/images";
 

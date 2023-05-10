@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import POCard from "./po-card/po-card";
+import { Link } from "react-router-dom";
+import POCard from "../common/card-po-invoice/po-card";
 import AddPO from "../../assets/icons/layout/AddPO.png";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getPOS } from "../../store/po/po.slice";
@@ -35,11 +35,11 @@ const PurchaseOrder:any = () => {
       {/* <Loader /> */}
       <div className="flex items-center justify-between mt-3">
         <h1 className="font-lato  mt-4 text-[2rem]">Purchase Order</h1>
-        <NavLink to="/add-purchase-order">
+        <Link to="/add-purchase-order">
           <div className="mt-4">
             <img src={AddPO} alt="Add PO logo" className="h-8" />
           </div>
-        </NavLink>
+        </Link>
       </div>
       <div className="_cards">
         {purchaseOrders?.products?.length ? (

@@ -1,15 +1,16 @@
 import {
   checkCashIcon,
-  dailyLedgerIcon,
+  accessControlIcon,
   dashboardIcon,
-  historyIcon,
-  monthlyReportIcon,
+  customerIcon,
+  ReportIcon,
   notificationIcon,
-  paymentsIcon,
+  orderIcon,
   productsIcon,
   purchaseOrderIcon,
-  settingsIcon,
+  expensesIcon,
   supportIcon,
+  
 
 } from "../../assets/icons";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
@@ -38,41 +39,42 @@ export const sidebarData = [
   },
   {
     key: 3,
-    icon: <img className="w-7" src={historyIcon} alt="cutomerIcon" />,
+    icon: <img className="w-7" src={customerIcon} alt="cutomerIcon" />,
     label: "Customers",
     path: ROUTE_CONSTANTS.CUSTOMER,
   },
   {
     key: 4,
-    icon: <img className="w-7" src={paymentsIcon} alt="paymentsIcon" />,
+    icon: <img className="w-7" src={orderIcon} alt="paymentsIcon" />,
     label: "Orders",
     path: ROUTE_CONSTANTS.ORDERS,
   },
+  
   {
     key: 5,
-    icon: <img className="w-7" src={settingsIcon} alt="settingsIcon" />,
-    label: "Settings",
-    path: ROUTE_CONSTANTS.SETTINGS,
+    icon: <img className="w-7" src={checkCashIcon} alt="checkCashIcon" />,
+    label: "Check Cashing",
+    path: ROUTE_CONSTANTS.CASH_CHECKER,
   },
   {
     key: 6,
-    icon: (
-      <img className="w-7" src={monthlyReportIcon} alt="monthlyReportIcon" />
-    ),
-    label: "Monthly Report",
-    path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
+    icon: <img className="w-7" src={expensesIcon} alt="expensesIcon" />,
+    label: "Expenses",
+    path: ROUTE_CONSTANTS.EXPENSES,
   },
   {
     key: 7,
-    icon: <img className="w-7" src={dailyLedgerIcon} alt="dailyLedgerIcon" />,
-    label: "Daily Ledger",
-    path: ROUTE_CONSTANTS.DAILY_LEDGER,
+    icon: (
+      <img className="w-7" src={ReportIcon} alt="ReportIcon" />
+    ),
+    label: "Reports",
+    path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
   },
   {
     key: 8,
-    icon: <img className="w-7" src={checkCashIcon} alt="checkCashIcon" />,
-    label: "Check Cash",
-    path: ROUTE_CONSTANTS.CASH_CHECKER,
+    icon: <img className="w-7" src={accessControlIcon} alt="accessControlIcon" />,
+    label: "Access Control",
+    path: ROUTE_CONSTANTS.ACCESS_CONTROL,
   },
   {
     key: 9,

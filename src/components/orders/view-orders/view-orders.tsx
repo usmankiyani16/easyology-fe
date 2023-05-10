@@ -1,11 +1,15 @@
-import { Button } from 'antd'
-import React from 'react'
-import ViewOrderCard from './view-order-card/view-order-card'
+import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
+
+import ViewOrderCard from "./view-order-card/view-order-card";
 
 const ViewOrders = () => {
+  const navigate = useNavigate();
   return (
     <div>
-
+      <div>
+        <Button onClick={() => navigate(-1)}>Go Back</Button>
+      </div>
       <div className="flex justify-between sm:items-center mt-3">
         <div>
           {" "}
@@ -23,35 +27,29 @@ const ViewOrders = () => {
         </div>
       </div>
 
-
-     
       <div>
         <span>Customer Name:</span>
-        <span> Ali Raza</span>
+        <span className="_grey-color"> Ali Raza</span>
       </div>
-      <div className='flex w-full justify-between items-center grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1'>
-        <div >
-        <span>Contact Number:</span>
-        <span> +9248338383</span>
+      <div className="flex w-full justify-between items-center grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
+        <div>
+          <span>Contact Number:</span>
+          <span className="_grey-color"> +9248338383</span>
         </div>
 
-       {/*  <div className='flex justify-between'>
+        {/*  <div className='flex justify-between grid grid-cols-4'>
+          <span></span>
           <span>QTY</span>
           <span>Price</span>
+          <span>total price</span>
         </div> */}
-        
-
       </div>
-     
 
-
-       <div className='_view-order'>
-        <ViewOrderCard/>
-       </div>
-
-      
+      <div className="_view-order">
+        <ViewOrderCard />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ViewOrders
+export default ViewOrders;

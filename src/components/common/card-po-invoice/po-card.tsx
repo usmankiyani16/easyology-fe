@@ -2,15 +2,14 @@ import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
 import { capitalize } from "../../../utils/functions/functions";
 import "./po-card.scss";
-import Viewmodal from "../po-view-modal/view-modal";
+import Viewmodal from "../view-data/view-modal";
 import dayjs from "dayjs";
 
 interface poCardTypes {
   purchaseOrders: any;
 }
 
-const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name}:any) => {
-  console.log(cardData ,'PO Card data')
+const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
   const [applyBorder, setApplyBorder] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [singlePO, setSinglePO] = useState<any>();
@@ -43,7 +42,6 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name}:any) => {
         />
       )}
       <div className="flex flex-col gap-4 mt-3">
-       
         {cardData?.map((data: any) => (
           <Card key={data?.key} className="_po-card">
             <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
@@ -103,11 +101,11 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name}:any) => {
                 {data?.paymentStatus === "Partially Paid" && (
                   <>
                     <div className="flex text-lg gap-4">
-                      <span className="font-medium _label-grey">
+                      <span className="font-medium _label-grey whitespace-nowrap">
                         Remaining Amount:
                       </span>
                       {
-                        <span className="font-medium ">
+                        <span className="font-medium whitespace-nowrap">
                           $ {data?.remainingAmount}
                         </span>
                       }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button, Modal } from "antd";
 import "../onhold.scss";
-import Line from "../../../../assets/images/Line.png";
+import Line from "../../../../assets/images/dashboard/Line.png";
 // import "../../../sass/modals.scss";
 // import PayModal from "./pay-modal";
 import { imageBaseUrl } from "../../../../utils/constants";
@@ -10,7 +10,7 @@ import { noImg } from "../../../../assets/images";
 import { backButtonIcon } from "../../../../assets/icons";
 import { capitalize } from "../../../../utils/functions/functions";
 import dayjs from "dayjs";
-import download_scanner from "../../../../assets/images/download_scanner.png";
+import download_scanner from "../../../../assets/images/dashboard/download-scanner.png";
 import { useAppDispatch } from "../../../../store/store";
 import { getInvoiceNumber, releaseInvoice } from "../../../../store/order/order-slice";
 

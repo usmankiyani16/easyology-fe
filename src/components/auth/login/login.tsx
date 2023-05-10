@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./login.scss";
 import Login_Logo from "../../../assets/icons/layout/Login_Logo.png";
 import easyology_logo from "../../../assets/icons/layout/easyology_logo.png";
-import cart from "../../../assets/images/Purchase online.png";
+import cart from "../../../assets/images/dashboard/Purchase-online.png";
 
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";

@@ -45,7 +45,6 @@ const CustomersDetail = () => {
             min={1}
             type="string"
             disabled
-          
             value="+92347595821"
 
             // max={item?.variants?.stock?.totalQuantity}
@@ -70,7 +69,6 @@ const CustomersDetail = () => {
             // onChange={(value) => handleChange(index, value)}
           />
         </div>
-        
       </div>
     </div>
   );
