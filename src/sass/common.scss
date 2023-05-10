@@ -6,6 +6,9 @@
 ._primary-color {
   color: $primary-color !important;
 }
+._border-primary-color{
+  border: 2px solid $primary-color !important;
+}
 
 ._bg-primary-color {
   background-color: $primary-color;

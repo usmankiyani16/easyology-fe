@@ -1,6 +1,6 @@
 import { purchaseOrders } from "../../../purchase-order/mock-data/po-data";
 import cart from "../../../../assets/images/dashboard/Purchase-online.png";
-import { Button, Card } from "antd";
+import { Button, Card, Pagination } from "antd";
 import orderDetails from "../../mock-data/view-orders";
 
 const ViewOrderCard = () => {
@@ -9,20 +9,19 @@ const ViewOrderCard = () => {
       <div className="flex flex-col gap-4 mt-3">
         {orderDetails?.products?.map((data: any) => (
           <>
-            <Card>
-              <div className="flex w-full justify-between items-center grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
+            <Card key={data?.key}>
+              <div className="flex text-lg sm:gap-4">
+                <span className="font-medium whitespace-nowrap">
+                  Product Seriol Number:
+                </span>
+                <span className="_primary-color font-semibold">A1223232</span>
+              </div>
+
+              <div className="flex w-full justify-between items-center grid sm:grid-cols-4 xs:grid-cols-1">
                 <div className="flex flex-col justify-between gap-2">
-                  <div className="flex text-lg sm:gap-4">
-                    <span className="font-medium whitespace-nowrap">
-                      Product Seriol Number:
-                    </span>
-                    <span className="_primary-color font-semibold">
-                      A1223232
-                    </span>
-                  </div>
-                  <div className="flex text-lg sm:gap-4">
+                  <div className="flex text-lg sm:gap-4 items-center">
                     <img
-                      className="w-20 h-16 rounded object-cover"
+                      className="w-16 h-12 rounded object-cover"
                       src={cart}
                       alt=""
                     />
@@ -49,6 +48,15 @@ const ViewOrderCard = () => {
           </>
         ))}
       </div>
+      <Pagination
+        //   onChange={handlePagination}
+        className="flex justify-end"
+        defaultCurrent={1}
+        defaultPageSize={8}
+        total={2}
+        showSizeChanger={false}
+      />
+
     </div>
   );
 };

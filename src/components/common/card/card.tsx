@@ -16,9 +16,11 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [singlePO, setSinglePO] = useState<any>();
 
+  console.log(cardData, 'hello')
+
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth > 880) {
+      if (window.innerWidth > 1100) {
         setApplyBorder(true);
       } else {
         setApplyBorder(false);

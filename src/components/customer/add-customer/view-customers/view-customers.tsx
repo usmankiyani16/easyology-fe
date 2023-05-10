@@ -2,13 +2,20 @@ import { Button } from "antd";
 import CustomersDetail from "./customer-details/customers-detail";
 import LastInvoices from "./last-invoices/last-invoices";
 import { Link, useNavigate } from "react-router-dom";
+import { backButtonIcon } from "../../../../assets/icons";
+
 
 const ViewCustomers = () => {
   const navigate = useNavigate();
   return (
     <div className="_view-wrap">
-      <div className="flex justify-end">
-        <Button onClick={() => navigate(-1)}>Go back</Button>
+      <div>
+        <img
+          onClick={() => navigate(-1)}
+          className="h-[25px] w-[25px] cursor-pointer"
+          src={backButtonIcon}
+          alt="back"
+        />
       </div>
 
       <CustomersDetail />

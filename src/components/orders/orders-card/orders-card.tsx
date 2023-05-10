@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Button } from "antd";
+import { Card, Button, Pagination } from "antd";
 
 import ordersData from "../mock-data/orders-data";
 import { NavLink } from "react-router-dom";
@@ -144,6 +144,15 @@ const OrderCard = () => {
           </Card>
         ))}
       </div>
+      <Pagination
+        //   onChange={handlePagination}
+        className="flex justify-end"
+        defaultCurrent={1}
+        defaultPageSize={8}
+        total={2}
+        showSizeChanger={false}
+      />
+
     </div>
   );
 };
