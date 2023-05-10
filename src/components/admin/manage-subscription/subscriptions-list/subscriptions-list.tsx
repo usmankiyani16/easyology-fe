@@ -34,8 +34,10 @@ const SubscriptionsList = () => {
         <Col>
           <Select className="w-[200px]" placeholder="Status">
             <Option value="active">Active</Option>
-            <Option value="inactive">Inactive</Option>
+            <Option value="suspended">Suspended</Option>
+            <Option value="canceled">Canceled</Option>
             <Option value="callback">Call Back</Option>
+            <Option value="pending">Pending</Option>
           </Select>
         </Col>
         <Col className="ml-auto">
