@@ -1,12 +1,14 @@
 import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
 import { capitalize } from "../../../utils/functions/functions";
-import "./po-card.scss";
+import "./card.scss";
 import Viewmodal from "../view-data/view-modal";
 import dayjs from "dayjs";
 
 interface poCardTypes {
-  purchaseOrders: any;
+  cardData: any;
+  Number: string | number;
+  Name: string;
 }
 
 const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {

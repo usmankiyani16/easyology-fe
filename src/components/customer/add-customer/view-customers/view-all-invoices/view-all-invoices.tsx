@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import POCard from "../../../../common/card-po-invoice/po-card";
+import POCard from "../../../../common/card/card";
 import Spinner from "../../../../common/spinner/spinner";
 import { useAppSelector } from "../../../../../store/store";
 import { Button } from "antd";

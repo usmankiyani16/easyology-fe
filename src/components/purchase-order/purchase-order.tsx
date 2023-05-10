@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import POCard from "../common/card-po-invoice/po-card";
+import POCard from "../common/card/card";
 import AddPO from "../../assets/icons/layout/AddPO.png";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getPOS } from "../../store/po/po.slice";
