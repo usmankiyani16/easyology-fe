@@ -81,7 +81,7 @@ const AddPO = () => {
       vendorId: selectedVendor?._id,
       products: formData.concat(newFormData),
     };
-    console.log("newObject", newObject);
+   
     form.resetFields();
     setFile(null);
 

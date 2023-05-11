@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import Card from "../../../../common/card/card";
-import Spinner from "../../../../common/spinner/spinner";
-import { useAppSelector } from "../../../../../store/store";
+import Card from "../../../common/card/card";
+import Spinner from "../../../common/spinner/spinner";
+import { useAppSelector } from "../../../../store/store";
 import { Button, Input, Pagination } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { backButtonIcon } from "../../../../../assets/icons";
+import { backButtonIcon } from "../../../../assets/icons";
+import allInvoices from "./mock-data/all-invoices";
 
 
 
@@ -43,10 +44,10 @@ const ViewAllInvoices = () => {
         </div>
       </div>
       <div className="_cards">
-        {purchaseOrders?.products?.length ? (
+        {allInvoices?.length ? (
           <>
             <Card
-              cardData={purchaseOrders?.products}
+              cardData={allInvoices}
               Number={InvoiceNumber}
               Name={CompanyName}
             />

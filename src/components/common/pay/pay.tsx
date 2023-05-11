@@ -3,14 +3,18 @@ import "../../../sass/modals.scss";
 import { Form, Select, Button, Input } from "antd";
 
 
-const Pay = ({ handleSelect, onFinish, selectedOption }: any) => {
-  return (
+const Pay = ({ onFinish  }: any) => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  function handleSelect(value: any) {
+    setSelectedOption(value);
+  }
+    return (
     <div>
       <Form
         wrapperCol={{ span: 14 }}
         layout="vertical"
         autoComplete="off"
-        className="mt-4 h-64"
+      
         onFinish={onFinish}
       >
         <Form.Item
@@ -30,7 +34,7 @@ const Pay = ({ handleSelect, onFinish, selectedOption }: any) => {
           ]}
         >
           <Select
-            className="_input_field ml-16 w-[700px]"
+            className="_input_field w-[700px]"
             placeholder="Payment Method"
             onChange={handleSelect}
           >
@@ -43,7 +47,7 @@ const Pay = ({ handleSelect, onFinish, selectedOption }: any) => {
         {selectedOption === "check" && (
           <div>
             <Form.Item
-              className="mt-12 ml-16"
+              
               label={<span className="_po_field_label">Check Number</span>}
               name="checkNumber"
               required

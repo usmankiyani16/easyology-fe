@@ -48,6 +48,9 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+.ant-upload-list-item-action-icon {
+  display: none;
+}
 /* for Firefox */
 body::-moz-scrollbar {
   width: 5px;

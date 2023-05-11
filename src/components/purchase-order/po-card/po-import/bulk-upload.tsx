@@ -87,7 +87,7 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
           dataSource={dataSource}
           keys={coloumn}
           vendorId={vendorId}
-        // dataSource={dataSource} columns={coloumn}
+          // dataSource={dataSource} columns={coloumn}
         />
       )}
 
@@ -103,7 +103,9 @@ const BulkUpload: React.FC<any> = ({ vendorId }) => {
             beforeUpload={handleUpload}
             multiple={false}
             maxCount={1}
+          
           >
+
             <Button
               className="className='w-[200px] ml-[68px] mt-10 m-auto"
               icon={<UploadOutlined />}

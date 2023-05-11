@@ -33,11 +33,10 @@ const Login = () => {
     await dispatch(signin(values));
   };
 
-  const onFinishFailed = (errorInfo: any) => { };
+  const onFinishFailed = (errorInfo: any) => {};
   return (
     <>
       <div className="_main-container sm:block">
-
         {/* ----------- Grid 1 in Top Header ------------ */}
 
         <div className="_top-container grid md:grid-cols-2 xs:grid-cols-1">
@@ -112,7 +111,7 @@ const Login = () => {
                 hasFeedback
               >
                 <Input
-                  // sm:w-[320px] sm:h-[35px] 
+                  // sm:w-[320px] sm:h-[35px]
                   className="sm:w-[379px] sm:h-[35px]"
                   placeholder="Enter email address"
                 />
@@ -133,14 +132,17 @@ const Login = () => {
                 hasFeedback
               >
                 <Input.Password
-
                   className="sm:w-[379px] sm:h-[35px]"
                   placeholder="Enter password"
                 />
               </Form.Item>
 
               <Form.Item>
-                <Button type="primary" htmlType="submit" className="mt-4 m-auto">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="mt-4 m-auto"
+                >
                   Submit
                 </Button>
               </Form.Item>

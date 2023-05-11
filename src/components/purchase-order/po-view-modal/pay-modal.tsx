@@ -14,10 +14,7 @@ const PayModal: React.FC<any> = ({
   setViewModalOpen,
 }) => {
   const dispatch = useAppDispatch();
-  const [selectedOption, setSelectedOption] = useState(null);
-  function handleSelect(value: any) {
-    setSelectedOption(value);
-  }
+ 
 
   const onFinish: any = async (values: any) => {
     console.log(values, "Ye values hai");
@@ -58,8 +55,7 @@ const PayModal: React.FC<any> = ({
       >
         <Pay
           onFinish={onFinish}
-          handleSelect={handleSelect}
-          selectedOption={selectedOption}
+         
         />
       </Modal>
     </div>

@@ -212,15 +212,20 @@ const PreviewMax: React.FC<any> = ({
             {/* PO Number : <span className="text-red-500 ml-4"> #456 </span> */}
           </p>
         </div>
+        <div style={{ overflowX: 'auto' }}>
         <Table
           columns={columns}
           dataSource={dataSource1}
           // pagination={{ defaultPageSize: 12, hideOnSinglePage: true }}
           pagination={false}
-          scroll={{ y: 200 }}
+          scroll={{ y: 200 , x: 'max-content' }}
+          className="whitespace-nowrap"
+
+        
         >
           {" "}
         </Table>
+        </div>
 
         <Payment
           dataSource1={dataSource1}

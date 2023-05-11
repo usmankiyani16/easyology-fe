@@ -2,7 +2,7 @@ import { Button } from "antd";
 import CustomersDetail from "./customer-details/customers-detail";
 import LastInvoices from "./last-invoices/last-invoices";
 import { Link, useNavigate } from "react-router-dom";
-import { backButtonIcon } from "../../../../assets/icons";
+import { backButtonIcon } from "../../../assets/icons";
 
 
 const ViewCustomers = () => {

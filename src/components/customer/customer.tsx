@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./customer.scss";
+import addCustomerIcon from "../../assets/icons/dashboard/add-customer.png";
 import { Button, Pagination } from "antd";
 
 import CustomerCard from "./customer-card/customer-card";
@@ -17,12 +18,16 @@ const Customer = () => {
         <div>
           {/* <img src={AddPO} alt="Add PO logo" className="h-8" /> */}
           <Button
-            className="_bg-primary-color _white-color _hover font-medium mt-4"
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
+            onClick={() => setIsModalOpen(true)}
+            className="_bg-primary-color _white-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4 cursor-pointer"
           >
-            Add Customer
+            <img
+              className="flex justify-start"
+              src={addCustomerIcon}
+              alt="addCustomerIcon"
+            />
+
+            <span>Add Customer</span>
           </Button>
         </div>
       </div>

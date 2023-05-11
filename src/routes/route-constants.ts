@@ -18,6 +18,9 @@ export const ROUTE_CONSTANTS = {
   PURCHASE_ORDER: "purchase-order",
   // SETTINGS: "settings",
   EXPENSES: 'expenses',
+  ALL_EXPENSES: 'all-expenses',
+  ADD_EXPENSE :  'add-expense',
+
   SUPPORT: "support",
   ADD_PURCHASE_ORDER: "add-purchase-order",
   RECENT_INVOICES: "recent-invoices",

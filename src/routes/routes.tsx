@@ -18,6 +18,8 @@ import MainLayout from "../layout/layout";
 import { UserRole } from "../utils/interfaces";
 import { ADMIN_ROUTES, ROUTE_CONSTANTS } from "./route-constants";
 
+
+
 //<img src={LoadingSvg} height={200} width={200} alt="LoadingSvg" />
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
   (
@@ -51,6 +53,11 @@ const VIEWORDERSLazy = Loadable(
   lazy(() => import("../pages/orders/view-orders/index"))
 );
 const ExpensesLazy = Loadable(lazy(() => import("../pages/expenses/index")));
+const AllExpensesLazy = Loadable(lazy(() => import("../pages/all-expenses/index")));
+const AddExpensesLazy = Loadable(lazy(() => import("../pages/add-expense/index")));
+
+
+
 const MonthlyReportsLazy = Loadable(
   lazy(() => import("../pages/monthly-reports/index"))
 );
@@ -231,6 +238,26 @@ export const routes: any = [
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
             <ExpensesLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.ALL_EXPENSES,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <AllExpensesLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.ADD_EXPENSE,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <AddExpensesLazy />
           </RequireAuth>
         ),
       },

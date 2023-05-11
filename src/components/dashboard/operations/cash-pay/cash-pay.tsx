@@ -61,7 +61,7 @@ const CashPay: React.FC<any> = ({
   };
 
   const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
+   
     if (date) {
       setShowPay(true);
     } else {
