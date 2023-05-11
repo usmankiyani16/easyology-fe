@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Button, DatePicker } from "antd";
 import moment, { Moment } from "moment";
+import dayjs, { Dayjs } from "dayjs";
 
 const DateRange = () => {
   const [startMonth, setStartMonth] = useState<any>(null);
@@ -14,22 +15,28 @@ const DateRange = () => {
 
   // Validating Dates
 
-  const disabledEndDate = (current: Moment | null) => {
+  const disabledEndDate = (current: Dayjs | null) => {
     if (!startMonth || !current) {
       return false;
     }
 
-    return current.toDate().getTime() < startMonth.toDate().getTime();
+    return current.unix() < startMonth.unix();
   };
 
-  const disabledStartDate = (current: Moment | null) => {
+  const disabledStartDate = (current: Dayjs | null) => {
     if (!current || !endMonth) {
       return false;
     }
 
-    return current.toDate().getTime() > endMonth.toDate().getTime();
+    return current.unix() > endMonth.unix();
   };
 
+  /*  const disabledStartDate = (current: dayjs.Dayjs | null): boolean => {
+    return current ? current.isBefore(dayjs().startOf("day")) : false;
+  }; */
+  // const disabledEndDate = (current: dayjs.Dayjs | null): boolean => {
+  //   return current ? current.isBefore(dayjs().endOf("day")) : false;
+  // };
   return (
     <div>
       <div className="flex justify-center gap-12 items-center text-lg mt-4">
@@ -39,6 +46,7 @@ const DateRange = () => {
             value={startMonth}
             onChange={setStartMonth}
             disabledDate={disabledStartDate}
+            format="DD-MM-YYYY"
           />
         </div>
         <div>
@@ -47,6 +55,7 @@ const DateRange = () => {
             value={endMonth}
             onChange={setEndMonth}
             disabledDate={disabledEndDate}
+            format="DD-MM-YYYY"
           />
         </div>
         <div>
