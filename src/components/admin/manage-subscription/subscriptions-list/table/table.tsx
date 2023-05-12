@@ -1,4 +1,9 @@
 import { Button, Table, Tag } from "antd";
+import { Link } from "react-router-dom";
+import {
+  ADMIN_ROUTES,
+  ROUTE_CONSTANTS,
+} from "../../../../../routes/route-constants";
 
 const SubsciptionTable = () => {
   const tableColumns = [
@@ -69,7 +74,6 @@ const SubsciptionTable = () => {
       dataIndex: "daysPastDue",
       key: "daysPastDue",
       render: (_: any, record: any) => {
-
         return (
           <span style={{ color: record?.daysPastDue > 0 ? "red" : "" }}>
             {record?.daysPastDue}
@@ -83,7 +87,11 @@ const SubsciptionTable = () => {
       key: "nextPaymentDate",
     },
     {
-      render: (text: any) => <Button>View</Button>,
+      render: (text: any) => (
+        <Link to={ROUTE_CONSTANTS.SLASH + ADMIN_ROUTES.VIEW_SUBSCRIPTION}>
+          <Button>View</Button>
+        </Link>
+      ),
     },
   ];
   const dataSource = [
@@ -143,7 +151,9 @@ const SubsciptionTable = () => {
       nextPaymentDate: "06-25-2023",
     },
   ];
-  return <Table pagination={false} dataSource={dataSource} columns={tableColumns} />;
+  return (
+    <Table pagination={false} dataSource={dataSource} columns={tableColumns} />
+  );
 };
 
 export default SubsciptionTable;

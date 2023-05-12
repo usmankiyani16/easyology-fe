@@ -53,7 +53,7 @@ const AllExpenses = () => {
   const pdfRef = useRef(null);
 
   const generatePDF = () => {
-    const { current } = pdfRef;
+    const { current }:any = pdfRef;
 
     if (current) {
       current.updateContainer();
