@@ -16,21 +16,21 @@ export const signin = createAsyncThunk(
       dispatch(setLoading(true));
       const response = await postApi("/user/sign-in", payload);
       if (
-        response?.data?.data?.role &&
-        Object.values(UserRole).includes(response?.data?.data?.role)
+        response?.data?.User?.role &&
+        Object.values(UserRole).includes(response?.data?.User?.role)
       ) {
         let obj = {
-          data: response?.data?.data,
-          token: response?.data?.token,
+          data: response?.data?.User,
           email: response?.data?.data?.email,
-          role: response?.data?.data?.role,
-          accessToken: response?.data?.token?.AccessToken,
+          role: response?.data?.User?.role,
+          accessToken: response?.data?.Authentication?.AccessToken,
+          refreshToken: response?.data?.Authentication?.RefreshToken,
         };
         localStorage.setItem("user", JSON.stringify(obj));
         return response;
       } else {
         Toast("You cannot log in on POS", "error");
-        return rejectWithValue({error:"You cannot log in on POS"});
+        return rejectWithValue({ error: "You cannot log in on POS" });
       }
     } catch (error: any) {
       Toast(error?.response?.data?.error, "error");
@@ -81,7 +81,7 @@ const authSlice = createSlice({
       })
       .addCase(signin.rejected, (state, action: any) => {
         console.log(action?.payload);
-        
+
         state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload?.error;
       });
