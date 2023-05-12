@@ -16,6 +16,7 @@ const Operations: React.FC<any> = ({
   totalPrice,
   selectCustomer,
   setSelectCustomer,
+  onSave,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -71,6 +72,13 @@ const Operations: React.FC<any> = ({
       setSelectCustomer(null);
     }
   };
+
+  // Saving Data ONCLICK
+
+  const handleClick = () => {
+    onSave();
+  };
+
   return (
     <div className="_operations flex justify-between w-full mt-10">
       <div className="flex flex-col gap-10 w-9/12">
@@ -125,7 +133,9 @@ const Operations: React.FC<any> = ({
       <div className="w-3/12 pr-10 flex flex-col gap-5  font-semibold">
         <div className="flex ">
           <label className="w-9/12">Sub-Total </label>
-          <label className="w-3/12 whitespace-nowrap">$ {totalPrice.toFixed(2)}</label>
+          <label className="w-3/12 whitespace-nowrap">
+            $ {totalPrice.toFixed(2)}
+          </label>
         </div>
         <div className="flex ">
           <label className="w-9/12 whitespace-nowrap">Discount </label>
@@ -155,6 +165,16 @@ const Operations: React.FC<any> = ({
           <label className="w-3/12 whitespace-nowrap">
             $ {total.toFixed(2)}
           </label>
+        </div>
+
+        <div className="m-auto _white-color">
+          <Button
+            className="w-32 _primary-button"
+            type="primary"
+            onClick={handleClick}
+          >
+            Save
+          </Button>
         </div>
       </div>
       {isCashPayOpen && (

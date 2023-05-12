@@ -15,6 +15,7 @@ import {
   getHoldInvoices,
   getInvoiceNumber,
 } from "../../store/order/order-slice";
+import OrderStatus from "./order-status/order-status";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,10 @@ const Dashboard = () => {
 
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
+  const [formData, setFormData] = useState({});
+
+
+  
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
   );
@@ -104,6 +109,21 @@ const Dashboard = () => {
     setSelectCustomerValue(null);
   };
 
+
+  // Handling data of Order Status 
+
+  const handleFormChange:any = (newFormData:any) => {
+    setFormData(newFormData);
+  };
+
+  // Saving Data on Save Button
+
+  const handleSave = () => {
+    // Perform save operation with formData
+    console.log(formData);
+  };
+
+
   return (
     <div className="_dashboard">
       <div className="flex gap-3 justify-between ">
@@ -182,10 +202,17 @@ const Dashboard = () => {
       <div className="mt-7">
         <ItemCard />
       </div>
+      <div>
+        <OrderStatus onChange={handleFormChange} />
+      </div>
+
+
       <Operations
         totalPrice={totalPrice}
         selectCustomer={selectCustomer}
         setSelectCustomer={setSelectCustomer}
+        
+        onSave={handleSave}
       />
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { Button, DatePicker } from "antd";
-import moment, { Moment } from "moment";
 import dayjs, { Dayjs } from "dayjs";
 
 const DateRange = () => {

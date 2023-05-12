@@ -116,7 +116,7 @@ const Payment: React.FC<any> = ({
         checkNumber: values?.serial,
         routingNumber: "1231",
         accountNumber: "12313",
-      }
+      };
     }
 
     console.log("payload =============> ", payload);
@@ -135,9 +135,7 @@ const Payment: React.FC<any> = ({
     } else setRemainingPrice(0);
   };
 
-  const handlePriceKeyPress = (
-    e: React.KeyboardEvent<HTMLInputElement>
-  ) => {
+  const handlePriceKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const price = Number(`${enteredPrice}${e.key}`);
     const willExceedTotalPrice = price > totalPrice - remainingPrice;
     const willEqualTotalPrice = price === totalPrice - remainingPrice;
@@ -169,7 +167,6 @@ const Payment: React.FC<any> = ({
     setDueDate(date);
   };
 
-
   return (
     <div>
       <Form form={form} onFinish={handleFinish}>
@@ -198,7 +195,7 @@ const Payment: React.FC<any> = ({
               {/*  ml-[13px] */}
               <p className="_payment_header">Payment Method</p>
             </div>
-            
+
             <div className="flex items-center">
               <Checkbox
                 checked={isPartialChecked}
@@ -216,7 +213,6 @@ const Payment: React.FC<any> = ({
                 <p>Fully Paid</p>
               </Checkbox>{" "}
             </div>
-           
           </div>
           {isPartialChecked && (
             <>

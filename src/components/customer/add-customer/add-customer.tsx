@@ -17,8 +17,6 @@ import { UploadOutlined } from "@ant-design/icons";
 
 const AddCustomer: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [licenseFile, setLicenseFile] = useState<File | null>(null);
-  const [taxFile, setTaxFile] = useState<File | null>(null);
 
   const handleSelect = (value: any) => {
     setSelectedOption(value);
@@ -33,25 +31,6 @@ const AddCustomer: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
         reject("Must be number between 10 to 12 digits");
       } else resolve();
     });
-  };
-
-  const handleLicenseFileChange = (file: File | null) => {
-    setLicenseFile(file);
-
-    if (licenseFile) {
-      message.success("License uploaded successfully");
-    } else {
-      message.error("No license file selected");
-    }
-  };
-  const handleTaxFileChange = (file: File | null) => {
-    setTaxFile(file);
-
-    if (taxFile) {
-      message.success("License uploaded successfully");
-    } else {
-      message.error("No license file selected");
-    }
   };
 
   return (
@@ -170,29 +149,7 @@ const AddCustomer: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
                         placeholder="Enter Last Name"
                       />
                     </Form.Item>
-                    {/*  <Form.Item
-                  className=""
-                  label={<span className="_po_field_label">Store Name</span>}
-                  name="storenumber"
-                  required
-                  tooltip="This is a required field"
-                  rules={[
-                    {
-                      required: true,
 
-                      message: "Required Field",
-                    },
-                    {
-                      pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
-                      message: "Special characters not allowed",
-                    },
-                  ]}
-                >
-                  <Input
-                    className="_input_field w-[300px] h-[40px]"
-                    placeholder="Enter Store Name"
-                  />
-                </Form.Item> */}
                     <Form.Item
                       className=""
                       label={
@@ -234,7 +191,7 @@ const AddCustomer: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
                     <Form.Item
                       className=""
                       label={<span className="_po_field_label">Address</span>}
-                      name="firstname"
+                      name="address"
                       required
                       tooltip="This is a required field"
                       rules={[
@@ -260,7 +217,7 @@ const AddCustomer: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
                           label={
                             <span className="_po_field_label">Store Name</span>
                           }
-                          name="firstname"
+                          name="storename"
                           required
                           tooltip="This is a required field"
                           rules={[
