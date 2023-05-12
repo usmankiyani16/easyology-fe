@@ -31,4 +31,5 @@ export const ADMIN_ROUTES = {
   ADMIN_DASHBOARD: "admin/dashboard",
   ADD_SUBSCRIPTION: "admin/add-subscription",
   SUBSCRIPTIONS_LIST: "admin/subscriptions-list",
+  VIEW_SUBSCRIPTION: "admin/subscriptions-list/view-subscription",
 };

@@ -86,6 +86,15 @@ const SubscriptionsListLazy = Loadable(
   )
 );
 
+const ViewSubscriptionLazy = Loadable(
+  lazy(
+    () =>
+      import(
+        "../pages/admin/manage-subscription/subscriptions-list/view-subscription/index"
+      )
+  )
+);
+
 const RecentInvoicesLazy = Loadable(
   lazy(() => import("../pages/recent-invoices/index"))
 );
@@ -304,6 +313,15 @@ export const routes: any = [
         element: (
           <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
             <SubscriptionsListLazy />
+          </RequireAuth>
+        ),
+      },
+      // ViewSubscriptionLazy
+      {
+        path: ADMIN_ROUTES.VIEW_SUBSCRIPTION,
+        element: (
+          <RequireAuth allowedRoles={[UserRole.SUPER_ADMIN]}>
+            <ViewSubscriptionLazy />
           </RequireAuth>
         ),
       },
