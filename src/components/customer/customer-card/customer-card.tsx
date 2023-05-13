@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Card } from "antd";
 import customerData from "../mock-data/customer";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { ADMIN_ROUTES, ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const CustomerCard = () => {
   return (
@@ -36,11 +37,11 @@ const CustomerCard = () => {
                 </div>
               </div>
 
-              <NavLink to="/view-customer">
+              <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_CUSTOMERS}>
                 <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">
                   <Button>View</Button>
                 </div>
-              </NavLink>
+              </Link>
             </div>
           </Card>
         ))}

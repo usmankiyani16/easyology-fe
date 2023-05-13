@@ -60,7 +60,7 @@ const Profilemodal: React.FC<any> = ({
             className="mt-[50px]"
           >
             <Upload
-              className="ml-4"
+              className=""
               beforeUpload={() => false}
               onChange={(e) => imageUpload(e)}
               action=""
@@ -80,6 +80,7 @@ const Profilemodal: React.FC<any> = ({
             </Upload>
           </Form.Item>
 
+         
           <Form.Item
             label="Username"
             name="Username"
@@ -98,7 +99,7 @@ const Profilemodal: React.FC<any> = ({
             ]}
           >
             <Input
-              className="_input_username  h-[31px] w-[128px] ml-[10px]"
+              className="_input_username  h-[31px] "
               placeholder="Enter Username"
             />
           </Form.Item>

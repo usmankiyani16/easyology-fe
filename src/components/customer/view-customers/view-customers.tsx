@@ -3,6 +3,7 @@ import CustomersDetail from "./customer-details/customers-detail";
 import LastInvoices from "./last-invoices/last-invoices";
 import { Link, useNavigate } from "react-router-dom";
 import { backButtonIcon } from "../../../assets/icons";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 
 const ViewCustomers = () => {
@@ -23,7 +24,7 @@ const ViewCustomers = () => {
       <LastInvoices />
 
       <div>
-        <Link to="/view-all-invoices">
+        <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ALL_INVOICES}>
           <div className="m-auto">
             <Button className="_bg-primary-color _white-color _hover font-medium mt-4">
               View All Invoices

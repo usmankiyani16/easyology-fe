@@ -299,7 +299,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               <Button
                 className="_primary-button"
                 type="primary"
-                htmlType="submit"
+                // htmlType="submit"
                 name="buttonType"
                 value="finalize"
               >

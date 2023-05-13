@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Card, Button, Pagination } from "antd";
 
 import ordersData from "../mock-data/orders-data";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const OrderCard = () => {
   const [applyBorder, setApplyBorder] = useState(false);
@@ -135,11 +136,11 @@ const OrderCard = () => {
 
               {/* -------- Grid 4 ------------ */}
 
-              <NavLink to="/view-orders">
+              <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ORDERS}>
                 <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">
                   <Button>View</Button>
                 </div>
-              </NavLink>
+              </Link>
             </div>
           </Card>
         ))}
