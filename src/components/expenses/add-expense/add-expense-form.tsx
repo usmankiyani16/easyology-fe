@@ -10,12 +10,10 @@ const AddExpenseForm = () => {
 
   const onFinish = (values: any) => {
     const expenseDate = dayjs(values?.expenseDate).format("MM-DD-YYYY");
-    console.log(values, "al",expenseDate  );
+    console.log(values, "al", expenseDate);
     form.resetFields();
     setFile(null);
   };
-
-
 
   return (
     <div className="_customer-details-wrap">
@@ -30,7 +28,9 @@ const AddExpenseForm = () => {
         <div className="flex flex-col ml-1 sm:gap-4">
           <Row className="flex xs:flex-col xs:gap-1 sm:flex-row sm:gap-8">
             <Col xs={4} className="pt-2">
-              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">Expense Date</label>
+              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">
+                Expense Date
+              </label>
             </Col>
 
             <Col xs={10}>
@@ -49,14 +49,16 @@ const AddExpenseForm = () => {
                   },
                 ]}
               >
-                <DatePicker className="w-64 h-[40px] _white-background rounded-xl"/>
+                <DatePicker className="w-64 h-[40px] _white-background rounded-xl" />
               </Form.Item>
             </Col>
           </Row>
 
           <Row className="flex xs:flex-col xs:gap-1 sm:flex-row sm:gap-8">
             <Col xs={4} className="pt-2">
-              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">Expense Description</label>
+              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">
+                Expense Description
+              </label>
             </Col>
 
             <Col xs={18}>
@@ -77,8 +79,6 @@ const AddExpenseForm = () => {
               >
                 {/* <DemoBlock title='根据内容自动调整高度'> */}
                 <TextArea
-                
-                  
                   placeholder="Write description"
                   autoSize={{ minRows: 5, maxRows: 8 }}
                 />
@@ -89,7 +89,9 @@ const AddExpenseForm = () => {
 
           <Row className="flex xs:flex-col xs:gap-1 sm:flex-row sm:gap-8">
             <Col xs={4} className="pt-2">
-              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">Expense Amount</label>
+              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">
+                Expense Amount
+              </label>
             </Col>
 
             <Col xs={10}>
@@ -141,11 +143,13 @@ const AddExpenseForm = () => {
 
           <Row className="flex xs:flex-col xs:gap-1 sm:flex-row sm:gap-8">
             <Col xs={4} className="pt-2">
-              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">Payment Method</label>
+              <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">
+                Payment Method
+              </label>
             </Col>
 
             <Col xs={10}>
-              <Pay />
+              <Pay showButton={false} />
             </Col>
           </Row>
         </div>
