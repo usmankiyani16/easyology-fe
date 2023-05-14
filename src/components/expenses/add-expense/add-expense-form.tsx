@@ -15,6 +15,19 @@ const AddExpenseForm = () => {
     setFile(null);
   };
 
+  // Price Validator
+
+  const validatePrice = (rule: any, value: string) => {
+    const price = parseFloat(value);
+    if (isNaN(price)) {
+      return Promise.reject("Please enter a valid price");
+    } else if (price <= 0) {
+      return Promise.reject("Price must be greater than zero");
+    } else {
+      return Promise.resolve();
+    }
+  };
+
   return (
     <div className="_customer-details-wrap">
       <Form
@@ -99,20 +112,12 @@ const AddExpenseForm = () => {
                 name="expenseAmount"
                 required
                 tooltip="This is a required field"
-                rules={[
-                  {
-                    required: true,
-                    // type: 'email',
-                    message: "Required Field",
-                  },
-                  {
-                    type: "string",
-                  },
-                ]}
+                rules={[{ required: true, validator: validatePrice }]}
               >
                 <Input
                   className="w-64 h-[40px] _white-background _input-border"
                   placeholder="Enter Expense Amount"
+                  type="number"
                 />
               </Form.Item>
             </Col>

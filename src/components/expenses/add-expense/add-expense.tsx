@@ -24,14 +24,7 @@ const AddExpenses = () => {
         <div className="flex justify-between xs:flex-col items-center sm:flex-row">
           {" "}
           <h1 className="font-lato text-[2rem]">Expenses</h1>
-          <div>
-            <Input
-              className="w-44 h-8 mt-2"
-              prefix={<SearchOutlined />}
-              placeholder="Search Customer"
-              onChange={(event) => searchProduct(event.target.value)}
-            />
-          </div>
+          
         </div>
      
 

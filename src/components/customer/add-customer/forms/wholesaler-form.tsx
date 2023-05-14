@@ -262,8 +262,9 @@ const WholeSalerForm = ({
                     <Upload
                       //   className="_input_field w-[600px] h-[70px]"
                       beforeUpload={() => false}
-                      onChange={(e) => ali(e)}
+                      // onChange={(e) => ali(e)}
                       // onChange={(e) => handleTaxIdUpload(e)}
+                      onChange={(e) => imageUpload(e)}
                       action=""
                       listType="picture-card"
                       multiple={false}
