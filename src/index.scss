@@ -51,6 +51,9 @@ body::-webkit-scrollbar-thumb {
 .ant-upload-list-item-action-icon {
   display: none;
 }
+.ant-checkbox-wrapper + .ant-checkbox-wrapper {
+  margin-inline-start: 0px;
+}
 /* for Firefox */
 body::-moz-scrollbar {
   width: 5px;

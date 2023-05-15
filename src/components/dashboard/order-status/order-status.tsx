@@ -1,5 +1,5 @@
 import { SetStateAction, useState } from "react";
-import { Select, Form, Checkbox, Input, Button } from "antd";
+import { Select, Form, Checkbox, Input, Button, Row, Col } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
 const CheckboxGroup = Checkbox.Group;
@@ -10,7 +10,6 @@ const OrderStatus = ({ onChange }: any) => {
 
   const [selectedValues, setSelectedValues] = useState("");
   const [addressValues, setAddressValues] = useState("");
-  
 
   // const [selectedOption, setSelectedOption] = useState("cash");
 
@@ -50,7 +49,7 @@ const OrderStatus = ({ onChange }: any) => {
   };
 
   return (
-    <div>
+    <div className="_order-wrap mt-4">
       <Form
         // labelCol={{ span: 4 }}
         // wrapperCol={{ span: 14 }}
@@ -62,172 +61,191 @@ const OrderStatus = ({ onChange }: any) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
-        <div>
-          <Form.Item
-            label="Order Status"
-            name="customerType"
-            required
-            tooltip={
-              <span className="_po_field_label">This is a required field</span>
-            }
-            rules={[
-              {
-                required: true,
-                // type: 'email',
-                message: <span>Required field</span>,
-              },
-            ]}
-          >
-            <Select
-              className="_input_field"
-              placeholder="Select Order type"
-              onChange={handleSelect}
-              style={{ width: "200px" }}
-              //   prefix={SearchOutlined}
-            >
-              <Select.Option value="Pickup from Store">
-                Pickup from Store
-              </Select.Option>
-              <Select.Option value="Waiting to be delivered">
-                Waiting to be delivered
-              </Select.Option>
-              <Select.Option value="Waiting to be shipped">
-                Waiting to be shipped
-              </Select.Option>
-            </Select>
-          </Form.Item>
-        </div>
+        <Row className="flex xs:flex-col md:flex-row">
+          <Col xs={3}>
+            <label className="whitespace-nowrap">Order Status</label>
+          </Col>
 
-        {/*---------------------- Pickup from Store Status Checked -------------------------- */}
-
-        {selectedOption === "Pickup from Store" && (
-          <div className="flex xs:flex-col md:flex-row md:gap-4">
-            <Checkbox
-              checked={selectedValues === "10AM - 2PM"}
-              onChange={() => handleCheckboxChange("10AM - 2PM")}
+          <Col xs={3}>
+            <Form.Item
+              name="customerType"
+              required
+              tooltip={
+                <span className="_po_field_label">
+                  This is a required field
+                </span>
+              }
+              rules={[
+                {
+                  required: true,
+                  // type: 'email',
+                  message: <span>Required field</span>,
+                },
+              ]}
             >
-              10AM - 2PM
-            </Checkbox>
-            <Checkbox
-              checked={selectedValues === "2PM - 4PM"}
-              onChange={() => handleCheckboxChange("2PM - 4PM")}
-            >
-              2PM - 4PM
-            </Checkbox>
-            <Checkbox
-              checked={selectedValues === "4PM - 6PM"}
-              onChange={() => handleCheckboxChange("4PM - 6PM")}
-            >
-              4PM - 6PM
-            </Checkbox>
-          </div>
-        )}
-
-        {/*---------------------- Delivery Status Checked -------------------------- */}
-
-        {(selectedOption === "Waiting to be delivered" ||
-          selectedOption === "Waiting to be shipped") && (
-          <div className="flex xs:flex-col md:flex-row gap-4">
-            <div>
-              <Checkbox
-                checked={addressValues === "Store Address"}
-                onChange={() => handleAddressChange("Store Address")}
+              <Select
+                className="_input_field"
+                placeholder="Select Order type"
+                onChange={handleSelect}
+                style={{ width: "200px" }}
+                //   prefix={SearchOutlined}
               >
-                Store Address
-              </Checkbox>
-              <Checkbox
-                checked={addressValues === "Add Different Address"}
-                onChange={() => handleAddressChange("Add Different Address")}
-              >
-                Add Different Address
-              </Checkbox>
+                <Select.Option value="Pickup from Store">
+                  Pickup from Store
+                </Select.Option>
+                <Select.Option value="Waiting to be delivered">
+                  Waiting to be delivered
+                </Select.Option>
+                <Select.Option value="Waiting to be shipped">
+                  Waiting to be shipped
+                </Select.Option>
+              </Select>
+            </Form.Item>
 
-              <br />
-              <div className="w-44 mt-2">
-                {addressValues === "Store Address" && (
-                  <span>{dummyAddress}</span>
-                )}
+            {/*---------------------- Pickup from Store Status Checked -------------------------- */}
 
-                {/*---------------------- Add Different Address Status Checked -------------------------- */}
-
-                {addressValues === "Add Different Address" && (
-                  <div>
-                    <Form.Item
-                      className=""
-                      label={
-                        <span className="_po_field_label">Store Address:</span>
-                      }
-                      name="storeAddress"
-                      required
-                      tooltip={
-                        <span className="_po_field_label">
-                          This is a required field
-                        </span>
-                      }
-                      rules={[
-                        {
-                          required: true,
-                          // type: 'email',
-                          message: <span>Required field</span>,
-                        },
-                      ]}
-                    >
-                      <Input
-                        className="_input_field md:w-[600px] h-[35px]"
-                        placeholder="Enter Address"
-                      />
-                    </Form.Item>
-                    <div className="xs:w-[280px] md:w-[600px] grid xs:grid-cols-2 md:grid-cols-3 gap-6">
-                      <Form.Item
-                        className=""
-                        label={<span className="_po_field_label">City:</span>}
-                        name="city"
-                      >
-                        <Input
-                          className="_input_field h-[35px]"
-                          placeholder="City"
-                        />
-                      </Form.Item>
-                      <Form.Item
-                        label={<span className="_po_field_label">State</span>}
-                        name="state"
-                      >
-                        <Select
-                          className="_input_field h-[35px] md:200px"
-                          placeholder="Select State"
-                          //   onChange={handleSelect}
-
-                          //   prefix={SearchOutlined}
-                        >
-                          <Select.Option value="USA">USA</Select.Option>
-                          <Select.Option value="Waiting to be delivered">
-                            North Side
-                          </Select.Option>
-                          <Select.Option value="Waiting to be shipped">
-                            East Side
-                          </Select.Option>
-                        </Select>
-                      </Form.Item>
-                      <Form.Item
-                        className=""
-                        label={
-                          <span className="_po_field_label">Zip Code</span>
-                        }
-                        name="zipcode"
-                      >
-                        <Input
-                          className="_input_field h-[35px]"
-                          placeholder="Enter Zip Code"
-                          type="number"
-                        />
-                      </Form.Item>
-                    </div>
-                  </div>
-                )}
+            {selectedOption === "Pickup from Store" && (
+              <div className="flex flex-col whitespace-nowrap">
+                <Checkbox
+                  checked={selectedValues === "10AM - 2PM"}
+                  onChange={() => handleCheckboxChange("10AM - 2PM")}
+                  // className="ml-[8px]"
+                >
+                  10AM - 2PM
+                </Checkbox>
+                <Checkbox
+                  checked={selectedValues === "2PM - 4PM"}
+                  onChange={() => handleCheckboxChange("2PM - 4PM")}
+                >
+                  2PM - 4PM
+                </Checkbox>
+                <Checkbox
+                  checked={selectedValues === "4PM - 6PM"}
+                  onChange={() => handleCheckboxChange("4PM - 6PM")}
+                >
+                  4PM - 6PM
+                </Checkbox>
               </div>
-            </div>
-          </div>
-        )}
+            )}
+
+            {/*---------------------- Delivery Status Checked -------------------------- */}
+
+            {(selectedOption === "Waiting to be delivered" ||
+              selectedOption === "Waiting to be shipped") && (
+              <div className="flex xs:flex-col md:flex-row gap-4">
+                <div>
+                  <div className="flex gap-4 whitespace-nowrap">
+                    <Checkbox
+                      checked={addressValues === "Store Address"}
+                      onChange={() => handleAddressChange("Store Address")}
+                      
+                    >
+                      Store Address
+                    </Checkbox>
+                    <Checkbox
+                      checked={addressValues === "Add Different Address"}
+                      onChange={() =>
+                        handleAddressChange("Add Different Address")
+                      }
+                    >
+                      Add Different Address
+                    </Checkbox>
+                  </div>
+
+                  <br />
+                  <div className="w-44 mt-2 flex">
+                    {addressValues === "Store Address" && (
+                      <span>{dummyAddress}</span>
+                    )}
+
+                    {/*---------------------- Add Different Address Status Checked -------------------------- */}
+
+                    {addressValues === "Add Different Address" && (
+                      <div>
+                        <Form.Item
+                          className=""
+                          label={
+                            <span className="_po_field_label">
+                              Store Address:
+                            </span>
+                          }
+                          name="storeAddress"
+                          required
+                          tooltip={
+                            <span className="_po_field_label">
+                              This is a required field
+                            </span>
+                          }
+                          rules={[
+                            {
+                              required: true,
+                              // type: 'email',
+                              message: <span>Required field</span>,
+                            },
+                          ]}
+                        >
+                          <Input
+                            className="_input_field md:w-[600px] h-[35px]"
+                            placeholder="Enter Address"
+                          />
+                        </Form.Item>
+                        <div className="xs:w-[280px] md:w-[600px] grid xs:grid-cols-2 md:grid-cols-3 gap-6">
+                          <Form.Item
+                            className=""
+                            label={
+                              <span className="_po_field_label">City:</span>
+                            }
+                            name="city"
+                          >
+                            <Input
+                              className="_input_field h-[35px]"
+                              placeholder="City"
+                            />
+                          </Form.Item>
+                          <Form.Item
+                            label={
+                              <span className="_po_field_label">State</span>
+                            }
+                            name="state"
+                          >
+                            <Select
+                              className="_input_field h-[35px] md:200px"
+                              placeholder="Select State"
+                              //   onChange={handleSelect}
+
+                              //   prefix={SearchOutlined}
+                            >
+                              <Select.Option value="USA">USA</Select.Option>
+                              <Select.Option value="Waiting to be delivered">
+                                North Side
+                              </Select.Option>
+                              <Select.Option value="Waiting to be shipped">
+                                East Side
+                              </Select.Option>
+                            </Select>
+                          </Form.Item>
+                          <Form.Item
+                            className=""
+                            label={
+                              <span className="_po_field_label">Zip Code</span>
+                            }
+                            name="zipcode"
+                          >
+                            <Input
+                              className="_input_field h-[35px]"
+                              placeholder="Enter Zip Code"
+                              type="number"
+                            />
+                          </Form.Item>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </Col>
+        </Row>
 
         <div className="flex justify-center mt-16">
           <Form.Item>

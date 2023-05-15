@@ -16,7 +16,7 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [singlePO, setSinglePO] = useState<any>();
 
-  console.log(cardData, 'hello')
+  console.log(cardData, "hello");
 
   useEffect(() => {
     function handleResize() {
@@ -64,8 +64,10 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
                 <div className="flex text-lg gap-4">
                   <span className="font-medium">{Name}:</span>
                   <span className="font-medium _label-grey">
-                    {data?.vendor[0]?.name && capitalize(data?.vendor[0]?.name ?? "")}
-                    {data?.vendor[0]?.companyName && capitalize(data?.vendor[0]?.companyName ?? "")}
+                    {data?.vendor[0]?.name &&
+                      capitalize(data?.vendor[0]?.name ?? "")}
+                    {data?.vendor[0]?.companyName &&
+                      capitalize(data?.vendor[0]?.companyName ?? "")}
                   </span>
                 </div>
               </div>
