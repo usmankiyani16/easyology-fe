@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./customer.scss";
 import addCustomerIcon from "../../assets/icons/dashboard/add-customer.png";
 import { Button, Pagination } from "antd";
 
 import CustomerCard from "./customer-card/customer-card";
 import AddCustomer from "./add-customer/add-customer";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getCustomers } from "../../store/customers/customers.slice";
 
 const Customer = () => {
+  const { customers } = useAppSelector((state) => state.customers);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getCustomers());
+  }, []);
   return (
     <div className="_customer-wrapper">
       <div className="flex items-center justify-between mt-3">
