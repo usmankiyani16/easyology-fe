@@ -40,6 +40,10 @@ const OrderStatus = ({ onChange }: any) => {
       values.customerType === "Waiting to be shipped"
     ) {
       values.storeAddressCheck = addressValues;
+      if (values.storeAddressCheck=== 'Store Address') {
+        values.storeAddress = dummyAddress
+      }
+    
     }
     console.log(values, "order");
   };
@@ -138,7 +142,6 @@ const OrderStatus = ({ onChange }: any) => {
                     <Checkbox
                       checked={addressValues === "Store Address"}
                       onChange={() => handleAddressChange("Store Address")}
-                      
                     >
                       Store Address
                     </Checkbox>
