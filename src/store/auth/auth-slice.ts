@@ -8,6 +8,8 @@ import { UserRole } from "../../utils/interfaces";
 type SigninPayload = {
   email: string;
   password: string;
+  deviceId?: string;
+  otp?: string;
 };
 export const signin = createAsyncThunk(
   "auth/signin",
@@ -15,25 +17,36 @@ export const signin = createAsyncThunk(
     try {
       dispatch(setLoading(true));
       const response = await postApi("/user/sign-in", payload);
+      console.log('response?.data?.message',response?.data);
+      
       if (
-        response?.data?.User?.role &&
-        Object.values(UserRole).includes(response?.data?.User?.role)
+        response?.data?.message ==
+        "New device detected! Please verify the OTP sent to your mail."
       ) {
-        let obj = {
-          data: response?.data?.User,
-          email: response?.data?.data?.email,
-          role: response?.data?.User?.role,
-          accessToken: response?.data?.Authentication?.AccessToken,
-          refreshToken: response?.data?.Authentication?.RefreshToken,
-        };
-        localStorage.setItem("user", JSON.stringify(obj));
+        Toast(response?.data?.message);
         return response;
       } else {
-        Toast("You cannot log in on POS", "error");
-        return rejectWithValue({ error: "You cannot log in on POS" });
+        if (
+          response?.data?.User?.role &&
+          Object.values(UserRole).includes(response?.data?.User?.role)
+        ) {
+          let obj = {
+            data: response?.data?.User,
+            email: response?.data?.User?.email,
+            role: response?.data?.User?.role,
+            accessToken: response?.data?.Authentication?.AccessToken,
+            refreshToken: response?.data?.Authentication?.RefreshToken,
+            deviceId: response?.data?.User?.deviceId,
+          };
+          localStorage.setItem("user", JSON.stringify(obj));
+          return response;
+        } else {
+          Toast("You cannot log in on POS", "error");
+          return rejectWithValue({ error: "You cannot log in on POS" });
+        }
       }
     } catch (error: any) {
-      Toast(error?.response?.data?.error, "error");
+      Toast(error?.response?.data?.message, "error");
       return rejectWithValue(error?.response?.data);
     } finally {
       dispatch(setLoading(false));
