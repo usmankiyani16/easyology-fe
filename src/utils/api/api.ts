@@ -9,9 +9,6 @@ const baseURL = "https://0bkj8hawb6.execute-api.us-east-1.amazonaws.com/qa/api";
 
 const api: AxiosInstance = axios.create({
   baseURL,
-  headers: {
-    "X-accessType": "pos",
-  },
 });
 
 // Authorization header with the access token
