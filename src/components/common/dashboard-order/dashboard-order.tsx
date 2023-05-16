@@ -27,6 +27,7 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
   const [formData, setFormData] = useState({});
+  const [selectedOption, setSelectedOption] = useState();
 
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
@@ -120,6 +121,9 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
     console.log(formData);
   };
 
+  const handleSelect = (value: any) => {
+    setSelectedOption(value);
+  };
   return (
     <div className="_dashboard">
       <div className="flex gap-3 justify-between ">
@@ -182,6 +186,26 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
           </AutoComplete>
           <img src={scannerIcon} alt="scanner" />
         </div>
+
+        {showOrderStatus && (
+          <div>
+            <Select
+              className="_input_field"
+              placeholder="Select Order type"
+              onChange={handleSelect}
+              style={{ width: "200px" }}
+              //   prefix={SearchOutlined}
+            >
+              <Select.Option value="Order by phone">
+                Order by phone
+              </Select.Option>
+              <Select.Option value="Order in store">
+                Order in store
+              </Select.Option>
+            </Select>
+          </div>
+        )}
+
         <div className="flex items-center gap-3 self-start">
           <Button
             disabled={holdInvoices?.pagination?.totalCount === 0}
@@ -199,14 +223,16 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
         <ItemCard />
       </div>
 
-      {showOrderStatus  && (
-        <div>
-          <OrderStatus
-            onChange={handleFormChange}
-            
-          />
-        </div>
+      {showOrderStatus && (
+        <>
+          {selectedOption === "Order by phone" && (
+            <div>
+              <OrderStatus onChange={handleFormChange} />
+            </div>
+          )}
+        </>
       )}
+
 
       <Operations
         totalPrice={totalPrice}
@@ -215,6 +241,7 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
         onSave={handleSave}
         showOrderStatus={showOrderStatus}
       />
+    
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );

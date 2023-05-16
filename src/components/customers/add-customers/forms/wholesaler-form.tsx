@@ -24,10 +24,11 @@ const WholeSalerForm = ({
   const [showUpload, setShowUpload] = useState(true);
   const [taxIdFile, setTaxIdFile] = useState(true);
 
-  const imageUpload = async (e: any) => {
+  const imageUpload = async (e: any, state?:any) => {
     const file = e?.file;
     delete file?.uid;
     setShowUpload(!showUpload);
+    
   };
   const ali = async (e: any) => {
     const file = e?.file;
@@ -235,7 +236,7 @@ const WholeSalerForm = ({
                     <Upload
                       className="w-full h-full"
                       beforeUpload={() => false}
-                      onChange={(e) => imageUpload(e)}
+                      onChange={(e) => imageUpload(e, 'drivingLicense')}
                       action=""
                       listType="picture-card"
                       multiple={false}
