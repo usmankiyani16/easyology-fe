@@ -1,9 +1,12 @@
 import React, { useRef } from "react";
 import { Button, Input, Pagination } from "antd";
 import exportIcon from "../../../../assets/icons/dashboard/export-Icon.png";
+
 import AllExpenseCard from "./all-expenses-card/all-expenses-card";
 import expense from "../../mock-data/expense";
+
 import { SearchOutlined } from "@ant-design/icons";
+
 import {
   PDFViewer,
   PDFDownloadLink,
@@ -12,48 +15,15 @@ import {
   View,
   Document,
   StyleSheet,
+  Image,
 } from "@react-pdf/renderer";
-
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    padding: "20px",
-  },
-  header: {
-    marginBottom: "20px",
-  },
-  heading: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    marginBottom: "10px",
-    color: "red",
-    textAlign: "center",
-  },
-  table: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: "20px",
-    border: "2px solid red",
-  },
-  tableCell: {
-    width: "50%",
-    padding: "6px",
-  },
-
-  tablehead: {
-    color: "green",
-  },
-  tableValues: {
-    color: "grey",
-  },
-});
+import ExpensePDF from "./expense-report/expense-report";
 
 const AllExpenses = () => {
   const pdfRef = useRef(null);
 
   const generatePDF = () => {
-    const { current }:any = pdfRef;
+    const { current }: any = pdfRef;
 
     if (current) {
       current.updateContainer();
@@ -64,49 +34,29 @@ const AllExpenses = () => {
   const searchProduct = (value: any) => {
     console.log(value);
   };
-  const ExpensePDF = () => (
-    
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <View style={styles.header}>
-          <Text style={styles.heading}>Expenses Month Details</Text>
-        </View>
-        <View style={styles.table}>
-          {Object.entries(expense).map(([key, value], index) => (
-            <View key={key} style={styles.tableCell}>
-              <Text style={styles.tablehead}>
-                Seriol Number: <Text style={styles.tableValues}>{index}</Text>
-              </Text>
 
-              <Text style={styles.tablehead}>
-                Month:<Text style={styles.tableValues}>{value?.month}</Text>
-              </Text>
+  const companyName = "Easyology Center";
 
-              <Text style={styles.tablehead}>
-                Number of Expense:
-                <Text style={styles.tableValues}>{value?.totalExpense}</Text>
-              </Text>
-              <Text style={styles.tablehead}>
-                Total Expense Amount:
-                <Text style={styles.tableValues}>
-                  $ {value?.totalExpenseAmount}
-                </Text>
-              </Text>
-              <Text style={styles.tablehead}>
-                Date:<Text style={styles.tableValues}> {value?.date}</Text>
-              </Text>
-              <View>
-                <Text style={styles.tablehead}>
-                  Description:
-                  <Text style={styles.tableValues}> {value?.expenseDesc}</Text>
-                </Text>
-              </View>
-            </View>
-          ))}
-        </View>
-      </Page>
-    </Document>
-  );
+  const expenses = [
+    {
+      month: "January 2023",
+      totalExpense: 5,
+      totalExpenseAmount: 500,
+      date: "2023-01-31",
+      expenseDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    },
+    {
+      month: "February 2023",
+      totalExpense: 3,
+      totalExpenseAmount: 300,
+      date: "2023-02-28",
+      expenseDesc:
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+    // Add more expense objects as needed
+  ];
+
+  // Render the MonthlyExpenseReport component
 
   return (
     <div>
@@ -145,9 +95,14 @@ const AllExpenses = () => {
         <AllExpenseCard expense={expense} />
       </div>
 
-      {/*  <PDFViewer style={{ width: "100%", height: "600px" }} ref={pdfRef}>
+      {/* <PDFViewer style={{ width: "100%", height: "600px" }} ref={pdfRef}>
         <ExpensePDF />
       </PDFViewer> */}
+
+      <div className='m-auto flex justify-center gap-4 text-2xl mt-2'>
+        <span>Total Expenses  </span> 
+        <span className="_primary-color"> $1400</span>
+      </div>
       <div>
         <Pagination
           //   onChange={handlePagination}

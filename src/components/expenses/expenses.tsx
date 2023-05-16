@@ -36,6 +36,8 @@ const Expenses = () => {
         <ExpenseCard />
       </div>
 
+      
+
       <Pagination
         //   onChange={handlePagination}
         className="flex justify-end"

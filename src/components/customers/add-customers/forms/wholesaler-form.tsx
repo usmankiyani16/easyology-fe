@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../../../sass/modals.scss";
 import uploadIcon from "../../../../assets/icons/layout/upload-icon.png";
+import "./forms.scss";
 
 import {
   Button,
@@ -21,20 +22,19 @@ const WholeSalerForm = ({
   validateMobileNumber,
   handleSelect,
 }: any) => {
-  const [showUpload, setShowUpload] = useState(true);
-  const [taxIdFile, setTaxIdFile] = useState(true);
+  const [showDrivingLicence, setshowDrivingLicence] = useState(true);
+  const [showtaxIdFile, setShowTaxIdFile] = useState(true);
 
-  const imageUpload = async (e: any, state?:any) => {
+  const imageUpload = async (e: any, state?: any) => {
     const file = e?.file;
     delete file?.uid;
-    setShowUpload(!showUpload);
-    
+    if (state === "drivingLicense") {
+      setshowDrivingLicence(!showDrivingLicence);
+    } else {
+      setShowTaxIdFile(!showtaxIdFile);
+    }
   };
-  const ali = async (e: any) => {
-    const file = e?.file;
-    delete file?.uid;
-    setTaxIdFile(!taxIdFile);
-  };
+
   //   const imageUpload2 = async (e: any) => {
   //     const file = e?.file;
   //     delete file?.uid;
@@ -202,7 +202,6 @@ const WholeSalerForm = ({
                     />
                   </Form.Item>
                   <Form.Item
-                    className=""
                     label={
                       <span className="_po_field_label">Tax Identificaion</span>
                     }
@@ -229,14 +228,16 @@ const WholeSalerForm = ({
                 </div>
                 <div className="grid xs:grid-cols-1 md:grid-cols-2 md:gap-4">
                   <Form.Item
-                    label={<span className="_po_field_label">Driving License</span>}
+                    label={
+                      <span className="_po_field_label">Driving License</span>
+                    }
                     name="drivinglicense"
                     valuePropName="drivinglicense"
                   >
                     <Upload
-                      className="w-full h-full"
+                      className="alin"
                       beforeUpload={() => false}
-                      onChange={(e) => imageUpload(e, 'drivingLicense')}
+                      onChange={(e) => imageUpload(e, "drivingLicense")}
                       action=""
                       listType="picture-card"
                       multiple={false}
@@ -246,7 +247,7 @@ const WholeSalerForm = ({
                       }}
                       accept="image/*"
                     >
-                      {showUpload && (
+                      {showDrivingLicence && (
                         <div>
                           <img src={uploadIcon} alt="" />
                         </div>
@@ -265,7 +266,7 @@ const WholeSalerForm = ({
                       beforeUpload={() => false}
                       // onChange={(e) => ali(e)}
                       // onChange={(e) => handleTaxIdUpload(e)}
-                      onChange={(e) => imageUpload(e)}
+                      onChange={(e) => imageUpload(e, "taxId")}
                       action=""
                       listType="picture-card"
                       multiple={false}
@@ -275,7 +276,7 @@ const WholeSalerForm = ({
                       }}
                       accept="image/*"
                     >
-                      {showUpload && (
+                      {showtaxIdFile && (
                         <div>
                           <img src={uploadIcon} alt="" />
                         </div>
