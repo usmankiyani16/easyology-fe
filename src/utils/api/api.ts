@@ -3,7 +3,7 @@ import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "../../components/common/toast/toast";
 
-const baseURL = "https://ob3sjdtack.execute-api.us-east-1.amazonaws.com/qa/api";
+const baseURL = "https://0bkj8hawb6.execute-api.us-east-1.amazonaws.com/qa/api";
 
 // const baseURL =
 // //   "https://01hj7ks3ih.execute-api.us-east-1.amazonaws.com/dev/api";
