@@ -28,8 +28,11 @@ const AddPO = () => {
     (state) => state.catogaries
   );
 
+  console.log(catogaries , 'categories')
   const { importModalOpen } = useAppSelector((state) => state.purchaseOrders);
   const { vendors } = useAppSelector((state) => state.vendors);
+
+  console.log(vendors, 'venderos')
   const [venderValue, setVenderValue] = useState<any>("");
 
   const { image } = useAppSelector((state) => state.media);
