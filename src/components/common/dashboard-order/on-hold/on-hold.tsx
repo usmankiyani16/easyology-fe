@@ -1,12 +1,12 @@
 import { Button, Card, Input, InputNumber, Modal, Pagination } from "antd";
 import React, { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { capitalize } from "../../../utils/functions/functions";
+import { capitalize } from "../../../../utils/functions/functions";
 import "./onhold.scss";
 import OnHoldInvoice from "./on-hold-invoice/onhold-invoice";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { getProducts } from "../../../store/products/products-slice";
-import { getHoldInvoices } from "../../../store/order/order-slice";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { getProducts } from "../../../../store/products/products-slice";
+import { getHoldInvoices } from "../../../../store/order/order-slice";
 
 const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
   const dispatch = useAppDispatch();

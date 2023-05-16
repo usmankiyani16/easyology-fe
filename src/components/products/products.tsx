@@ -22,6 +22,8 @@ const Products = () => {
     (state) => state.catogaries
   );
   const { products, status } = useAppSelector((state) => state.products);
+
+  console.log(products, "prod")
   const categoryChange = (value: string) => {
     form.resetFields(["subCategory"]);
     let queryParam: any = {};

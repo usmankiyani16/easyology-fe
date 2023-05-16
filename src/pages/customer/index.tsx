@@ -1,5 +1,5 @@
 import React from 'react'
-import Customer from '../../components/customer/customer'
+import Customer from '../../components/customers/customers'
 
 const index = () => {
   return (

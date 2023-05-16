@@ -49,6 +49,7 @@ const ViewAllInvoicesLazy = Loadable(
 );
 
 const ORDERSLazy = Loadable(lazy(() => import("../pages/orders/index")));
+const CREATEORDERLazy = Loadable(lazy(() => import("../pages/orders/create-order/index")))
 const VIEWORDERSLazy = Loadable(
   lazy(() => import("../pages/orders/view-orders/index"))
 );
@@ -227,6 +228,16 @@ export const routes: any = [
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
             <ORDERSLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.CREATE_ORDER,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <CREATEORDERLazy/>
           </RequireAuth>
         ),
       },

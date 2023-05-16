@@ -14,6 +14,8 @@ const PurchaseOrder:any = () => {
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
   const dispatch = useAppDispatch();
 
+  console.log(purchaseOrders, 'pooo')
+
   const handlePagination = async (value: Number) => {
     let queryParam: any = {};
     if (value) {

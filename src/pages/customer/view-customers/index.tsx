@@ -1,5 +1,5 @@
 import React from 'react'
-import ViewCustomers from '../../../components/customer/view-customers/view-customers'
+import ViewCustomers from '../../../components/customers/view-customers/view-customers'
 
 const ViewCustomer = () => {
   return (

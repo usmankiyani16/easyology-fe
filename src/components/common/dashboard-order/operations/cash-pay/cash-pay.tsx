@@ -7,14 +7,14 @@ import {
   Modal,
 } from "antd";
 import React, { useState, useRef } from "react";
-import { backButtonIcon } from "../../../../assets/icons";
-import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { backButtonIcon } from "../../../../../assets/icons";
+import { useAppDispatch, useAppSelector } from "../../../../../store/store";
 import {
   addOrder,
   getInvoiceNumber,
   holdInvoice,
-} from "../../../../store/order/order-slice";
-import { setSelectedProductsToNull } from "../../../../store/products/products-slice";
+} from "../../../../../store/order/order-slice";
+import { setSelectedProductsToNull } from "../../../../../store/products/products-slice";
 import dayjs from "dayjs";
 enum paymentStatusE {
   PAID = "Paid",

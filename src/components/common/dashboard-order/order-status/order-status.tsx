@@ -5,7 +5,7 @@ import { SearchOutlined } from "@ant-design/icons";
 const CheckboxGroup = Checkbox.Group;
 
 const dummyAddress: any = "House No A0-2737 Shaadbaagh town";
-const OrderStatus = ({ onChange }: any) => {
+const OrderStatus = ({ onChange, showOrderStatus }: any) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedValues, setSelectedValues] = useState("");
@@ -257,7 +257,7 @@ const OrderStatus = ({ onChange }: any) => {
               htmlType="submit"
               className="w-36 text-center text-lg"
             >
-              Done
+              Save
             </Button>
           </Form.Item>
         </div>

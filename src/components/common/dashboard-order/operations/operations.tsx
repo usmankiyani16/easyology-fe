@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import "./operations.scss";
 import { Button, InputNumber } from "antd";
 import CashPay from "./cash-pay/cash-pay";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import {
   getInvoiceNumber,
   holdInvoice,
-} from "../../../store/order/order-slice";
-import { setSelectedProductsToNull } from "../../../store/products/products-slice";
+} from "../../../../store/order/order-slice";
+import { setSelectedProductsToNull } from "../../../../store/products/products-slice";
 import VoidInvoice from "./void-invoice/void-invoice";
 import { customerType } from "./interfaces/operations.interface";
-import { Toast } from "../../common/toast/toast";
+import { Toast } from "../../../common/toast/toast";
 
 const Operations: React.FC<any> = ({
   totalPrice,
   selectCustomer,
   setSelectCustomer,
   onSave,
+  showOrderStatus,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -167,15 +168,17 @@ const Operations: React.FC<any> = ({
           </label>
         </div>
 
-        <div className="m-auto _white-color">
-          <Button
-            className="w-32 _primary-button"
-            type="primary"
-            onClick={handleClick}
-          >
-            Save
-          </Button>
-        </div>
+        {showOrderStatus && (
+          <div className="m-auto _white-color">
+            <Button
+              className="w-32 _primary-button"
+              type="primary"
+              onClick={handleClick}
+            >
+              Save
+            </Button>
+          </div>
+        )}
       </div>
       {isCashPayOpen && (
         <CashPay

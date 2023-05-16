@@ -2,16 +2,16 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import "./item-card.scss";
 import { DeleteFilled } from "@ant-design/icons";
 import { Button, InputNumber } from "antd";
-import { deleteIcon, noImg } from "../../../assets/images";
-import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { deleteIcon, noImg } from "../../../../assets/images";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import {
   changeProductPrice,
   changeProductQuantity,
   decrementProduct,
   deleteSelectedProducts,
   incrementProduct,
-} from "../../../store/products/products-slice";
-import { imageBaseUrl } from "../../../utils/constants";
+} from "../../../../store/products/products-slice";
+import { imageBaseUrl } from "../../../../utils/constants";
 const ItemCard = () => {
   const { selectedProducts } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();

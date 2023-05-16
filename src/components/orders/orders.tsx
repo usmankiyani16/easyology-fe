@@ -2,6 +2,8 @@ import { Button, DatePicker, Input } from "antd";
 import React from "react";
 import OrderCard from "./orders-card/orders-card";
 import { SearchOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 
 const Orders = () => {
   const searchProduct = (value: any) => {
@@ -31,11 +33,14 @@ const Orders = () => {
             <DatePicker />
           </div>
 
+
+         <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.CREATE_ORDER}>
           <div>
             <Button className="_bg-primary-color _white-color _hover font-medium mt-4">
               Create an Order
             </Button>
           </div>
+          </Link>
         </div>
       </div>
 
