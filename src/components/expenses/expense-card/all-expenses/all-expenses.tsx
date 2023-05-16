@@ -10,12 +10,6 @@ import { SearchOutlined } from "@ant-design/icons";
 import {
   PDFViewer,
   PDFDownloadLink,
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  Image,
 } from "@react-pdf/renderer";
 import ExpensePDF from "./expense-report/expense-report";
 
@@ -35,27 +29,7 @@ const AllExpenses = () => {
     console.log(value);
   };
 
-  const companyName = "Easyology Center";
-
-  const expenses = [
-    {
-      month: "January 2023",
-      totalExpense: 5,
-      totalExpenseAmount: 500,
-      date: "2023-01-31",
-      expenseDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      month: "February 2023",
-      totalExpense: 3,
-      totalExpenseAmount: 300,
-      date: "2023-02-28",
-      expenseDesc:
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    // Add more expense objects as needed
-  ];
-
+  
   // Render the MonthlyExpenseReport component
 
   return (
@@ -75,6 +49,8 @@ const AllExpenses = () => {
           </div>
         </div>
 
+
+        <PDFDownloadLink document={<ExpensePDF />} fileName="expenses.pdf">
         <div>
           <Button
             className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4"
@@ -85,11 +61,14 @@ const AllExpenses = () => {
               src={exportIcon}
               alt="exportIcon"
             />
-            <PDFDownloadLink document={<ExpensePDF />} fileName="expenses.pdf">
-              {({ loading }) => (loading ? "Loading..." : "Export Report")}
-            </PDFDownloadLink>
+           
+              {/* {({ loading }) => (loading ? "Loading..." : "Export Report")} */}
+
+              Export Report
+           
           </Button>
         </div>
+        </PDFDownloadLink>
       </div>
       <div className="_cards">
         <AllExpenseCard expense={expense} />

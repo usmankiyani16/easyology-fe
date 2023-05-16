@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   tableDescription: {
     // width: "40%",
   },
+  
 
   tableSeriol: {
     width: '5%'
@@ -194,7 +195,7 @@ const ExpensePDF = () => (
           <Text style={[styles.tableColHeader, styles.tableDescription]}>
             Description
           </Text>
-          <Text style={styles.tableColHeader}>Category</Text>
+          {/* <Text style={styles.tableColHeader}>Category</Text> */}
           <Text style={styles.tableColHeader}>Pay Method</Text>
         </View>
         {expenses?.expenseData?.map((expense, index) => (
@@ -214,9 +215,9 @@ const ExpensePDF = () => (
             <View style={styles.tableCol}>
               <Text>{expense.expenseDesc}</Text>
             </View>
-            <View style={styles.tableCol}>
+           {/*  <View style={styles.tableCol}>
               <Text>{expense.category}</Text>
-            </View>
+            </View> */}
             <View style={styles.tableCol}>
               <Text>{expense.paymentMethod}</Text>
             </View>
