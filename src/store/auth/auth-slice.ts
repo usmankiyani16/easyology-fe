@@ -17,13 +17,13 @@ export const signin = createAsyncThunk(
     try {
       dispatch(setLoading(true));
       const response = await postApi("/user/sign-in", payload);
-      console.log('response?.data?.message',response?.data);
-      
+      console.log("response?.data?.message", response);
+
       if (
-        response?.data?.message ==
+        response?.message ==
         "New device detected! Please verify the OTP sent to your mail."
       ) {
-        Toast(response?.data?.message);
+        dispatch(setIsOTP(true));
         return response;
       } else {
         if (
@@ -38,7 +38,9 @@ export const signin = createAsyncThunk(
             refreshToken: response?.data?.Authentication?.RefreshToken,
             deviceId: response?.data?.User?.deviceId,
           };
+          let deviceId = response?.data?.User?.deviceId;
           localStorage.setItem("user", JSON.stringify(obj));
+          localStorage.setItem("deviceId", deviceId);
           return response;
         } else {
           Toast("You cannot log in on POS", "error");
@@ -55,6 +57,7 @@ export const signin = createAsyncThunk(
 );
 
 interface AuthState {
+  isOTP: boolean;
   isAuthenticated: boolean;
   user: User | null;
   error: string | null;
@@ -67,6 +70,7 @@ interface User {
 }
 
 const initialState: AuthState = {
+  isOTP: false,
   isAuthenticated: false,
   user: null,
   error: null,
@@ -77,6 +81,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setIsOTP(state, action: PayloadAction<boolean>) {
+      state.isOTP = action?.payload;
+    },
     setUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
       state.isAuthenticated = true;
@@ -101,6 +108,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, setIsOTP } = authSlice.actions;
 
 export default authSlice.reducer;

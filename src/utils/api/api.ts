@@ -3,9 +3,9 @@ import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "../../components/common/toast/toast";
 
-// const baseURL = "https://0bkj8hawb6.execute-api.us-east-1.amazonaws.com/qa/api";
+const baseURL = "https://0bkj8hawb6.execute-api.us-east-1.amazonaws.com/qa/api";
 
-const baseURL ="https://o2sxufeqjg.execute-api.us-east-1.amazonaws.com/dev/api";
+// const baseURL ="https://o2sxufeqjg.execute-api.us-east-1.amazonaws.com/dev/api";
 
 const api: AxiosInstance = axios.create({
   baseURL,

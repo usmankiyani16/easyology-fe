@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.scss";
 import Login_Logo from "../../../assets/icons/layout/Login_Logo.png";
 import easyology_logo from "../../../assets/icons/layout/easyology_logo.png";
@@ -11,13 +11,16 @@ import { postApi } from "../../../utils/api/api";
 import Loader from "../../common/loader/loader";
 import { Toast } from "../../common/toast/toast";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { setLoading } from "../../../store/loader/loader-slice";
 import { signin } from "../../../store/auth/auth-slice";
+import Otp from "./otp/otp";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { isOTP } = useAppSelector((state) => state.auth);
+  const [authPayload, setAuthPayload] = useState({});
   const { role }: any = JSON.parse(localStorage.getItem("user") || "{}");
+  const  deviceId : any = localStorage.getItem("deviceId")
 
   useEffect(() => {
     if (role === UserRole.SUPER_ADMIN) {
@@ -29,7 +32,10 @@ const Login = () => {
 
   const onFinish = async (values: any) => {
     delete values?.remember;
+    values.deviceId = deviceId ?? "";
+    console.log("values", values);
 
+    setAuthPayload(values);
     await dispatch(signin(values));
   };
 
@@ -166,6 +172,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {isOTP && <Otp authPayload={authPayload} />}
     </>
   );
 };
