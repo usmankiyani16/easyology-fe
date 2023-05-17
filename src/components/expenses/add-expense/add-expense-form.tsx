@@ -38,7 +38,7 @@ const AddExpenseForm = () => {
         autoComplete="off"
         className="mt-4"
       >
-        <div className="flex flex-col ml-1 sm:gap-4">
+        <div className="flex flex-col ml-8 sm:gap-4">
           <Row className="flex xs:flex-col xs:gap-1 sm:flex-row sm:gap-8">
             <Col xs={4} className="pt-2">
               <label className="xs:ml-2 sm:ml-0 whitespace-nowrap">

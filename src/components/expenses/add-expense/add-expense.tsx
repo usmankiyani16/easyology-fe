@@ -12,21 +12,20 @@ const AddExpenses = () => {
   };
   return (
     <div>
-      <div>
+      <div className="flex items-center gap-2">
         <img
           onClick={() => navigate(-1)}
           className="h-[25px] w-[25px] cursor-pointer"
           src={backButtonIcon}
           alt="back"
         />
+        <h1 className="font-lato text-[2rem]">Expenses</h1>
       </div>
       <div >
-        <div className="flex justify-between xs:flex-col items-center sm:flex-row">
-          {" "}
-          <h1 className="font-lato text-[2rem]">Expenses</h1>
-          
-        </div>
      
+          
+          
+  
 
       <div>
         <AddExpenseForm />

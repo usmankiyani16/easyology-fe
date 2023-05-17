@@ -17,10 +17,10 @@ const Customer = () => {
     dispatch(getCustomers());
   }, []);
 
-  console.log(customers, 'customers')
+  console.log(customers, "customers");
   return (
     <div className="_customer-wrapper">
-      <div className="flex items-center justify-between mt-3">
+      <div className="flex xs:flex-col sm:flex-row items-center justify-between mt-3">
         <div>
           <h1 className="font-lato  mt-4 text-[2rem]">Customers</h1>
         </div>
@@ -43,7 +43,7 @@ const Customer = () => {
       </div>
 
       <div className="_cards">
-        <CustomerCard />
+        <CustomerCard customers = {customers?.customers} />
       </div>
 
       <Pagination

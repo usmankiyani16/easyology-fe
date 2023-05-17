@@ -1,13 +1,19 @@
 import { Button } from "antd";
 import CustomersDetail from "./customer-details/customers-detail";
 import LastInvoices from "./last-invoices/last-invoices";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { backButtonIcon } from "../../../assets/icons";
 import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 
+
 const ViewCustomers = () => {
+  const location = useLocation();
+
   const navigate = useNavigate();
+
+  const data = location.state;
+  console.log(data)
   return (
     <div className="_view-wrap">
       <div>

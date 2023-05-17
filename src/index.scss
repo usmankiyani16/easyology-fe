@@ -60,28 +60,7 @@ body::-moz-scrollbar {
   height: 5px;
 }
 
-body::-moz-scrollbar-track {
-  background-color: #f1f1f1;
-}
-
-body::-moz-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 5px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  /* style for the scrollbar thumb */
-  ::-webkit-scrollbar-thumb {
-    background-color: #c1c1c1;
-    border-radius: 10px;
-  }
-
-  /* style for the scrollbar when hovered */
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #a1a1a1;
-  }
-  ::-webkit-scrollbar {
-    width: 0px;
-  }
-}
+body
 
 /* style for the scrollbar track */
 ::-webkit-scrollbar-track {
@@ -90,17 +69,24 @@ body::-moz-scrollbar-thumb {
 }
 
 /* style for the scrollbar thumb */
-::-webkit-scrollbar-thumb {
-  background-color: #c1c1c1;
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: red;
   border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 /* style for the scrollbar when hovered */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #a1a1a1;
-}
+// ::-webkit-scrollbar-thumb:hover {
+//   background-color: #a1a1a1;
+// }
 ::-webkit-scrollbar {
   width: 0px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 5px;
 }
 
 code {

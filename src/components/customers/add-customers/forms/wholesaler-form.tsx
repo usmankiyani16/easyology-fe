@@ -235,7 +235,7 @@ const WholeSalerForm = ({
                     valuePropName="drivinglicense"
                   >
                     <Upload
-                      className="alin"
+                      // className="upload-abc"
                       beforeUpload={() => false}
                       onChange={(e) => imageUpload(e, "drivingLicense")}
                       action=""
