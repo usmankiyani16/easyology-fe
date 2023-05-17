@@ -1,10 +1,22 @@
-import { Button, Pagination } from "antd";
+import { Button, Empty, Pagination } from "antd";
 import expenseIcon from "../../assets/images/dashboard/expense.png";
 import DateRange from "./date-range/date-range";
 import ExpenseCard from "./expense-card/expense-card";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getExpenses } from "../../store/expenses/expenses.slice";
+import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 
 const Expenses = () => {
+  const { data } = useAppSelector((state) => state.expenses);
+  // useEffect(() => {
+  //   let payload = {
+  //     page: 1,
+  //     perPage:8
+  //   };
+  //   dispatch(getExpenses(payload));
+  // }, []);
   return (
     <div className="_customer-wrapper">
       <div className="flex items-center justify-between mt-3">
@@ -12,7 +24,7 @@ const Expenses = () => {
           <h1 className="font-lato  mt-4 text-[2rem]">Expenses</h1>
         </div>
 
-        <Link to="/add-expense">
+        <Link to={ROUTE_CONSTANTS.SLASH+ROUTE_CONSTANTS.ADD_EXPENSE}>
           <div>
             {/* <img src={AddPO} alt="Add PO logo" className="h-8" /> */}
             <Button className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4 cursor-pointer">
@@ -36,16 +48,14 @@ const Expenses = () => {
         <ExpenseCard />
       </div>
 
-      
-
-      <Pagination
+      {/* <Pagination
         //   onChange={handlePagination}
         className="flex justify-end"
         defaultCurrent={1}
         defaultPageSize={8}
         total={2}
         showSizeChanger={false}
-      />
+      /> */}
     </div>
   );
 };

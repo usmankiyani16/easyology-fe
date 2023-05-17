@@ -1,13 +1,23 @@
 import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
+import { useAppDispatch } from "../../../../../store/store";
+import { useLocation } from "react-router-dom";
+import { getExpenses } from "../../../../../store/expenses/expenses.slice";
 
-
-
-
-
-const AllExpenseCard: React.FC<any> = ({expense}) => {
+const AllExpenseCard: React.FC<any> = ({ expense }) => {
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const month = location.state;
   const [applyBorder, setApplyBorder] = useState(false);
 
+  useEffect(() => {
+    let payload = {
+      month,
+      page: 1,
+      perPage: 8,
+    };
+    dispatch(getExpenses(payload));
+  }, []);
 
   useEffect(() => {
     function handleResize() {
@@ -38,9 +48,7 @@ const AllExpenseCard: React.FC<any> = ({expense}) => {
               >
                 <div className="flex flex-col items-center text-lg gap-1">
                   <span className="font-medium">Date:</span>
-                  <span className="_grey-color">
-                    {data?.date}
-                  </span>
+                  <span className="_grey-color">{data?.date}</span>
                 </div>
               </div>
               <div
@@ -48,11 +56,9 @@ const AllExpenseCard: React.FC<any> = ({expense}) => {
                   applyBorder ? " _border-r" : ""
                 } lg:pr-7 lg:mr-7`}
               >
-               <div className="flex flex-col items-center text-lg md:gap-1">
+                <div className="flex flex-col items-center text-lg md:gap-1">
                   <span className="font-medium">Expense Description</span>
-                  <span className=" _grey-color">
-                    {data?.expenseDesc}
-                  </span>
+                  <span className=" _grey-color">{data?.expenseDesc}</span>
                 </div>
               </div>
 
@@ -61,7 +67,6 @@ const AllExpenseCard: React.FC<any> = ({expense}) => {
                   applyBorder ? " _border-r" : ""
                 } lg:pr-7 lg:mr-7`}
               >
-               
                 <div className="flex flex-col items-center text-lg md:gap-1">
                   <span className="font-medium">Expense Amount:</span>
                   {
@@ -70,13 +75,9 @@ const AllExpenseCard: React.FC<any> = ({expense}) => {
                     </span>
                   }
                 </div>
-                
               </div>
-              
-              <div
-                className="flex flex-col"
-              >
-               
+
+              <div className="flex flex-col">
                 <div className="flex flex-col items-center text-lg md:gap-1">
                   <span className="font-medium">Payment Method:</span>
                   {
@@ -85,9 +86,7 @@ const AllExpenseCard: React.FC<any> = ({expense}) => {
                     </span>
                   }
                 </div>
-                
               </div>
-              
             </div>
           </Card>
         ))}
