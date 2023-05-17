@@ -1,4 +1,4 @@
-import { Button, Pagination } from "antd";
+import { Button, Empty, Pagination } from "antd";
 import expenseIcon from "../../assets/images/dashboard/expense.png";
 import DateRange from "./date-range/date-range";
 import ExpenseCard from "./expense-card/expense-card";
@@ -8,16 +8,14 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getExpenses } from "../../store/expenses/expenses.slice";
 
 const Expenses = () => {
-  const dispatch = useAppDispatch();
-  const { expenses, status } = useAppSelector((state) => state.expenses);
-  console.log("expenses", expenses);
-
-  useEffect(() => {
-    let payload = {
-      perPage: 1,
-    };
-    dispatch(getExpenses(payload));
-  }, []);
+  const { data } = useAppSelector((state) => state.expenses);
+  // useEffect(() => {
+  //   let payload = {
+  //     page: 1,
+  //     perPage:8
+  //   };
+  //   dispatch(getExpenses(payload));
+  // }, []);
   return (
     <div className="_customer-wrapper">
       <div className="flex items-center justify-between mt-3">
@@ -49,14 +47,14 @@ const Expenses = () => {
         <ExpenseCard />
       </div>
 
-      <Pagination
+      {/* <Pagination
         //   onChange={handlePagination}
         className="flex justify-end"
         defaultCurrent={1}
         defaultPageSize={8}
         total={2}
         showSizeChanger={false}
-      />
+      /> */}
     </div>
   );
 };

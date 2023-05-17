@@ -7,9 +7,6 @@ import AddExpenseForm from "./add-expense-form";
 
 const AddExpenses = () => {
   const navigate = useNavigate();
-  const searchProduct = (value: any) => {
-    console.log(value);
-  };
   return (
     <div>
       <div className="flex items-center gap-2">
@@ -21,15 +18,10 @@ const AddExpenses = () => {
         />
         <h1 className="font-lato text-[2rem]">Expenses</h1>
       </div>
-      <div >
-     
-          
-          
-  
-
       <div>
-        <AddExpenseForm />
-      </div>
+        <div>
+          <AddExpenseForm />
+        </div>
       </div>
     </div>
   );

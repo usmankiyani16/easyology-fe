@@ -14,6 +14,12 @@ export const getExpenses = createAsyncThunk(
       if (payload?.month) {
         queryParams += `&month=${payload.month}`;
       }
+      if (payload?.startDate) {
+        queryParams += `&startDate=${payload.startDate}`;
+      }
+      if (payload?.endDate) {
+        queryParams += `&endDate=${payload.endDate}`;
+      }
       if (payload?.page) {
         queryParams += `&page=${payload.page}`;
       }
@@ -22,7 +28,11 @@ export const getExpenses = createAsyncThunk(
       } else {
         queryParams += "&perPage=8";
       }
-      const response = await getApi(`/expense?storeId=${storeId}`);
+      console.log("payload",  payload , { queryParams });
+
+      const response = await getApi(
+        `/expense?storeId=${storeId}${queryParams}`
+      );
       return response;
     } catch (error) {
       return rejectWithValue(error);
@@ -51,13 +61,13 @@ export const addExpense = createAsyncThunk(
 );
 
 interface ExpensesState {
-  expenses: any | null;
+  data: any | null;
   error: string | null;
   status: string;
 }
 
 const initialState: ExpensesState = {
-  expenses: [],
+  data: {},
   error: null,
   status: REQUEST_STATUS.IDLE,
 };
@@ -73,7 +83,7 @@ const expensesSlice = createSlice({
       })
       .addCase(getExpenses.fulfilled, (state, action) => {
         state.status = REQUEST_STATUS.SUCCEEDED;
-        state.expenses = action?.payload?.data;
+        state.data = action?.payload?.data;
       })
       .addCase(getExpenses.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
@@ -84,11 +94,6 @@ const expensesSlice = createSlice({
       })
       .addCase(addExpense.fulfilled, (state, action) => {
         state.status = REQUEST_STATUS.SUCCEEDED;
-        let vendor = {
-          name: action?.payload?.data?.name,
-          _id: action?.payload?.data?._id,
-        };
-        state.expenses?.push(vendor);
       })
       .addCase(addExpense.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;

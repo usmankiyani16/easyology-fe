@@ -2,14 +2,30 @@ import { useState } from "react";
 
 import { Button, DatePicker } from "antd";
 import dayjs, { Dayjs } from "dayjs";
+import { useAppDispatch } from "../../../store/store";
+import { getExpenses } from "../../../store/expenses/expenses.slice";
 
 const DateRange = () => {
+  const dispatch = useAppDispatch();
   const [startMonth, setStartMonth] = useState<any>(null);
   const [endMonth, setEndMonth] = useState<any>(null);
 
+  let payload: any = {
+    page: 1,
+    perPage: 8,
+  };
+  const handleDateChange = (dateValue: any, month?: string) => {
+    setEndMonth(dateValue);
+    payload.startDate = dayjs(startMonth).format("YYYY-MM-DD");
+    payload.endDate = dayjs(dateValue).format("YYYY-MM-DD");
+    console.log("payload", payload);
+
+    dispatch(getExpenses(payload));
+  };
   const handleClearSelection = () => {
     setStartMonth(null);
     setEndMonth(null);
+    dispatch(getExpenses(payload));
   };
 
   // Validating Dates
@@ -46,15 +62,17 @@ const DateRange = () => {
             onChange={setStartMonth}
             disabledDate={disabledStartDate}
             format="DD-MM-YYYY"
+            allowClear={false}
           />
         </div>
         <div>
           <label>End Month: </label>
           <DatePicker
             value={endMonth}
-            onChange={setEndMonth}
+            onChange={(value) => handleDateChange(value)}
             disabledDate={disabledEndDate}
             format="DD-MM-YYYY"
+            allowClear={false}
           />
         </div>
         <div>

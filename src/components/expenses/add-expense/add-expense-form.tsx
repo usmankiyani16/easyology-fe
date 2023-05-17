@@ -3,16 +3,29 @@ import { Button, DatePicker, Form, Input, Row, Col } from "antd";
 import Pay from "../../common/pay/pay";
 import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
+import { useAppDispatch } from "../../../store/store";
+import { addExpense } from "../../../store/expenses/expenses.slice";
+import { useNavigate } from "react-router-dom";
 
 const AddExpenseForm = () => {
-  const [file, setFile] = useState(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
-
-  const onFinish = (values: any) => {
-    const expenseDate = dayjs(values?.expenseDate).format("MM-DD-YYYY");
-    console.log(values, "al", expenseDate);
-    form.resetFields();
-    setFile(null);
+  const onFinish = async (values: any) => {
+    values.expenseDate = dayjs(values?.expenseDate).format();
+    values.paymentType = values.payCategory;
+    values.expenseAmount = Number(values.expenseAmount);
+    if (values?.paymentType === "check") {
+      values.paymentTypeDetails = { checkNumber: values.checkNumber };
+      delete values.checkNumber;
+    }
+    delete values.payCategory;
+    console.log(values, "al");
+    const res = await dispatch(addExpense(values));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      navigate('')
+    }
+    // form.resetFields();
   };
 
   // Price Validator
@@ -76,7 +89,7 @@ const AddExpenseForm = () => {
 
             <Col xs={18}>
               <Form.Item
-                name="expenseDesc"
+                name="expenseDescription"
                 required
                 tooltip="This is a required field"
                 rules={[
