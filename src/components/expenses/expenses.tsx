@@ -3,8 +3,21 @@ import expenseIcon from "../../assets/images/dashboard/expense.png";
 import DateRange from "./date-range/date-range";
 import ExpenseCard from "./expense-card/expense-card";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getExpenses } from "../../store/expenses/expenses.slice";
 
 const Expenses = () => {
+  const dispatch = useAppDispatch();
+  const { expenses, status } = useAppSelector((state) => state.expenses);
+  console.log("expenses", expenses);
+
+  useEffect(() => {
+    let payload = {
+      perPage: 1,
+    };
+    dispatch(getExpenses(payload));
+  }, []);
   return (
     <div className="_customer-wrapper">
       <div className="flex items-center justify-between mt-3">
@@ -35,8 +48,6 @@ const Expenses = () => {
       <div className="_cards">
         <ExpenseCard />
       </div>
-
-      
 
       <Pagination
         //   onChange={handlePagination}
