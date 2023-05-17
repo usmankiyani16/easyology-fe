@@ -55,6 +55,7 @@ const PayModal: React.FC<any> = ({
       >
         <Pay
           onFinish={onFinish}
+          showButton={true}
          
         />
       </Modal>

@@ -62,7 +62,7 @@ const AddExpenseForm = () => {
                   },
                 ]}
               >
-                <DatePicker className="w-64 h-[40px] _white-background rounded-xl" />
+                <DatePicker className="w-64 h-[40px] _white-background rounded-[10px]" />
               </Form.Item>
             </Col>
           </Row>
@@ -115,7 +115,7 @@ const AddExpenseForm = () => {
                 rules={[{ required: true, validator: validatePrice }]}
               >
                 <Input
-                  className="w-64 h-[40px] _white-background _input-border"
+                  className="w-64 h-[40px] _white-background _input-border rounded-[10px]"
                   placeholder="Enter Expense Amount"
                   type="number"
                 />

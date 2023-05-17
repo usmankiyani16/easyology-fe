@@ -13,7 +13,7 @@ const Pay = ({ onFinish, showButton }: any) => {
         name="payCategory"
         required
         tooltip={
-          <span className="_po_field_label  ml-[10px]">
+          <span className="_po_field_label">
             This is a required field
           </span>
         }
@@ -21,12 +21,12 @@ const Pay = ({ onFinish, showButton }: any) => {
           {
             required: true,
             // type: 'email',
-            message: <span className="ml-16">Required field</span>,
+            message: <span>Required field</span>,
           },
         ]}
       >
         <Select
-          className="_input_field w-[700px]"
+          className="_input_field w-[700px] rounded-[10px]"
           placeholder="Payment Method"
           onChange={handleSelect}
         >

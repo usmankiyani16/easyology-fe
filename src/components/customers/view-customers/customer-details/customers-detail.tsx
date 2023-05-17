@@ -1,7 +1,13 @@
 import { Col, Input, InputNumber, Row } from "antd";
 import "./customers-detail.scss";
 
-const CustomersDetail = () => {
+
+interface customersDetail{
+  customerData: any
+}
+
+
+const CustomersDetail: React.FC<customersDetail> = ({customerData}) => {
   return (
     <div className="_customer-details-wrap">
       <div className="flex flex-col gap-4 ml-1 mt-8">
@@ -13,11 +19,9 @@ const CustomersDetail = () => {
             min={1}
             type="string"
             // disabled
-            value="Ali Raza"
+            value={`${customerData?.firstName} ${customerData?.lastName} `}
 
-            // max={item?.variants?.stock?.totalQuantity}
-            // value={item?.quantity}
-            // onChange={(value) => handleChange(index, value)}
+    
           />
         </div>
 
@@ -45,7 +49,7 @@ const CustomersDetail = () => {
             min={1}
             type="string"
             // disabled
-            value="+92347595821"
+            value={customerData?.phoneNumber}
 
             // max={item?.variants?.stock?.totalQuantity}
             // value={item?.quantity}
@@ -61,8 +65,8 @@ const CustomersDetail = () => {
             min={1}
             type="string"
             // disabled
-            // prefix="$"
-            value="$1499.00"
+            prefix="$"
+            value={customerData?.totalRemainingBalance}
 
             // max={item?.variants?.stock?.totalQuantity}
             // value={item?.quantity}

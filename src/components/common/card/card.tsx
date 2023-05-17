@@ -9,14 +9,17 @@ interface poCardTypes {
   cardData: any;
   Number: string | number;
   Name: string;
+  name?: string
 }
 
-const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
+const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) => {
   const [applyBorder, setApplyBorder] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [singlePO, setSinglePO] = useState<any>();
 
-  console.log(cardData, "hello");
+ 
+
+  console.log(cardData, "Card Data");
 
   useEffect(() => {
     function handleResize() {
@@ -40,7 +43,7 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
         <Viewmodal
           viewModalOpen={viewModalOpen}
           setViewModalOpen={setViewModalOpen}
-          purchaseOrders={singlePO}
+          cardView={singlePO}
           Number={Number}
           Name={Name}
         />
@@ -55,19 +58,21 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
                 } pr-7 mr-7`}
               >
                 <div className="flex text-lg gap-4">
-                  <span className="font-medium">{Number}:</span>
+                  <span className="font-medium whitespace-nowrap">{Number}:</span>
                   <span className="font-semibold _primary-color">
                     #{data?.poNumber && data?.poNumber}
-                    {data?.invoiceNo && data?.invoiceNo}
+                    {data?.orderNumber && data?.orderNumber}
                   </span>
                 </div>
                 <div className="flex text-lg gap-4">
                   <span className="font-medium">{Name}:</span>
                   <span className="font-medium _label-grey">
-                    {data?.vendor[0]?.name &&
-                      capitalize(data?.vendor[0]?.name ?? "")}
-                    {data?.vendor[0]?.companyName &&
-                      capitalize(data?.vendor[0]?.companyName ?? "")}
+                   {/*  {data?.vendor[0]?.name &&
+                      capitalize(data?.vendor[0]?.name ?? "")} */}
+                      
+                    {name}
+
+
                   </span>
                 </div>
               </div>
@@ -114,7 +119,7 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
                       </span>
                       {
                         <span className="font-medium whitespace-nowrap">
-                          $ {data?.remainingAmount}
+                          $ {data?.remainingAmount.toFixed(2)}
                         </span>
                       }
                     </div>
@@ -133,7 +138,7 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name }: any) => {
               {
                 <div className="flex flex-col justify-self-end items-center justify-between">
                   <span className="font-semibold text-3xl	 _primary-color">
-                    ${data?.totalAmount}
+                    ${data?.totalAmount.toFixed(2)}
                   </span>
                   <Button
                     className="flex self-end"

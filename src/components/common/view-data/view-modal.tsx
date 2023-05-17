@@ -18,15 +18,15 @@ import { noImg } from "../../../assets/images";
 const Viewmodal: React.FC<any> = ({
   viewModalOpen,
   setViewModalOpen,
-  purchaseOrders,
+  cardView,
   Name,
   Number
 }) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
-  console.log(purchaseOrders, "PO Data View Modal");
+  console.log(cardView , "PO Data View Modal");
 
-  const Product_Image = purchaseOrders?.products.map(
+  const Product_Image = cardView?.products.map(
     (product: { image: any }) => product.image
   );
 
@@ -39,26 +39,26 @@ const Viewmodal: React.FC<any> = ({
   ] */
 
   const handleExport = () => {
-    const inventoryStatus = purchaseOrders?.paymentStatus;
+    const inventoryStatus = cardView?.paymentStatus;
     const partialPaid = inventoryStatus === "Partially Paid";
 
-    const data = purchaseOrders.products?.map((product: any) => ({
+    const data = cardView.products?.map((product: any) => ({
       productName: product?.name,
       quantity: product?.quantity,
       price: product?.amount,
       image: product?.image ?? noImg,
-      productId: purchaseOrders?._id,
-      poNo: purchaseOrders?.poNumber,
-      company: purchaseOrders?.vendor[0]?.companyName,
+      productId: cardView?._id,
+      poNo: cardView?.poNumber,
+      company: cardView?.vendor[0]?.companyName,
       inventoryStatus,
-      totalPaid: purchaseOrders?.payments[0]?.paymentDetails?.paidAmount,
+      totalPaid: cardView?.payments[0]?.paymentDetails?.paidAmount,
       ...(partialPaid && {
-        remaining: purchaseOrders?.remainingAmount,
-        dueDate: purchaseOrders?.payments[0]?.paymentDetails?.dueData,
+        remaining: cardView?.remainingAmount,
+        dueDate: cardView?.payments[0]?.paymentDetails?.dueData,
       }),
     }));
 
-    console.log("purchaseOrders", purchaseOrders);
+    console.log("purchaseOrders", cardView);
 
     const fileName = "export";
 
@@ -71,10 +71,11 @@ const Viewmodal: React.FC<any> = ({
     <div className="_view_modal_wrap">
       <PayModal
         setViewModalOpen={setViewModalOpen}
-        paidAmount={purchaseOrders?.remainingAmount}
-        poId={purchaseOrders?._id}
+        paidAmount={cardView?.remainingAmount}
+        poId={cardView?._id}
         paymentModalOpen={paymentModalOpen}
         setPaymentModalOpen={setPaymentModalOpen}
+        showButton={true}
       />
       {/* ----------- View Modal ------------------ */}
 
@@ -89,13 +90,15 @@ const Viewmodal: React.FC<any> = ({
       >
         <h4 className="_po_Number mt-8 text-2xl">
           {Number}:
-          <span className="text-red-500">#{purchaseOrders?.poNumber}</span>
+          {/* <span className="text-red-500">#{cardView?.poNumber && cardView?.poNumber}</span> */}
+
         </h4>
         <h4 className="_company_name text-xl">
           {Name}:
           <span className="font-medium _label-grey">
        
-            {purchaseOrders?.vendor[0]?.companyName}{" "}
+            {/* {cardView?.vendor[0]?.companyName && cardView?.vendor[0]?.companyName}{" "} */}
+            
           </span>
         </h4>
         {/* <p className="_sheduled_date font-medium">
@@ -116,16 +119,16 @@ const Viewmodal: React.FC<any> = ({
                 className="w-[59px] h-[66px]"
               />
               <span className="_product_name w-[160px] h-[66px] font-semibold flex items-center">
-                {purchaseOrders?.products[0].name}
+                {cardView?.products[0].name}
               </span>
             </div>
             <div>
               <span className="_product_quantity w-[112px] h-[66p] font-semibold">
-                {`x${purchaseOrders?.products[0].quantity}`}
+                {`x${cardView?.products[0].quantity}`}
               </span>
             </div>
             <div>
-              <span className="_product_price text-[18px] font-bold ">{`$ ${purchaseOrders?.totalAmount} `}</span>
+              <span className="_product_price text-[18px] font-bold ">{`$ ${cardView?.totalAmount} `}</span>
             </div>
           </div>
 
@@ -139,15 +142,15 @@ const Viewmodal: React.FC<any> = ({
               Inv Status:{" "}
               <span
                 className={`${
-                  purchaseOrders?.paymentStatus === "Partially Paid"
+                  cardView?.paymentStatus === "Partially Paid"
                     ? "_primary-color"
                     : "_success_color"
                 }   ml-2`}
               >
-                {purchaseOrders?.paymentStatus}
+                {cardView?.paymentStatus}
               </span>
             </span>
-            {purchaseOrders?.paymentStatus === "Partially Paid" && (
+            {cardView?.paymentStatus === "Partially Paid" && (
               <Button
                 className="_bg-primary-color text-white hover:text-white _hover"
                 onClick={() => {
@@ -166,21 +169,21 @@ const Viewmodal: React.FC<any> = ({
               Total Paid:{" "}
               <span
                 className={`${
-                  purchaseOrders?.paymentStatus === "Partially Paid"
+                  cardView?.paymentStatus === "Partially Paid"
                     ? "_success_color"
                     : "_primary-color"
                 }   ml-2 `}
-              >{`$ ${purchaseOrders?.payments[0]?.paymentDetails?.paidAmount} `}</span>
+              >{`$ ${cardView?.payments[0]?.paymentDetails?.paidAmount} `}</span>
             </span>
           </div>
 
-          {purchaseOrders?.paymentStatus === "Partially Paid" && (
+          {cardView?.paymentStatus === "Partially Paid" && (
             <>
               <div className="_total_remaining">
                 <span>
                   {" "}
                   Total Remaining:{" "}
-                  <span className="ml-2 _primary-color">{`$ ${purchaseOrders?.remainingAmount}`}</span>
+                  <span className="ml-2 _primary-color">{`$ ${cardView?.remainingAmount}`}</span>
                 </span>
               </div>
 
@@ -189,7 +192,7 @@ const Viewmodal: React.FC<any> = ({
                   {" "}
                   Remaining Due Date:{" "}
                   <span className="ml-2 _primary-color">
-                    {` ${purchaseOrders?.payments[0]?.paymentDetails?.dueDate} `}
+                    {` ${cardView?.payments[0]?.paymentDetails?.dueDate} `}
                   </span>
                 </span>
               </div>

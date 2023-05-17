@@ -18,7 +18,7 @@ const CustomerCard: React.FC<cutsomerCardTypes> = ({ customers }) => {
           <Card key={data?._id} className="_po-card">
             <div className="flex w-full justify-between items-center grid lg:gap-24 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
               <div className="flex flex-col gap-4 justify-between">
-                <div className="flex text-lg sm:gap-2">
+                <div className="flex text-lg gap-2">
                   <span className="font-medium whitespace-nowrap">
                     Customer ID:
                   </span>
@@ -28,7 +28,9 @@ const CustomerCard: React.FC<cutsomerCardTypes> = ({ customers }) => {
                 </div>
 
                 <div className="flex text-lg gap-4 sm:whitespace-nowrap">
-                  <span className="font-medium whitespace-nowrap">Customer Name:</span>
+                  <span className="font-medium whitespace-nowrap">
+                    Customer Name:
+                  </span>
                   <span className="_grey-color font-medium ">
                     {`${data?.firstName} ${data?.lastName} `}
                   </span>
@@ -48,7 +50,7 @@ const CustomerCard: React.FC<cutsomerCardTypes> = ({ customers }) => {
               <Link
                 to={{
                   pathname:
-                    ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_CUSTOMERS, 
+                    ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_CUSTOMERS,
                 }}
                 state={data}
               >

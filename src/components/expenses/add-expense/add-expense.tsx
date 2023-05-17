@@ -15,7 +15,7 @@ const AddExpenses = () => {
       <div className="flex items-center gap-2">
         <img
           onClick={() => navigate(-1)}
-          className="h-[25px] w-[25px] cursor-pointer"
+          className="cursor-pointer"
           src={backButtonIcon}
           alt="back"
         />
