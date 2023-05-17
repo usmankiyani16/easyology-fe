@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Button, Input, Pagination } from "antd";
 import exportIcon from "../../../../assets/icons/dashboard/export-Icon.png";
 
@@ -7,13 +7,15 @@ import expense from "../../mock-data/expense";
 
 import { SearchOutlined } from "@ant-design/icons";
 
-import {
-  PDFViewer,
-  PDFDownloadLink,
-} from "@react-pdf/renderer";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import ExpensePDF from "./expense-report/expense-report";
+import { useLocation } from "react-router-dom";
+import { getExpenses } from "../../../../store/expenses/expenses.slice";
+import { useAppDispatch } from "../../../../store/store";
 
 const AllExpenses = () => {
+  
+  
   const pdfRef = useRef(null);
 
   const generatePDF = () => {
@@ -29,7 +31,7 @@ const AllExpenses = () => {
     console.log(value);
   };
 
-  
+
   // Render the MonthlyExpenseReport component
 
   return (
@@ -49,25 +51,21 @@ const AllExpenses = () => {
           </div>
         </div>
 
-
         <PDFDownloadLink document={<ExpensePDF />} fileName="expenses.pdf">
-        <div>
-          <Button
-            className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4"
-            onClick={generatePDF}
-          >
-            <img
-              className="flex justify-start"
-              src={exportIcon}
-              alt="exportIcon"
-            />
-           
+          <div>
+            <Button
+              className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4"
+              onClick={generatePDF}
+            >
+              <img
+                className="flex justify-start"
+                src={exportIcon}
+                alt="exportIcon"
+              />
               {/* {({ loading }) => (loading ? "Loading..." : "Export Report")} */}
-
               Export Report
-           
-          </Button>
-        </div>
+            </Button>
+          </div>
         </PDFDownloadLink>
       </div>
       <div className="_cards">
@@ -78,8 +76,8 @@ const AllExpenses = () => {
         <ExpensePDF />
       </PDFViewer> */}
 
-      <div className='m-auto flex justify-center gap-4 text-2xl mt-2'>
-        <span>Total Expenses  </span> 
+      <div className="m-auto flex justify-center gap-4 text-2xl mt-2">
+        <span>Total Expenses </span>
         <span className="_primary-color"> $1400</span>
       </div>
       <div>

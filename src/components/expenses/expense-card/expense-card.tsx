@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 import { getExpenses } from "../../../store/expenses/expenses.slice";
 import { REQUEST_STATUS } from "../../../utils/constants";
 import Spinner from "../../common/spinner/spinner";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const ExpenseCard = () => {
   const dispatch = useAppDispatch();
@@ -98,7 +99,10 @@ const ExpenseCard = () => {
 
                 {/* -------- Grid 4 ------------ */}
 
-                <Link to="/all-expenses">
+                <Link
+                  to={ROUTE_CONSTANTS?.SLASH + ROUTE_CONSTANTS?.ALL_EXPENSES}
+                  state={data?.month}
+                >
                   <div className="flex xs:justify-center xs:mt-2 md:justify-end items-center ">
                     <Button>View</Button>
                   </div>
