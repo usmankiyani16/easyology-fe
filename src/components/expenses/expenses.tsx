@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getExpenses } from "../../store/expenses/expenses.slice";
+import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 
 const Expenses = () => {
   const { data } = useAppSelector((state) => state.expenses);
@@ -23,7 +24,7 @@ const Expenses = () => {
           <h1 className="font-lato  mt-4 text-[2rem]">Expenses</h1>
         </div>
 
-        <Link to="/add-expense">
+        <Link to={ROUTE_CONSTANTS.SLASH+ROUTE_CONSTANTS.ADD_EXPENSE}>
           <div>
             {/* <img src={AddPO} alt="Add PO logo" className="h-8" /> */}
             <Button className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4 cursor-pointer">

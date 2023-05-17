@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { useAppDispatch } from "../../../store/store";
 import { addExpense } from "../../../store/expenses/expenses.slice";
 import { useNavigate } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const AddExpenseForm = () => {
   const dispatch = useAppDispatch();
@@ -20,12 +21,11 @@ const AddExpenseForm = () => {
       delete values.checkNumber;
     }
     delete values.payCategory;
-    console.log(values, "al");
     const res = await dispatch(addExpense(values));
     if (res?.meta?.requestStatus === "fulfilled") {
-      navigate('')
+      form.resetFields();
+      navigate(ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.EXPENSES);
     }
-    // form.resetFields();
   };
 
   // Price Validator

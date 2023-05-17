@@ -91,7 +91,7 @@ const ExpenseCard = () => {
                       Amount Expense:
                     </span>
                     <span className="_grey-color whitespace-nowrap">
-                      {data?.totalExpense}
+                      $ {data?.totalExpense}
                     </span>
                   </div>
                 </div>
