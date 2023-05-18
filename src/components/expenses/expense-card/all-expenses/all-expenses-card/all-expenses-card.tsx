@@ -37,8 +37,8 @@ const AllExpenseCard: React.FC<any> = ({ expenses }) => {
                 } lg:pr-7 lg:mr-7`}
               >
                 <div className="flex flex-col items-center text-lg gap-1">
-                  <span className="font-medium">Date:</span>
-                  <span className="_grey-color">{dayjs(data?.expenseDate).format('mm/dd/yyyy')}</span>
+                  <span className="font-medium">Date</span>
+                  <span className="_grey-color">{dayjs(data?.expenseDate).format('MM/DD/YYYY')}</span>
                 </div>
               </div>
               <div

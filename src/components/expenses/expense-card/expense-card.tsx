@@ -43,17 +43,14 @@ const ExpenseCard = () => {
   return (
     <div className="_order-card-wrap">
       <div className="flex flex-col gap-4 mt-3">
-        {!data?.expenses?.length && status === REQUEST_STATUS.PENDING ? (
-          <Spinner />
-        ) : (
-          ""
-        )}
+        {status === REQUEST_STATUS.PENDING ? <Spinner /> : ""}
         {!data?.expenses?.length && status === REQUEST_STATUS.SUCCEEDED ? (
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
             description="No product available"
           />
         ) : (
+          status !== REQUEST_STATUS.PENDING &&
           data?.expenses?.map((data: any) => (
             <Card>
               <div className="flex w-full justify-between items-center grid 2xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
