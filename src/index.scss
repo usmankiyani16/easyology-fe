@@ -93,3 +93,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ant-empty-description {
+  color: red;
+}
+
+.ant-empty-image {
+  filter: invert(20%);
+}
