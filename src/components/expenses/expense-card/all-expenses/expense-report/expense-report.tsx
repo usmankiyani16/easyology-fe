@@ -108,150 +108,80 @@ const styles = StyleSheet.create({
   },
 });
 
-const expens= {
-  companyName: "Easyology Store",
-  companyAddress: "USA North South",
-  contact: "0344567777",
-
-  expenseData: [
-    {
-      month: "January",
-      totalExpense: 5,
-      totalExpenseAmount: 500,
-      date: "2023-01-31",
-      expenseDesc: "Office supplies",
-      category: "Office",
-      paymentMethod: "Credit Card",
-    },
-    {
-      month: "March",
-      totalExpense: "6",
-      totalExpenseAmount: 300,
-      date: "2023-03-28",
-      expenseDesc: "Travel expenses",
-      category: "Travel",
-      paymentMethod: "Cash",
-    },
-    {
-      month: "March",
-      totalExpense: 9,
-      totalExpenseAmount: 300,
-      date: "2023-03-28",
-      expenseDesc: "Office supplies",
-      category: "Office",
-      paymentMethod: "Credit Card",
-    },
-    {
-      month: "April",
-      totalExpense: 7,
-      totalExpenseAmount: 1600,
-      date: "2023-04-28",
-      expenseDesc: "Travel expenses",
-      category: "Travel",
-      paymentMethod: "Cash",
-    },
-    {
-      month: "April",
-      totalExpense: 2,
-      totalExpenseAmount: 16000,
-      date: "2023-04-28",
-      expenseDesc: "Dell Lenovo",
-      category: "Laptop",
-      paymentMethod: "Cash",
-    },
-    {
-      month: "March",
-      totalExpense: 2,
-      totalExpenseAmount: 16000,
-      date: "2023-02-28",
-      expenseDesc: "Dell Lenovo",
-      category: "Laptop",
-      paymentMethod: "Cash",
-    },
-  ],
-};
-
 interface exportPdfExpense {
   expenses: any;
-  
+  monthName: any;
 }
 
 //
 
-const ExpensePDF: React.FC<exportPdfExpense> = ({ expenses }) => (
-  
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Image src={logoIcon} style={{ width: 100, height: 50 }} />
-        <Text style={styles.heading}>Easyology Monthly Expenses</Text>
-        <Text>{new Date().toLocaleDateString()}</Text>
-      </View>
-      <View style={styles.table}>
-        <View style={styles.tableRow}>
-          <Text style={styles.tableColHeader}>Serial No.</Text>
-          <Text style={styles.tableColHeader}>Month</Text>
-          <Text style={styles.tableColHeader}>Expense</Text>
-          <Text style={styles.tableColHeader}>Amount</Text>
-          <Text style={[styles.tableColHeader, styles.tableDescription]}>
-            Description
-          </Text>
-          {/* <Text style={styles.tableColHeader}>Category</Text> */}
-          <Text style={styles.tableColHeader}>Pay Method</Text>
+const ExpensePDF: React.FC<exportPdfExpense> = ({ expenses, monthName }) => {
+  const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.header}>
+          <Image src={logoIcon} style={{ width: 100, height: 50 }} />
+          <Text style={styles.heading}>Easyology {monthName} Expenses</Text>
+          <Text>{new Date().toLocaleDateString()}</Text>
         </View>
-       
-        {expenses?.map((expense: any, index: any) => (
-          <View key={index} style={styles.tableRow}>
-            <View style={styles.tableCol}>
-              <Text>{index + 1}</Text>
-            </View>
-            <View style={styles.tableCol}>
-           {/*    <Text>
-                {" "}
-                {dayjs()
-                  .month(month - 1)
-                  .format("MMMM")}
-              </Text> */}
-            </View>
-            <View style={styles.tableCol}>
-              <Text>{dayjs(expense?.expenseDate).format("MM/DD/YYYY")}</Text>
-            </View>
-            <View style={styles.tableCol}>
-              {<Text>$ {expense?.expenseAmount}</Text>}
-            </View>
-            <View style={styles.tableCol}>
-              <Text>{expense?.expenseDescription}</Text>
-            </View>
-            {/*  <View style={styles.tableCol}>
-              <Text>{expense.category}</Text>
-            </View> */}
-            <View style={styles.tableCol}>
-              {<Text> {expense?.paymentType}</Text>}
-            </View>
+        <View style={styles.table}>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableColHeader}>Serial No.</Text>
+            <Text style={styles.tableColHeader}>Date</Text>
+            <Text style={styles.tableColHeader}>Amount</Text>
+            <Text style={[styles.tableColHeader, styles.tableDescription]}>
+              Description
+            </Text>
+            <Text style={styles.tableColHeader}>Pay Method</Text>
           </View>
-        ))}
-      </View>
-         <View style={styles.footer}>
-        <Text>Company Name: {expens.companyName}</Text>
-        <Text>Company Address: {expens.companyAddress}</Text>
-        <Text>Contact Number: {expens.contact}</Text>
-      </View>
-      <View style={styles.signatureRow}>
-        <View style={styles.signatureColumn}>
-          <Text style={styles.signatureLabel}>Prepared by</Text>
-          <View style={styles.signatureLine} />
+
+          {expenses?.map((expense: any, index: any) => (
+            <View key={index} style={styles.tableRow}>
+              <View style={styles.tableCol}>
+                <Text>{index + 1}</Text>
+              </View>
+              {/* <View style={styles.tableCol}>{monthName}</View> */}
+              <View style={styles.tableCol}>
+                <Text>{dayjs(expense?.expenseDate).format("MM/DD/YYYY")}</Text>
+              </View>
+              <View style={styles.tableCol}>
+                {<Text>$ {expense?.expenseAmount}</Text>}
+              </View>
+              <View style={styles.tableCol}>
+                <Text>{expense?.expenseDescription}</Text>
+              </View>
+              {/*  <View style={styles.tableCol}>
+                  <Text>{expense.category}</Text>
+                </View> */}
+              <View style={styles.tableCol}>
+                {<Text> {expense?.paymentType}</Text>}
+              </View>
+            </View>
+          ))}
         </View>
-        <View style={styles.signatureColumn}>
-          <Text style={styles.signatureLabel}>Approved by</Text>
-          <View style={styles.signatureLine} />
+        <View style={styles.footer}>
+          <Text>Company Name: {data?.storeName ?? ''}</Text>
+          <Text>Company Address: {data?.storeAddress ?? ''}</Text>
+          <Text>Contact Number: {data?.contact ?? ''}</Text>
         </View>
-        <View style={styles.signatureColumn}>
-          <Text style={styles.signatureLabel}>Received by</Text>
-          <View style={styles.signatureLine} />
+        <View style={styles.signatureRow}>
+          <View style={styles.signatureColumn}>
+            <Text style={styles.signatureLabel}>Prepared by</Text>
+            <View style={styles.signatureLine} />
+          </View>
+          <View style={styles.signatureColumn}>
+            <Text style={styles.signatureLabel}>Approved by</Text>
+            <View style={styles.signatureLine} />
+          </View>
+          <View style={styles.signatureColumn}>
+            <Text style={styles.signatureLabel}>Received by</Text>
+            <View style={styles.signatureLine} />
+          </View>
         </View>
-      </View>
-    </Page>
-  </Document>
-);
+      </Page>
+    </Document>
+  );
+};
 
 export default ExpensePDF;

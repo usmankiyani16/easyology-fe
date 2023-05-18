@@ -21,6 +21,8 @@ const AllExpenses = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const month = location.state;
+  const monthName =  dayjs().month(month - 1).format("MMMM")
+
   let totalAmount = data?.expenses?.reduce(
     (total: number, expense: { expenseAmount: number }) =>
       total + expense.expenseAmount,
@@ -72,14 +74,12 @@ const AllExpenses = () => {
           <h1 className="font-lato mt-4 xs:text-[1.8rem] sm:text-[2rem] whitespace-nowrap">
             Expenses of{" "}
             <span className="_primary-color">
-              {dayjs()
-                .month(month - 1)
-                .format("MMMM")}
+              {monthName}
             </span>
           </h1>
         </div>
 
-        <PDFDownloadLink document={<ExpensePDF expenses={data?.expenses} />} fileName="expenses.pdf">
+        <PDFDownloadLink document={<ExpensePDF expenses={data?.expenses} monthName={monthName} />} fileName="expenses.pdf">
           <div>
             <Button
               className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4"
