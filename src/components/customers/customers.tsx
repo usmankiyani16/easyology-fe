@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./customers.scss";
 import addCustomerIcon from "../../assets/icons/dashboard/add-customer.png";
-import { Button, Input, Pagination } from "antd";
+import { Button, Empty, Input, Pagination } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
 import CustomerCard from "./customers-card/customer-card";
@@ -31,7 +31,14 @@ const Customer = () => {
     dispatch(getCustomers({}));
   }, [isApiChange]);
   const handlePagination = (value: any) => {
-    console.log("value", value);
+    let payload: any = {};
+    if (value) {
+      payload = {
+        page: value,
+        perPage: 8,
+      };
+      dispatch(getCustomers(payload));
+    }
   };
   return (
     <div className="_customer-wrapper">
@@ -70,13 +77,22 @@ const Customer = () => {
       ) : (
         <>
           <div className="_cards">
+            {!customers?.customers?.length &&
+            status === REQUEST_STATUS.SUCCEEDED ? (
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="No product available"
+              />
+            ) : (
+              ""
+            )}
             <CustomerCard customers={customers?.customers} />
           </div>
           {customers?.customers?.length ? (
             <div>
               <Pagination
                 onChange={handlePagination}
-                className="flex justify-end"
+                className="flex justify-end mt-4"
                 defaultCurrent={customers?.pagination?.page}
                 defaultPageSize={8}
                 total={customers?.pagination?.totalCount}
