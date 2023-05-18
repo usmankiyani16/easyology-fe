@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
   },
   tableColHeader: {
-    width: "15%",
+    width: "20%",
     textAlign: "center",
     paddingLeft: 10,
     fontWeight: "bold",
   },
   tableCol: {
-    width: "15%",
+    width: "20%",
     // textAlign: "left",
     paddingLeft: 10,
     textAlign: "center",
@@ -82,20 +82,25 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 40,
     left: 40,
-    right: 40,
+    right: 200,
     textAlign: "center",
     fontSize: 10,
     borderTop: "1pt solid #333",
     paddingTop: 10,
   },
-  signatureRow: {
+  storeDetails: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 50,
+    marginTop:'40px'
+ 
   },
-  signatureColumn: {
+  storeColumn: {
     width: "30%",
     textAlign: "center",
+  },
+  cashCol: {
+    color:'red',
+
   },
   signatureLabel: {
     fontSize: 10,
@@ -106,22 +111,33 @@ const styles = StyleSheet.create({
     width: "80%",
     borderBottom: "1pt solid #333",
   },
+  totalAmount: {
+    color: "red",
+    textAlign:"center",
+    marginTop:'20px',
+    fontSize:'18px'
+  }
 });
 
 interface exportPdfExpense {
   expenses: any;
   monthName: any;
+  totalAmount: any;
 }
 
 //
 
-const ExpensePDF: React.FC<exportPdfExpense> = ({ expenses, monthName }) => {
+const ExpensePDF: React.FC<exportPdfExpense> = ({
+  expenses,
+  monthName,
+  totalAmount,
+}) => {
   const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          <Image src={logoIcon} style={{ width: 100, height: 50 }} />
+          <Image src={logoIcon} style={{ width: 100, height: 50 , objectFit:'contain'}} />
           <Text style={styles.heading}>Easyology {monthName} Expenses</Text>
           <Text>{new Date().toLocaleDateString()}</Text>
         </View>
@@ -154,31 +170,37 @@ const ExpensePDF: React.FC<exportPdfExpense> = ({ expenses, monthName }) => {
               {/*  <View style={styles.tableCol}>
                   <Text>{expense.category}</Text>
                 </View> */}
-              <View style={styles.tableCol}>
+              <View style={[styles.tableCol, styles.cashCol]}>
                 {<Text> {expense?.paymentType}</Text>}
               </View>
             </View>
           ))}
         </View>
-        <View style={styles.footer}>
-          <Text>Company Name: {data?.storeName ?? ''}</Text>
-          <Text>Company Address: {data?.storeAddress ?? ''}</Text>
-          <Text>Contact Number: {data?.contact ?? ''}</Text>
+
+        {/* <View style={styles.footer}> */}
+
+        <View style={styles.totalAmount}>
+            <Text> Total Expense Amount: {totalAmount}</Text>
+          </View>
+
+        <View style={styles.storeDetails}>
+        <View style={styles.storeColumn}>
+            <Text> Store Name: {data?.storeName ?? ""}</Text>
+          </View>
+          <View style={styles.storeColumn}>
+            <Text> Store Address: {data?.storeAddress ?? ""}</Text>
+          </View>
+          <View style={styles.storeColumn}>
+            <Text> Contact Number: {data?.contact ?? ""}</Text>
+          </View>
         </View>
-        <View style={styles.signatureRow}>
-          <View style={styles.signatureColumn}>
-            <Text style={styles.signatureLabel}>Prepared by</Text>
-            <View style={styles.signatureLine} />
-          </View>
-          <View style={styles.signatureColumn}>
-            <Text style={styles.signatureLabel}>Approved by</Text>
-            <View style={styles.signatureLine} />
-          </View>
-          <View style={styles.signatureColumn}>
-            <Text style={styles.signatureLabel}>Received by</Text>
-            <View style={styles.signatureLine} />
-          </View>
-        </View>
+
+    
+
+          {/* </View> */}
+       {/*  <View style={styles.signatureRow}>
+        
+        </View> */}
       </Page>
     </Document>
   );

@@ -20,7 +20,7 @@ const Orders = () => {
             <Input
               className="w-44 h-8"
               prefix={<SearchOutlined />}
-              placeholder="Search Customer"
+              placeholder="Search Order"
               onChange={(event) => searchProduct(event.target.value)}
             />
           </div>

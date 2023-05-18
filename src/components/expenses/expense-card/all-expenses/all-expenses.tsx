@@ -18,6 +18,8 @@ import dayjs from "dayjs";
 
 const AllExpenses = () => {
   const { data, status } = useAppSelector((state) => state.expenses);
+
+  console.log(data, 'expense ooooo')
   const dispatch = useAppDispatch();
   const location = useLocation();
   const month = location.state;
@@ -79,7 +81,7 @@ const AllExpenses = () => {
           </h1>
         </div>
 
-        <PDFDownloadLink document={<ExpensePDF expenses={data?.expenses} monthName={monthName} />} fileName="expenses.pdf">
+        <PDFDownloadLink document={<ExpensePDF expenses={data?.expenses} monthName={monthName} totalAmount={totalAmount} />} fileName={`${monthName}-Expenses.pdf`}>
           <div>
             <Button
               className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4"
@@ -95,6 +97,9 @@ const AllExpenses = () => {
             </Button>
           </div>
         </PDFDownloadLink>
+
+
+       
       </div>
       {status === REQUEST_STATUS.PENDING ? (
         <Spinner />
@@ -103,10 +108,19 @@ const AllExpenses = () => {
           <div className="_cards">
             <AllExpenseCard expenses={data?.expenses} />
           </div>
+
+
           <div className="m-auto flex justify-center gap-4 text-2xl mt-2">
             <span>Total Expenses </span>
             <span className="_primary-color"> ${totalAmount ?? ""}</span>
           </div>
+
+          <div style={{ marginTop: '20px', width: '100%', height: '1000px' }}>
+
+          <PDFViewer style={{ width: '100%', height: '100%' }}>
+            <ExpensePDF expenses={data?.expenses} monthName={monthName} totalAmount={totalAmount} />
+          </PDFViewer>
+        </div>
           {data?.expenses?.length ? (
             <div>
               <Pagination
