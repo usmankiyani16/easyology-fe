@@ -16,12 +16,12 @@ const DateRange = () => {
     page: 1,
     perPage: 8,
   };
-  const handleDateChange = (dateValue: any, month?: string) => {
+  const handleDateChange = (dateValue: any) => {
     setEndMonth(dateValue);
     payload.startDate = dayjs(startMonth).format("YYYY-MM-DD");
     payload.endDate = dayjs(dateValue).format("YYYY-MM-DD");
 
-    dispatch(getExpenses(payload));
+    if (startMonth) dispatch(getExpenses(payload));
   };
   const handleClearSelection = () => {
     setStartMonth(null);
@@ -84,9 +84,7 @@ const DateRange = () => {
         </div>
         <div>
           <Button
-            disabled={
-              !data?.expenses?.length || status === REQUEST_STATUS.PENDING
-            }
+            disabled={status === REQUEST_STATUS.PENDING}
             className="_bg-primary-color _white-color cursor-pointer"
             onClick={handleClearSelection}
           >
