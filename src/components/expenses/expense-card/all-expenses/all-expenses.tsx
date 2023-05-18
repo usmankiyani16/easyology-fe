@@ -21,7 +21,7 @@ const AllExpenses = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const month = location.state;
-  let totalAmount = data?.expenses.reduce(
+  let totalAmount = data?.expenses?.reduce(
     (total: number, expense: { expenseAmount: number }) =>
       total + expense.expenseAmount,
     0

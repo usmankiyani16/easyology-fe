@@ -2,13 +2,15 @@ import { useState } from "react";
 
 import { Button, DatePicker } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import { useAppDispatch } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { getExpenses } from "../../../store/expenses/expenses.slice";
+import { REQUEST_STATUS } from "../../../utils/constants";
 
 const DateRange = () => {
   const dispatch = useAppDispatch();
   const [startMonth, setStartMonth] = useState<any>(null);
   const [endMonth, setEndMonth] = useState<any>(null);
+  const { data, status } = useAppSelector((state) => state.expenses);
 
   let payload: any = {
     page: 1,
@@ -18,14 +20,13 @@ const DateRange = () => {
     setEndMonth(dateValue);
     payload.startDate = dayjs(startMonth).format("YYYY-MM-DD");
     payload.endDate = dayjs(dateValue).format("YYYY-MM-DD");
-    console.log("payload", payload);
 
     dispatch(getExpenses(payload));
   };
   const handleClearSelection = () => {
     setStartMonth(null);
     setEndMonth(null);
-    dispatch(getExpenses(payload));
+    if (startMonth && endMonth) dispatch(getExpenses(payload));
   };
 
   // Validating Dates
@@ -58,6 +59,9 @@ const DateRange = () => {
         <div>
           <label>Start Month: </label>
           <DatePicker
+            disabled={
+              !data?.expenses?.length || status === REQUEST_STATUS.PENDING
+            }
             value={startMonth}
             onChange={setStartMonth}
             disabledDate={disabledStartDate}
@@ -68,6 +72,9 @@ const DateRange = () => {
         <div>
           <label>End Month: </label>
           <DatePicker
+            disabled={
+              !data?.expenses?.length || status === REQUEST_STATUS.PENDING
+            }
             value={endMonth}
             onChange={(value) => handleDateChange(value)}
             disabledDate={disabledEndDate}
@@ -77,6 +84,9 @@ const DateRange = () => {
         </div>
         <div>
           <Button
+            disabled={
+              !data?.expenses?.length || status === REQUEST_STATUS.PENDING
+            }
             className="_bg-primary-color _white-color cursor-pointer"
             onClick={handleClearSelection}
           >
