@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Image,
 } from "@react-pdf/renderer";
+import dayjs from "dayjs";
 
 const styles = StyleSheet.create({
   page: {
@@ -37,13 +38,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     marginBottom: 20,
-    color:'red'
+    color: "red",
   },
   table: {
     // display: "table",
     width: "auto",
     marginBottom: 30,
-    textAlign:'center'
+    textAlign: "center",
   },
   tableRow: {
     flexDirection: "row",
@@ -63,15 +64,14 @@ const styles = StyleSheet.create({
     width: "15%",
     // textAlign: "left",
     paddingLeft: 10,
-    textAlign:'center'
+    textAlign: "center",
   },
   tableDescription: {
     // width: "40%",
   },
-  
 
   tableSeriol: {
-    width: '5%'
+    width: "5%",
   },
   tableValue: {
     // width: "30%",
@@ -108,77 +108,78 @@ const styles = StyleSheet.create({
   },
 });
 
+const expens= {
+  companyName: "Easyology Store",
+  companyAddress: "USA North South",
+  contact: "0344567777",
 
+  expenseData: [
+    {
+      month: "January",
+      totalExpense: 5,
+      totalExpenseAmount: 500,
+      date: "2023-01-31",
+      expenseDesc: "Office supplies",
+      category: "Office",
+      paymentMethod: "Credit Card",
+    },
+    {
+      month: "March",
+      totalExpense: "6",
+      totalExpenseAmount: 300,
+      date: "2023-03-28",
+      expenseDesc: "Travel expenses",
+      category: "Travel",
+      paymentMethod: "Cash",
+    },
+    {
+      month: "March",
+      totalExpense: 9,
+      totalExpenseAmount: 300,
+      date: "2023-03-28",
+      expenseDesc: "Office supplies",
+      category: "Office",
+      paymentMethod: "Credit Card",
+    },
+    {
+      month: "April",
+      totalExpense: 7,
+      totalExpenseAmount: 1600,
+      date: "2023-04-28",
+      expenseDesc: "Travel expenses",
+      category: "Travel",
+      paymentMethod: "Cash",
+    },
+    {
+      month: "April",
+      totalExpense: 2,
+      totalExpenseAmount: 16000,
+      date: "2023-04-28",
+      expenseDesc: "Dell Lenovo",
+      category: "Laptop",
+      paymentMethod: "Cash",
+    },
+    {
+      month: "March",
+      totalExpense: 2,
+      totalExpenseAmount: 16000,
+      date: "2023-02-28",
+      expenseDesc: "Dell Lenovo",
+      category: "Laptop",
+      paymentMethod: "Cash",
+    },
+  ],
+};
 
-const expenses = { 
-
-    companyName:'Easyology Store',
-    companyAddress: 'USA North South',
-    contact : '0344567777',
-    
-    expenseData: [
-  {
-    month: "January",
-    totalExpense: 5,
-    totalExpenseAmount: 500,
-    date: "2023-01-31",
-    expenseDesc: "Office supplies",
-    category: "Office",
-    paymentMethod: "Credit Card",
-  },
-  {
-    month: "March",
-    totalExpense: "6",
-    totalExpenseAmount: 300,
-    date: "2023-03-28",
-    expenseDesc: "Travel expenses",
-    category: "Travel",
-    paymentMethod: "Cash",
-  },
-  {
-    month: "March",
-    totalExpense: 9,
-    totalExpenseAmount: 300,
-    date: "2023-03-28",
-    expenseDesc: "Office supplies",
-    category: "Office",
-    paymentMethod: "Credit Card",
-  },
-  {
-    month: "April",
-    totalExpense: 7,
-    totalExpenseAmount: 1600,
-    date: "2023-04-28",
-    expenseDesc: "Travel expenses",
-    category: "Travel",
-    paymentMethod: "Cash",
-  },
-  {
-    month: "April",
-    totalExpense: 2,
-    totalExpenseAmount: 16000,
-    date: "2023-04-28",
-    expenseDesc: "Dell Lenovo",
-    category: "Laptop",
-    paymentMethod: "Cash",
-  },
-  {
-    month: "March",
-    totalExpense: 2,
-    totalExpenseAmount: 16000,
-    date: "2023-02-28",
-    expenseDesc: "Dell Lenovo",
-    category: "Laptop",
-    paymentMethod: "Cash",
-  },
- 
- 
-]
+interface exportPdfExpense {
+  expenses: any;
+  
 }
 
 //
 
-const ExpensePDF = () => (
+const ExpensePDF: React.FC<exportPdfExpense> = ({ expenses }) => (
+  
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
@@ -198,37 +199,42 @@ const ExpensePDF = () => (
           {/* <Text style={styles.tableColHeader}>Category</Text> */}
           <Text style={styles.tableColHeader}>Pay Method</Text>
         </View>
-        {expenses?.expenseData?.map((expense, index) => (
+       
+        {expenses?.map((expense: any, index: any) => (
           <View key={index} style={styles.tableRow}>
             <View style={styles.tableCol}>
               <Text>{index + 1}</Text>
             </View>
             <View style={styles.tableCol}>
-              <Text>{expense.month}</Text>
+           {/*    <Text>
+                {" "}
+                {dayjs()
+                  .month(month - 1)
+                  .format("MMMM")}
+              </Text> */}
             </View>
             <View style={styles.tableCol}>
-              <Text>{expense.totalExpense}</Text>
+              <Text>{dayjs(expense?.expenseDate).format("MM/DD/YYYY")}</Text>
             </View>
             <View style={styles.tableCol}>
-              <Text>$ {expense.totalExpenseAmount}</Text>
+              {<Text>$ {expense?.expenseAmount}</Text>}
             </View>
             <View style={styles.tableCol}>
-              <Text>{expense.expenseDesc}</Text>
+              <Text>{expense?.expenseDescription}</Text>
             </View>
-           {/*  <View style={styles.tableCol}>
+            {/*  <View style={styles.tableCol}>
               <Text>{expense.category}</Text>
             </View> */}
             <View style={styles.tableCol}>
-              <Text>{expense.paymentMethod}</Text>
+              {<Text> {expense?.paymentType}</Text>}
             </View>
-        
           </View>
         ))}
       </View>
-      <View style={styles.footer}>
-        <Text>Company Name: {expenses.companyName}</Text>
-        <Text>Company Address: {expenses.companyAddress}</Text>
-        <Text>Contact Number: {expenses.contact}</Text>
+         <View style={styles.footer}>
+        <Text>Company Name: {expens.companyName}</Text>
+        <Text>Company Address: {expens.companyAddress}</Text>
+        <Text>Contact Number: {expens.contact}</Text>
       </View>
       <View style={styles.signatureRow}>
         <View style={styles.signatureColumn}>

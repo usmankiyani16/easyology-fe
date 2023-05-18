@@ -79,7 +79,7 @@ const AllExpenses = () => {
           </h1>
         </div>
 
-        <PDFDownloadLink document={<ExpensePDF />} fileName="expenses.pdf">
+        <PDFDownloadLink document={<ExpensePDF expenses={data?.expenses} />} fileName="expenses.pdf">
           <div>
             <Button
               className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4"
