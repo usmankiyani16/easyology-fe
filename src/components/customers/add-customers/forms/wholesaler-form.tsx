@@ -15,6 +15,8 @@ import {
   message,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { useAppDispatch } from "../../../../store/store";
+import { addCustomer } from "../../../../store/customers/customers.slice";
 
 const WholeSalerForm = ({
   selectedOption,
@@ -22,6 +24,8 @@ const WholeSalerForm = ({
   validateMobileNumber,
   handleSelect,
 }: any) => {
+  const dispatch = useAppDispatch();
+  const [form] = Form.useForm();
   const [showDrivingLicence, setshowDrivingLicence] = useState(true);
   const [showtaxIdFile, setShowTaxIdFile] = useState(true);
 
@@ -35,20 +39,21 @@ const WholeSalerForm = ({
     }
   };
 
-  //   const imageUpload2 = async (e: any) => {
-  //     const file = e?.file;
-  //     delete file?.uid;
-  //     setTaxIdFile(!taxIdFile);
-  //   };
-
   const onFinish = async (values: any) => {
     console.log(values);
+    delete values.picTaxId;
+    delete values.picDl;
+    values.role = "wholesaler";
+    const res = await dispatch(addCustomer(values));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      form.resetFields();
+    }
   };
 
   return (
     <div>
       <Form
-        // labelCol={{ span: 4 }}
+        form={form}
         wrapperCol={{ span: 14 }}
         layout="vertical"
         // style={{ maxWidth:  }}
@@ -68,7 +73,7 @@ const WholeSalerForm = ({
                   <Form.Item
                     className=""
                     label={<span className="_po_field_label">First Name</span>}
-                    name="firstname"
+                    name="firstName"
                     required
                     tooltip="This is a required field"
                     rules={[
@@ -92,7 +97,7 @@ const WholeSalerForm = ({
                   <Form.Item
                     className=""
                     label={<span className="_po_field_label">Last Name</span>}
-                    name="lastname"
+                    name="lastName"
                     required
                     tooltip="This is a required field"
                     rules={[
@@ -138,7 +143,7 @@ const WholeSalerForm = ({
                   <Form.Item
                     className=""
                     label={<span className="_po_field_label">Store Name</span>}
-                    name="storename"
+                    name="storeName"
                     required
                     tooltip="This is a required field"
                     rules={[
@@ -231,7 +236,7 @@ const WholeSalerForm = ({
                     label={
                       <span className="_po_field_label">Driving License</span>
                     }
-                    name="drivinglicense"
+                    name="picDl"
                     valuePropName="drivinglicense"
                   >
                     <Upload

@@ -25,13 +25,12 @@ export const addCustomer = createAsyncThunk(
     try {
       dispatch(setLoading(true));
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-      payload.userId = data?._id;
       payload.storeId = data?.storeId;
-      const response = await postApi("/add-customer", payload);
+      const response = await postApi("/user/register", payload);
       Toast(response?.message);
       return response;
     } catch (error: any) {
-      Toast(error?.response?.data?.error, "error");
+      Toast(error?.response?.data?.message, "error");
       return rejectWithValue(error);
     } finally {
       dispatch(setLoading(false));
@@ -73,11 +72,6 @@ const customersSlice = createSlice({
       })
       .addCase(addCustomer.fulfilled, (state, action) => {
         state.status = REQUEST_STATUS.SUCCEEDED;
-        let vendor = {
-          name: action?.payload?.data?.name,
-          _id: action?.payload?.data?._id,
-        };
-        state.customers?.push(vendor);
       })
       .addCase(addCustomer.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;

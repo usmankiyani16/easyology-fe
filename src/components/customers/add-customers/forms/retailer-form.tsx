@@ -13,6 +13,8 @@ import {
   message,
 } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { useAppDispatch } from "../../../../store/store";
+import { addCustomer } from "../../../../store/customers/customers.slice";
 
 const RetailerForm = ({
   selectedOption,
@@ -20,21 +22,25 @@ const RetailerForm = ({
   validateMobileNumber,
   handleSelect,
 }: any) => {
+  const dispatch = useAppDispatch();
+  const [form] = Form.useForm();
   const onFinish = async (values: any) => {
     console.log(values);
+    values.role = "retailer";
+    const res = await dispatch(addCustomer(values));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      form.resetFields();
+    }
   };
 
   return (
     <div>
       <Form
-        // labelCol={{ span: 4 }}
+        form={form}
         wrapperCol={{ span: 14 }}
         layout="vertical"
-        // style={{ maxWidth:  }}
         onFinish={onFinish}
         autoComplete="off"
-        // className="mt-6 mb-20"
-       
       >
         {selectedOption === "Retailer" && (
           <>
@@ -47,7 +53,7 @@ const RetailerForm = ({
                 <Form.Item
                   className=""
                   label={<span className="_po_field_label">First Name</span>}
-                  name="firstname"
+                  name="firstName"
                   required
                   tooltip="This is a required field"
                   rules={[
@@ -71,7 +77,7 @@ const RetailerForm = ({
                 <Form.Item
                   className=""
                   label={<span className="_po_field_label">Last Name</span>}
-                  name="lastname"
+                  name="lastName"
                   required
                   tooltip="This is a required field"
                   rules={[
