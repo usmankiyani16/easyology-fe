@@ -14,7 +14,7 @@ const Customer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getCustomers());
+    dispatch(getCustomers({}));
   }, []);
 
   console.log(customers, "customers");
