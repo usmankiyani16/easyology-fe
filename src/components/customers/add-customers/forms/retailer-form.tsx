@@ -21,15 +21,18 @@ const RetailerForm = ({
   setSelectedOption,
   validateMobileNumber,
   handleSelect,
+  setIsModalOpen,
+  setIsApiChange
 }: any) => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const onFinish = async (values: any) => {
-    console.log(values);
     values.role = "retailer";
     const res = await dispatch(addCustomer(values));
     if (res?.meta?.requestStatus === "fulfilled") {
       form.resetFields();
+      setIsApiChange(true)
+      setIsModalOpen(false)
     }
   };
 

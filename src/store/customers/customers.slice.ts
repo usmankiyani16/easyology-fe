@@ -6,22 +6,25 @@ import { Toast } from "../../components/common/toast/toast";
 
 export const getCustomers = createAsyncThunk(
   "customers/get",
-  async (payload:any, { rejectWithValue }) => {
+  async (payload: any, { rejectWithValue }) => {
     try {
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
       let queryParams = "";
-      if (payload?.search) {
-        queryParams += `&search=${payload.search}`;
+      if (payload && Object?.values(payload)?.length === 0) {
+        queryParams = "&page=1&perPage=8";
+      } else {
+        if (payload?.search) {
+          queryParams += `&search=${payload.search}`;
+        }
+        if (payload?.page) {
+          queryParams += `&page=${payload.page}`;
+        }
+        if (payload?.perPage) {
+          queryParams += `&perPage=${payload.perPage}`;
+        }
       }
-      if (payload?.page) {
-        queryParams += `&page=${payload.page}`;
-      }
-      if (payload?.perPage) {
-        queryParams += `&perPage=${payload.perPage}`;
-      }
-    //   user?page=1&perPage=10&storeId=64516ecc0ac43ae06073f802
-      const response = await getApi(`/user?page=1&perPage=10&storeId=${storeId}`);
+      const response = await getApi(`/user?storeId=${storeId}${queryParams}`);
       return response;
     } catch (error) {
       return rejectWithValue(error);

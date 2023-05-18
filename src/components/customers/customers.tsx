@@ -1,28 +1,51 @@
 import React, { useEffect, useState } from "react";
 import "./customers.scss";
 import addCustomerIcon from "../../assets/icons/dashboard/add-customer.png";
-import { Button, Pagination } from "antd";
+import { Button, Input, Pagination } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 import CustomerCard from "./customers-card/customer-card";
 import AddCustomer from "./add-customers/add-customer";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getCustomers } from "../../store/customers/customers.slice";
 import { log } from "console";
+import { REQUEST_STATUS } from "../../utils/constants";
+import Spinner from "../common/spinner/spinner";
 
 const Customer = () => {
-  const { customers } = useAppSelector((state) => state.customers);
+  const { customers, status } = useAppSelector((state) => state.customers);
+  const [isApiChange, setIsApiChange] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const searchCustomer = (event: any) => {
+    let name = event.target.value?.trim();
+    let payload: any = {};
+    if (name) {
+      payload.page = 1;
+      payload.perPage = 8;
+      payload.search = name;
+      dispatch(getCustomers(payload));
+    } else dispatch(getCustomers({}));
+  };
   useEffect(() => {
     dispatch(getCustomers({}));
-  }, []);
-
-  console.log(customers, "customers");
+  }, [isApiChange]);
+  const handlePagination = (value: any) => {
+    console.log("value", value);
+  };
   return (
     <div className="_customer-wrapper">
       <div className="flex xs:flex-col sm:flex-row items-center justify-between mt-3">
-        <div>
-          <h1 className="font-lato  mt-4 text-[2rem]">Customers</h1>
+        <div className="flex items-center gap-4 ">
+          <h1 className="font-lato  text-[2rem]">Customers</h1>
+          <div>
+            <Input
+              className="w-44 h-8"
+              prefix={<SearchOutlined />}
+              placeholder="Search Customer"
+              onChange={searchCustomer}
+            />
+          </div>
         </div>
 
         <div>
@@ -42,21 +65,32 @@ const Customer = () => {
         </div>
       </div>
 
-      <div className="_cards">
-        <CustomerCard customers = {customers?.customers} />
-      </div>
-
-      <Pagination
-        //   onChange={handlePagination}
-        className="flex justify-end"
-        defaultCurrent={1}
-        defaultPageSize={8}
-        total={2}
-        showSizeChanger={false}
-      />
-
+      {!customers?.customers?.length && status === REQUEST_STATUS.PENDING ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="_cards">
+            <CustomerCard customers={customers?.customers} />
+          </div>
+          {customers?.customers?.length ? (
+            <div>
+              <Pagination
+                onChange={handlePagination}
+                className="flex justify-end"
+                defaultCurrent={customers?.pagination?.page}
+                defaultPageSize={8}
+                total={customers?.pagination?.totalCount}
+                showSizeChanger={false}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+        </>
+      )}
       {isModalOpen && (
         <AddCustomer
+          setIsApiChange={setIsApiChange}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />

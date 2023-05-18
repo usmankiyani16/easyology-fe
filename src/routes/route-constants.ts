@@ -5,7 +5,7 @@ export const ROUTE_CONSTANTS = {
   DASHBOARD: "dashboard",
   PRODUCTS: "products",
   // HISTORY: "history",
-  CUSTOMER: "customer",
+  CUSTOMER: "customers",
   VIEW_CUSTOMERS: 'view-customer',
   VIEW_ALL_INVOICES: 'view-all-invoices',
   CASH_CHECKER: "cash-checker",

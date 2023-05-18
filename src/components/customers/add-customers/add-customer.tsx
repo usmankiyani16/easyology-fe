@@ -17,14 +17,15 @@ import { UploadOutlined } from "@ant-design/icons";
 import RetailerForm from "./forms/retailer-form";
 import WholeSalerForm from "./forms/wholesaler-form";
 
-const AddCustomer: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
+const AddCustomer: React.FC<any> = ({
+  isModalOpen,
+  setIsModalOpen,
+  setIsApiChange,
+}) => {
   const [selectedOption, setSelectedOption]: any = useState(null);
 
   const handleSelect = (value: any) => {
     setSelectedOption(value);
-  };
-  const onFinish = async (values: any) => {
-    console.log(values);
   };
   const validateMobileNumber = (rule: any, value: string) => {
     const mobileNumberRegex = /^[0-9]{10,12}$/;
@@ -49,55 +50,57 @@ const AddCustomer: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
         <div className="m-auto">
           <h3 className="_modal_header_poView">Add Customer</h3>
 
-      <div className="mt-4">
-          <div
-            className='flex justify-center flex-col sm:items-center sm:m-auto'
-          >
-            <Form.Item
-              name="customerType"
-              required
-              tooltip={
-                <span className="_po_field_label">
-                  This is a required field
-                </span>
-              }
-              rules={[
-                {
-                  required: true,
-                  // type: 'email',
-                  message: <span>Required field</span>,
-                },
-              ]}
-            >
-              <Select
-                className="_input_field"
-                placeholder="Select customer type"
-                onChange={handleSelect}
-                style={{ width: "300px" }}
+          <div className="mt-4">
+            <div className="flex justify-center flex-col sm:items-center sm:m-auto">
+              <Form.Item
+                name="customerType"
+                required
+                tooltip={
+                  <span className="_po_field_label">
+                    This is a required field
+                  </span>
+                }
+                rules={[
+                  {
+                    required: true,
+                    // type: 'email',
+                    message: <span>Required field</span>,
+                  },
+                ]}
               >
-                <Select.Option value="Retailer">Retailer</Select.Option>
-                <Select.Option value="WholeSaler">WholeSaler</Select.Option>
-              </Select>
-            </Form.Item>
-          </div>
+                <Select
+                  className="_input_field"
+                  placeholder="Select customer type"
+                  onChange={handleSelect}
+                  style={{ width: "300px" }}
+                >
+                  <Select.Option value="Retailer">Retailer</Select.Option>
+                  <Select.Option value="WholeSaler">WholeSaler</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
 
-          <div>
-            <RetailerForm
-              selectedOption={selectedOption}
-              setSelectedOption={selectedOption}
-              validateMobileNumber={validateMobileNumber}
-              handleSelect={handleSelect}
-            />
+            <div>
+              <RetailerForm
+                setIsApiChange={setIsApiChange}
+                setIsModalOpen={setIsModalOpen}
+                selectedOption={selectedOption}
+                setSelectedOption={selectedOption}
+                validateMobileNumber={validateMobileNumber}
+                handleSelect={handleSelect}
+              />
+            </div>
+            <div>
+              <WholeSalerForm
+                setIsApiChange={setIsApiChange}
+                setIsModalOpen={setIsModalOpen}
+                selectedOption={selectedOption}
+                setSelectedOption={selectedOption}
+                validateMobileNumber={validateMobileNumber}
+                handleSelect={handleSelect}
+              />
+            </div>
           </div>
-          <div>
-            <WholeSalerForm
-              selectedOption={selectedOption}
-              setSelectedOption={selectedOption}
-              validateMobileNumber={validateMobileNumber}
-              handleSelect={handleSelect}
-            />
-          </div>
-        </div>
         </div>
       </Modal>
     </div>
