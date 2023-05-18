@@ -1,24 +1,14 @@
 import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "../../../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../../../store/store";
 import { useLocation } from "react-router-dom";
 import { getExpenses } from "../../../../../store/expenses/expenses.slice";
+import { REQUEST_STATUS } from "../../../../../utils/constants";
+import Spinner from "../../../../common/spinner/spinner";
+import dayjs from "dayjs";
 
-const AllExpenseCard: React.FC<any> = ({ expense }) => {
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-  const month = location.state;
+const AllExpenseCard: React.FC<any> = ({ expenses }) => {
   const [applyBorder, setApplyBorder] = useState(false);
-
-  useEffect(() => {
-    let payload = {
-      month,
-      page: 1,
-      perPage: 8,
-    };
-    dispatch(getExpenses(payload));
-  }, []);
-
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 1100) {
@@ -38,7 +28,7 @@ const AllExpenseCard: React.FC<any> = ({ expense }) => {
   return (
     <>
       <div className="flex flex-col gap-4 mt-3">
-        {expense?.map((data: any) => (
+        {expenses?.map((data: any) => (
           <Card key={data?.key} className="_po-card">
             <div className="flex w-full justify-between grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
               <div
@@ -48,7 +38,7 @@ const AllExpenseCard: React.FC<any> = ({ expense }) => {
               >
                 <div className="flex flex-col items-center text-lg gap-1">
                   <span className="font-medium">Date:</span>
-                  <span className="_grey-color">{data?.date}</span>
+                  <span className="_grey-color">{dayjs(data?.expenseDate).format('mm/dd/yyyy')}</span>
                 </div>
               </div>
               <div
@@ -58,7 +48,9 @@ const AllExpenseCard: React.FC<any> = ({ expense }) => {
               >
                 <div className="flex flex-col items-center text-lg md:gap-1">
                   <span className="font-medium">Expense Description</span>
-                  <span className=" _grey-color">{data?.expenseDesc}</span>
+                  <span className=" _grey-color">
+                    {data?.expenseDescription}
+                  </span>
                 </div>
               </div>
 
@@ -69,11 +61,7 @@ const AllExpenseCard: React.FC<any> = ({ expense }) => {
               >
                 <div className="flex flex-col items-center text-lg md:gap-1">
                   <span className="font-medium">Expense Amount:</span>
-                  {
-                    <span className="_grey-color">
-                      $ {data?.totalExpenseAmount}
-                    </span>
-                  }
+                  {<span className="_grey-color">$ {data?.expenseAmount}</span>}
                 </div>
               </div>
 
@@ -82,7 +70,7 @@ const AllExpenseCard: React.FC<any> = ({ expense }) => {
                   <span className="font-medium">Payment Method:</span>
                   {
                     <span className="_primary-color">
-                      $ {data?.paymentMethod}
+                      {data?.paymentType}
                     </span>
                   }
                 </div>

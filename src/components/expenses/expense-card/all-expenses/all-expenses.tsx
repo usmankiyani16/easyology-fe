@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Pagination } from "antd";
 import exportIcon from "../../../../assets/icons/dashboard/export-Icon.png";
 
@@ -11,11 +11,43 @@ import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import ExpensePDF from "./expense-report/expense-report";
 import { useLocation } from "react-router-dom";
 import { getExpenses } from "../../../../store/expenses/expenses.slice";
-import { useAppDispatch } from "../../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { REQUEST_STATUS } from "../../../../utils/constants";
+import Spinner from "../../../common/spinner/spinner";
+import dayjs from "dayjs";
 
 const AllExpenses = () => {
-  
-  
+  const { data, status } = useAppSelector((state) => state.expenses);
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const month = location.state;
+  let totalAmount = data?.expenses.reduce(
+    (total: number, expense: { expenseAmount: number }) =>
+      total + expense.expenseAmount,
+    0
+  );
+
+  const handlePagination = async (value: Number) => {
+    let payload: any = {};
+    if (value) {
+      payload = {
+        month,
+        page: value,
+        perPage: 8,
+      };
+      dispatch(getExpenses(payload));
+    }
+  };
+
+  useEffect(() => {
+    let payload = {
+      month,
+      page: 1,
+      perPage: 8,
+    };
+    dispatch(getExpenses(payload));
+  }, []);
+
   const pdfRef = useRef(null);
 
   const generatePDF = () => {
@@ -31,7 +63,6 @@ const AllExpenses = () => {
     console.log(value);
   };
 
-
   // Render the MonthlyExpenseReport component
 
   return (
@@ -39,16 +70,13 @@ const AllExpenses = () => {
       <div className="flex sm:flex-row xs:flex-col items-center justify-between mt-3">
         <div className="flex xs:flex-col xs:items-center sm:flex-row sm:items-center sm:gap-12 xs:justify-between">
           <h1 className="font-lato mt-4 xs:text-[1.8rem] sm:text-[2rem] whitespace-nowrap">
-            Expenses of <span className="_primary-color">January</span>
+            Expenses of{" "}
+            <span className="_primary-color">
+              {dayjs()
+                .month(month - 1)
+                .format("MMMM")}
+            </span>
           </h1>
-          <div className="sm:mt-4">
-            <Input
-              className="w-44 h-8"
-              prefix={<SearchOutlined />}
-              placeholder="Search Customer"
-              onChange={(event) => searchProduct(event.target.value)}
-            />
-          </div>
         </div>
 
         <PDFDownloadLink document={<ExpensePDF />} fileName="expenses.pdf">
@@ -68,28 +96,33 @@ const AllExpenses = () => {
           </div>
         </PDFDownloadLink>
       </div>
-      <div className="_cards">
-        <AllExpenseCard expense={expense} />
-      </div>
-
-      {/* <PDFViewer style={{ width: "100%", height: "600px" }} ref={pdfRef}>
-        <ExpensePDF />
-      </PDFViewer> */}
-
-      <div className="m-auto flex justify-center gap-4 text-2xl mt-2">
-        <span>Total Expenses </span>
-        <span className="_primary-color"> $1400</span>
-      </div>
-      <div>
-        <Pagination
-          //   onChange={handlePagination}
-          className="flex justify-end"
-          defaultCurrent={1}
-          defaultPageSize={8}
-          total={2}
-          showSizeChanger={false}
-        />
-      </div>
+      {status === REQUEST_STATUS.PENDING ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="_cards">
+            <AllExpenseCard expenses={data?.expenses} />
+          </div>
+          <div className="m-auto flex justify-center gap-4 text-2xl mt-2">
+            <span>Total Expenses </span>
+            <span className="_primary-color"> ${totalAmount ?? ""}</span>
+          </div>
+          {data?.expenses?.length ? (
+            <div>
+              <Pagination
+                onChange={handlePagination}
+                className="flex justify-end"
+                defaultCurrent={data?.pagination?.page}
+                defaultPageSize={8}
+                total={data?.pagination?.totalCount}
+                showSizeChanger={false}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+        </>
+      )}
     </div>
   );
 };
