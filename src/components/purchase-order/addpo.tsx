@@ -42,8 +42,8 @@ const AddPO = () => {
   const [subCatmodalOpen, setSubCatModalOpen] = useState(false);
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
   // const [importModalOpen, setImportModalOpen] = useState(false);
-  const [productImage, setProductImage] = useState<string>("");
-  const [showUpload, setShowUpload] = useState(true);
+  const [imageValue, setImageValue] = useState<string>("");
+  
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
   const [file, setFile] = useState(null);
@@ -54,7 +54,6 @@ const AddPO = () => {
     console.log("value", values);
 
     Toast("Product added to cart successfully");
-    setShowUpload(true);
     const newFormData: any = {
       name: values.product,
       amount: Number(values.price),
@@ -62,7 +61,7 @@ const AddPO = () => {
       iemiNumber: values.imeiNumber,
       description: values.productDescription,
       categoryId: values.category,
-      image: productImage,
+      image: imageValue,
       options: {
         color: values.color ?? "",
         size: values.size ?? "",
@@ -94,18 +93,18 @@ const AddPO = () => {
     setDataForm(newObject);
   };
 
-  const imageUpload = async (e: any) => {
-    const file = e?.file;
-    delete file?.uid;
-    setShowUpload(!showUpload);
-    if (showUpload) {
-      const res = await dispatch(uploadMedia(file));
-      if (res?.meta?.requestStatus == "fulfilled") {
-        setProductImage(res?.payload?.data?.fileName);
-      } else Toast("Something went wrong", "error");
-    }
-    // setFile(e.file);
-  };
+  // const imageUpload = async (e: any) => {
+  //   const file = e?.file;
+  //   delete file?.uid;
+  //   setShowUpload(!showUpload);
+  //   if (showUpload) {
+  //     const res = await dispatch(uploadMedia(file));
+  //     if (res?.meta?.requestStatus == "fulfilled") {
+  //       setProductImage(res?.payload?.data?.fileName);
+  //     } else Toast("Something went wrong", "error");
+  //   }
+  //   // setFile(e.file);
+  // };
 
   useEffect(() => {
     dispatch(getCatogaries());
@@ -364,9 +363,7 @@ const AddPO = () => {
               className="mt-[20px]"
             >
               <UploadImage
-                showUpload={showUpload}
-                setShowUpload={setShowUpload}
-                setProductImage={setProductImage}
+                setImageValue={setImageValue}
               />
             </Form.Item>
             {/* 

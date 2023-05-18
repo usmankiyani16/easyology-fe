@@ -3,18 +3,19 @@ import { Toast } from "../../common/toast/toast";
 import { uploadMedia } from "../../../store/media/media-slice";
 import { useAppDispatch } from "../../../store/store";
 import uploadIcon from "../../../assets/icons/layout/upload-icon.png";
+import { useState } from "react";
 
 interface Upload {
-  showUpload: any;
-  setShowUpload: any;
-  setProductImage: any;
+
+  setImageValue: any;
 }
 const UploadImage: React.FC<Upload> = ({
-  showUpload,
-  setShowUpload,
-  setProductImage,
+ 
+  setImageValue,
 }) => {
+  
   const dispatch = useAppDispatch();
+  const [showUpload, setShowUpload] = useState(true);
 
   const imageUpload = async (e: any, state?: any) => {
     const file = e?.file;
@@ -23,7 +24,7 @@ const UploadImage: React.FC<Upload> = ({
     if (showUpload) {
       const res = await dispatch(uploadMedia(file));
       if (res?.meta?.requestStatus == "fulfilled") {
-        setProductImage(res?.payload?.data?.fileName);
+        setImageValue(res?.payload?.data?.fileName);
       } else Toast("Something went wrong", "error");
     }
     // setFile(e.file);

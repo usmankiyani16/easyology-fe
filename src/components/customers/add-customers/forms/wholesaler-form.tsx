@@ -29,22 +29,14 @@ const WholeSalerForm = ({
 }: any) => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
-  const [showDrivingLicence, setshowDrivingLicence] = useState(true);
-  const [showtaxIdFile, setShowTaxIdFile] = useState(true);
+  const [drivingLicence, setDrivingLicence] = useState(true);
+  const [taxIdFile, setTaxIdFile] = useState(true);
 
-  const imageUpload = async (e: any, state?: any) => {
-    const file = e?.file;
-    delete file?.uid;
-    if (state === "drivingLicense") {
-      setshowDrivingLicence(!showDrivingLicence);
-    } else {
-      setShowTaxIdFile(!showtaxIdFile);
-    }
-  };
+ 
 
   const onFinish = async (values: any) => {
-    delete values.picTaxId;
-    delete values.picDl;
+     values.picTaxId = taxIdFile ?? '';
+      values.picDl = drivingLicence ?? '';
     values.role = "wholesaler";
     const res = await dispatch(addCustomer(values));
     if (res?.meta?.requestStatus === "fulfilled") {
@@ -52,6 +44,8 @@ const WholeSalerForm = ({
       setIsApiChange(true);
       setIsModalOpen(false);
     }
+
+    // console.log(sh)
   };
 
   return (
@@ -243,25 +237,11 @@ const WholeSalerForm = ({
                     name="picDl"
                     valuePropName="drivinglicense"
                   >
-                    <Upload
-                      // className="upload-abc"
-                      beforeUpload={() => false}
-                      onChange={(e) => imageUpload(e, "drivingLicense")}
-                      action=""
-                      listType="picture-card"
-                      multiple={false}
-                      maxCount={1}
-                      showUploadList={{
-                        showPreviewIcon: false,
-                      }}
-                      accept="image/*"
-                    >
-                      {showDrivingLicence && (
-                        <div>
-                          <img src={uploadIcon} alt="" />
-                        </div>
-                      )}
-                    </Upload>
+                   
+                    <UploadImage
+                     
+                     setImageValue={setDrivingLicence}
+                    />
                   </Form.Item>
 
                   <Form.Item
@@ -270,31 +250,8 @@ const WholeSalerForm = ({
                     valuePropName="taxId"
                     className=""
                   >
-                    {/*  <Upload
-                      //   className="_input_field w-[600px] h-[70px]"
-                      beforeUpload={() => false}
-                      // onChange={(e) => ali(e)}
-                      // onChange={(e) => handleTaxIdUpload(e)}
-                      onChange={(e) => imageUpload(e, "taxId")}
-                      action=""
-                      listType="picture-card"
-                      multiple={false}
-                      maxCount={1}
-                      showUploadList={{
-                        showPreviewIcon: false,
-                      }}
-                      accept="image/*"
-                    >
-                      {showtaxIdFile && (
-                        <div>
-                          <img src={uploadIcon} alt="" />
-                        </div>
-                      )}
-                    </Upload> */}
                     <UploadImage
-                      showUpload={showtaxIdFile}
-                      setShowUpload={setShowtaxIdFile}
-                      setProductImage={setProductImage}
+                      setImageValue={setTaxIdFile}
                     />
                   </Form.Item>
                 </div>

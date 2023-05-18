@@ -14,7 +14,7 @@ const PurchaseOrder: any = () => {
 
   // const name = 'Ali'
 
-  // console.log(purchaseOrders?.products?.vendor[0]?.name ?? "", 'vendprrr')
+  // console.log(purchaseOrders?.products[0]?.vendor[0]?.name ?? "", 'vendprrr')
 
   console.log(purchaseOrders, "asksks");
   const dispatch = useAppDispatch();

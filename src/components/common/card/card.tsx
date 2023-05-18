@@ -67,8 +67,8 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) =>
                 <div className="flex text-lg gap-4 whitespace-nowrap">
                   <span className="font-medium">{Name}:</span>
                   <span className="font-medium _label-grey">
-                   {/*  {data?.vendor[0]?.name &&
-                      capitalize(data?.vendor[0]?.name ?? "")} */}
+                    {data?.vendor[0]?.name &&
+                      capitalize(data?.vendor[0]?.name ?? "")}
                       
                     {name}
 
