@@ -12,18 +12,19 @@ const ViewOrders = () => {
   };
   return (
     <div>
-      <div>
-        <img
-          onClick={() => navigate(-1)}
-          className="h-[25px] w-[25px] cursor-pointer"
-          src={backButtonIcon}
-          alt="back"
-        />
-      </div>
       <div className="flex xs:flex-col sm:flex-row sm:justify-between sm:items-center mt-3">
         <div className="flex items-center sm:gap-12 xs:justify-between">
           {" "}
-          <h1 className="font-lato text-[2rem]">Orders</h1>
+          <div className="flex items-center gap-2">
+            <img
+              onClick={() => navigate(-1)}
+              className="cursor-pointer"
+              src={backButtonIcon}
+              alt="back"
+            />
+
+            <h1 className="font-lato text-[2rem]">Orders</h1>
+          </div>
           <div>
             <Input
               className="w-44 h-8"

@@ -91,16 +91,14 @@ const styles = StyleSheet.create({
   storeDetails: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop:'40px'
- 
+    marginTop: "40px",
   },
   storeColumn: {
     width: "30%",
     textAlign: "center",
   },
   cashCol: {
-    color:'red',
-
+    color: "red",
   },
   signatureLabel: {
     fontSize: 10,
@@ -113,10 +111,10 @@ const styles = StyleSheet.create({
   },
   totalAmount: {
     color: "red",
-    textAlign:"center",
-    marginTop:'20px',
-    fontSize:'18px'
-  }
+    textAlign: "center",
+    marginTop: "20px",
+    fontSize: "18px",
+  },
 });
 
 interface exportPdfExpense {
@@ -137,7 +135,10 @@ const ExpensePDF: React.FC<exportPdfExpense> = ({
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          <Image src={logoIcon} style={{ width: 100, height: 50 , objectFit:'contain'}} />
+          <Image
+            src={logoIcon}
+            style={{ width: 100, height: 50, objectFit: "contain" }}
+          />
           <Text style={styles.heading}>Easyology {monthName} Expenses</Text>
           <Text>{new Date().toLocaleDateString()}</Text>
         </View>
@@ -180,11 +181,11 @@ const ExpensePDF: React.FC<exportPdfExpense> = ({
         {/* <View style={styles.footer}> */}
 
         <View style={styles.totalAmount}>
-            <Text> Total Expense Amount: {totalAmount}</Text>
-          </View>
+          <Text> Total Expense Amount: {totalAmount}</Text>
+        </View>
 
         <View style={styles.storeDetails}>
-        <View style={styles.storeColumn}>
+          <View style={styles.storeColumn}>
             <Text> Store Name: {data?.storeName ?? ""}</Text>
           </View>
           <View style={styles.storeColumn}>
@@ -195,10 +196,8 @@ const ExpensePDF: React.FC<exportPdfExpense> = ({
           </View>
         </View>
 
-    
-
-          {/* </View> */}
-       {/*  <View style={styles.signatureRow}>
+        {/* </View> */}
+        {/*  <View style={styles.signatureRow}>
         
         </View> */}
       </Page>

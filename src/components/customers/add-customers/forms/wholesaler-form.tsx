@@ -17,6 +17,7 @@ import {
 import { UploadOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../../../../store/store";
 import { addCustomer } from "../../../../store/customers/customers.slice";
+import UploadImage from "../../../common/upload-image/upload-image";
 
 const WholeSalerForm = ({
   selectedOption,
@@ -269,7 +270,7 @@ const WholeSalerForm = ({
                     valuePropName="taxId"
                     className=""
                   >
-                    <Upload
+                    {/*  <Upload
                       //   className="_input_field w-[600px] h-[70px]"
                       beforeUpload={() => false}
                       // onChange={(e) => ali(e)}
@@ -289,7 +290,12 @@ const WholeSalerForm = ({
                           <img src={uploadIcon} alt="" />
                         </div>
                       )}
-                    </Upload>
+                    </Upload> */}
+                    <UploadImage
+                      showUpload={showtaxIdFile}
+                      setShowUpload={setShowtaxIdFile}
+                      setProductImage={setProductImage}
+                    />
                   </Form.Item>
                 </div>
               </div>

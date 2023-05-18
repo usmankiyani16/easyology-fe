@@ -21,6 +21,7 @@ import { getVendors } from "../../store/vendors/vendors-slice";
 import Loader from "../common/loader/loader";
 import AddSubCategoryModal from "./add-po-modals/add-sub-cat";
 import { setImportModalOpen } from "../../store/po/po.slice";
+import UploadImage from "../common/upload-image/upload-image";
 
 const AddPO = () => {
   const dispatch = useAppDispatch();
@@ -28,11 +29,11 @@ const AddPO = () => {
     (state) => state.catogaries
   );
 
-  console.log(catogaries , 'categories')
+  console.log(catogaries, "categories");
   const { importModalOpen } = useAppSelector((state) => state.purchaseOrders);
   const { vendors } = useAppSelector((state) => state.vendors);
 
-  console.log(vendors, 'venderos')
+  console.log(vendors, "venderos");
   const [venderValue, setVenderValue] = useState<any>("");
 
   const { image } = useAppSelector((state) => state.media);
@@ -84,7 +85,7 @@ const AddPO = () => {
       vendorId: selectedVendor?._id,
       products: formData.concat(newFormData),
     };
-   
+
     form.resetFields();
     setFile(null);
 
@@ -113,7 +114,6 @@ const AddPO = () => {
 
   // Price Validator
 
-
   /* const validatePrice = (
     rule: any,
     value: string,
@@ -129,10 +129,10 @@ const AddPO = () => {
       callback();
     }
   }; */
-   const validatePrice = (rule: any, value: string): Promise<void> => {
+  const validatePrice = (rule: any, value: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       const price = parseFloat(value);
-  
+
       if (isNaN(price) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
         reject("Please enter a positive number");
       } else if (price <= 0) {
@@ -166,7 +166,7 @@ const AddPO = () => {
   const validateQuantity = (rule: any, value: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       const quantity = parseFloat(value);
-  
+
       if (isNaN(quantity) || !/^[1-9]\d*(\.\d+)?$/.test(value)) {
         reject("Please enter a positive number");
       } else if (quantity <= 0) {
@@ -363,6 +363,19 @@ const AddPO = () => {
               valuePropName="image"
               className="mt-[20px]"
             >
+              <UploadImage
+                showUpload={showUpload}
+                setShowUpload={setShowUpload}
+                setProductImage={setProductImage}
+              />
+            </Form.Item>
+            {/* 
+            <Form.Item
+              label={<span className="_po_field_label ml-[10px]">Upload</span>}
+              name="image"
+              valuePropName="image"
+              className="mt-[20px]"
+            >
               <Upload
                 beforeUpload={() => false}
                 onChange={(e) => imageUpload(e)}
@@ -382,7 +395,7 @@ const AddPO = () => {
                   </div>
                 )}
               </Upload>
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item
               label={
@@ -401,7 +414,7 @@ const AddPO = () => {
             >
               <Input
                 className="_input_field xs:w-[326px] xl:w-[523px] xl:h-[75px]"
-                placeholder="Lenovo ThinkPad · Display size 14.00-inch · Display resolution 1920x1080 pixels · Processor Core i7 · RAM 12GB · OS Windows 10 · Hard disk No · SSD 256GB"
+                placeholder="Write description about product"
               />
             </Form.Item>
           </div>

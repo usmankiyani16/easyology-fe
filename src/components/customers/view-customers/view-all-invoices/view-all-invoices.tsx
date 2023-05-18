@@ -61,7 +61,7 @@ const ViewAllInvoices = () => {
           <>
             <Card
               cardData={data?.orders}
-              name = {data?.firstName}
+              name = {`${data?.firstName} ${data?.lastName}`}
               Number={InvoiceNumber}
               Name={CustomerName}
             />

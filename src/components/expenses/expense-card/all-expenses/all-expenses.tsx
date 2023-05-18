@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Pagination } from "antd";
+import { backButtonIcon } from "../../../../assets/icons";
 import exportIcon from "../../../../assets/icons/dashboard/export-Icon.png";
 
 import AllExpenseCard from "./all-expenses-card/all-expenses-card";
@@ -9,7 +10,7 @@ import { SearchOutlined } from "@ant-design/icons";
 
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import ExpensePDF from "./expense-report/expense-report";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getExpenses } from "../../../../store/expenses/expenses.slice";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import { REQUEST_STATUS } from "../../../../utils/constants";
@@ -18,12 +19,15 @@ import dayjs from "dayjs";
 
 const AllExpenses = () => {
   const { data, status } = useAppSelector((state) => state.expenses);
+  const navigate = useNavigate();
 
-  console.log(data, 'expense ooooo')
+  console.log(data, "expense ooooo");
   const dispatch = useAppDispatch();
   const location = useLocation();
   const month = location.state;
-  const monthName =  dayjs().month(month - 1).format("MMMM")
+  const monthName = dayjs()
+    .month(month - 1)
+    .format("MMMM");
 
   let totalAmount = data?.expenses?.reduce(
     (total: number, expense: { expenseAmount: number }) =>
@@ -73,15 +77,29 @@ const AllExpenses = () => {
     <div>
       <div className="flex sm:flex-row xs:flex-col items-center justify-between mt-3">
         <div className="flex xs:flex-col xs:items-center sm:flex-row sm:items-center sm:gap-12 xs:justify-between">
-          <h1 className="font-lato mt-4 xs:text-[1.8rem] sm:text-[2rem] whitespace-nowrap">
-            Expenses of{" "}
-            <span className="_primary-color">
-              {monthName}
-            </span>
-          </h1>
+          <div className="flex items-center gap-2">
+            <img
+              onClick={() => navigate(-1)}
+              className="cursor-pointer"
+              src={backButtonIcon}
+              alt="back"
+            />
+            <h1 className="font-lato xs:text-[1.8rem] sm:text-[2rem] whitespace-nowrap">
+              Expenses of <span className="_primary-color">{monthName}</span>
+            </h1>
+          </div>
         </div>
 
-        <PDFDownloadLink document={<ExpensePDF expenses={data?.expenses} monthName={monthName} totalAmount={totalAmount} />} fileName={`${monthName}-Expenses.pdf`}>
+        <PDFDownloadLink
+          document={
+            <ExpensePDF
+              expenses={data?.expenses}
+              monthName={monthName}
+              totalAmount={totalAmount}
+            />
+          }
+          fileName={`${monthName}-Expenses.pdf`}
+        >
           <div>
             <Button
               className="_bg-white-color _primary-color _border-primary-color _white-color _hover font-medium mt-4 flex justify-between items-center gap-4"
@@ -97,9 +115,6 @@ const AllExpenses = () => {
             </Button>
           </div>
         </PDFDownloadLink>
-
-
-       
       </div>
       {status === REQUEST_STATUS.PENDING ? (
         <Spinner />
@@ -109,18 +124,20 @@ const AllExpenses = () => {
             <AllExpenseCard expenses={data?.expenses} />
           </div>
 
-
           <div className="m-auto flex justify-center gap-4 text-2xl mt-2">
             <span>Total Expenses </span>
             <span className="_primary-color"> ${totalAmount ?? ""}</span>
           </div>
 
-          <div style={{ marginTop: '20px', width: '100%', height: '1000px' }}>
-
-          <PDFViewer style={{ width: '100%', height: '100%' }}>
-            <ExpensePDF expenses={data?.expenses} monthName={monthName} totalAmount={totalAmount} />
-          </PDFViewer>
-        </div>
+          <div style={{ marginTop: "20px", width: "100%", height: "1000px" }}>
+            <PDFViewer style={{ width: "100%", height: "100%" }}>
+              <ExpensePDF
+                expenses={data?.expenses}
+                monthName={monthName}
+                totalAmount={totalAmount}
+              />
+            </PDFViewer>
+          </div>
           {data?.expenses?.length ? (
             <div>
               <Pagination

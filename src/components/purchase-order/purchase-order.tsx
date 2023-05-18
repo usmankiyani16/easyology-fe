@@ -7,14 +7,19 @@ import { getPOS } from "../../store/po/po.slice";
 import Spinner from "../common/spinner/spinner";
 import { Pagination } from "antd";
 
-const PoNumber = 'PO Number'
-const VendorName = 'Vendor Name'
-const PurchaseOrder:any = () => {
-
+const PoNumber = "PO Number";
+const VendorName = "Vendor Name";
+const PurchaseOrder: any = () => {
   const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
+
+  // const name = 'Ali'
+
+  // console.log(purchaseOrders?.products?.vendor[0]?.name ?? "", 'vendprrr')
+
+  console.log(purchaseOrders, "asksks");
   const dispatch = useAppDispatch();
 
-  console.log(purchaseOrders, 'pooo')
+  console.log(purchaseOrders, "pooo");
 
   const handlePagination = async (value: Number) => {
     let queryParam: any = {};
@@ -46,7 +51,12 @@ const PurchaseOrder:any = () => {
       <div className="_cards">
         {purchaseOrders?.products?.length ? (
           <>
-          <POCard cardData={purchaseOrders?.products} Number ={PoNumber} Name={VendorName}/>
+            <POCard
+              cardData={purchaseOrders?.products}
+              Number={PoNumber}
+              Name={VendorName}
+              // name={name}
+            />
           </>
         ) : (
           <Spinner />
@@ -61,9 +71,9 @@ const PurchaseOrder:any = () => {
           total={purchaseOrders?.pagination?.totalCount}
           showSizeChanger={false}
         />
-       ) : (
-         ""
-       )}
+      ) : (
+        ""
+      )}
     </div>
   );
 };
