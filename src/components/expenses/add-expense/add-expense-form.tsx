@@ -75,7 +75,7 @@ const AddExpenseForm = () => {
                   },
                 ]}
               >
-                <DatePicker className="w-64 h-[40px] _white-background rounded-[10px]" />
+                <DatePicker className="w-64 h-[40px] _white-background rounded-[10px]" format="DD-MM-YYYY" />
               </Form.Item>
             </Col>
           </Row>
@@ -131,6 +131,7 @@ const AddExpenseForm = () => {
                   className="w-64 h-[40px] _white-background _input-border rounded-[10px]"
                   placeholder="Enter Expense Amount"
                   type="number"
+                  prefix='$'
                 />
               </Form.Item>
             </Col>

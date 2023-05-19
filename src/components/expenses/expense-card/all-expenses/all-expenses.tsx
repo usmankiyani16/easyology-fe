@@ -129,7 +129,7 @@ const AllExpenses = () => {
             <span className="_primary-color"> ${totalAmount ?? ""}</span>
           </div>
 
-          <div style={{ marginTop: "20px", width: "100%", height: "1000px" }}>
+          {/* <div style={{ marginTop: "20px", width: "100%", height: "1000px" }}>
             <PDFViewer style={{ width: "100%", height: "100%" }}>
               <ExpensePDF
                 expenses={data?.expenses}
@@ -137,7 +137,7 @@ const AllExpenses = () => {
                 totalAmount={totalAmount}
               />
             </PDFViewer>
-          </div>
+          </div> */}
           {data?.expenses?.length ? (
             <div>
               <Pagination
