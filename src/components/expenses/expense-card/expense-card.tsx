@@ -62,7 +62,8 @@ const ExpenseCard = () => {
                       {data?.month &&
                         dayjs()
                           .month(data?.month - 1)
-                          .format("MMMM")}
+                          .format("MMMM") + " "+data?.year}
+
                     </span>
                   </div>
                 </div>

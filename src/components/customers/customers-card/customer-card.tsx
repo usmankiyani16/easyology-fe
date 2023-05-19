@@ -10,7 +10,6 @@ interface cutsomerCardTypes {
 
 const CustomerCard: React.FC<cutsomerCardTypes> = ({ customers }) => {
   const [signleCustomerData, setSignleCustomerData] = useState({});
-  console.log(signleCustomerData, "SiNgle Customer");
   return (
     <div className="_customer-wrap mt-3">
       <div className="_customer-card flex flex-col gap-4">
@@ -23,7 +22,7 @@ const CustomerCard: React.FC<cutsomerCardTypes> = ({ customers }) => {
                     Customer ID:
                   </span>
                   <span className="_primary-color font-semibold xs:overflow-x-auto md:overflow-visible">
-                    #{data?._id}
+                    {data?.userNo}
                   </span>
                 </div>
 
