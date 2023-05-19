@@ -17,7 +17,7 @@ const ViewCustomers = () => {
       <div>
         <img
           onClick={() => navigate(-1)}
-          className="h-[25px] w-[25px] cursor-pointer"
+          className="cursor-pointer"
           src={backButtonIcon}
           alt="back"
         />

@@ -46,6 +46,7 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) =>
           cardView={singlePO}
           Number={Number}
           Name={Name}
+          name={name}
         />
       )}
       <div className="flex flex-col gap-4 mt-3">
@@ -64,13 +65,13 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) =>
                     {data?.orderNumber && data?.orderNumber}
                   </span>
                 </div>
-                <div className="flex text-lg gap-4 whitespace-nowrap">
+                <div className="flex text-lg gap-2 whitespace-nowrap">
                   <span className="font-medium">{Name}:</span>
                   <span className="font-medium _label-grey">
-                    {data?.vendor[0]?.name &&
-                      capitalize(data?.vendor[0]?.name ?? "")}
+                  {/*   {data?.vendor[0]?.name &&
+                      capitalize(data?.vendor[0]?.name)} */}
                       
-                    {name}
+                    { name && (name)}
 
 
                   </span>

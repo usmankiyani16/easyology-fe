@@ -16,7 +16,16 @@ const DateRange = () => {
     page: 1,
     perPage: 8,
   };
-  const handleDateChange = (dateValue: any) => {
+
+  const handleStartDateChange = (dateValue: any) => {
+    setStartMonth(dateValue);
+    payload.startDate = dayjs(startMonth).format("YYYY-MM-DD");
+    payload.endDate = dayjs(dateValue).format("YYYY-MM-DD");
+
+    if (endMonth) dispatch(getExpenses(payload));
+  };
+
+  const handleEndDateChange = (dateValue: any) => {
     setEndMonth(dateValue);
     payload.startDate = dayjs(startMonth).format("YYYY-MM-DD");
     payload.endDate = dayjs(dateValue).format("YYYY-MM-DD");
@@ -63,7 +72,8 @@ const DateRange = () => {
               !data?.expenses?.length || status === REQUEST_STATUS.PENDING
             }
             value={startMonth}
-            onChange={setStartMonth}
+            // onChange={setStartMonth}
+            onChange={(value) => handleStartDateChange(value)}
             disabledDate={disabledStartDate}
             format="DD-MM-YYYY"
             allowClear={false}
@@ -76,7 +86,7 @@ const DateRange = () => {
               !data?.expenses?.length || status === REQUEST_STATUS.PENDING
             }
             value={endMonth}
-            onChange={(value) => handleDateChange(value)}
+            onChange={(value) => handleEndDateChange(value)}
             disabledDate={disabledEndDate}
             format="DD-MM-YYYY"
             allowClear={false}

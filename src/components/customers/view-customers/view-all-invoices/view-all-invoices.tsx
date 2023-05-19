@@ -8,6 +8,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { backButtonIcon } from "../../../../assets/icons";
 import allInvoices from "./mock-data/all-invoices";
 import { getCustomers } from "../../../../store/customers/customers.slice";
+import { capitalize } from "../../../../utils/functions/functions";
 
 const ViewAllInvoices = () => {
   const location = useLocation();
@@ -61,7 +62,7 @@ const ViewAllInvoices = () => {
           <>
             <Card
               cardData={data?.orders}
-              name = {`${data?.firstName} ${data?.lastName}`}
+              name = {`${capitalize(data?.firstName)} ${capitalize(data?.lastName)}`}
               Number={InvoiceNumber}
               Name={CustomerName}
             />

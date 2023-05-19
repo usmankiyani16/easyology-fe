@@ -20,7 +20,8 @@ const Viewmodal: React.FC<any> = ({
   setViewModalOpen,
   cardView,
   Name,
-  Number
+  Number,
+  name
 }) => {
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
 
@@ -75,7 +76,7 @@ const Viewmodal: React.FC<any> = ({
         poId={cardView?._id}
         paymentModalOpen={paymentModalOpen}
         setPaymentModalOpen={setPaymentModalOpen}
-        showButton={true}
+      
       />
       {/* ----------- View Modal ------------------ */}
 
@@ -90,7 +91,8 @@ const Viewmodal: React.FC<any> = ({
       >
         <h4 className="_po_Number mt-8 text-2xl">
           {Number}:
-          {/* <span className="text-red-500">#{cardView?.poNumber && cardView?.poNumber}</span> */}
+          <span className="text-red-500">#{cardView?.poNumber && cardView?.poNumber} {cardView?.orderNumber && cardView?.orderNumber}</span>
+          
 
         </h4>
         <h4 className="_company_name text-xl">
@@ -98,6 +100,7 @@ const Viewmodal: React.FC<any> = ({
           <span className="font-medium _label-grey">
        
             {/* {cardView?.vendor[0]?.companyName && cardView?.vendor[0]?.companyName}{" "} */}
+            {name}
             
           </span>
         </h4>
@@ -119,16 +122,16 @@ const Viewmodal: React.FC<any> = ({
                 className="w-[59px] h-[66px]"
               />
               <span className="_product_name w-[160px] h-[66px] font-semibold flex items-center">
-                {cardView?.products[0].name}
+                {cardView?.products[0].name ?? ''}
               </span>
             </div>
             <div>
               <span className="_product_quantity w-[112px] h-[66p] font-semibold">
-                {`x${cardView?.products[0].quantity}`}
+                {`x${cardView?.products[0].quantity ?? ''}`}
               </span>
             </div>
             <div>
-              <span className="_product_price text-[18px] font-bold ">{`$ ${cardView?.totalAmount} `}</span>
+              <span className="_product_price text-[18px] font-bold ">{`$ ${cardView?.totalAmount.toFixed(2) ?? ''} `}</span>
             </div>
           </div>
 
@@ -147,7 +150,7 @@ const Viewmodal: React.FC<any> = ({
                     : "_success_color"
                 }   ml-2`}
               >
-                {cardView?.paymentStatus}
+                {cardView?.paymentStatus ?? ''}
               </span>
             </span>
             {cardView?.paymentStatus === "Partially Paid" && (
@@ -173,7 +176,7 @@ const Viewmodal: React.FC<any> = ({
                     ? "_success_color"
                     : "_primary-color"
                 }   ml-2 `}
-              >{`$ ${cardView?.payments[0]?.paymentDetails?.paidAmount} `}</span>
+              >{`$ ${cardView?.payments[0]?.paymentDetails?.paidAmount.toFixed(2) ?? ''} `}</span>
             </span>
           </div>
 
@@ -183,7 +186,7 @@ const Viewmodal: React.FC<any> = ({
                 <span>
                   {" "}
                   Total Remaining:{" "}
-                  <span className="ml-2 _primary-color">{`$ ${cardView?.remainingAmount}`}</span>
+                  <span className="ml-2 _primary-color">{`$ ${cardView?.remainingAmount.toFixed(2) ?? ''}`}</span>
                 </span>
               </div>
 
@@ -192,7 +195,7 @@ const Viewmodal: React.FC<any> = ({
                   {" "}
                   Remaining Due Date:{" "}
                   <span className="ml-2 _primary-color">
-                    {` ${cardView?.payments[0]?.paymentDetails?.dueDate} `}
+                    {` ${cardView?.payments[0]?.paymentDetails?.dueDate ?? ''} `}
                   </span>
                 </span>
               </div>

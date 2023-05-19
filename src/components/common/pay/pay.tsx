@@ -26,7 +26,7 @@ const Pay = ({ onFinish, showButton }: any) => {
         ]}
       >
         <Select
-          className="_input_field w-[700px] rounded-[10px]"
+          className="_input_field rounded-[10px]"
           placeholder="Payment Method"
           onChange={handleSelect}
         >
@@ -50,7 +50,7 @@ const Pay = ({ onFinish, showButton }: any) => {
               },
             ]}
           >
-            <Input className="_input_field w-48" placeholder="Check Number" />
+            <Input className="_input_field" placeholder="Check Number" />
           </Form.Item>
           {/* <div className="flex justify-center mt-16">
             <Form.Item>
@@ -67,7 +67,7 @@ const Pay = ({ onFinish, showButton }: any) => {
       )}
     </>
   );
-  if (showButton === false) {
+  if (showButton === true) {
     return FormItems;
   } else {
     return (
@@ -80,8 +80,8 @@ const Pay = ({ onFinish, showButton }: any) => {
         >
           {FormItems}
 
-          {(selectedOption === "cash" || selectedOption === "cc") && (
-            <div className="flex justify-center mt-16">
+          {(selectedOption === "cash" || selectedOption === "cc" || selectedOption === "check") && (
+            <div className="flex justify-center m-auto mt-4">
               <Form.Item>
                 <Button
                   type="primary"

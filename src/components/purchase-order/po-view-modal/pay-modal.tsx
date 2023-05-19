@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../../sass/modals.scss";
 
-import { Modal, Form, Select, Button, Input } from "antd";
+import { Modal, Form, Select, Button, Input, Row, Col } from "antd";
 import { useAppDispatch } from "../../../store/store";
 import { getPOS, payPO } from "../../../store/po/po.slice";
 import Pay from "../../common/pay/pay";
@@ -14,7 +14,6 @@ const PayModal: React.FC<any> = ({
   setViewModalOpen,
 }) => {
   const dispatch = useAppDispatch();
- 
 
   const onFinish: any = async (values: any) => {
     console.log(values, "Ye values hai");
@@ -45,19 +44,24 @@ const PayModal: React.FC<any> = ({
   return (
     <div>
       <Modal
-        width="372px"
+        width="400px"
         footer={false}
-        centered
+        centered={true}
         open={paymentModalOpen}
         onCancel={() => setPaymentModalOpen(false)}
         destroyOnClose={true}
         className="_modal_wrap"
+        bodyStyle={{
+          height: "200px",
+          display: "flex",
+          // justifyContent: "",
+          justifySelf: "start",
+        }}
       >
-        <Pay
-          onFinish={onFinish}
-          showButton={true}
-         
-        />
+     
+              <Pay onFinish={onFinish} showButton={false} />
+          
+  
       </Modal>
     </div>
   );

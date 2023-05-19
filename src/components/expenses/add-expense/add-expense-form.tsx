@@ -168,7 +168,7 @@ const AddExpenseForm = () => {
             </Col>
 
             <Col xs={10}>
-              <Pay showButton={false} />
+              <Pay showButton={true} />
             </Col>
           </Row>
         </div>
