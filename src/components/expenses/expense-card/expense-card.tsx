@@ -60,9 +60,9 @@ const ExpenseCard = () => {
                     <span className="font-medium">Month:</span>
                     <span className="_primary-color font-semibold">
                       {data?.month &&
-                        dayjs()
+                        `${dayjs()
                           .month(data?.month - 1)
-                          .format("MMMM")}
+                          .format("MMMM")} ${data?.year}`}
                     </span>
                   </div>
                 </div>
