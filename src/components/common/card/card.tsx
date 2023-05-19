@@ -21,6 +21,7 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) =>
 
   console.log(cardData, "Card Data");
 
+
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 1100) {

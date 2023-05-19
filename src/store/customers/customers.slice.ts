@@ -51,6 +51,23 @@ export const addCustomer = createAsyncThunk(
   }
 );
 
+// export const payPO = createAsyncThunk(
+//   "customers/payPO",
+//   async (payload: any, { rejectWithValue, dispatch }) => {
+//     try {
+//       dispatch(setLoading(true));
+//       const response = await putApi("/product", payload);
+//       Toast(response?.message);
+//       return response;
+//     } catch (error: any) {
+//       Toast(error?.response?.data?.error, "error");
+//       return rejectWithValue(error);
+//     } finally {
+//       dispatch(setLoading(false));
+//     }
+//   }
+// );
+
 interface CustomersState {
   customers: any | null;
   error: string | null;
