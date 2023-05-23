@@ -17,14 +17,6 @@ export const getVendors = createAsyncThunk(
     }
   }
 );
-type AddVendorPayload = {
-  name: string;
-  email: string;
-  companyName: string;
-  comapnyAddress: string;
-  phoneNumber: string;
-  userId?: string;
-};
 export const addVendor = createAsyncThunk(
   "vendors/add",
   async (payload: any, { rejectWithValue, dispatch }) => {
