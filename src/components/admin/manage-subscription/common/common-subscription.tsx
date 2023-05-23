@@ -78,7 +78,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your customer name!" },
               ]}
             >
-              <Input />
+              <Input placeholder="Enter Customer Name" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -93,7 +93,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Input />
+              <Input placeholder="Enter email address"/>
             </Form.Item>
           </Col>
         </Row>
@@ -106,7 +106,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your phone number!" },
               ]}
             >
-              <Input type="number" />
+              <Input type="number" placeholder="Phone Number" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -117,7 +117,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your state ID!" },
               ]}
             >
-              <Input />
+              <Input placeholder="Enter State ID"/>
             </Form.Item>
           </Col>
         </Row>
@@ -130,7 +130,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your store name!" },
               ]}
             >
-              <Input />
+              <Input placeholder="Enter store name"/>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -141,7 +141,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your store address!" },
               ]}
             >
-              <Input />
+              <Input placeholder="Store Address"/>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -155,7 +155,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Input min={1} type="number" />
+              <Input min={1} type="number" placeholder="Number of users" />
             </Form.Item>
           </Col>
         </Row>
@@ -206,7 +206,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Input min={1} type="number" />
+              <Input min={1} type="number" placeholder="Mention Monthly Charges"/>
             </Form.Item>
           </Col>
         </Row>
@@ -222,7 +222,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Select>
+              <Select placeholder='Subscription Type'>
                 <Option value="monthly">Monthly</Option>
                 <Option value="6months">6 Months</Option>
                 <Option value="12months">12 Months</Option>
@@ -231,12 +231,24 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Auto Renew" name="autoRenew">
-              <Checkbox value="yes">Yes </Checkbox>
+          <Form.Item
+              label="Payment Type"
+              name="paymentType"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter the sub total charges!",
+                },
+              ]}
+            >
+        
+            <Pay showButton={true}/>
+
             </Form.Item>
+        
           </Col>
         </Row>
-        <Row gutter={[16, 16]} className="flex items-center">
+        <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
               label="Sub Total"
@@ -252,8 +264,10 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12} >
-        
-            <Pay showButton={true}/>
+          <Form.Item label="Auto Renew" name="autoRenew">
+              <Checkbox value="yes">Yes </Checkbox>
+            </Form.Item>
+         
 
           </Col>
         </Row>
