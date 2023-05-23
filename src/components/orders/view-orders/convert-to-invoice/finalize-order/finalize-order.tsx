@@ -5,6 +5,7 @@ import { Modal, Form, Input, Button } from "antd";
 const FinalizeOrder: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
   const handleSave = (values: any) => {
     console.log(values);
+    window.location.href = './orders'
   };
 
   return (
@@ -33,6 +34,8 @@ const FinalizeOrder: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
             name="trackingNo"
             required
             tooltip="This is a required field"
+            validateStatus="error"
+
             rules={[
               {
                 required: true,
@@ -56,6 +59,8 @@ const FinalizeOrder: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
             name="shippingCompany"
             required
             tooltip="This is a required field"
+            validateStatus="error"
+            className="mt-8"
             rules={[
               {
                 required: true,
@@ -78,7 +83,7 @@ const FinalizeOrder: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
               className="w-32 _primary-button"
               type="primary"
               htmlType="submit"
-              // onClick={handleClick}
+            // onClick={handleClick}
             >
               Save
             </Button>

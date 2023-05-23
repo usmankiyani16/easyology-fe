@@ -20,7 +20,8 @@ import OrderStatus from "./order-status/order-status";
 const DashboardOrder: React.FC<any> = ({
   showOrderStatus,
   showDashboardHeader,
-  showFinalizeButton
+  showFinalizeButton,
+  showOperations,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -32,7 +33,6 @@ const DashboardOrder: React.FC<any> = ({
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState();
-
 
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
@@ -161,45 +161,45 @@ const DashboardOrder: React.FC<any> = ({
           )}
         </div>
         {showDashboardHeader === true && (
-        <div className="flex items-center gap-3 self-start">
-          <AutoComplete
-            onSelect={(value, option) => handleCustomerSelect(option)}
-            options={customerOptions?.map((customer: any) => ({
-              ...customer,
-              value: customer?.name,
-            }))}
-            value={""}
-          >
-            <Input
-              className="h-8"
-              prefix={<SearchOutlined />}
-              placeholder="Search customer"
-              name="customer"
-            />
-          </AutoComplete>
-          <AutoComplete
-            onSelect={(value, option) => handleProductSelect(option)}
-            options={filteredProductOptions?.map((option: any) => ({
-              ...option,
-              quantity: 1,
-              value: option?.variants?.options?.color
-                ? option?.name + "(" + option?.variants?.options?.color + ")"
-                : option?.name,
-            }))}
-            value={selectCustomerValue}
-          >
-            <Input
-              // value={selectCustomerValue}
-              onChange={searchProduct}
-              className="h-8"
-              prefix={<SearchOutlined />}
-              placeholder="Search products"
-              name="product"
-            />
-          </AutoComplete>
-          <img src={scannerIcon} alt="scanner" />
-        </div>
-          )}
+          <div className="flex items-center gap-3 self-start">
+            <AutoComplete
+              onSelect={(value, option) => handleCustomerSelect(option)}
+              options={customerOptions?.map((customer: any) => ({
+                ...customer,
+                value: customer?.name,
+              }))}
+              value={""}
+            >
+              <Input
+                className="h-8"
+                prefix={<SearchOutlined />}
+                placeholder="Search customer"
+                name="customer"
+              />
+            </AutoComplete>
+            <AutoComplete
+              onSelect={(value, option) => handleProductSelect(option)}
+              options={filteredProductOptions?.map((option: any) => ({
+                ...option,
+                quantity: 1,
+                value: option?.variants?.options?.color
+                  ? option?.name + "(" + option?.variants?.options?.color + ")"
+                  : option?.name,
+              }))}
+              value={selectCustomerValue}
+            >
+              <Input
+                // value={selectCustomerValue}
+                onChange={searchProduct}
+                className="h-8"
+                prefix={<SearchOutlined />}
+                placeholder="Search products"
+                name="product"
+              />
+            </AutoComplete>
+            <img src={scannerIcon} alt="scanner" />
+          </div>
+        )}
 
         {showOrderStatus && (
           <div>
@@ -220,21 +220,20 @@ const DashboardOrder: React.FC<any> = ({
           </div>
         )}
 
-      {showDashboardHeader === true && (
-        <div className="flex items-center gap-3 self-start">
-          <Button
-            disabled={holdInvoices?.pagination?.totalCount === 0}
-            onClick={showModal}
-            className="font-semibold h-8 flex items-center justify-center _primary-button"
-          >
-            On hold
-            <span className=" ml-2 ">
-              ({holdInvoices?.pagination?.totalCount})
-            </span>
-          </Button>
-        </div>
-      )}
-      
+        {showDashboardHeader === true && (
+          <div className="flex items-center gap-3 self-start">
+            <Button
+              disabled={holdInvoices?.pagination?.totalCount === 0}
+              onClick={showModal}
+              className="font-semibold h-8 flex items-center justify-center _primary-button"
+            >
+              On hold
+              <span className=" ml-2 ">
+                ({holdInvoices?.pagination?.totalCount})
+              </span>
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="mt-7">
@@ -243,7 +242,8 @@ const DashboardOrder: React.FC<any> = ({
 
       {showOrderStatus && (
         <>
-          {selectedOption === "Order by phone" && (
+          {(selectedOption === "Order by phone" ||
+            selectedOption === "Order in store") && (
             <div>
               <OrderStatus onChange={handleFormChange} />
             </div>
@@ -251,15 +251,15 @@ const DashboardOrder: React.FC<any> = ({
         </>
       )}
 
-      <Operations
-        totalPrice={totalPrice}
-        selectCustomer={selectCustomer}
-        setSelectCustomer={setSelectCustomer}
-        onSave={handleSave}
-        showOrderStatus={showOrderStatus}
-        showFinalizeButton={showFinalizeButton}
-
-      />
+        <Operations
+          totalPrice={totalPrice}
+          selectCustomer={selectCustomer}
+          setSelectCustomer={setSelectCustomer}
+          onSave={handleSave}
+          showOrderStatus={showOrderStatus}
+          showFinalizeButton={showFinalizeButton}
+        />
+ 
 
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>

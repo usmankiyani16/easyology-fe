@@ -2,6 +2,7 @@ import { Form, Input, Button, Checkbox, Select, Row, Col } from "antd";
 import "./common-subscription.scss";
 import { useState } from "react";
 import CommonModal from "./common-modal/common-modal";
+import Pay from "../../../common/pay/pay";
 const { Option } = Select;
 interface CommonSubscriptionType {
   edit?: boolean;
@@ -72,7 +73,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           <Col span={12}>
             <Form.Item
               label="Customer Name"
-              name="customerName"
+              name="fullName"
               rules={[
                 { required: true, message: "Please input your customer name!" },
               ]}
@@ -83,7 +84,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           <Col span={12}>
             <Form.Item
               label="Email Address"
-              name="emailAddress"
+              name="email"
               rules={[
                 {
                   required: true,
@@ -111,7 +112,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           <Col span={12}>
             <Form.Item
               label="State ID"
-              name="stateID"
+              name="stateId"
               rules={[
                 { required: true, message: "Please input your state ID!" },
               ]}
@@ -146,7 +147,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           <Col span={12}>
             <Form.Item
               label="No of Users"
-              name="noOfUsers"
+              name="totalUsers"
               rules={[
                 {
                   required: true,
@@ -197,7 +198,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           <Col span={12}>
             <Form.Item
               label="Monthly Charges"
-              name="monthlyCharges"
+              name="monthlyCharge"
               rules={[
                 {
                   required: true,
@@ -235,7 +236,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
         </Row>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 16]} className="flex items-center">
           <Col span={12}>
             <Form.Item
               label="Sub Total"
@@ -250,7 +251,11 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               <Input min={1} type="number" />
             </Form.Item>
           </Col>
-          <Col span={12}></Col>
+          <Col span={12} >
+        
+            <Pay showButton={true}/>
+
+          </Col>
         </Row>
 
         <Form.Item>

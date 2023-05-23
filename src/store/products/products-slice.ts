@@ -116,7 +116,7 @@ export const {
   decrementProduct,
   changeProductQuantity,
   setSelectedProductsToNull,
-  changeProductPrice
+  changeProductPrice,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

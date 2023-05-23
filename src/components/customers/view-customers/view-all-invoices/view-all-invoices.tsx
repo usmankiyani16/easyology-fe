@@ -38,7 +38,7 @@ const ViewAllInvoices = () => {
       <div>
         <img
           onClick={() => navigate(-1)}
-          className="h-[25px] w-[25px] cursor-pointer"
+          className="cursor-pointer"
           src={backButtonIcon}
           alt="back"
         />
@@ -52,7 +52,7 @@ const ViewAllInvoices = () => {
           <Input
             className="sm:w-44 h-8"
             prefix={<SearchOutlined />}
-            placeholder="Search Customer"
+            placeholder="Search Invoices"
             onChange={(event) => searchProduct(event.target.value)}
           />
         </div>

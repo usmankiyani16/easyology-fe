@@ -1,6 +1,7 @@
-import { SetStateAction, useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, Form, Checkbox, Input, Button, Row, Col } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+
 
 const CheckboxGroup = Checkbox.Group;
 
@@ -8,8 +9,10 @@ const dummyAddress: any = "House No A0-2737 Shaadbaagh town";
 const OrderStatus = ({ onChange, showOrderStatus }: any) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const [selectedValues, setSelectedValues] = useState("");
-  const [addressValues, setAddressValues] = useState("");
+  const [selectedValues, setSelectedValues] = useState("10AM - 2PM");
+  const [addressValues, setAddressValues] = useState("Store Address");
+
+  const [form] = Form.useForm();
 
   // const [selectedOption, setSelectedOption] = useState("cash");
 
@@ -28,7 +31,29 @@ const OrderStatus = ({ onChange, showOrderStatus }: any) => {
     setSelectedValues(checkedValue);
   };
   const handleAddressChange = (checkedValue: any) => {
-    setAddressValues(checkedValue);
+    if (
+      selectedOption === "Waiting to be delivered" ||
+      selectedOption === "Waiting to be shipped"
+    ) {
+      setAddressValues(checkedValue);
+      if (checkedValue === "Store Address") {
+        form.setFieldsValue({
+          storeAddress: dummyAddress,
+          city: undefined,
+          state: undefined,
+          zipcode: undefined,
+        });
+      } else {
+        form.setFieldsValue({
+          storeAddress: undefined,
+          city: undefined,
+          state: undefined,
+          zipcode: undefined,
+        });
+      }
+    } else {
+      setAddressValues("");
+    }
   };
 
   const onFinish = (values: any) => {
@@ -40,30 +65,43 @@ const OrderStatus = ({ onChange, showOrderStatus }: any) => {
       values.customerType === "Waiting to be shipped"
     ) {
       values.storeAddressCheck = addressValues;
-      if (values.storeAddressCheck=== 'Store Address') {
-        values.storeAddress = dummyAddress
+      if (values.storeAddressCheck === "Store Address") {
+        values.storeAddress = dummyAddress;
       }
-    
+      
     }
     console.log(values, "order");
+   
+    form.resetFields();
+    setSelectedOption(null)
+
+    window.location.href = '/orders';
+    
+
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
+  // Form fields reset on changing selection
+  // useEffect(() => {
+  //   if (
+  //     selectedOption === "Waiting to be shipped" ||
+  //     selectedOption === "Waiting to be delivered"
+  //   ) {
+  //     form.resetFields();
+  //   }
+  // }, [selectedOption, form]);
+
   return (
     <div className="_order-wrap mt-4">
       <Form
-        // labelCol={{ span: 4 }}
-        // wrapperCol={{ span: 14 }}
         layout="vertical"
-        // style={{ maxWidth:  }}
-
         autoComplete="off"
-        // onValuesChange={handleFormChange}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        form={form}
       >
         <Row className="flex xs:flex-col md:flex-row">
           <Col xs={3}>
@@ -92,7 +130,6 @@ const OrderStatus = ({ onChange, showOrderStatus }: any) => {
                 placeholder="Select Order type"
                 onChange={handleSelect}
                 style={{ width: "200px" }}
-                //   prefix={SearchOutlined}
               >
                 <Select.Option value="Pickup from Store">
                   Pickup from Store

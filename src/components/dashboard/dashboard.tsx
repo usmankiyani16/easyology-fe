@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <div>
         
-        <DashboardOrder showDashboardHeader={true}/>
+        <DashboardOrder showDashboardHeader={true} showOperations={true}/>
       
     </div>
   )

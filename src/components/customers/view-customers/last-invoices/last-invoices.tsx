@@ -29,14 +29,18 @@ const LastInvoices: React.FC<LastInvoice> = ({invoiceData}) => {
   }, []);
 
   return (
-    <div className="_last-invoices-wrap mt-6">
+    <div className="_last-invoices-wrap flex flex-col gap-4">
       <span className="text-2xl p-1 font-semibold">Last Three Invoices</span>
+
+      {/* {invoiceData?.orders?.length ?  */}
 
       {invoiceData?.orders.map((data:any) => (
         
          <Card key={1} className="mt-4">
          <div className="flex w-full justify-between items-center grid grid-cols-2 md:grid-cols-2 xs:grid-cols-1">
-           <div className="flex flex-col gap-4 justify-between">
+           <div  className={`flex flex-col justify-between${
+                  applyBorder ? " _border-r" : ""
+                }`}>
              <div className="flex text-lg sm:gap-4">
                <span className="font-medium">Invoice Number:</span>
                <span className="_primary-color font-semibold"> #{data?.orderNumber}</span>

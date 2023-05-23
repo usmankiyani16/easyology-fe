@@ -30,6 +30,7 @@ const Otp: React.FC<any> = ({ authPayload }) => {
         open={isOTP}
         maskClosable={false}
         onCancel={handleCancel}
+        width='400px'
       >
         <Form
           className="flex flex-col"

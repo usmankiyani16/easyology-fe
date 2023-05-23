@@ -4,7 +4,7 @@ import DashboardOrder from "../../../common/dashboard-order/dashboard-order";
 const ConvertToInvoice = () => {
   return(
   <div>
-    <DashboardOrder showOrderStatus={false} showDashboardHeader={false} showFinalizeButton={true}/>
+    <DashboardOrder showOrderStatus={false} showDashboardHeader={false} showFinalizeButton={true} showOperations={true}/>
   </div>
   );
 };
