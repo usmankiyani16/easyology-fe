@@ -17,7 +17,11 @@ import {
 } from "../../../store/order/order-slice";
 import OrderStatus from "./order-status/order-status";
 
-const DashboardOrder = ({ showOrderStatus }: any) => {
+const DashboardOrder: React.FC<any> = ({
+  showOrderStatus,
+  showDashboardHeader,
+  showFinalizeButton
+}) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { holdInvoices } = useAppSelector((state) => state.order);
@@ -28,6 +32,7 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState();
+
 
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
@@ -129,25 +134,33 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
       <div className="flex gap-3 justify-between ">
         <div>
           <h1 className="font-bold text-lg">Invoice # {invoiceNumber ?? ""}</h1>
-          <h1>
-            Customer name:{" "}
-            <span className="font-semibold capitalize">
-              {selectCustomer?.value ?? ""}
-            </span>
-          </h1>
-          <h1>
-            Phone:{" "}
-            <span className="font-semibold">{selectCustomer?.mob ?? ""}</span>
-          </h1>
-          <h1>
-            <span className="_primary-color font-semibold">
-              Customer Type:{" "}
-            </span>
-            <span className="font-semibold capitalize">
-              {selectCustomer?.type ?? ""}
-            </span>
-          </h1>
+
+          {showDashboardHeader === true && (
+            <div>
+              <h1>
+                Customer name:{" "}
+                <span className="font-semibold capitalize">
+                  {selectCustomer?.value ?? ""}
+                </span>
+              </h1>
+              <h1>
+                Phone:{" "}
+                <span className="font-semibold">
+                  {selectCustomer?.mob ?? ""}
+                </span>
+              </h1>
+              <h1>
+                <span className="_primary-color font-semibold">
+                  Customer Type:{" "}
+                </span>
+                <span className="font-semibold capitalize">
+                  {selectCustomer?.type ?? ""}
+                </span>
+              </h1>
+            </div>
+          )}
         </div>
+        {showDashboardHeader === true && (
         <div className="flex items-center gap-3 self-start">
           <AutoComplete
             onSelect={(value, option) => handleCustomerSelect(option)}
@@ -186,6 +199,7 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
           </AutoComplete>
           <img src={scannerIcon} alt="scanner" />
         </div>
+          )}
 
         {showOrderStatus && (
           <div>
@@ -206,6 +220,7 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
           </div>
         )}
 
+      {showDashboardHeader === true && (
         <div className="flex items-center gap-3 self-start">
           <Button
             disabled={holdInvoices?.pagination?.totalCount === 0}
@@ -218,7 +233,10 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
             </span>
           </Button>
         </div>
+      )}
+      
       </div>
+
       <div className="mt-7">
         <ItemCard />
       </div>
@@ -233,15 +251,16 @@ const DashboardOrder = ({ showOrderStatus }: any) => {
         </>
       )}
 
-
       <Operations
         totalPrice={totalPrice}
         selectCustomer={selectCustomer}
         setSelectCustomer={setSelectCustomer}
         onSave={handleSave}
         showOrderStatus={showOrderStatus}
+        showFinalizeButton={showFinalizeButton}
+
       />
-    
+
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );

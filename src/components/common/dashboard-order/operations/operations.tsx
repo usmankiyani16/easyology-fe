@@ -11,6 +11,7 @@ import { setSelectedProductsToNull } from "../../../../store/products/products-s
 import VoidInvoice from "./void-invoice/void-invoice";
 import { customerType } from "./interfaces/operations.interface";
 import { Toast } from "../../../common/toast/toast";
+import FinalizeOrder from "../../../orders/view-orders/convert-to-invoice/finalize-order/finalize-order";
 
 const Operations: React.FC<any> = ({
   totalPrice,
@@ -18,12 +19,14 @@ const Operations: React.FC<any> = ({
   setSelectCustomer,
   onSave,
   showOrderStatus,
+  showFinalizeButton,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { selectedProducts } = useAppSelector((state) => state.products);
   const [isCashPayOpen, setIsCashPayOpen] = useState(false);
   const [isVoidOpen, setIsVoidOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [discount, setDiscount] = useState<number>(0);
   const taxRate = 0.025; // 2.5%
   const salesTax =
@@ -161,12 +164,30 @@ const Operations: React.FC<any> = ({
             $ {salesTax.toFixed(2)}
           </label>
         </div>
-        <div className="flex ">
-          <label className="_primary-color w-9/12 ">Total </label>
-          <label className="w-3/12 whitespace-nowrap">
-            $ {total.toFixed(2)}
-          </label>
-        </div>
+        {!showFinalizeButton ? (
+          <div className="flex ">
+            <label className="_primary-color w-9/12 ">Total </label>
+            <label className="w-3/12 whitespace-nowrap">
+              $ {total.toFixed(2)}
+            </label>
+          </div>
+        ) : (
+          <div>
+            <div className="flex ">
+              <label className="_success_color w-9/12 ">Total Paid</label>
+              <label className="w-3/12 whitespace-nowrap">
+                $ {total.toFixed(2)}
+              </label>
+            </div>
+
+            <div className="flex ">
+              <label className="_primary-color w-9/12 ">Remaining Amount</label>
+              <label className="w-3/12 whitespace-nowrap">
+                $ {total.toFixed(2)}
+              </label>
+            </div>
+          </div>
+        )}
 
         {showOrderStatus && (
           <div className="m-auto _white-color">
@@ -176,6 +197,19 @@ const Operations: React.FC<any> = ({
               onClick={handleClick}
             >
               Save
+            </Button>
+          </div>
+        )}
+
+        {showFinalizeButton && (
+          <div className="m-auto _white-color">
+            <Button
+              className="w-32 _primary-button"
+              onClick={() => {
+                setIsModalOpen(true);
+              }}
+            >
+              Finalize
             </Button>
           </div>
         )}
@@ -203,6 +237,13 @@ const Operations: React.FC<any> = ({
           setIsVoidOpen={setIsVoidOpen}
           selectCustomer={selectCustomer}
           setSelectCustomer={setSelectCustomer}
+        />
+      )}
+
+      {isModalOpen && (
+        <FinalizeOrder
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
         />
       )}
     </div>

@@ -53,6 +53,8 @@ const CREATEORDERLazy = Loadable(lazy(() => import("../pages/orders/create-order
 const VIEWORDERSLazy = Loadable(
   lazy(() => import("../pages/orders/view-orders/index"))
 );
+const CONVERTTOINVOICELazy = Loadable(lazy(() => import("../pages/orders/convert-to-invoice")))
+
 const ExpensesLazy = Loadable(lazy(() => import("../pages/expenses/index")));
 const AllExpensesLazy = Loadable(lazy(() => import("../pages/all-expenses/index")));
 const AddExpensesLazy = Loadable(lazy(() => import("../pages/add-expense/index")));
@@ -251,6 +253,18 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
+      {
+        path: ROUTE_CONSTANTS.CONVERT_TO_INVOICE,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <CONVERTTOINVOICELazy />
+          </RequireAuth>
+        ),
+      },
+
+
       {
         path: ROUTE_CONSTANTS.EXPENSES,
         element: (

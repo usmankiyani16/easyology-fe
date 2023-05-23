@@ -16,7 +16,7 @@ const PayModal: React.FC<any> = ({
   const dispatch = useAppDispatch();
 
   const onFinish: any = async (values: any) => {
-  
+    console.log(values, "Ye values hai");
     let payload: any = {
       poId,
       paidAmount,
@@ -58,7 +58,10 @@ const PayModal: React.FC<any> = ({
           justifySelf: "start",
         }}
       >
-        <Pay onFinish={onFinish} showButton={false} />
+     
+              <Pay onFinish={onFinish} showButton={false} />
+          
+  
       </Modal>
     </div>
   );

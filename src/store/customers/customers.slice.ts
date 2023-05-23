@@ -51,8 +51,8 @@ export const addCustomer = createAsyncThunk(
   }
 );
 
-// export const payPO = createAsyncThunk(
-//   "customers/payPO",
+// export const payInvoice = createAsyncThunk(
+//   "customers/payInoice",
 //   async (payload: any, { rejectWithValue, dispatch }) => {
 //     try {
 //       dispatch(setLoading(true));

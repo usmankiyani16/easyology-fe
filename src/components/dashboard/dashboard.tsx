@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <div>
         
-        <DashboardOrder />
+        <DashboardOrder showDashboardHeader={true}/>
       
     </div>
   )

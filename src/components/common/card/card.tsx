@@ -9,18 +9,22 @@ interface poCardTypes {
   cardData: any;
   Number: string | number;
   Name: string;
-  name?: string
+  name?: string;
 }
 
-const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) => {
+const POCard: React.FC<poCardTypes> = ({
+  cardData,
+  Number,
+  Name,
+  name,
+}: any) => {
   const [applyBorder, setApplyBorder] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [singlePO, setSinglePO] = useState<any>();
 
- 
+  const vendorName = "";
 
   console.log(cardData, "Card Data");
-
 
   useEffect(() => {
     function handleResize() {
@@ -60,7 +64,9 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) =>
                 } pr-7 mr-7`}
               >
                 <div className="flex text-lg gap-4">
-                  <span className="font-medium whitespace-nowrap">{Number}:</span>
+                  <span className="font-medium whitespace-nowrap">
+                    {Number}:
+                  </span>
                   <span className="font-semibold _primary-color">
                     #{data?.poNumber && data?.poNumber}
                     {data?.orderNumber && data?.orderNumber}
@@ -68,13 +74,11 @@ const POCard: React.FC<poCardTypes> = ({ cardData, Number, Name , name}: any) =>
                 </div>
                 <div className="flex text-lg gap-2 whitespace-nowrap">
                   <span className="font-medium">{Name}:</span>
-                  <span className="font-medium _label-grey">
-                  {/*   {data?.vendor[0]?.name &&
-                      capitalize(data?.vendor[0]?.name)} */}
-                      
-                    { name && (name)}
+                  <span className="font-medium captilize _label-grey">
+                    {/* {vendorName ?? name} */}
+                    {vendorName && vendorName}
 
-
+                    {name && name}
                   </span>
                 </div>
               </div>

@@ -16,6 +16,7 @@ export const ROUTE_CONSTANTS = {
   ORDERS: "orders",
   CREATE_ORDER: 'create-orders',
   VIEW_ORDERS: "view-orders",
+  CONVERT_TO_INVOICE: 'convert-to-invoice',
   PURCHASE_ORDER: "purchase-order",
   // SETTINGS: "settings",
   EXPENSES: 'expenses',

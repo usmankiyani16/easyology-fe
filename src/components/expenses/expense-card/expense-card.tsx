@@ -26,7 +26,7 @@ const ExpenseCard = () => {
 
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth > 880) {
+      if (window.innerWidth > 1100) {
         setApplyBorder(true);
       } else {
         setApplyBorder(false);
@@ -55,7 +55,9 @@ const ExpenseCard = () => {
             <Card>
               <div className="flex w-full justify-between items-center grid 2xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
                 {/* -------- Grid 1 ------------ */}
-                <div className="flex flex-col justify-between">
+                <div className={`flex flex-col justify-between${
+                  applyBorder ? " _border-r" : ""
+                } pr-7 mr-7`}>
                   <div className="flex text-lg sm:gap-4">
                     <span className="font-medium">Month:</span>
                     <span className="_primary-color font-semibold">

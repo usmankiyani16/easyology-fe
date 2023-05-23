@@ -1,9 +1,12 @@
 import { purchaseOrders } from "../../../purchase-order/mock-data/po-data";
 import cart from "../../../../assets/images/dashboard/Purchase-online.png";
 import { Button, Card, Pagination } from "antd";
-import orderDetails from "../../mock-data/view-orders";
 
-const ViewOrderCard = () => {
+interface ViewOrders {
+  orderDetails: any;
+}
+
+const ViewOrderCard: React.FC<ViewOrders> = ({ orderDetails }) => {
   return (
     <div>
       <div className="flex flex-col gap-4 mt-3">
@@ -48,15 +51,17 @@ const ViewOrderCard = () => {
           </>
         ))}
       </div>
-      <Pagination
-        //   onChange={handlePagination}
-        className="flex justify-end"
-        defaultCurrent={1}
-        defaultPageSize={8}
-        total={2}
-        showSizeChanger={false}
-      />
 
+      {orderDetails?.products?.length > 0 && (
+        <Pagination
+          //   onChange={handlePagination}
+          className="flex justify-end"
+          defaultCurrent={1}
+          defaultPageSize={8}
+          total={2}
+          showSizeChanger={false}
+        />
+      )}
     </div>
   );
 };

@@ -54,6 +54,7 @@ const ItemCard = () => {
     }
   };
 
+  console.log(selectedProducts, 'products')
   return (
     <div className="_item-card">
       <div className="w-full flex justify-between">

@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { backButtonIcon } from "../../../assets/icons";
+import orderDetails from "../mock-data/view-orders";
 
 import ViewOrderCard from "./view-order-card/view-order-card";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const ViewOrders = () => {
   const navigate = useNavigate();
@@ -35,14 +37,15 @@ const ViewOrders = () => {
           </div>
         </div>
 
-        {/* <div className="flex justify-between items-center xs:flex-col sm:flex-row sm:gap-12"> */}
-        {/* <img src={AddPO} alt="Add PO logo" className="h-8" /> */}
-
-        <div className="flex xs:justify-center">
-          <Button className="_bg-primary-color _white-color _hover font-medium mt-4">
-            Convert to Invoice
-          </Button>
-        </div>
+        {orderDetails?.products?.length > 0 && (
+          <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.CONVERT_TO_INVOICE}>
+            <div className="flex xs:justify-center">
+              <Button className="_bg-primary-color _white-color _hover font-medium mt-4">
+                Convert to Invoice
+              </Button>
+            </div>
+          </Link>
+        )}
         {/* </div> */}
       </div>
 
@@ -65,7 +68,7 @@ const ViewOrders = () => {
       </div>
 
       <div className="_view-order">
-        <ViewOrderCard />
+        <ViewOrderCard orderDetails={orderDetails} />
       </div>
     </div>
   );
