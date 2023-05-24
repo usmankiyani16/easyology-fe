@@ -31,6 +31,7 @@ const SubscriptionsList = () => {
 
   console.log(data, 'asbashbashhjasa')
   return (
+   
     <div className="flex flex-col gap-4">
      
       <Row className="flex items-center gap-4 ">
@@ -69,6 +70,7 @@ const SubscriptionsList = () => {
           </Link>
         </Col>
       </Row>
+      {/* {status === REQUEST_STATUS.PENDING ? <Spinner /> : ""} */}
       <SubsciptionTable />
 
     </div>

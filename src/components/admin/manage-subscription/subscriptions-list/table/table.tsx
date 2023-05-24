@@ -15,17 +15,20 @@ import Submit from "../submit/submit";
 const SubsciptionTable = () => {
   const dispatch = useAppDispatch();
   const { data, status } = useAppSelector((state) => state.subscriptions);
- 
+  const [storeData, setStoreData] = useState();
+
+  console.log(data, "ss");
 
   const [dataSource1, setDataSource1] = useState(
     data?.map((data: any, index: number) => ({
+      ...data,
       key: data?._id,
       storeId: data?.store?.id,
       storeName: data?.store?.name,
       subscriptionType: data?.subscriptionType,
       subscriptionStatus: data?.status,
-      subscriptionStartDate: dayjs(data?.startDate).format('MM/DD/YYYY'),
-      subscriptionEndDate: dayjs(data?.endDate).format('MM/DD/YYYY'),
+      subscriptionStartDate: dayjs(data?.startDate).format("MM/DD/YYYY"),
+      subscriptionEndDate: dayjs(data?.endDate).format("MM/DD/YYYY"),
       daysPastDue: data?.pastDue,
     }))
   );
@@ -113,40 +116,24 @@ const SubsciptionTable = () => {
         );
       },
     },
-    /*    {
+    {
       title: "Next Payment Date",
       dataIndex: "nextPaymentDate",
       key: "nextPaymentDate",
-    }, */
+    },
     {
-      render: (text: any) => (
+      render: (_: any, record: any) => (
         <Link
           to={{
             pathname: ROUTE_CONSTANTS.SLASH + ADMIN_ROUTES.VIEW_SUBSCRIPTION,
           }}
-          state={data}
+          state={record}
         >
           <Button>View</Button>
         </Link>
       ),
     },
   ];
-
-  // const dataSource = data?.map((item: any) => ({
-
-  //       key: item?._id,
-  //       storeId: item?.endDate        ,
-  //       // storeName: "Wall Mart",
-  //       // subscriptionType: "6 Months",
-  //       // subscriptionStatus: "Active",
-  //       // subscriptionStartDate: "01-24-2023",
-  //       // subscriptionEndDate: "05-24-2023",
-  //       // daysPastDue: "0",
-  //       // nextPaymentDate: "06-25-2023",
-  //     },
-
-  //   ];
-  // _})
 
   return (
     <>
@@ -165,8 +152,6 @@ const SubsciptionTable = () => {
           />
         )
       )}
-
-      
     </>
   );
 };
