@@ -93,7 +93,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Input placeholder="Enter email address"/>
+              <Input placeholder="Enter email address" />
             </Form.Item>
           </Col>
         </Row>
@@ -117,7 +117,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your state ID!" },
               ]}
             >
-              <Input placeholder="Enter State ID"/>
+              <Input placeholder="Enter State ID" />
             </Form.Item>
           </Col>
         </Row>
@@ -130,7 +130,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your store name!" },
               ]}
             >
-              <Input placeholder="Enter store name"/>
+              <Input placeholder="Enter store name" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -141,7 +141,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 { required: true, message: "Please input your store address!" },
               ]}
             >
-              <Input placeholder="Store Address"/>
+              <Input placeholder="Store Address" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -206,7 +206,11 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Input min={1} type="number" placeholder="Mention Monthly Charges"/>
+              <Input
+                min={1}
+                type="number"
+                placeholder="Mention Monthly Charges"
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -222,7 +226,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Select placeholder='Subscription Type'>
+              <Select placeholder="Subscription Type">
                 <Option value="monthly">Monthly</Option>
                 <Option value="6months">6 Months</Option>
                 <Option value="12months">12 Months</Option>
@@ -231,21 +235,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-          <Form.Item
-              label="Payment Type"
-              name="paymentType"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter the sub total charges!",
-                },
-              ]}
-            >
-        
-            <Pay showButton={true}/>
-
-            </Form.Item>
-        
+            <Pay showButton={true} />
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
@@ -263,12 +253,10 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               <Input min={1} type="number" />
             </Form.Item>
           </Col>
-          <Col span={12} >
-          <Form.Item label="Auto Renew" name="autoRenew">
+          <Col span={12}>
+            <Form.Item label="Auto Renew" name="autoRenew">
               <Checkbox value="yes">Yes </Checkbox>
             </Form.Item>
-         
-
           </Col>
         </Row>
 
