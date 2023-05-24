@@ -29,7 +29,7 @@ export const addSubscription = createAsyncThunk(
       Toast(response?.message);
       return response;
     } catch (error: any) {
-      Toast(error?.response?.data?.error, "error");
+      Toast(error?.response?.data?.message, "error");
       return rejectWithValue(error);
     } finally {
       dispatch(setLoading(false));
