@@ -1,11 +1,43 @@
-import { Button, Table, Tag } from "antd";
+import { Button, Empty, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import {
   ADMIN_ROUTES,
   ROUTE_CONSTANTS,
 } from "../../../../../routes/route-constants";
+import { getSubscriptions } from "../../../../../store/admin/subscriptions/subscriptions-slice";
+import { useAppDispatch, useAppSelector } from "../../../../../store/store";
+import { useEffect, useState } from "react";
+import Spinner from "../../../../common/spinner/spinner";
+import { REQUEST_STATUS } from "../../../../../utils/constants";
+import dayjs from "dayjs";
+import Submit from "../submit/submit";
 
 const SubsciptionTable = () => {
+  const dispatch = useAppDispatch();
+  const { data, status } = useAppSelector((state) => state.subscriptions);
+ 
+
+  const [dataSource1, setDataSource1] = useState(
+    data?.map((data: any, index: number) => ({
+      key: data?._id,
+      storeId: data?.store?.id,
+      storeName: data?.store?.name,
+      subscriptionType: data?.subscriptionType,
+      subscriptionStatus: data?.status,
+      subscriptionStartDate: dayjs(data?.startDate).format('MM/DD/YYYY'),
+      subscriptionEndDate: dayjs(data?.endDate).format('MM/DD/YYYY'),
+      daysPastDue: data?.pastDue,
+    }))
+  );
+
+  useEffect(() => {
+    let payload = {
+      page: 1,
+      perPage: 8,
+    };
+    dispatch(getSubscriptions());
+  }, []);
+
   const tableColumns = [
     {
       title: "Store ID",
@@ -81,78 +113,61 @@ const SubsciptionTable = () => {
         );
       },
     },
-    {
+    /*    {
       title: "Next Payment Date",
       dataIndex: "nextPaymentDate",
       key: "nextPaymentDate",
-    },
+    }, */
     {
       render: (text: any) => (
-        <Link to={ROUTE_CONSTANTS.SLASH + ADMIN_ROUTES.VIEW_SUBSCRIPTION}>
+        <Link
+          to={{
+            pathname: ROUTE_CONSTANTS.SLASH + ADMIN_ROUTES.VIEW_SUBSCRIPTION,
+          }}
+          state={data}
+        >
           <Button>View</Button>
         </Link>
       ),
     },
   ];
-  const dataSource = [
-    {
-      key: "1",
-      storeId: "5785",
-      storeName: "Wall Mart",
-      subscriptionType: "6 Months",
-      subscriptionStatus: "Active",
-      subscriptionStartDate: "01-24-2023",
-      subscriptionEndDate: "05-24-2023",
-      daysPastDue: "0",
-      nextPaymentDate: "06-25-2023",
-    },
-    {
-      key: "2",
-      storeId: "5786",
-      storeName: "Wall Mart",
-      subscriptionType: "6 Months",
-      subscriptionStatus: "Suspended",
-      subscriptionStartDate: "01-24-2023",
-      subscriptionEndDate: "01-30-2023",
-      daysPastDue: "7",
-      nextPaymentDate: "06-25-2023",
-    },
-    {
-      key: "2",
-      storeId: "5786",
-      storeName: "Wall Mart",
-      subscriptionType: "6 Months",
-      subscriptionStatus: "Canceled",
-      subscriptionStartDate: "01-24-2023",
-      subscriptionEndDate: "01-30-2023",
-      daysPastDue: "7",
-      nextPaymentDate: "06-25-2023",
-    },
-    {
-      key: "2",
-      storeId: "5786",
-      storeName: "Wall Mart",
-      subscriptionType: "6 Months",
-      subscriptionStatus: "Callback",
-      subscriptionStartDate: "01-24-2023",
-      subscriptionEndDate: "01-30-2023",
-      daysPastDue: "0",
-      nextPaymentDate: "06-25-2023",
-    },
-    {
-      key: "2",
-      storeId: "5786",
-      storeName: "Wall Mart",
-      subscriptionType: "6 Months",
-      subscriptionStatus: "Pending",
-      subscriptionStartDate: "01-24-2023",
-      subscriptionEndDate: "01-30-2023",
-      daysPastDue: "0",
-      nextPaymentDate: "06-25-2023",
-    },
-  ];
+
+  // const dataSource = data?.map((item: any) => ({
+
+  //       key: item?._id,
+  //       storeId: item?.endDate        ,
+  //       // storeName: "Wall Mart",
+  //       // subscriptionType: "6 Months",
+  //       // subscriptionStatus: "Active",
+  //       // subscriptionStartDate: "01-24-2023",
+  //       // subscriptionEndDate: "05-24-2023",
+  //       // daysPastDue: "0",
+  //       // nextPaymentDate: "06-25-2023",
+  //     },
+
+  //   ];
+  // _})
+
   return (
-    <Table pagination={false} dataSource={dataSource} columns={tableColumns} />
+    <>
+      {status === REQUEST_STATUS.PENDING ? <Spinner /> : ""}
+      {!data?.length && REQUEST_STATUS.SUCCEEDED ? (
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description="No Subscriptions available"
+        />
+      ) : (
+        status !== REQUEST_STATUS.PENDING && (
+          <Table
+            pagination={false}
+            dataSource={dataSource1}
+            columns={tableColumns}
+          />
+        )
+      )}
+
+      
+    </>
   );
 };
 

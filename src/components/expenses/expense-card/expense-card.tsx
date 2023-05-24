@@ -24,6 +24,8 @@ const ExpenseCard = () => {
     dispatch(getExpenses(payload));
   }, []);
 
+  console.log(data, 'expenenene')
+
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 1100) {

@@ -78,6 +78,8 @@ const CustomerCard: React.FC<cutsomerCardTypes> = ({ customers }) => {
                     ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_CUSTOMERS,
                 }}
                 state={data}
+
+                
               >
                 <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">
                   <Button

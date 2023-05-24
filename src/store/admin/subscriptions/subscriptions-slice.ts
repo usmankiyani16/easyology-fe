@@ -10,6 +10,7 @@ export const getSubscriptions = createAsyncThunk(
     try {
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const response = await getApi(`/subscription`);
+    
       return response;
     } catch (error) {
       return rejectWithValue(error);

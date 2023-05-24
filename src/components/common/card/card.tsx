@@ -76,7 +76,7 @@ const POCard: React.FC<poCardTypes> = ({
                   <span className="font-medium">{Name}:</span>
                   <span className="font-medium captilize _label-grey">
                     {/* {vendorName ?? name} */}
-                    {vendorName && vendorName}
+                    {/* {vendorName && vendorName} */}
 
                     {name && name}
                   </span>

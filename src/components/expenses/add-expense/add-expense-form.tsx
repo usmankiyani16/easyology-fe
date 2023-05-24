@@ -168,11 +168,12 @@ const AddExpenseForm = () => {
             </Col>
 
             <Col xs={10}>
-              <Pay showButton={true} />
+              <Pay showButton={true}/>
             </Col>
           </Row>
         </div>
         <div className="flex justify-around">
+          
           <Button htmlType="submit" className="_bg-primary-color _white-color">
             Save
           </Button>

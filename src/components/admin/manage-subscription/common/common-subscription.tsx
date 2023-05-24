@@ -1,8 +1,12 @@
 import { Form, Input, Button, Checkbox, Select, Row, Col } from "antd";
+import { useLocation } from "react-router-dom";
 import "./common-subscription.scss";
 import { useState } from "react";
 import CommonModal from "./common-modal/common-modal";
 import Pay from "../../../common/pay/pay";
+import { backButtonIcon } from "../../../../assets/icons";
+import { useNavigate } from "react-router-dom";
+import Submit from "../subscriptions-list/submit/submit";
 const { Option } = Select;
 interface CommonSubscriptionType {
   edit?: boolean;
@@ -12,31 +16,36 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [editForm, setEditForm] = useState<boolean>(edit || false);
   const [showWholesaleList, setShowWholesaleList] = useState(false);
   const [showMobileAppContent, setShowMobileAppContent] = useState(false);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
     useState(false);
+  const [form] = Form.useForm();
+  const location = useLocation();
+  const data = location.state;
+  console.log(data, "data in view");
+  const navigate = useNavigate();
   const onFinish = (values: any) => {
-    switch (values.buttonType) {
-      case "submit":
-        console.log("Submitting:", values);
-        break;
-      case "finalize":
-        console.log("Finalizing later:", values);
-        break;
-      case "suspended":
-        console.log("suspended", values);
-        break;
-      case "extend":
-        console.log("extend", values);
-        break;
-      case "save":
-        console.log("save", values);
-        break;
-      case "cancel":
-        console.log("cancel", values);
-        break;
-      default:
-        break;
-    }
+
+    if (values.buttonType==='Submit') {
+    form.validateFields().then(() => {
+      setIsModalOpen(true);
+    });
+  }
+    console.log(values, "values");
+    const buttonType = values.buttonType;
+    console.log("buttonType:", buttonType);
+
+
+  
+  };
+  const handleModalConfirm = () => {
+    setIsModalOpen(false);
+    // form.submit(); // Trigger form submission
+  };
+
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
+    // Additional logic after canceling "No" button
   };
 
   const handleCheckboxChange = (checkedValues: any) => {
@@ -52,11 +61,20 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   return (
     <div className="_add-subscription">
       <div className="flex flex-col">
-        <label className="font-semibold">Store Information</label>
+        <div className="flex gap-2 items-center">
+          <img
+            onClick={() => navigate(-1)}
+            className="cursor-pointer"
+            src={backButtonIcon}
+            alt="back"
+          />
+          <label className="font-semibold text-2xl">Store Information</label>
+        </div>
         <div className="flex items-center justify-between mt-2">
           <label>
-            Store Id: <span className="font-semibold">5673</span>
+            Store Id: <span className="font-semibold">{data?.store?.id}</span>
           </label>
+
           {edit && <button onClick={handleEdit}>Edit</button>}
         </div>
       </div>
@@ -68,6 +86,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}
+        form={form}
       >
         <Row gutter={[16, 16]}>
           <Col span={12}>
@@ -235,7 +254,6 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-
             <Pay showButton={true} showlabel={true} />
           </Col>
         </Row>
@@ -251,7 +269,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Input min={1} type="number" placeholder="Enter sub total"/>
+              <Input min={1} type="number" placeholder="Enter sub total" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -261,16 +279,18 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           </Col>
         </Row>
 
-        <Form.Item>
+        <Form.Item name="buttonType">
+          {/* <input type="hidden" value="" /> */}
           {edit ? (
             <>
               <Button
-                onClick={() => setOpenCommonModal(true)}
+                onClick={() => {
+                  setOpenCommonModal(true);
+                  form.setFieldsValue({ buttonType: "suspended" });
+                }}
                 className="_primary-button"
                 type="primary"
                 htmlType="button"
-                name="buttonType"
-                value="suspended"
               >
                 Suspended
               </Button>
@@ -278,8 +298,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 className="ml-4 _primary-button"
                 type="primary"
                 htmlType="submit"
-                name="buttonType"
-                value="extend"
+                onClick={() => {
+                  form.setFieldsValue({ buttonType: "Extend" });
+                }}
               >
                 Extend
               </Button>
@@ -287,8 +308,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 className="ml-4 _primary-button"
                 type="primary"
                 htmlType="submit"
-                name="buttonType"
-                value="save"
+                onClick={() => {
+                  form.setFieldsValue({ buttonType: "Save" });
+                }}
               >
                 Save
               </Button>
@@ -296,8 +318,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 className="ml-4 _primary-button"
                 type="primary"
                 htmlType="submit"
-                name="buttonType"
-                value="cancel"
+                onClick={() => {
+                  form.setFieldsValue({ buttonType: "Cancel Suscription" });
+                }}
               >
                 Cancel Subscription
               </Button>
@@ -308,8 +331,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 className="_primary-button"
                 type="primary"
                 htmlType="submit"
-                name="buttonType"
-                value="finalize"
+                onClick={() => {
+                  form.setFieldsValue({ buttonType: "finalize" });
+                }}
               >
                 Finalize Later
               </Button>
@@ -317,8 +341,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 className="ml-4 _primary-button"
                 type="primary"
                 htmlType="submit"
-                name="buttonType"
-                value="submit"
+                onClick={() => {
+                  form.setFieldsValue({ buttonType: "Submit" });
+                }}
               >
                 Submit
               </Button>
@@ -331,6 +356,10 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           openCommonModal={openCommonModal}
           setOpenCommonModal={setOpenCommonModal}
         />
+      )}
+
+      {isModalOpen && (
+        <Submit isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} handleModalConfirm={handleModalConfirm} handleModalCancel={handleModalCancel}/>
       )}
     </div>
   );

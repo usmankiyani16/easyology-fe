@@ -14,6 +14,8 @@ const Expenses = () => {
   const dispatch = useAppDispatch();
   const { data, status } = useAppSelector((state) => state.expenses);
 
+  console.log(data, 'dattaaaaaaaaaa')
+
   const handlePagination = (value: Number) => {
     let payload: any = {};
     if (value) {

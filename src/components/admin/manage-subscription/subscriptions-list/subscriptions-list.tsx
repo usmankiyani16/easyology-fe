@@ -1,15 +1,38 @@
-import { Button, Col, Row, Select } from "antd";
+import {useState} from 'react'
+import { Button, Col, Empty, Row, Select } from "antd";
 import SubsciptionTable from "./table/table";
 import {
   ADMIN_ROUTES,
   ROUTE_CONSTANTS,
 } from "../../../../routes/route-constants";
 import { Link } from "react-router-dom";
+import { getSubscriptions } from "../../../../store/admin/subscriptions/subscriptions-slice";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import { useEffect } from "react";
+import Spinner from "../../../common/spinner/spinner";
+import { REQUEST_STATUS } from "../../../../utils/constants";
+
+
+
 const { Option } = Select;
 
 const SubscriptionsList = () => {
+  const dispatch = useAppDispatch();
+  const { data, status } = useAppSelector((state) => state.subscriptions);
+
+
+  useEffect(() => {
+    let payload = {
+      page: 1,
+      perPage: 8,
+    };
+    dispatch(getSubscriptions());
+  }, []);
+
+  console.log(data, 'asbashbashhjasa')
   return (
     <div className="flex flex-col gap-4">
+     
       <Row className="flex items-center gap-4 ">
         <Col>
           <h2 className="font-semibold">Search Subscription</h2>
@@ -47,6 +70,7 @@ const SubscriptionsList = () => {
         </Col>
       </Row>
       <SubsciptionTable />
+
     </div>
   );
 };
