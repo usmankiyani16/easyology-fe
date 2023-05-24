@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../../sass/modals.scss";
 import { Form, Select, Button, Input } from "antd";
 
-const Pay = ({ onFinish, showButton, showLabel }: any) => {
+const Pay = ({ onFinish, showButton, showLabel, paymentType }: any) => {
   const [selectedOption, setSelectedOption] = useState(null);
   function handleSelect(value: any) {
     setSelectedOption(value);
@@ -18,6 +18,7 @@ const Pay = ({ onFinish, showButton, showLabel }: any) => {
             This is a required field
           </span>
         }
+        initialValue={showLabel ? paymentType : ''}
         rules={[
           {
             required: true,

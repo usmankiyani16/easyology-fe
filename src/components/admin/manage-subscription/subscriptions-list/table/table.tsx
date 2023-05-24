@@ -12,10 +12,17 @@ import { REQUEST_STATUS } from "../../../../../utils/constants";
 import dayjs from "dayjs";
 import Submit from "../submit/submit";
 
-const SubsciptionTable = () => {
+interface subscription{
+  selectedOption:any
+}
+
+const SubsciptionTable:React.FC<subscription> = ({selectedOption}) => {
   const dispatch = useAppDispatch();
   const { data, status } = useAppSelector((state) => state.subscriptions);
   const [storeData, setStoreData] = useState();
+
+  
+
 
   console.log(data, "ss");
 
@@ -32,6 +39,8 @@ const SubsciptionTable = () => {
       daysPastDue: data?.pastDue,
     }))
   );
+
+  
 
   useEffect(() => {
     let payload = {
@@ -144,7 +153,7 @@ const SubsciptionTable = () => {
           description="No Subscriptions available"
         />
       ) : (
-        status !== REQUEST_STATUS.PENDING && (
+        status === REQUEST_STATUS.SUCCEEDED && (
           <Table
             pagination={false}
             dataSource={dataSource1}

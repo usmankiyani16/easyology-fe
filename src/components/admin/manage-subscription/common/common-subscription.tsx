@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Submit from "../subscriptions-list/submit/submit";
 import { useAppDispatch } from "../../../../store/store";
 import { addSubscription } from "../../../../store/admin/subscriptions/subscriptions-slice";
+import CommonModal2 from "./common-modal/comman-modal2";
 const { Option } = Select;
 interface CommonSubscriptionType {
   edit?: boolean;
@@ -16,9 +17,11 @@ interface CommonSubscriptionType {
 const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const dispatch = useAppDispatch();
   const [openCommonModal, setOpenCommonModal] = useState<boolean>(false);
+  const [openCommonModal2, setOpenCommonModal2] = useState<boolean>(false);
   const [editForm, setEditForm] = useState<boolean>(edit || false);
   const [showWholesaleList, setShowWholesaleList] = useState(false);
   const [showMobileAppContent, setShowMobileAppContent] = useState(false);
+  const [email, setEmail] = useState("aaa");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submittedValues, setSubmittedValues] = useState<any>();
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
@@ -26,6 +29,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [form] = Form.useForm();
   const location = useLocation();
   const data = location.state;
+
   const navigate = useNavigate();
 
   const onFinish = async (values: any) => {
@@ -107,11 +111,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
-              label="Customer Name"
+              label='Customer Name'
               name="fullName"
               rules={[
                 { required: true, message: "Please input your customer name!" },
               ]}
+              initialValue={data?.user?.name} 
             >
               <Input placeholder="Enter Customer Name" />
             </Form.Item>
@@ -127,8 +132,13 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   message: "Please input your email address!",
                 },
               ]}
+              initialValue={data?.user?.email} 
             >
-              <Input placeholder="Enter email address" />
+              <Input
+                placeholder="Enter email address"
+                // value={email} // Bind the value to the email state variable
+                // onChange={(e) => setEmail(e.target.value)}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -140,6 +150,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               rules={[
                 { required: true, message: "Please input your phone number!" },
               ]}
+              initialValue={data?.user?.phoneNumber}
             >
               <Input type="number" placeholder="Phone Number" />
             </Form.Item>
@@ -151,6 +162,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               rules={[
                 { required: true, message: "Please input your state ID!" },
               ]}
+              initialValue={data?.user?.stateId}
             >
               <Input placeholder="Enter State ID" />
             </Form.Item>
@@ -164,6 +176,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               rules={[
                 { required: true, message: "Please input your store name!" },
               ]}
+              initialValue={data?.store?.name}
             >
               <Input placeholder="Enter store name" />
             </Form.Item>
@@ -175,6 +188,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               rules={[
                 { required: true, message: "Please input your store address!" },
               ]}
+              initialValue={data?.store?.address}
             >
               <Input placeholder="Store Address" />
             </Form.Item>
@@ -189,6 +203,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   message: "Please input the number of users!",
                 },
               ]}
+              initialValue={data?.totalUsers}
             >
               <Input min={1} type="number" placeholder="Number of users" />
             </Form.Item>
@@ -197,7 +212,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
 
         <Row gutter={[16, 16]}>
           <Col span={12}>
-            <Form.Item label="Store Access" name="storeAccess">
+            <Form.Item label="Store Access" name="storeAccess" initialValue={data?.storeAccess}>
               <Checkbox.Group
                 onChange={handleCheckboxChange}
                 className="flex flex-col items-start"
@@ -240,6 +255,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   message: "Please select the monthly charges!",
                 },
               ]}
+              initialValue={data?.monthlyCharge}
             >
               <Input
                 min={1}
@@ -260,6 +276,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   message: "Please select the subscription type!",
                 },
               ]}
+              initialValue={data?.subscriptionType}
             >
               <Select placeholder="Subscription Type">
                 <Option value="1">Monthly</Option>
@@ -270,7 +287,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Pay showButton={true} showlabel={true} />
+            <Pay showButton={true} showLabel={true} paymentType={data?.payments[0]?.paymentType}/>
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
@@ -284,6 +301,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   message: "Please enter the sub total charges!",
                 },
               ]}
+              initialValue={data?.subTotal}
             >
               <Input min={1} type="number" placeholder="Enter sub total" />
             </Form.Item>
@@ -293,6 +311,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               label="Auto Renew"
               name="autoRenew"
               valuePropName="checked"
+              initialValue={data?.autoRenew}
             >
               <Checkbox>Yes</Checkbox>
             </Form.Item>
@@ -320,6 +339,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 htmlType="submit"
                 onClick={() => {
                   form.setFieldsValue({ buttonType: "extend" });
+                  setOpenCommonModal2(true)
                 }}
               >
                 Extend
@@ -340,6 +360,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 htmlType="submit"
                 onClick={() => {
                   form.setFieldsValue({ buttonType: "cancelSuscription" });
+                  setOpenCommonModal(true);
                 }}
               >
                 Cancel Subscription
@@ -375,6 +396,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         <CommonModal
           openCommonModal={openCommonModal}
           setOpenCommonModal={setOpenCommonModal}
+        />
+      )}
+       {openCommonModal2 && (
+        <CommonModal2
+          openCommonModal2={openCommonModal2}
+          setOpenCommonModal2={setOpenCommonModal2}
         />
       )}
 

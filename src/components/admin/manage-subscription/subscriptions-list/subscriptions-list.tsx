@@ -19,6 +19,7 @@ const { Option } = Select;
 const SubscriptionsList = () => {
   const dispatch = useAppDispatch();
   const { data, status } = useAppSelector((state) => state.subscriptions);
+  const [selectedOption, setSelectedOption] = useState(null);
 
 
   useEffect(() => {
@@ -29,7 +30,10 @@ const SubscriptionsList = () => {
     dispatch(getSubscriptions());
   }, []);
 
-  console.log(data, 'asbashbashhjasa')
+
+  const handleSelectChange = (value:any) => {
+    setSelectedOption(value);
+  };
   return (
    
     <div className="flex flex-col gap-4">
@@ -39,7 +43,7 @@ const SubscriptionsList = () => {
           <h2 className="font-semibold">Search Subscription</h2>
         </Col>
         <Col>
-          <Select className="w-[200px]" placeholder="Subscription Type">
+          <Select className="w-[200px]" placeholder="Subscription Type" onChange={handleSelectChange} value={selectedOption}>
             <Option value="monthly">Monthly</Option>
             <Option value="6months">6 Months</Option>
             <Option value="12months">12 Months</Option>
@@ -47,7 +51,7 @@ const SubscriptionsList = () => {
           </Select>
         </Col>
         <Col>
-          <Select className="w-[200px]" placeholder="Past Due">
+          <Select className="w-[200px]" placeholder="Past Due" >
             <Option value="30">30 days past due</Option>
             <Option value="45">45 days past due</Option>
             <Option value="60">60 days past due</Option>
@@ -71,7 +75,7 @@ const SubscriptionsList = () => {
         </Col>
       </Row>
       {/* {status === REQUEST_STATUS.PENDING ? <Spinner /> : ""} */}
-      <SubsciptionTable />
+      <SubsciptionTable selectedOption={selectedOption}/>
 
     </div>
   );
