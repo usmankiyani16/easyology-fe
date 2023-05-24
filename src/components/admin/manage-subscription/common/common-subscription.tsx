@@ -7,39 +7,55 @@ import Pay from "../../../common/pay/pay";
 import { backButtonIcon } from "../../../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import Submit from "../subscriptions-list/submit/submit";
+import { useAppDispatch } from "../../../../store/store";
+import { addSubscription } from "../../../../store/admin/subscriptions/subscriptions-slice";
 const { Option } = Select;
 interface CommonSubscriptionType {
   edit?: boolean;
 }
 const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
+  const dispatch = useAppDispatch();
   const [openCommonModal, setOpenCommonModal] = useState<boolean>(false);
   const [editForm, setEditForm] = useState<boolean>(edit || false);
   const [showWholesaleList, setShowWholesaleList] = useState(false);
   const [showMobileAppContent, setShowMobileAppContent] = useState(false);
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [submittedValues, setSubmittedValues] = useState<any>();
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
     useState(false);
   const [form] = Form.useForm();
   const location = useLocation();
   const data = location.state;
-  console.log(data, "data in view");
   const navigate = useNavigate();
-  const onFinish = (values: any) => {
 
-    if (values.buttonType==='Submit') {
-    form.validateFields().then(() => {
-      setIsModalOpen(true);
-    });
-  }
-    console.log(values, "values");
-    const buttonType = values.buttonType;
-    console.log("buttonType:", buttonType);
-
-
-  
+  const onFinish = async (values: any) => {
+    values.totalUsers = Number(values.totalUsers);
+    values.monthlyCharge = Number(values.monthlyCharge);
+    values.subscriptionType = Number(values.subscriptionType);
+    values.subTotal = Number(values.subTotal);
+    switch (values.buttonType) {
+      case "submit":
+        values.status = "Active";
+        form.validateFields().then(() => {
+          setSubmittedValues(values);
+          setIsModalOpen(true);
+        });
+        break;
+      case "finalize":
+        values.status = "Call Back";
+        const res = await dispatch(addSubscription(values));
+        if (res?.meta?.requestStatus === "fulfilled") {
+          navigate(-1);
+        }
+        break;
+    }
   };
-  const handleModalConfirm = () => {
-    setIsModalOpen(false);
+  const handleModalConfirm = async () => {
+    const res = await dispatch(addSubscription(submittedValues));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setIsModalOpen(false);
+      navigate(-1);
+    }
     // form.submit(); // Trigger form submission
   };
 
@@ -49,9 +65,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   };
 
   const handleCheckboxChange = (checkedValues: any) => {
-    setShowWholesaleList(checkedValues.includes("wholesaleFeature"));
-    setShowMobileAppContent(checkedValues.includes("mobileApplication"));
-    setShowCheckingCashingContent(checkedValues.includes("checkingCashing"));
+    setShowWholesaleList(checkedValues.includes("wholesale feature"));
+    setShowMobileAppContent(checkedValues.includes("mobile application"));
+    setShowCheckingCashingContent(checkedValues.includes("check cashing"));
   };
 
   const handleEdit = () => {
@@ -84,7 +100,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         layout="vertical"
-        initialValues={{ remember: true }}
+        initialValues={{ remember: true, autoRenew: false }}
         onFinish={onFinish}
         form={form}
       >
@@ -186,7 +202,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 onChange={handleCheckboxChange}
                 className="flex flex-col items-start"
               >
-                <Checkbox value="wholesaleFeature">Wholesale Feature</Checkbox>
+                <Checkbox value="wholesale feature">Wholesale Feature</Checkbox>
                 {showWholesaleList && (
                   <ul className="pl-8 underline list-disc">
                     <li>Hold Invoice</li>
@@ -195,7 +211,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                     <li>Previous sold price on product level</li>
                   </ul>
                 )}
-                <Checkbox value="mobileApplication">
+                <Checkbox value="mobile application">
                   Mobile Application
                 </Checkbox>
                 {showMobileAppContent && (
@@ -204,7 +220,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                     <li>Mobile Feature 2</li>
                   </ul>
                 )}
-                <Checkbox value="checkingCashing">Checking Cashing</Checkbox>
+                <Checkbox value="check cashing">Checking Cashing</Checkbox>
                 {showCheckingCashingContent && (
                   <ul className="pl-8 underline list-disc">
                     <li>Checking Cashing Feature 1</li>
@@ -246,10 +262,10 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               ]}
             >
               <Select placeholder="Subscription Type">
-                <Option value="monthly">Monthly</Option>
-                <Option value="6months">6 Months</Option>
-                <Option value="12months">12 Months</Option>
-                <Option value="24months">24 Months</Option>
+                <Option value="1">Monthly</Option>
+                <Option value="6">6 Months</Option>
+                <Option value="12">12 Months</Option>
+                <Option value="24">24 Months</Option>
               </Select>
             </Form.Item>
           </Col>
@@ -273,8 +289,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Auto Renew" name="autoRenew">
-              <Checkbox value="yes">Yes </Checkbox>
+            <Form.Item
+              label="Auto Renew"
+              name="autoRenew"
+              valuePropName="checked"
+            >
+              <Checkbox>Yes</Checkbox>
             </Form.Item>
           </Col>
         </Row>
@@ -299,7 +319,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 type="primary"
                 htmlType="submit"
                 onClick={() => {
-                  form.setFieldsValue({ buttonType: "Extend" });
+                  form.setFieldsValue({ buttonType: "extend" });
                 }}
               >
                 Extend
@@ -309,7 +329,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 type="primary"
                 htmlType="submit"
                 onClick={() => {
-                  form.setFieldsValue({ buttonType: "Save" });
+                  form.setFieldsValue({ buttonType: "save" });
                 }}
               >
                 Save
@@ -319,7 +339,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 type="primary"
                 htmlType="submit"
                 onClick={() => {
-                  form.setFieldsValue({ buttonType: "Cancel Suscription" });
+                  form.setFieldsValue({ buttonType: "cancelSuscription" });
                 }}
               >
                 Cancel Subscription
@@ -342,7 +362,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 type="primary"
                 htmlType="submit"
                 onClick={() => {
-                  form.setFieldsValue({ buttonType: "Submit" });
+                  form.setFieldsValue({ buttonType: "submit" });
                 }}
               >
                 Submit
@@ -359,7 +379,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
       )}
 
       {isModalOpen && (
-        <Submit isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} handleModalConfirm={handleModalConfirm} handleModalCancel={handleModalCancel}/>
+        <Submit
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          handleModalConfirm={handleModalConfirm}
+          handleModalCancel={handleModalCancel}
+        />
       )}
     </div>
   );

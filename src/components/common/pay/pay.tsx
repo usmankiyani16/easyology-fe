@@ -10,7 +10,7 @@ const Pay = ({ onFinish, showButton, showlabel }: any) => {
   const FormItems = (
     <>
       <Form.Item
-        name="payCategory"
+        name="paymentType"
         label= {`${showlabel && 'Payment Type'}`}
         required
         tooltip={
