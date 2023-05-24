@@ -270,7 +270,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Pay showButton={true} showlabel={true} />
+            <Pay showButton={true} showLabel={true} />
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
