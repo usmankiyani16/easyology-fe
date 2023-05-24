@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../../sass/modals.scss";
 import { Form, Select, Button, Input } from "antd";
 
-const Pay = ({ onFinish, showButton }: any) => {
+const Pay = ({ onFinish, showButton, showlabel }: any) => {
   const [selectedOption, setSelectedOption] = useState(null);
   function handleSelect(value: any) {
     setSelectedOption(value);
@@ -11,6 +11,7 @@ const Pay = ({ onFinish, showButton }: any) => {
     <>
       <Form.Item
         name="payCategory"
+        label= {`${showlabel && 'Payment Type'}`}
         required
         tooltip={
           <span className="_po_field_label">

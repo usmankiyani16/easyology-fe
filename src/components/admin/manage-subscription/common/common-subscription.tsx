@@ -235,7 +235,8 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Pay showButton={true} />
+
+            <Pay showButton={true} showlabel={true} />
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
@@ -250,7 +251,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 },
               ]}
             >
-              <Input min={1} type="number" />
+              <Input min={1} type="number" placeholder="Enter sub total"/>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -306,7 +307,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               <Button
                 className="_primary-button"
                 type="primary"
-                // htmlType="submit"
+                htmlType="submit"
                 name="buttonType"
                 value="finalize"
               >
