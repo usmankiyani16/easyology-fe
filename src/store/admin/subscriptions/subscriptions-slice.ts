@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Toast } from "../../../components/common/toast/toast";
-import { getApi, postApi } from "../../../utils/api/api";
+import { getApi, postApi, putApi } from "../../../utils/api/api";
 import { setLoading } from "../../loader/loader-slice";
 import { REQUEST_STATUS } from "../../../utils/constants";
 
@@ -34,6 +34,24 @@ export const addSubscription = createAsyncThunk(
       // payload.userId = data?._id;
       // payload.storeId = data?.storeId;
       const response = await postApi("/subscription", payload);
+      Toast(response?.message);
+      return response;
+    } catch (error: any) {
+      Toast(error?.response?.data?.message, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
+export const updateSubscription = createAsyncThunk(
+  "subscriptions/update",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+      payload.storeId = data?.storeId;
+      const response = await putApi("/subscription", payload);
       Toast(response?.message);
       return response;
     } catch (error: any) {
@@ -81,6 +99,16 @@ const subscriptionSlice = createSlice({
         state.status = REQUEST_STATUS.SUCCEEDED;
       })
       .addCase(addSubscription.rejected, (state, action: any) => {
+        state.status = REQUEST_STATUS.FAILED;
+        state.error = action.payload?.error;
+      })
+      .addCase(updateSubscription.pending, (state) => {
+        state.status = REQUEST_STATUS.PENDING;
+      })
+      .addCase(updateSubscription.fulfilled, (state, action) => {
+        state.status = REQUEST_STATUS.SUCCEEDED;
+      })
+      .addCase(updateSubscription.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload?.error;
       });

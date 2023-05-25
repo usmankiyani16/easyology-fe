@@ -8,7 +8,10 @@ import { backButtonIcon } from "../../../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import Submit from "../subscriptions-list/submit/submit";
 import { useAppDispatch } from "../../../../store/store";
-import { addSubscription } from "../../../../store/admin/subscriptions/subscriptions-slice";
+import {
+  addSubscription,
+  updateSubscription,
+} from "../../../../store/admin/subscriptions/subscriptions-slice";
 import CommonModal2 from "./common-modal/comman-modal2";
 const { Option } = Select;
 interface CommonSubscriptionType {
@@ -30,7 +33,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const location = useLocation();
   const data = location.state;
 
-  console.log(data, 'abs')
+  console.log(data, "abs");
 
   const navigate = useNavigate();
 
@@ -39,6 +42,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
     values.monthlyCharge = Number(values.monthlyCharge);
     values.subscriptionType = Number(values.subscriptionType);
     values.subTotal = Number(values.subTotal);
+    let res: any;
     switch (values.buttonType) {
       case "submit":
         values.status = "Active";
@@ -49,10 +53,20 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         break;
       case "finalize":
         values.status = "Call Back";
-        const res = await dispatch(addSubscription(values));
+        res = await dispatch(addSubscription(values));
         if (res?.meta?.requestStatus === "fulfilled") {
           navigate(-1);
         }
+        break;
+      case "save":
+        values.status = data?.status;
+        values.subscriptionId = data?._id;
+        res = await dispatch(updateSubscription(values));
+        if (res?.meta?.requestStatus === "fulfilled") {
+          setEditForm(false);
+        }
+        break;
+      default:
         break;
     }
   };
@@ -97,7 +111,11 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             Store Id: <span className="font-semibold">{data?.store?.id}</span>
           </label>
 
-          {edit && <Button className="_primary-button" onClick={handleEdit}>{editForm ? 'Edit':'View'}</Button>}
+          {edit && (
+            <Button className="_primary-button" onClick={handleEdit}>
+              {editForm ? "Edit" : "View"}
+            </Button>
+          )}
         </div>
       </div>
       <Form
@@ -113,12 +131,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Form.Item
-              label='Customer Name'
+              label="Customer Name"
               name="fullName"
               rules={[
                 { required: true, message: "Please input your customer name!" },
               ]}
-              initialValue={data?.user?.name} 
+              initialValue={data?.user?.name}
             >
               <Input placeholder="Enter Customer Name" />
             </Form.Item>
@@ -134,7 +152,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   message: "Please input your email address!",
                 },
               ]}
-              initialValue={data?.user?.email} 
+              initialValue={data?.user?.email}
             >
               <Input
                 placeholder="Enter email address"
@@ -214,7 +232,11 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
 
         <Row gutter={[16, 16]}>
           <Col span={12}>
-            <Form.Item label="Store Access" name="storeAccess" initialValue={data?.storeAccess}>
+            <Form.Item
+              label="Store Access"
+              name="storeAccess"
+              initialValue={data?.storeAccess}
+            >
               <Checkbox.Group
                 onChange={handleCheckboxChange}
                 className="flex flex-col items-start"
@@ -289,7 +311,11 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Pay showButton={true} showLabel={true} paymentType={data?.payments[0]?.paymentType} />
+            <Pay
+              showButton={true}
+              showLabel={true}
+              paymentType={data?.payments[0]?.paymentType}
+            />
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
@@ -341,7 +367,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 htmlType="submit"
                 onClick={() => {
                   form.setFieldsValue({ buttonType: "extend" });
-                  setOpenCommonModal2(true)
+                  setOpenCommonModal2(true);
                 }}
               >
                 Extend
@@ -400,7 +426,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           setOpenCommonModal={setOpenCommonModal}
         />
       )}
-       {openCommonModal2 && (
+      {openCommonModal2 && (
         <CommonModal2
           openCommonModal2={openCommonModal2}
           setOpenCommonModal2={setOpenCommonModal2}
