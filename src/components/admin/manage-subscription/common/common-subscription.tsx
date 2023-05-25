@@ -30,6 +30,8 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const location = useLocation();
   const data = location.state;
 
+  console.log(data, 'abs')
+
   const navigate = useNavigate();
 
   const onFinish = async (values: any) => {
@@ -287,7 +289,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Pay showButton={true} showLabel={true} paymentType={data?.payments[0]?.paymentType}/>
+            <Pay showButton={true} showLabel={true} paymentType={data?.payments[0]?.paymentType} />
           </Col>
         </Row>
         <Row gutter={[16, 16]}>

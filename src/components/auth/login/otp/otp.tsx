@@ -10,16 +10,38 @@ const Otp: React.FC<any> = ({ authPayload }) => {
   const handleCancel = () => {
     dispatch(setIsOTP(false));
   };
+
   const onFinish = async (values: any) => {
-    let payload = {
+    let payload: any = {
       ...authPayload,
-      otp: values?.otp,
       deviceId,
     };
+
+    if (values.otp) payload.otp = values.otp;
+    if (values.newPassword) payload.newPassword = values.newPassword;
+
     const res = await dispatch(signin(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       dispatch(setIsOTP(false));
     }
+  };
+
+  const [form] = Form.useForm();
+
+  const handlePasswordConfirm = () => {
+    form.validateFields(["confirmPassword"]);
+  };
+
+  /*  const handleFinish = (values: any) => {
+    console.log('Form values:', values);
+  }; */
+
+  const validateConfirmPassword = (_: any, value: string) => {
+    const newPassword = form.getFieldValue("newPassword");
+    if (value && value !== newPassword) {
+      return Promise.reject("Passwords do not match");
+    }
+    return Promise.resolve();
   };
   return (
     <div>
@@ -30,7 +52,7 @@ const Otp: React.FC<any> = ({ authPayload }) => {
         open={isOTP}
         maskClosable={false}
         onCancel={handleCancel}
-        width='400px'
+        width="400px"
       >
         <Form
           className="flex flex-col"
@@ -38,14 +60,48 @@ const Otp: React.FC<any> = ({ authPayload }) => {
           layout="vertical"
           initialValues={{ remember: true }}
           onFinish={onFinish}
+          form={form}
         >
-          <Form.Item
-            label="Enter OTP"
-            name="otp"
-            rules={[{ required: true, message: "Required!" }]}
-          >
-            <Input placeholder="Please enter OTP" />
-          </Form.Item>
+          {changePassword ? (
+            <>
+              <Form.Item
+                name="newPassword"
+                label="New Password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your new password",
+                  },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                name="confirmPassword"
+                label="Confirm Password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please confirm your new password",
+                  },
+                  {
+                    validator: validateConfirmPassword,
+                  },
+                ]}
+              >
+                <Input.Password onBlur={handlePasswordConfirm} />
+              </Form.Item>
+            </>
+          ) : (
+            <Form.Item
+              label="Enter OTP"
+              name="otp"
+              rules={[{ required: true, message: "Required!" }]}
+            >
+              <Input placeholder="Please enter OTP" />
+            </Form.Item>
+          )}
+
           <div className="self-center">
             <Button htmlType="submit" className="_primary-button">
               Submit
