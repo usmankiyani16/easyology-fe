@@ -4,9 +4,12 @@ import { Form, Select, Button, Input } from "antd";
 
 const Pay = ({ onFinish, showButton, showLabel, paymentType }: any) => {
   const [selectedOption, setSelectedOption] = useState(null);
+  
   function handleSelect(value: any) {
     setSelectedOption(value);
   }
+
+
   const FormItems = (
     <>
       <Form.Item
@@ -26,6 +29,7 @@ const Pay = ({ onFinish, showButton, showLabel, paymentType }: any) => {
             message: <span>Required field</span>,
           },
         ]}
+
       >
         <Select
           className="_input_field rounded-[10px]"

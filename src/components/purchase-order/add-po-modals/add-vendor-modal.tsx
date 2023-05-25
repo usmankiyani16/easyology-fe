@@ -21,15 +21,15 @@ const AddVendorModal: React.FC<any> = ({
     console.log("vlaue", values);
   };
 
-  const validateMobileNumber = (
-    rule: any,
-    value: string,
-    callback: (arg0?: string | undefined) => void
-  ) => {
-    const mobileNumberRegex = /^[0-9]{10,12}$/;
-    if (!mobileNumberRegex.test(value)) {
-      callback("Must be number between 10 to 12 digits");
-    } else callback();
+  const validateMobileNumber = (rule: any, value: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const mobileNumberRegex = /^[0-9]{10,12}$/;
+      if (!mobileNumberRegex.test(value)) {
+        reject("Mobile number must be between 10 to 12 digits");
+      } else {
+        resolve();
+      }
+    });
   };
 
   return (

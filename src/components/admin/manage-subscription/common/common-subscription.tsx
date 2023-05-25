@@ -29,11 +29,10 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [submittedValues, setSubmittedValues] = useState<any>();
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
     useState(false);
+
   const [form] = Form.useForm();
   const location = useLocation();
   const data = location.state;
-
-  console.log(data, "abs");
 
   const navigate = useNavigate();
 
@@ -42,6 +41,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
     values.monthlyCharge = Number(values.monthlyCharge);
     values.subscriptionType = Number(values.subscriptionType);
     values.subTotal = Number(values.subTotal);
+    
+
+    console.log(values,'values')
     let res: any;
     switch (values.buttonType) {
       case "submit":
@@ -92,6 +94,16 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
 
   const handleEdit = () => {
     setEditForm(!editForm);
+  };
+  const validateMobileNumber = (rule: any, value: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const mobileNumberRegex = /^[0-9]{10,12}$/;
+      if (!mobileNumberRegex.test(value)) {
+        reject("Mobile number must be between 10 to 12 digits");
+      } else {
+        resolve();
+      }
+    });
   };
 
   return (
@@ -167,9 +179,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             <Form.Item
               label="Phone Number"
               name="phoneNumber"
-              rules={[
-                { required: true, message: "Please input your phone number!" },
-              ]}
+              rules={[{ validator: validateMobileNumber }]}
               initialValue={data?.user?.phoneNumber}
             >
               <Input type="number" placeholder="Phone Number" />
@@ -331,7 +341,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               ]}
               initialValue={data?.subTotal}
             >
-              <Input min={1} type="number" placeholder="Enter sub total" />
+              <Input
+                min={1}
+                type="number"
+                placeholder="Enter sub total"
+                // value={subTotal}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -439,6 +454,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           setIsModalOpen={setIsModalOpen}
           handleModalConfirm={handleModalConfirm}
           handleModalCancel={handleModalCancel}
+          submittedValues={submittedValues}
         />
       )}
     </div>
