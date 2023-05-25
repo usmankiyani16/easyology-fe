@@ -26,6 +26,8 @@ export const signin = createAsyncThunk(
         dispatch(setIsOTP(true));
         return response;
       } else if (response?.message === "Reset your password!") {
+        dispatch(setIsOTP(true));
+        dispatch(setChangePassword(true));
       } else {
         if (
           response?.data?.User?.role &&
@@ -59,6 +61,7 @@ export const signin = createAsyncThunk(
 
 interface AuthState {
   isOTP: boolean;
+  changePassword: boolean;
   isAuthenticated: boolean;
   user: User | null;
   error: string | null;
@@ -72,6 +75,7 @@ interface User {
 
 const initialState: AuthState = {
   isOTP: false,
+  changePassword: false,
   isAuthenticated: false,
   user: null,
   error: null,
@@ -84,6 +88,9 @@ const authSlice = createSlice({
   reducers: {
     setIsOTP(state, action: PayloadAction<boolean>) {
       state.isOTP = action?.payload;
+    },
+    setChangePassword(state, action: PayloadAction<boolean>) {
+      state.changePassword = action?.payload;
     },
     setUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
@@ -109,6 +116,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, setIsOTP } = authSlice.actions;
+export const { setUser, setIsOTP, setChangePassword } = authSlice.actions;
 
 export default authSlice.reducer;

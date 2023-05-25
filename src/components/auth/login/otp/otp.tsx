@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import { setIsOTP, signin } from "../../../../store/auth/auth-slice";
 
 const Otp: React.FC<any> = ({ authPayload }) => {
-  const { isOTP } = useAppSelector((state) => state.auth);
+  const { isOTP, changePassword } = useAppSelector((state) => state.auth);
   const { deviceId }: any = JSON.parse(localStorage.getItem("user") || "{}");
   const dispatch = useAppDispatch();
   const handleCancel = () => {
