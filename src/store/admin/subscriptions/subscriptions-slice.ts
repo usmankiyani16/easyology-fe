@@ -5,12 +5,20 @@ import { setLoading } from "../../loader/loader-slice";
 import { REQUEST_STATUS } from "../../../utils/constants";
 
 export const getSubscriptions = createAsyncThunk(
-  "vendors/get",
-  async (payload, { rejectWithValue }) => {
+  "subscriptions/get",
+  async (payload: any, { rejectWithValue }) => {
     try {
-      const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-      const response = await getApi(`/subscription`);
-    
+      let queryParams = "&perPage=8";
+      if (payload?.subscriptionType) {
+        queryParams += `&subscriptionType=${payload.subscriptionType}`;
+      }
+      if (payload?.status) {
+        queryParams += `&status=${payload.status}`;
+      }
+      if (payload?.page) {
+        queryParams += `&page=${payload.page}`;
+      }
+      const response = await getApi(`/subscription?${queryParams}`);
       return response;
     } catch (error) {
       return rejectWithValue(error);

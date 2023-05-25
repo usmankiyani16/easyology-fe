@@ -1,54 +1,33 @@
-import { Button, Empty, Table, Tag } from "antd";
+import { Button, Empty, Pagination, Table, Tag } from "antd";
 import { Link } from "react-router-dom";
 import {
   ADMIN_ROUTES,
   ROUTE_CONSTANTS,
 } from "../../../../../routes/route-constants";
-import { getSubscriptions } from "../../../../../store/admin/subscriptions/subscriptions-slice";
 import { useAppDispatch, useAppSelector } from "../../../../../store/store";
-import { useEffect, useState } from "react";
 import Spinner from "../../../../common/spinner/spinner";
 import { REQUEST_STATUS } from "../../../../../utils/constants";
 import dayjs from "dayjs";
-import Submit from "../submit/submit";
+import { getSubscriptions } from "../../../../../store/admin/subscriptions/subscriptions-slice";
 
-interface subscription{
-  selectedOption:any
+interface subscription {
+  selectedOption?: any;
 }
 
-const SubsciptionTable:React.FC<subscription> = ({selectedOption}) => {
-  const dispatch = useAppDispatch();
+const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
   const { data, status } = useAppSelector((state) => state.subscriptions);
-  const [storeData, setStoreData] = useState();
-
-  
-
-
-  console.log(data, "ss");
-
-  const [dataSource1, setDataSource1] = useState(
-    data?.map((data: any, index: number) => ({
-      ...data,
-      key: data?._id,
-      storeId: data?.store?.id,
-      storeName: data?.store?.name,
-      subscriptionType: data?.subscriptionType,
-      subscriptionStatus: data?.status,
-      subscriptionStartDate: dayjs(data?.startDate).format("MM/DD/YYYY"),
-      subscriptionEndDate: dayjs(data?.endDate).format("MM/DD/YYYY"),
-      daysPastDue: data?.pastDue,
-    }))
-  );
-
-  
-
-  useEffect(() => {
-    let payload = {
-      page: 1,
-      perPage: 8,
-    };
-    dispatch(getSubscriptions());
-  }, []);
+  let dataSource = data?.subscription?.map((data: any, index: number) => ({
+    ...data,
+    key: data?._id,
+    storeId: data?.store?.id,
+    storeName: data?.store?.name,
+    subscriptionType: data?.subscriptionType,
+    subscriptionStatus: data?.status,
+    subscriptionStartDate: dayjs(data?.startDate).format("MM/DD/YYYY"),
+    subscriptionEndDate: dayjs(data?.endDate).format("MM/DD/YYYY"),
+    daysPastDue: data?.pastDue,
+    nextPaymentDate: dayjs(data?.endDate).format("MM/DD/YYYY"),
+  }));
 
   const tableColumns = [
     {
@@ -146,20 +125,21 @@ const SubsciptionTable:React.FC<subscription> = ({selectedOption}) => {
 
   return (
     <>
-      {status === REQUEST_STATUS.PENDING ? <Spinner /> : ""}
-      {!data?.length && status===REQUEST_STATUS.SUCCEEDED ? (
-        <Empty
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description="No Subscriptions available"
-        />
-      ) : (
-        status === REQUEST_STATUS.SUCCEEDED && (
-          <Table
-            pagination={false}
-            dataSource={dataSource1}
-            columns={tableColumns}
+      {!data?.subscription?.length ? (
+        status === REQUEST_STATUS.PENDING ? (
+          <Spinner />
+        ) : (
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="No Subscriptions available"
           />
         )
+      ) : (
+        <Table
+          pagination={false}
+          dataSource={dataSource}
+          columns={tableColumns}
+        />
       )}
     </>
   );

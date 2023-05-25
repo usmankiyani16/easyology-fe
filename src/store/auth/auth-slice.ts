@@ -25,6 +25,7 @@ export const signin = createAsyncThunk(
       ) {
         dispatch(setIsOTP(true));
         return response;
+      } else if (response?.message === "Reset your password!") {
       } else {
         if (
           response?.data?.User?.role &&
