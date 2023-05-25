@@ -21,7 +21,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [editForm, setEditForm] = useState<boolean>(edit || false);
   const [showWholesaleList, setShowWholesaleList] = useState(false);
   const [showMobileAppContent, setShowMobileAppContent] = useState(false);
-  const [email, setEmail] = useState("aaa");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submittedValues, setSubmittedValues] = useState<any>();
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
@@ -95,7 +95,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             Store Id: <span className="font-semibold">{data?.store?.id}</span>
           </label>
 
-          {edit && <button onClick={handleEdit}>Edit</button>}
+          {edit && <Button className="_primary-button" onClick={handleEdit}>{editForm ? 'Edit':'View'}</Button>}
         </div>
       </div>
       <Form

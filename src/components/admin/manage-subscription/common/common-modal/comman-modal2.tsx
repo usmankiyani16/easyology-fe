@@ -32,7 +32,7 @@ const CommonModal2: React.FC<CommonModalTypes> = ({
         <Form
           className="flex flex-col"
           name="basic"
-        //   labelCol={{ span:  }}
+          //   labelCol={{ span:  }}
           wrapperCol={{ span: 16 }}
           // layout="vertical"
           initialValues={{ remember: true }}

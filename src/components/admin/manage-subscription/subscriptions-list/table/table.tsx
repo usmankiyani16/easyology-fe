@@ -147,7 +147,7 @@ const SubsciptionTable:React.FC<subscription> = ({selectedOption}) => {
   return (
     <>
       {status === REQUEST_STATUS.PENDING ? <Spinner /> : ""}
-      {!data?.length && REQUEST_STATUS.SUCCEEDED ? (
+      {!data?.length && status===REQUEST_STATUS.SUCCEEDED ? (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
           description="No Subscriptions available"
