@@ -45,13 +45,18 @@ const SubscriptionsList = () => {
     <div className="flex flex-col gap-4">
       <Row className="flex items-center gap-4 ">
         <Col>
-          <h2 className="font-semibold">Search Subscription</h2>
+          <h2 className="font-semibold text-xl">Search Subscription</h2>
         </Col>
-        <Col>
+      </Row>
+      <Row className="flex items-center gap-4">
+        <Col className="flex flex-col gap-1">
+          <label>Subscription Type</label>
           <Select
+            
             className="w-[200px]"
             placeholder="Subscription Type"
             onChange={subscriptionChange}
+  
           >
             <Option>All</Option>
             <Option value={1}>Monthly</Option>
@@ -60,7 +65,8 @@ const SubscriptionsList = () => {
             <Option value={24}>24 Months</Option>
           </Select>
         </Col>
-        <Col>
+        <Col className="flex flex-col gap-1">
+        <label>Subscription Past</label>
           <Select
             className="w-[200px]"
             placeholder="Past Due"
@@ -74,7 +80,8 @@ const SubscriptionsList = () => {
             <Option value="90+">More than 90 days past due</Option>
           </Select>
         </Col>
-        <Col>
+        <Col className="flex flex-col gap-1">
+        <label>Subscription Status</label>
           <Select
             className="w-[200px]"
             placeholder="Status"
@@ -96,7 +103,7 @@ const SubscriptionsList = () => {
         </Col>
       </Row>
       <SubsciptionTable />
-      {data?.subscription?.length  ? (
+      {data?.subscription?.length ? (
         <Pagination
           onChange={handlePagination}
           className="flex justify-end mt-4"

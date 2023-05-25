@@ -5,12 +5,15 @@ import AddPO from "../../assets/icons/layout/AddPO.png";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getPOS } from "../../store/po/po.slice";
 import Spinner from "../common/spinner/spinner";
-import { Pagination } from "antd";
+import { Empty, Pagination } from "antd";
+import { REQUEST_STATUS } from "../../utils/constants";
 
 const PoNumber = "PO Number";
 const VendorName = "Vendor Name";
 const PurchaseOrder: any = () => {
-  const { purchaseOrders } = useAppSelector((state) => state.purchaseOrders);
+  const { purchaseOrders, status } = useAppSelector(
+    (state) => state.purchaseOrders
+  );
 
   // const name = 'Ali'
 
@@ -49,7 +52,16 @@ const PurchaseOrder: any = () => {
         </Link>
       </div>
       <div className="_cards">
-        {purchaseOrders?.products?.length ? (
+        {!purchaseOrders?.products?.length ? (
+          status === REQUEST_STATUS.PENDING ? (
+            <Spinner />
+          ) : (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="No purchase order available"
+            />
+          )
+        ) : (
           <>
             <POCard
               cardData={purchaseOrders?.products}
@@ -58,8 +70,6 @@ const PurchaseOrder: any = () => {
               // name={name}
             />
           </>
-        ) : (
-          <Spinner />
         )}
       </div>
       {purchaseOrders?.products?.length ? (

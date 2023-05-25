@@ -136,6 +136,7 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
         )
       ) : (
         <Table
+        style={{ overflowX: 'auto' }}
           pagination={false}
           dataSource={dataSource}
           columns={tableColumns}

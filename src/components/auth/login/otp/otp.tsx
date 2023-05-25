@@ -74,7 +74,7 @@ const Otp: React.FC<any> = ({ authPayload }) => {
                   },
                 ]}
               >
-                <Input.Password />
+                <Input placeholder="Enter your new password"/>
               </Form.Item>
               <Form.Item
                 name="confirmPassword"
@@ -89,7 +89,7 @@ const Otp: React.FC<any> = ({ authPayload }) => {
                   },
                 ]}
               >
-                <Input.Password onBlur={handlePasswordConfirm} />
+                <Input onBlur={handlePasswordConfirm} placeholder='Enter password again' />
               </Form.Item>
             </>
           ) : (
