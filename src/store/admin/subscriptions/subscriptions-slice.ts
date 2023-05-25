@@ -62,6 +62,22 @@ export const updateSubscription = createAsyncThunk(
     }
   }
 );
+export const changeStatus = createAsyncThunk(
+  "subscriptions/changeStatus",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await putApi("subscription/change-status", payload);
+      Toast(response?.message);
+      return response;
+    } catch (error: any) {
+      Toast(error?.response?.data?.message, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
 
 interface subscriptionState {
   data: any;
@@ -109,6 +125,16 @@ const subscriptionSlice = createSlice({
         state.status = REQUEST_STATUS.SUCCEEDED;
       })
       .addCase(updateSubscription.rejected, (state, action: any) => {
+        state.status = REQUEST_STATUS.FAILED;
+        state.error = action.payload?.error;
+      })
+      .addCase(changeStatus.pending, (state) => {
+        state.status = REQUEST_STATUS.PENDING;
+      })
+      .addCase(changeStatus.fulfilled, (state, action) => {
+        state.status = REQUEST_STATUS.SUCCEEDED;
+      })
+      .addCase(changeStatus.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload?.error;
       });

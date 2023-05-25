@@ -1,23 +1,39 @@
 import { Button, DatePicker, DatePickerProps, Form, Modal } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
+import { useAppDispatch } from "../../../../../store/store";
+import { changeStatus } from "../../../../../store/admin/subscriptions/subscriptions-slice";
 interface CommonModalTypes {
+  status: string;
+  setEditForm: React.Dispatch<React.SetStateAction<boolean>>;
+  subscriptionId: string;
   openCommonModal: boolean;
   setOpenCommonModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CommonModal: React.FC<CommonModalTypes> = ({
+  status,
+  setEditForm,
+  subscriptionId,
   openCommonModal,
   setOpenCommonModal,
 }) => {
+  const dispatch = useAppDispatch();
   const disabledDate = (current: dayjs.Dayjs | null): boolean => {
     return current ? current.isBefore(dayjs().startOf("day")) : false;
   };
   const handleCancel = () => {
     setOpenCommonModal(false);
   };
-  const onFinish = (values: any) => {
-    console.log("values", values);
+  const onFinish = async (values: any) => {
+    values.date = dayjs(values.date).format();
+    values.subscriptionId = subscriptionId;
+    values.status = status;
+    const res = await dispatch(changeStatus(values));
+    if (res?.meta?.requestStatus === "fulfilled") {
+      setOpenCommonModal(false);
+      setEditForm(true);
+    }
   };
   return (
     <div>
@@ -40,7 +56,7 @@ const CommonModal: React.FC<CommonModalTypes> = ({
         >
           <Form.Item
             label="When"
-            name="when"
+            name="date"
             rules={[{ required: true, message: "Required!" }]}
           >
             <DatePicker disabledDate={disabledDate} />

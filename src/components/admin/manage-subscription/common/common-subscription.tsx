@@ -26,6 +26,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [showMobileAppContent, setShowMobileAppContent] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [status, setStatus] = useState("");
   const [submittedValues, setSubmittedValues] = useState<any>();
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
     useState(false);
@@ -33,7 +34,6 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [form] = Form.useForm();
   const location = useLocation();
   const data = location.state;
-
   const navigate = useNavigate();
 
   const onFinish = async (values: any) => {
@@ -367,6 +367,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             <>
               <Button
                 onClick={() => {
+                  setStatus("Suspended");
                   setOpenCommonModal(true);
                   form.setFieldsValue({ buttonType: "suspended" });
                 }}
@@ -402,6 +403,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 type="primary"
                 htmlType="submit"
                 onClick={() => {
+                  setStatus("Cancelled");
                   form.setFieldsValue({ buttonType: "cancelSuscription" });
                   setOpenCommonModal(true);
                 }}
@@ -437,6 +439,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
       </Form>
       {openCommonModal && (
         <CommonModal
+          status={status}
+          setEditForm={setEditForm}
+          subscriptionId={data?._id}
           openCommonModal={openCommonModal}
           setOpenCommonModal={setOpenCommonModal}
         />
