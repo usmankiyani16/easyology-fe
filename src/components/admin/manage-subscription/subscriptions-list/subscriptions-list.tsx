@@ -16,9 +16,9 @@ const { Option } = Select;
 const SubscriptionsList = () => {
   const dispatch = useAppDispatch();
   const { data, status } = useAppSelector((state) => state.subscriptions);
-  const [subscriptionType, setSubscriptionType] = useState();
-  const [pastDue, setPastDue] = useState();
-  const [statusFilter, setFilterStatus] = useState();
+  const [subscriptionType, setSubscriptionType] = useState<number | null>();
+  const [pastDue, setPastDue] = useState<string>();
+  const [statusFilter, setFilterStatus] = useState<string>();
 
   function getSubscriptionsData(data?: any) {
     dispatch(getSubscriptions(data));
@@ -32,14 +32,47 @@ const SubscriptionsList = () => {
     getSubscriptionsData({ page: 1 });
   }, []);
 
-  const subscriptionChange = (value: number | undefined) => {
+  const subscriptionChange = (value: number | null) => {
     console.log("value", value);
+    setSubscriptionType(value);
+    let payload: any = {};
+    if (statusFilter) payload.status = statusFilter;
+    if (pastDue) payload.pastDue = pastDue;
+    if (value) {
+      payload.subscriptionType = value;
+      getSubscriptionsData(payload);
+    } else {
+      payload.page = 1;
+      getSubscriptionsData(payload);
+    }
   };
   const statusChange = (value: string) => {
     console.log("value", value);
+    setFilterStatus(value);
+    let payload: any = {};
+    if (subscriptionType) payload.subscriptionType = subscriptionType;
+    if (pastDue) payload.pastDue = pastDue;
+    if (value) {
+      payload.status = value;
+      getSubscriptionsData(payload);
+    } else {
+      payload.page = 1;
+      getSubscriptionsData(payload);
+    }
   };
   const pastDueChange = (value: string) => {
     console.log("value", value);
+    setPastDue(value);
+    let payload: any = {};
+    if (subscriptionType) payload.subscriptionType = subscriptionType;
+    if (statusFilter) payload.status = statusFilter;
+    if (value) {
+      payload.pastDue = value;
+      getSubscriptionsData(payload);
+    } else {
+      payload.page = 1;
+      getSubscriptionsData(payload);
+    }
   };
   return (
     <div className="flex flex-col gap-4">
@@ -96,18 +129,18 @@ const SubscriptionsList = () => {
         </Col>
       </Row>
       <SubsciptionTable />
-      {data?.subscription?.length  ? (
-        <Pagination
-          onChange={handlePagination}
-          className="flex justify-end mt-4"
-          defaultCurrent={data?.pagination?.page}
-          defaultPageSize={8}
-          total={data?.pagination?.totalCount}
-          showSizeChanger={false}
-        />
-      ) : (
+      {/* {data?.subscription?.length ? ( */}
+      <Pagination
+        onChange={handlePagination}
+        className="flex justify-end mt-4"
+        defaultCurrent={data?.pagination?.page}
+        defaultPageSize={8}
+        total={data?.pagination?.totalCount}
+        showSizeChanger={false}
+      />
+      {/* ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 };
