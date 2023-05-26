@@ -8,6 +8,7 @@ import { backButtonIcon } from "../../../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import Submit from "../subscriptions-list/submit/submit";
 import { useAppDispatch } from "../../../../store/store";
+
 import { capitalize } from "../../../../utils/functions/functions";
 import {
   addSubscription,
@@ -30,7 +31,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [submittedValues, setSubmittedValues] = useState<any>();
-  const [showCurrentExpiry , setShowCurrentExpiry] = useState<boolean>(false)
+  const [showCurrentExpiry, setShowCurrentExpiry] = useState<boolean>(false);
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
     useState(false);
 
@@ -38,7 +39,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const location = useLocation();
   const data = location.state;
   const navigate = useNavigate();
-  const expirtDate = dayjs(data?.endDate).format("MM-DD-YYYY")
+  const expirtDate = dayjs(data?.endDate).format("MM-DD-YYYY");
 
   const onFinish = async (values: any) => {
     values.totalUsers = Number(values.totalUsers);
@@ -46,10 +47,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
     values.subscriptionType = Number(values.subscriptionType);
     values.subTotal = Number(values.subTotal);
 
-  
-    
+    if (values.paymentType === "check") {
+      values.paymentDetails = { checkNumber: values.checkNumber };
+      delete values.checkNumber;
+    }
 
-    console.log(values,'values')
+    console.log(values, "values");
     let res: any;
     switch (values.buttonType) {
       case "submit":
@@ -69,6 +72,8 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
       case "save":
         values.status = data?.status;
         values.subscriptionId = data?._id;
+        values.storeId = data?.storeId;
+
         res = await dispatch(updateSubscription(values));
         if (res?.meta?.requestStatus === "fulfilled") {
           setEditForm(false);
@@ -112,6 +117,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
     });
   };
 
+  console.log(data, "ac");
 
   return (
     <div className="_add-subscription">
@@ -126,13 +132,15 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           <label className="font-semibold text-2xl">Store Information</label>
         </div>
         <div className="flex items-center justify-between mt-2">
-          <label>
-            Store Id: <span className="font-semibold">{data?.store?.id}</span>
-          </label>
+          {edit && (
+            <label>
+              Store Id: <span className="font-semibold">{data?.storeNo}</span>
+            </label>
+          )}
 
           {edit && (
             <Button className="_primary-button" onClick={handleEdit}>
-              {editForm ? "Edit" : "View"}
+              {editForm ? "Edit" : "Cancel"}
             </Button>
           )}
         </div>
@@ -253,6 +261,12 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               label="Store Access"
               name="storeAccess"
               initialValue={data?.storeAccess}
+              rules={[
+                {
+                  required: true,
+                  message: "Please give store access",
+                },
+              ]}
             >
               <Checkbox.Group
                 onChange={handleCheckboxChange}
@@ -332,6 +346,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               showButton={true}
               showLabel={true}
               paymentType={data?.payments[0]?.paymentType}
+              // checkNumber= {data?.}
             />
           </Col>
         </Row>
@@ -372,55 +387,70 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           {/* <input type="hidden" value="" /> */}
           {edit ? (
             <>
-              <Button
-                onClick={() => {
-                  setStatus("Suspended");
-                  setOpenCommonModal(true);
-                  form.setFieldsValue({ buttonType: "suspended" });
-                  setShowCurrentExpiry(false)
-         
-                }}
-                className="_primary-button"
-                type="primary"
-                htmlType="button"
-              >
-                Suspended
-              </Button>
-              <Button
-                className="ml-4 _primary-button"
-                type="primary"
-                htmlType="submit"
-                onClick={() => {
-                  form.setFieldsValue({ buttonType: "extend" });
-                  setOpenCommonModal(true)
-                  setShowCurrentExpiry(true)
-                }}
-              >
-                Extend
-              </Button>
-              <Button
-                className="ml-4 _primary-button"
-                type="primary"
-                htmlType="submit"
-                onClick={() => {
-                  form.setFieldsValue({ buttonType: "save" });
-                }}
-              >
-                Save
-              </Button>
-              <Button
-                className="ml-4 _primary-button"
-                type="primary"
-                htmlType="submit"
-                onClick={() => {
-                  setStatus("Cancelled");
-                  form.setFieldsValue({ buttonType: "cancelSuscription" });
-                  setOpenCommonModal(true);
-                  setShowCurrentExpiry(false)
-                }}
-              >
-                Cancel Subscription
-              </Button>
+              <Row gutter={[16, 16]}>
+                <Col>
+                  <Button
+                    onClick={() => {
+                      setStatus(
+                        data?.status === "Call Back" ? "Active" : "Suspended"
+                      );
+                      setOpenCommonModal(true);
+                      form.setFieldsValue({ buttonType: "suspended" });
+                      setShowCurrentExpiry(false);
+                    }}
+                    className="_primary-button"
+                    type="primary"
+                    htmlType="button"
+                  >
+                    {data?.status === "Call Back" ? "Active" : "Suspended"}
+                  </Button>
+                </Col>
+
+                <Col>
+                  <Button
+                    className=" _primary-button"
+                    type="primary"
+                    htmlType="submit"
+                    onClick={() => {
+                      form.setFieldsValue({ buttonType: "extend" });
+                      setOpenCommonModal(true);
+                      setShowCurrentExpiry(true);
+                    }}
+                    disabled={data?.status === "Call Back" || editForm}
+                  >
+                    Extend
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    className=" _primary-button"
+                    type="primary"
+                    htmlType="submit"
+                    onClick={() => {
+                      form.setFieldsValue({ buttonType: "save" });
+                    }}
+                  >
+                    Save
+                  </Button>
+                </Col>
+
+                <Col>
+                  <Button
+                    className="_primary-button text-center"
+                    type="primary"
+                    htmlType="submit"
+                    onClick={() => {
+                      setStatus("Cancelled");
+                      form.setFieldsValue({ buttonType: "cancelSuscription" });
+                      setOpenCommonModal(true);
+                      setShowCurrentExpiry(false);
+                    }}
+                    disabled={data?.status === "Call Back" || editForm}
+                  >
+                    Cancel Subscription
+                  </Button>
+                </Col>
+              </Row>
             </>
           ) : (
             <>
@@ -456,10 +486,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           openCommonModal={openCommonModal}
           setOpenCommonModal={setOpenCommonModal}
           showCurrentExpiry={showCurrentExpiry}
-          expiryDate= {expirtDate}
+          expiryDate={expirtDate}
         />
       )}
-    
 
       {isModalOpen && (
         <Submit
@@ -468,7 +497,6 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           handleModalConfirm={handleModalConfirm}
           handleModalCancel={handleModalCancel}
           submittedValues={submittedValues}
-        
         />
       )}
     </div>

@@ -20,8 +20,8 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
   let dataSource = data?.subscription?.map((data: any, index: number) => ({
     ...data,
     key: data?._id,
-    storeId: data?.store?.id,
-    storeName: capitalize(data?.store?.name),
+    storeNo: data?.store?.id,
+    storeName: capitalize(data?.store?.name ?? ''),
     subscriptionType: data?.subscriptionType,
     subscriptionStatus: data?.status,
     subscriptionStartDate: dayjs(data?.startDate).format("MM/DD/YYYY"),
@@ -30,11 +30,15 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
     nextPaymentDate: dayjs(data?.endDate).format("MM/DD/YYYY"),
   }));
 
+  console.log(dataSource,'dataSource')
+
+  console.log(data, 'dara')
+
   const tableColumns = [
     {
       title: "Store ID",
-      dataIndex: "storeId",
-      key: "storeId",
+      dataIndex: "storeNo",
+      key: "storeNo",
     },
     {
       title: "Store Name",
@@ -118,7 +122,7 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
           }}
           state={record}
         >
-          <Button className="hover:text-white">View</Button>
+          <Button>View</Button>
         </Link>
       ),
     },

@@ -49,8 +49,8 @@ export const updateSubscription = createAsyncThunk(
   async (payload: any, { rejectWithValue, dispatch }) => {
     try {
       dispatch(setLoading(true));
-      const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
-      payload.storeId = data?.storeId;
+      /* const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+      payload.storeId = data?.storeId; */
       const response = await putApi("/subscription", payload);
       Toast(response?.message);
       return response;
