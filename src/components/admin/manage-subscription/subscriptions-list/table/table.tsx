@@ -9,6 +9,7 @@ import Spinner from "../../../../common/spinner/spinner";
 import { REQUEST_STATUS } from "../../../../../utils/constants";
 import dayjs from "dayjs";
 import { getSubscriptions } from "../../../../../store/admin/subscriptions/subscriptions-slice";
+import { capitalize } from "../../../../../utils/functions/functions";
 
 interface subscription {
   selectedOption?: any;
@@ -20,7 +21,7 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
     ...data,
     key: data?._id,
     storeId: data?.store?.id,
-    storeName: data?.store?.name,
+    storeName: capitalize(data?.store?.name),
     subscriptionType: data?.subscriptionType,
     subscriptionStatus: data?.status,
     subscriptionStartDate: dayjs(data?.startDate).format("MM/DD/YYYY"),
@@ -117,7 +118,7 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
           }}
           state={record}
         >
-          <Button>View</Button>
+          <Button className="hover:text-white">View</Button>
         </Link>
       ),
     },
@@ -135,12 +136,14 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
           />
         )
       ) : (
+        <div className="custom-table-container">
         <Table
         style={{ overflowX: 'auto' }}
           pagination={false}
           dataSource={dataSource}
           columns={tableColumns}
         />
+        </div>
       )}
     </>
   );

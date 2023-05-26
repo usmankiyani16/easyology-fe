@@ -107,3 +107,19 @@ code {
 .ant-empty-image {
   filter: invert(20%);
 }
+
+.custom-table-container .ant-table-wrapper {
+  overflow-x: scroll;
+}
+
+.custom-table-container .ant-table-tbody > tr > td {
+  background-color: #fff;
+}
+
+.custom-table-container .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: #e6f7ff;
+ background-color: hsl(4, 100%, 50%, 90%);
+
+  color: white; 
+ 
+}

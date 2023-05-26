@@ -1,4 +1,13 @@
-import { Button, DatePicker, DatePickerProps, Form, Modal } from "antd";
+import {
+  Button,
+  DatePicker,
+  DatePickerProps,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Col,
+} from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useAppDispatch } from "../../../../../store/store";
@@ -9,6 +18,8 @@ interface CommonModalTypes {
   subscriptionId: string;
   openCommonModal: boolean;
   setOpenCommonModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showCurrentExpiry: boolean;
+  expiryDate: any;
 }
 
 const CommonModal: React.FC<CommonModalTypes> = ({
@@ -17,6 +28,8 @@ const CommonModal: React.FC<CommonModalTypes> = ({
   subscriptionId,
   openCommonModal,
   setOpenCommonModal,
+  showCurrentExpiry,
+  expiryDate,
 }) => {
   const dispatch = useAppDispatch();
   const disabledDate = (current: dayjs.Dayjs | null): boolean => {
@@ -35,10 +48,12 @@ const CommonModal: React.FC<CommonModalTypes> = ({
       setEditForm(true);
     }
   };
+ 
+
   return (
     <div>
       <Modal
-        width={360}
+        width={showCurrentExpiry ? 440 : 360}
         footer={false}
         // centered
         closable={false}
@@ -48,19 +63,46 @@ const CommonModal: React.FC<CommonModalTypes> = ({
         <Form
           className="flex flex-col"
           name="basic"
-          labelCol={{ span: 8 }}
+          // labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           // layout="vertical"
           initialValues={{ remember: true }}
           onFinish={onFinish}
         >
-          <Form.Item
-            label="When"
-            name="date"
-            rules={[{ required: true, message: "Required!" }]}
-          >
-            <DatePicker disabledDate={disabledDate} />
-          </Form.Item>
+          {showCurrentExpiry && (
+            <Row>
+              <Col xs={10}>
+                <label className="p-2">Current expiration date</label>
+              </Col>
+
+              <Col xs={14}>
+                <Form.Item rules={[{ required: true, message: "Required!" }]}>
+                  <Input
+                    className="h-[32px] rounded-[5px]"
+                    disabled
+                    value={expiryDate}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          )}
+
+          <Row>
+            <Col xs={10}>
+              <label className="p-2">
+                {showCurrentExpiry ? "New expiration date" : "When"}
+              </label>
+            </Col>
+
+            <Col xs={14}>
+              <Form.Item
+                name="date"
+                rules={[{ required: true, message: "Required!" }]}
+              >
+                <DatePicker disabledDate={disabledDate} format="MM-DD-YYYY" />
+              </Form.Item>
+            </Col>
+          </Row>
 
           <div className="flex justify-between">
             <Button

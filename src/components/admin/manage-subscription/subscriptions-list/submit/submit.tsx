@@ -61,7 +61,7 @@ const Submit: React.FC<SubmitData> = ({
             <Button key="no" onClick={handleModalCancel}>
               No
             </Button>
-            ,
+            
           </div>
         </div>
       </Modal>

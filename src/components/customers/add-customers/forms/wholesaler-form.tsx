@@ -32,11 +32,9 @@ const WholeSalerForm = ({
   const [drivingLicence, setDrivingLicence] = useState(true);
   const [taxIdFile, setTaxIdFile] = useState(true);
 
- 
-
   const onFinish = async (values: any) => {
-     values.picTaxId = taxIdFile ?? '';
-      values.picDl = drivingLicence ?? '';
+    values.picTaxId = taxIdFile ?? "";
+    values.picDl = drivingLicence ?? "";
     values.role = "wholesaler";
     const res = await dispatch(addCustomer(values));
     if (res?.meta?.requestStatus === "fulfilled") {
@@ -47,9 +45,13 @@ const WholeSalerForm = ({
 
     // console.log(sh)
   };
+  const uploadStyle = {
+    width: "200px",
+    height: "100px",
+  };
 
   return (
-    <div>
+    <div className="_customer-wrapper">
       <Form
         form={form}
         wrapperCol={{ span: 14 }}
@@ -202,6 +204,7 @@ const WholeSalerForm = ({
                     <Input
                       className="_input_field w-[300px] h-[40px]"
                       placeholder="Enter Phone Number"
+                      type="number"
                     />
                   </Form.Item>
                   <Form.Item
@@ -237,11 +240,9 @@ const WholeSalerForm = ({
                     name="picDl"
                     valuePropName="drivinglicense"
                   >
-                   
-                    <UploadImage
-                     
-                     setImageValue={setDrivingLicence}
-                    />
+                    <div className="_custom-upload-container">
+                      <UploadImage setImageValue={setDrivingLicence} />
+                    </div>
                   </Form.Item>
 
                   <Form.Item
@@ -250,9 +251,7 @@ const WholeSalerForm = ({
                     valuePropName="taxId"
                     className=""
                   >
-                    <UploadImage
-                      setImageValue={setTaxIdFile}
-                    />
+                    <UploadImage setImageValue={setTaxIdFile} />
                   </Form.Item>
                 </div>
               </div>

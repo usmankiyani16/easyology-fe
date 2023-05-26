@@ -8,11 +8,13 @@ import { backButtonIcon } from "../../../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import Submit from "../subscriptions-list/submit/submit";
 import { useAppDispatch } from "../../../../store/store";
+import { capitalize } from "../../../../utils/functions/functions";
 import {
   addSubscription,
   updateSubscription,
 } from "../../../../store/admin/subscriptions/subscriptions-slice";
-import CommonModal2 from "./common-modal/comman-modal2";
+import dayjs from "dayjs";
+
 const { Option } = Select;
 interface CommonSubscriptionType {
   edit?: boolean;
@@ -28,6 +30,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [submittedValues, setSubmittedValues] = useState<any>();
+  const [showCurrentExpiry , setShowCurrentExpiry] = useState<boolean>(false)
   const [showCheckingCashingContent, setShowCheckingCashingContent] =
     useState(false);
 
@@ -35,12 +38,15 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
   const location = useLocation();
   const data = location.state;
   const navigate = useNavigate();
+  const expirtDate = dayjs(data?.endDate).format("MM-DD-YYYY")
 
   const onFinish = async (values: any) => {
     values.totalUsers = Number(values.totalUsers);
     values.monthlyCharge = Number(values.monthlyCharge);
     values.subscriptionType = Number(values.subscriptionType);
     values.subTotal = Number(values.subTotal);
+
+  
     
 
     console.log(values,'values')
@@ -105,6 +111,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
       }
     });
   };
+
 
   return (
     <div className="_add-subscription">
@@ -370,6 +377,8 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   setStatus("Suspended");
                   setOpenCommonModal(true);
                   form.setFieldsValue({ buttonType: "suspended" });
+                  setShowCurrentExpiry(false)
+         
                 }}
                 className="_primary-button"
                 type="primary"
@@ -383,7 +392,8 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                 htmlType="submit"
                 onClick={() => {
                   form.setFieldsValue({ buttonType: "extend" });
-                  setOpenCommonModal2(true);
+                  setOpenCommonModal(true)
+                  setShowCurrentExpiry(true)
                 }}
               >
                 Extend
@@ -406,6 +416,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   setStatus("Cancelled");
                   form.setFieldsValue({ buttonType: "cancelSuscription" });
                   setOpenCommonModal(true);
+                  setShowCurrentExpiry(false)
                 }}
               >
                 Cancel Subscription
@@ -444,14 +455,11 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           subscriptionId={data?._id}
           openCommonModal={openCommonModal}
           setOpenCommonModal={setOpenCommonModal}
+          showCurrentExpiry={showCurrentExpiry}
+          expiryDate= {expirtDate}
         />
       )}
-      {openCommonModal2 && (
-        <CommonModal2
-          openCommonModal2={openCommonModal2}
-          setOpenCommonModal2={setOpenCommonModal2}
-        />
-      )}
+    
 
       {isModalOpen && (
         <Submit
@@ -460,6 +468,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
           handleModalConfirm={handleModalConfirm}
           handleModalCancel={handleModalCancel}
           submittedValues={submittedValues}
+        
         />
       )}
     </div>

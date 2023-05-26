@@ -37,7 +37,7 @@ const RetailerForm = ({
   };
 
   return (
-    <div>
+    <div className="_customer-wrapper">
       <Form
         form={form}
         wrapperCol={{ span: 14 }}
@@ -112,6 +112,7 @@ const RetailerForm = ({
                   <Input
                     className="_input_field w-[300px] h-[40px]"
                     placeholder="Enter Phone Number"
+                    type="number"
                   />
                 </Form.Item>
                 <Form.Item
