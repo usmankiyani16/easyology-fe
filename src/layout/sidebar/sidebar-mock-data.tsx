@@ -60,20 +60,23 @@ export const sidebarData = [
     label: "Expenses",
     path: ROUTE_CONSTANTS.EXPENSES,
   },
-  // {
-  //   key: 7,
-  //   icon: (
-  //     <img className="w-7" src={ReportIcon} alt="ReportIcon" />
-  //   ),
-  //   label: "Reports",
-  //   path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
-  // },
-  // {
-  //   key: 8,
-  //   icon: <img className="w-7" src={accessControlIcon} alt="accessControlIcon" />,
-  //   label: "Access Control",
-  //   path: ROUTE_CONSTANTS.ACCESS_CONTROL,
-  // },
+
+  {
+    key: 8,
+    icon: (
+      <img className="w-7" src={accessControlIcon} alt="accessControlIcon" />
+    ),
+    label: "Access Control",
+    path: ROUTE_CONSTANTS.ACCESS_CONTROL,
+  },
+  {
+    key: 7,
+    icon: (
+      <img className="w-7" src={ReportIcon} alt="ReportIcon" />
+    ),
+    label: "Reports",
+    path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
+  },
   // {
   //   key: 9,
   //   icon: <img className="w-7" src={notificationIcon} alt="notificationIcon" />,

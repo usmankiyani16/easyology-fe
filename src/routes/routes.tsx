@@ -7,7 +7,7 @@ import RequireAuth from "../components/auth/RequireAuth";
 import Unauthorized from "../components/auth/unauthorized/unauthorized";
 import CashChecker from "../components/cash-checker/cash-checker";
 import DailyLedger from "../components/access-control/access-control";
-import MonthlyReports from "../components/monthly-reports/monthly-reports";
+import MonthlyReports from "../components/monthly-reports/reports";
 import Notification from "../components/notification/notification";
 import Payments from "../components/orders/orders";
 import AddPO from "../components/purchase-order/addpo";
@@ -22,17 +22,17 @@ import { ADMIN_ROUTES, ROUTE_CONSTANTS } from "./route-constants";
 
 //<img src={LoadingSvg} height={200} width={200} alt="LoadingSvg" />
 const Loadable = (Component: LazyExoticComponent<FC>) => (props: any) =>
-  (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center">
-          <Spin size="large" />
-        </div>
-      }
-    >
-      <Component {...props} />
-    </Suspense>
-  );
+(
+  <Suspense
+    fallback={
+      <div className="flex items-center justify-center">
+        <Spin size="large" />
+      </div>
+    }
+  >
+    <Component {...props} />
+  </Suspense>
+);
 
 const DashboardLazy = Loadable(lazy(() => import("../pages/dashboard/index")));
 const ProductsLazy = Loadable(lazy(() => import("../pages/products/index")));
@@ -64,9 +64,31 @@ const AddExpensesLazy = Loadable(lazy(() => import("../pages/add-expense/index")
 const MonthlyReportsLazy = Loadable(
   lazy(() => import("../pages/monthly-reports/index"))
 );
+const AcountsReceiveableLazy = Loadable(
+  lazy(() => import("../pages/monthly-reports/acount-receiveable/index"))
+);
+const ViewAcountReceiveableLazy = Loadable(
+  lazy(() => import("../pages/monthly-reports/acount-receiveable/view-receiveable/index"))
+);
+const AcountsPayableLazy = Loadable(
+  lazy(() => import("../pages/monthly-reports/acount-payable/index"))
+);
+const MonthlyReportLazy = Loadable(
+  lazy(() => import("../pages/monthly-reports/monthly-reports/index"))
+);
+const ViewMonthlyReportLazy = Loadable(
+  lazy(() => import("../pages/monthly-reports/view-monthly-reports/index"))
+);
 const AccessControlLazy = Loadable(
   lazy(() => import("../pages/access-control/index"))
 );
+const AddEmployeeLazy = Loadable(
+  lazy(() => import("../pages/access-control/add-employee/index"))
+);
+const EditAccessLazy = Loadable(
+  lazy(() => import("../pages/access-control/edit-access/index"))
+);
+
 const CashCheckLazy = Loadable(
   lazy(() => import("../pages/cash-checker/index"))
 );
@@ -204,12 +226,83 @@ export const routes: any = [
         ),
       },
       {
+        path: ROUTE_CONSTANTS.ADD_EMPLOYEEE,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <AddEmployeeLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.EDIT_ACCESS,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <EditAccessLazy />
+          </RequireAuth>
+        ),
+      },
+      {
         path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
         element: (
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
             <MonthlyReportsLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.VIEW_MONTHLY_REPORTS,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <ViewMonthlyReportLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+
+        path: ROUTE_CONSTANTS.ACOUNT_RECEIVEABLE,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <AcountsReceiveableLazy/>
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <ViewAcountReceiveableLazy/>
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.ACOUNT_PAYABLE,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <AcountsPayableLazy />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: ROUTE_CONSTANTS.MONTHLY_REPORT,
+        element: (
+          <RequireAuth
+            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+          >
+            <MonthlyReportLazy />
           </RequireAuth>
         ),
       },
@@ -239,7 +332,7 @@ export const routes: any = [
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <CREATEORDERLazy/>
+            <CREATEORDERLazy />
           </RequireAuth>
         ),
       },

@@ -20,7 +20,7 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
   let dataSource = data?.subscription?.map((data: any, index: number) => ({
     ...data,
     key: data?._id,
-    storeNo: data?.store?.id,
+    storeNo: data?.store?.storeNo,
     storeName: capitalize(data?.store?.name ?? ''),
     subscriptionType: data?.subscriptionType,
     subscriptionStatus: data?.status,

@@ -56,12 +56,7 @@ const DateRange = () => {
     return current.unix() > endMonth.unix();
   };
 
-  /*  const disabledStartDate = (current: dayjs.Dayjs | null): boolean => {
-    return current ? current.isBefore(dayjs().startOf("day")) : false;
-  }; */
-  // const disabledEndDate = (current: dayjs.Dayjs | null): boolean => {
-  //   return current ? current.isBefore(dayjs().endOf("day")) : false;
-  // };
+  
   return (
     <div>
       <div className="flex justify-center gap-12 items-center text-lg mt-4">
