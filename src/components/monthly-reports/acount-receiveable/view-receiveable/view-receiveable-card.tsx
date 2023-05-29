@@ -3,7 +3,6 @@ import { Button, Card } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
-import { capitalize } from "../../../../utils/functions/functions";
 import ReceiveableMockData from "../acount-receiveable-card/mock-data";
 
 const ViewReceiveableCard: React.FC<any> = ({ receiveableData }) => {

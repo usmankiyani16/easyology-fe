@@ -6,7 +6,6 @@ import { Button, Form, Modal, Select } from "antd";
 import ExportExcel from "../po-card/po-import/export-excel";
 import Dummy_Add_PO from "../po-card/po-import/dummy-add-po";
 import BulkUpload from "../po-card/po-import/bulk-upload";
-import { capitalize } from "../../../utils/functions/functions";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { setImportModalOpen } from "../../../store/po/po.slice";
 // import UploadExcelTable from "../../purchase-order/po-card/po-import/import-excel";
@@ -80,8 +79,8 @@ const Importmodal: React.FC<any> = () => {
               listHeight={140}
             >
               {vendors?.map((vendor: any, index: number) => (
-                <Select.Option key={vendor?._id} value={vendor?._id}>
-                  {capitalize(vendor?.name)}
+                <Select.Option key={vendor?._id} value={vendor?._id} className="capitalize">
+                  {vendor?.name}
                 </Select.Option>
               ))}
             </Select>

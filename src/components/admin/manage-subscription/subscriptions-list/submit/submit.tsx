@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Modal, Form, Upload, Input } from "antd";
-import { capitalize } from "../../../../../utils/functions/functions";
 
 interface SubmitData {
   isModalOpen: any;
@@ -38,8 +37,8 @@ const Submit: React.FC<SubmitData> = ({
               {submittedValues?.storeName}{" "}
             </span>{" "}
             with payment type
-            <span className="_primary-color ml-[4px] mr-[4px] ">
-              {capitalize(submittedValues?.paymentType)}
+            <span className="_primary-color ml-[4px] mr-[4px] capitalize">
+              {submittedValues?.paymentType}
             </span>
             {submittedValues?.paymentType === "check" ? (
               <span className="_primary-color ml-[4px] mr-[4px] ">

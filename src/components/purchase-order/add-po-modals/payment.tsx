@@ -22,7 +22,6 @@ import PreviewMax from "./preview-bulk-import";
 import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { capitalize } from "../../../utils/functions/functions";
 import { addPOinBulk, setImportModalOpen } from "../../../store/po/po.slice";
 import { Toast } from "../../common/toast/toast";
 import dayjs from "dayjs";

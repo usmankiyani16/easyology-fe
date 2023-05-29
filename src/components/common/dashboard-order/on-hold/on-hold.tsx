@@ -1,7 +1,6 @@
 import { Button, Card, Input, InputNumber, Modal, Pagination } from "antd";
 import React, { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import { capitalize } from "../../../../utils/functions/functions";
 import "./onhold.scss";
 import OnHoldInvoice from "./on-hold-invoice/onhold-invoice";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
@@ -103,8 +102,8 @@ const OnHoldModal: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
                       <span className="_grey-color whitespace-nowrap">
                         Customer Type:
                       </span>
-                      <span className=" _label-grey">
-                        {capitalize(data?.customerType ?? "Not available")}
+                      <span className=" _label-grey capitalize">
+                        {data?.customerType ?? "Not available"}
                       </span>
                     </div>
                     <div className="flex gap-4 ">

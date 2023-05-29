@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import Submit from "../subscriptions-list/submit/submit";
 import { useAppDispatch } from "../../../../store/store";
 
-import { capitalize } from "../../../../utils/functions/functions";
 import {
   addSubscription,
   updateSubscription,

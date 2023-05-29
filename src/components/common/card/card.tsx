@@ -1,6 +1,5 @@
 import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
-import { capitalize } from "../../../utils/functions/functions";
 import "./card.scss";
 import Viewmodal from "../view-data/view-modal";
 import dayjs from "dayjs";
@@ -74,7 +73,7 @@ const POCard: React.FC<poCardTypes> = ({
                 </div>
                 <div className="flex text-lg gap-2 whitespace-nowrap">
                   <span className="font-medium">{Name}:</span>
-                  <span className="font-medium captilize _label-grey">
+                  <span className="font-medium captilize _label-grey capitalize">
                     {/* {vendorName ?? name} */}
                     {/* {vendorName && vendorName} */}
 
@@ -91,7 +90,7 @@ const POCard: React.FC<poCardTypes> = ({
                   <div key={index} className="flex text-lg gap-4">
                     <span className="font-medium">x{prod?.quantity}</span>
                     <span className="font-medium _label-grey">
-                      {capitalize(prod?.name ?? "")}
+                      {prod?.name ?? ""}
                     </span>
                   </div>
                 ))}
@@ -100,13 +99,13 @@ const POCard: React.FC<poCardTypes> = ({
                 <div className="flex text-lg gap-4">
                   <span className="font-medium _label-grey">Inv Status:</span>
                   <span
-                    className={`font-semibold ${
+                    className={`font-semibold capitalize ${
                       data?.paymentStatus === "Partially Paid"
                         ? "_primary-color"
                         : "_success_color"
                     } `}
                   >
-                    {capitalize(data?.paymentStatus ?? "")}
+                    {data?.paymentStatus ?? ""}
                   </span>
                 </div>
                 <div className="flex text-lg gap-4">

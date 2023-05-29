@@ -6,7 +6,7 @@ import * as XLSX from "xlsx";
 import { laptopImg } from "../../../assets/images";
 import Line from "../../../assets/images/dashboard/Line.png";
 import "../../../sass/modals.scss";
-import PayModal from "../../purchase-order/po-view-modal/pay-modal";
+import PartialPay from "../../purchase-order/partial-pay/partail-pay";
 import { imageBaseUrl } from "../../../utils/constants";
 import { noImg } from "../../../assets/images";
 
@@ -72,7 +72,7 @@ const Viewmodal: React.FC<any> = ({
   console.log(cardView?.remainingAmount, "remianing");
   return (
     <div className="_view_modal_wrap">
-      <PayModal
+      <PartialPay
         setViewModalOpen={setViewModalOpen}
         paidAmount={cardView?.remainingAmount}
         poId={cardView?._id}

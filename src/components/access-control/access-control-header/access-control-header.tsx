@@ -12,7 +12,7 @@ const AccessControlHeader = () => {
   };
   return (
     <div>
-      <div className="flex xs:flex-col sm:flex-row items-center sm:justify-between mt-3">
+      <div className="flex xs:flex-col xs:gap-4 md:gap-0 md:flex-row items-center md:justify-between mt-3">
         <div className="flex items-center justify-between gap-4">
           <h1 className="font-lato  text-[2rem]">Access Control</h1>
         </div>

@@ -7,7 +7,6 @@ import {
   getSubCatogaries,
   setSubCategory,
 } from "../../store/catogaries/catogaries-slice";
-import { capitalize } from "../../utils/functions/functions";
 import { SearchOutlined } from "@ant-design/icons";
 import CardComponent from "../products/card/card";
 import { getProducts } from "../../store/products/products-slice";
@@ -89,8 +88,8 @@ const Products = () => {
               >
                 <Select.Option value="">All</Select.Option>
                 {catogaries?.map((catogary: any, index: number) => (
-                  <Select.Option key={catogary?._id} value={catogary?._id}>
-                    {capitalize(catogary?.name)}
+                  <Select.Option key={catogary?._id} value={catogary?._id} className="capitalize">
+                    {catogary?.name}
                   </Select.Option>
                 ))}
               </Select>
@@ -103,8 +102,8 @@ const Products = () => {
                   placeholder="Select sub category"
                 >
                   {subCategories?.map((data: any) => (
-                    <Select.Option key={data?._id} value={data?._id}>
-                      {capitalize(data?.name ?? "")}
+                    <Select.Option key={data?._id} value={data?._id} className="capitalize">
+                      {data?.name ?? ""}
                     </Select.Option>
                   ))}
                 </Select>

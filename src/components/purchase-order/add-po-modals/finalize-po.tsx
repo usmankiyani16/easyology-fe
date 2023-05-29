@@ -13,7 +13,6 @@ import PreviewMax from "./preview-bulk-import";
 import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { capitalize } from "../../../utils/functions/functions";
 import { addPO } from "../../../store/po/po.slice";
 import { values } from "@antv/util";
 import { Toast } from "../../common/toast/toast";
@@ -255,8 +254,8 @@ const PreviewModal: React.FC<any> = ({
           <div className="m-4">
             <p className="_modal_para">
               Vendor Name:{" "}
-              <span className="text-stone-400 font-bold ml-2">
-                {capitalize(vendor?.name)}
+              <span className="text-stone-400 font-bold ml-2 capitalize">
+                {vendor?.name}
               </span>
             </p>
             {/* <p className="_modal_para">

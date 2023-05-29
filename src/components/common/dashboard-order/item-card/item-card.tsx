@@ -15,6 +15,7 @@ import { imageBaseUrl } from "../../../../utils/constants";
 const ItemCard = () => {
   const { selectedProducts } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
+  
   const handleDelete = (index: number) => {
     dispatch(deleteSelectedProducts(index));
   };

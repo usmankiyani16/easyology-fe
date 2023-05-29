@@ -14,7 +14,6 @@ import {
   getCatogaries,
   getSubCatogaries,
 } from "../../store/catogaries/catogaries-slice";
-import { capitalize } from "../../utils/functions/functions";
 import { uploadMedia } from "../../store/media/media-slice";
 import { Toast } from "../common/toast/toast";
 import { getVendors } from "../../store/vendors/vendors-slice";
@@ -43,7 +42,7 @@ const AddPO = () => {
   const [previewmodalOpen, setPreviewModalOpen] = useState(false);
   // const [importModalOpen, setImportModalOpen] = useState(false);
   const [imageValue, setImageValue] = useState<string>("");
-  
+
   const [formData, setFormData] = useState<any[]>([]);
   const [dataForm, setDataForm] = useState<any>();
   const [file, setFile] = useState(null);
@@ -56,7 +55,10 @@ const AddPO = () => {
     Toast("Product added to cart successfully");
     const newFormData: any = {
       name: values.product,
-      amount: Number(values.price),
+      amount: Number(values.purchaseAmount),
+      wholesaleAmount: Number(values.wholesaleAmount),
+      retailAmount: Number(values.retailAmount),
+
       threshold: values.threshold,
       iemiNumber: values.imeiNumber,
       description: values.productDescription,
@@ -279,8 +281,12 @@ const AddPO = () => {
                     }
                   >
                     {vendors?.map((vendor: any, index: number) => (
-                      <Select.Option key={vendor?._id} value={vendor?._id}>
-                        {capitalize(vendor?.name)}
+                      <Select.Option
+                        key={vendor?._id}
+                        value={vendor?._id}
+                        className="capitalize"
+                      >
+                        {vendor?.name}
                       </Select.Option>
                     ))}
                   </Select>
@@ -316,8 +322,25 @@ const AddPO = () => {
             </Form.Item>
 
             <Form.Item
-              label={<span className="_po_field_label">Product Price</span>}
-              name="price"
+              label={<span className="_po_field_label">Purchase Amount</span>}
+              name="purchaseAmount"
+              required
+              tooltip="This is a required field"
+              rules={[{ required: true, validator: validatePrice }]}
+            >
+              {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
+              <Input
+                className="_input"
+                type="number"
+                placeholder="0.00"
+                prefix="$"
+              />
+            </Form.Item>
+            <Form.Item
+              label={
+                <span className="_po_field_label">WholeSeller Amount</span>
+              }
+              name="wholesaleAmount"
               required
               tooltip="This is a required field"
               rules={[{ required: true, validator: validatePrice }]}
@@ -362,9 +385,7 @@ const AddPO = () => {
               valuePropName="image"
               className="mt-[20px]"
             >
-              <UploadImage
-                setImageValue={setImageValue}
-              />
+              <UploadImage setImageValue={setImageValue} />
             </Form.Item>
             {/* 
             <Form.Item
@@ -456,8 +477,12 @@ const AddPO = () => {
                   onChange={(value: any) => dispatch(getSubCatogaries(value))}
                 >
                   {catogaries?.map((catogary: any, index: number) => (
-                    <Select.Option key={catogary?._id} value={catogary?._id}>
-                      {capitalize(catogary?.name)}
+                    <Select.Option
+                      key={catogary?._id}
+                      value={catogary?._id}
+                      className="capitalize"
+                    >
+                      {catogary?.name}
                     </Select.Option>
                   ))}
                 </Select>
@@ -474,6 +499,22 @@ const AddPO = () => {
             </div>
 
             <Form.Item
+              label={<span className="_po_field_label">Retailer Amount</span>}
+              name="retailAmount"
+              required
+              tooltip="This is a required field"
+              rules={[{ required: true, validator: validatePrice }]}
+            >
+              {/* ^\$[1-9]\d{0,2}(,\d{3})*(\.\d{2})?$ */}
+              <Input
+                className="_input"
+                type="number"
+                placeholder="0.00"
+                prefix="$"
+              />
+            </Form.Item>
+
+            <Form.Item
               label={<span className="_po_field_label  ml-[10px]">Color</span>}
               name="color"
               rules={[
@@ -485,6 +526,7 @@ const AddPO = () => {
             >
               <Input className="_input" placeholder="Specify Color" />
             </Form.Item>
+
             <Form.Item
               label={
                 <span className="_po_field_label  ml-[10px]">Product Size</span>
@@ -516,8 +558,12 @@ const AddPO = () => {
                   placeholder="Select sub category"
                 >
                   {subCategories?.map((data: any) => (
-                    <Select.Option key={data?._id} value={data?._id}>
-                      {capitalize(data?.name)}
+                    <Select.Option
+                      key={data?._id}
+                      value={data?._id}
+                      className="capitalize"
+                    >
+                      {data?.name}
                     </Select.Option>
                   ))}
                 </Select>

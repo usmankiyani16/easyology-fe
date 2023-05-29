@@ -9,7 +9,6 @@ import Spinner from "../../../../common/spinner/spinner";
 import { REQUEST_STATUS } from "../../../../../utils/constants";
 import dayjs from "dayjs";
 import { getSubscriptions } from "../../../../../store/admin/subscriptions/subscriptions-slice";
-import { capitalize } from "../../../../../utils/functions/functions";
 
 interface subscription {
   selectedOption?: any;
@@ -21,7 +20,7 @@ const SubsciptionTable: React.FC<subscription> = ({ selectedOption }) => {
     ...data,
     key: data?._id,
     storeNo: data?.store?.storeNo,
-    storeName: capitalize(data?.store?.name ?? ''),
+    storeName: data?.store?.name ?? '',
     subscriptionType: data?.subscriptionType,
     subscriptionStatus: data?.status,
     subscriptionStartDate: dayjs(data?.startDate).format("MM/DD/YYYY"),

@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../store/store";
 import { getPOS, payPO } from "../../../store/po/po.slice";
 import Pay from "../../common/pay/pay";
 
-const PayModal: React.FC<any> = ({
+const PartialPay: React.FC<any> = ({
   paymentModalOpen,
   setPaymentModalOpen,
   poId,
@@ -58,13 +58,10 @@ const PayModal: React.FC<any> = ({
           justifySelf: "start",
         }}
       >
-     
-              <Pay onFinish={onFinish} showButton={false} />
-          
-  
+        <Pay onFinish={onFinish} showButton={false} />
       </Modal>
     </div>
   );
 };
 
-export default PayModal;
+export default PartialPay;

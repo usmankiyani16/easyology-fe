@@ -16,12 +16,15 @@ import {
   getInvoiceNumber,
 } from "../../../store/order/order-slice";
 import OrderStatus from "./order-status/order-status";
+import ViewOrdersCard from "../../orders/view-orders/view-order-card/card";
+import orderDetails from "../../orders/mock-data/view-orders";
 
 const DashboardOrder: React.FC<any> = ({
   showOrderStatus,
   showDashboardHeader,
   showFinalizeButton,
   showOperations,
+  showCards,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -235,10 +238,17 @@ const DashboardOrder: React.FC<any> = ({
           </div>
         )}
       </div>
+      {!showCards && (
+        <div className="mt-7">
+          <ItemCard />
+        </div>
+      )}
 
-      <div className="mt-7">
-        <ItemCard />
-      </div>
+      {showCards && (
+        <div className="mt-7">
+          <ViewOrdersCard orderDetails={orderDetails} showScroll={true} />
+        </div>
+      )}
 
       {showOrderStatus && (
         <>
@@ -251,15 +261,14 @@ const DashboardOrder: React.FC<any> = ({
         </>
       )}
 
-        <Operations
-          totalPrice={totalPrice}
-          selectCustomer={selectCustomer}
-          setSelectCustomer={setSelectCustomer}
-          onSave={handleSave}
-          showOrderStatus={showOrderStatus}
-          showFinalizeButton={showFinalizeButton}
-        />
- 
+      <Operations
+        totalPrice={totalPrice}
+        selectCustomer={selectCustomer}
+        setSelectCustomer={setSelectCustomer}
+        onSave={handleSave}
+        showOrderStatus={showOrderStatus}
+        showFinalizeButton={showFinalizeButton}
+      />
 
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>

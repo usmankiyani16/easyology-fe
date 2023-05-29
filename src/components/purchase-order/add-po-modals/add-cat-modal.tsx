@@ -22,6 +22,7 @@ const AddCategoryModal: React.FC<any> = ({ catmodalOpen, setCatModalOpen }) => {
         onCancel={() => setCatModalOpen(false)}
         destroyOnClose={true}
         className="_modal_wrap"
+        width={440}
       >
         <h3 className="_modal_header_poView">Add Category</h3>
 

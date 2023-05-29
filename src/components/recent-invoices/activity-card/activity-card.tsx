@@ -1,6 +1,5 @@
 import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
-import { capitalize } from "../../../utils/functions/functions";
 import "./activity-card.scss";
 
 const ActivityCard: React.FC<any> = ({ purchaseOrders }) => {
@@ -58,8 +57,8 @@ const ActivityCard: React.FC<any> = ({ purchaseOrders }) => {
               {data?.products?.slice(0, 3).map((prod: any, index: number) => (
                 <div key={index} className="flex text-lg gap-4">
                   <span className="font-medium">x{prod?.quantity}</span>
-                  <span className="font-medium _label-grey">
-                    {capitalize(prod?.name)}
+                  <span className="font-medium _label-grey capitalize">
+                    {prod?.name}
                   </span>
                 </div>
               ))}

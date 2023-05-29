@@ -162,7 +162,7 @@ const CommonAddEmployee = ({ edit }: any) => {
 
                 //   initialValue={data?.user?.email}
               >
-                <DatePicker className="w-[100%]" />
+                <DatePicker className="w-[100%]" format="MM-DD-YYYY" />
               </Form.Item>
             </Col>
           </Row>
@@ -188,7 +188,7 @@ const CommonAddEmployee = ({ edit }: any) => {
 
                   //   initialValue={data?.user?.email}
                 >
-                  <DatePicker className="w-[100%]" />
+                  <DatePicker className="w-[100%]" format="MM-DD-YYYY" />
                 </Form.Item>
               </Col>
             </Row>
@@ -252,7 +252,7 @@ const CommonAddEmployee = ({ edit }: any) => {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="w-36 text-center text-lg"
+                className="w-36 text-center text-lg _primary-button"
               >
                 Save
               </Button>

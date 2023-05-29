@@ -8,7 +8,6 @@ import Line from "../../../../../assets/images/dashboard/Line.png";
 import { imageBaseUrl } from "../../../../../utils/constants";
 import { noImg } from "../../../../../assets/images";
 import { backButtonIcon } from "../../../../../assets/icons";
-import { capitalize } from "../../../../../utils/functions/functions";
 import dayjs from "dayjs";
 import download_scanner from "../../../../../assets/images/dashboard/download-scanner.png";
 import { useAppDispatch } from "../../../../../store/store";
@@ -70,7 +69,7 @@ const OnHoldInvoice: React.FC<any> = ({
         </div>
         <div className="flex items-center justify-between">
           <h4 className="_company_name capitalize">
-            {capitalize(singleOnHoldInvoice?.customerType ?? "not available")}
+            {singleOnHoldInvoice?.customerType ?? "not available"}
           </h4>
 
           <span>

@@ -38,7 +38,7 @@ const ViewReceiveable = () => {
               alt="back"
             />
             <h1 className="font-lato xs:text-[1.8rem] sm:text-[2rem] whitespace-nowrap">
-               Month of <span className="_primary-color">{data?.month}</span>
+               Month of <span className="_primary-color">{data?.data?.month}</span>
             </h1>
           </div>
         </div>
