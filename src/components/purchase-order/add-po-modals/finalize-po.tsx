@@ -159,6 +159,7 @@ const PreviewModal: React.FC<any> = ({
 
   const handleFinish = async (values: any) => {
     let paidAmount;
+    delete newObject.amount
     let payload: any = {
       ...newObject,
       paymentStatus:
@@ -200,11 +201,13 @@ const PreviewModal: React.FC<any> = ({
     }
 
     // dispatch(addPO(payload));
+    console.log("payload------", payload);
+
     const res = await dispatch(addPO(payload));
     if (res?.meta?.requestStatus === "fulfilled") {
       setPreviewModalOpen(false);
       setSeletedVendor(null);
-      setDataForm(null)
+      setDataForm(null);
     }
   };
 
