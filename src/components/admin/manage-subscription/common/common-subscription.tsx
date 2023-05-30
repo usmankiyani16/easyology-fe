@@ -150,7 +150,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         layout="vertical"
-        initialValues={{ remember: true, autoRenew: data?.autoRenew ?? false}}
+        initialValues={{ remember: true, autoRenew: data?.autoRenew ?? false }}
         onFinish={onFinish}
         form={form}
       >
@@ -344,8 +344,13 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
             <Pay
               showButton={true}
               showLabel={true}
-              paymentType={data?.payments[0]?.paymentType}
-              checkNumber= {data?.payments[0]?.paymentTypeDetails?.checkNumber}
+              paymentType={
+                data?.payments[data?.payments.length - 1]?.paymentType
+              }
+              checkNumber={
+                data?.payments[data?.payments.length - 1]?.paymentTypeDetails
+                  ?.checkNumber
+              }
             />
           </Col>
         </Row>
@@ -391,7 +396,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   <Button
                     onClick={() => {
                       setStatus(
-                        data?.status === "Call Back" || 'Suspended' ? "Active" : "Suspended"
+                        data?.status === "Call Back" || "Suspended"
+                          ? "Active"
+                          : "Suspended"
                       );
                       setOpenCommonModal(true);
                       form.setFieldsValue({ buttonType: "suspended" });
@@ -401,7 +408,9 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                     type="primary"
                     htmlType="button"
                   >
-                    {data?.status === "Call Back" || 'Suspended' ? "Active" : "Suspended"}
+                    {data?.status === "Call Back" || "Suspended"
+                      ? "Active"
+                      : "Suspended"}
                   </Button>
                 </Col>
 
