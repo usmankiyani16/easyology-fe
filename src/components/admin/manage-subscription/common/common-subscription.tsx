@@ -391,7 +391,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                   <Button
                     onClick={() => {
                       setStatus(
-                        data?.status === "Call Back" ? "Active" : "Suspended"
+                        data?.status === "Call Back" || 'Suspended' ? "Active" : "Suspended"
                       );
                       setOpenCommonModal(true);
                       form.setFieldsValue({ buttonType: "suspended" });
@@ -401,7 +401,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
                     type="primary"
                     htmlType="button"
                   >
-                    {data?.status === "Call Back" ? "Active" : "Suspended"}
+                    {data?.status === "Call Back" || 'Suspended' ? "Active" : "Suspended"}
                   </Button>
                 </Col>
 
