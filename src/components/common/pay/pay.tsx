@@ -3,7 +3,7 @@ import "../../../sass/modals.scss";
 import { Form, Select, Button, Input } from "antd";
 
 const Pay = ({ onFinish, showButton, showLabel, paymentType, checkNumber }: any) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState('check');
   
   function handleSelect(value: any) {
     setSelectedOption(value);
@@ -41,7 +41,8 @@ const Pay = ({ onFinish, showButton, showLabel, paymentType, checkNumber }: any)
           <Select.Option value="cc">CC</Select.Option>
         </Select>
       </Form.Item>
-      {(selectedOption === "check" || checkNumber) && (
+      {(selectedOption === "check" || checkNumber)  && ( 
+        // {checkNumber }
         <div>
           <Form.Item
             label={<span className="_po_field_label">Check Number</span>}

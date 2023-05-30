@@ -47,7 +47,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
     values.subTotal = Number(values.subTotal);
 
     if (values.paymentType === "check") {
-      values.paymentDetails = { checkNumber: values.checkNumber };
+      values.paymentTypeDetails = { checkNumber: values.checkNumber };
       delete values.checkNumber;
     }
 
@@ -150,7 +150,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         layout="vertical"
-        initialValues={{ remember: true, autoRenew: false }}
+        initialValues={{ remember: true, autoRenew: data?.autoRenew ?? false}}
         onFinish={onFinish}
         form={form}
       >
