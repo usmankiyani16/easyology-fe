@@ -20,6 +20,8 @@ const SubscriptionsList = () => {
   const [pastDue, setPastDue] = useState<string>();
   const [statusFilter, setFilterStatus] = useState<string>();
 
+  console.log("data?.pagination?.page", data?.pagination?.page);
+
   function getSubscriptionsData(data?: any) {
     dispatch(getSubscriptions(data));
   }
@@ -85,11 +87,9 @@ const SubscriptionsList = () => {
         <Col className="flex flex-col gap-1">
           <label>Subscription Type</label>
           <Select
-            
             className="w-[200px]"
             placeholder="Subscription Type"
             onChange={subscriptionChange}
-  
           >
             <Option>All</Option>
             <Option value={1}>Monthly</Option>
@@ -99,7 +99,7 @@ const SubscriptionsList = () => {
           </Select>
         </Col>
         <Col className="flex flex-col gap-1">
-        <label>Subscription Past</label>
+          <label>Subscription Past</label>
           <Select
             className="w-[200px]"
             placeholder="Past Due"
@@ -114,7 +114,7 @@ const SubscriptionsList = () => {
           </Select>
         </Col>
         <Col className="flex flex-col gap-1">
-        <label>Subscription Status</label>
+          <label>Subscription Status</label>
           <Select
             className="w-[200px]"
             placeholder="Status"
@@ -136,18 +136,18 @@ const SubscriptionsList = () => {
         </Col>
       </Row>
       <SubsciptionTable />
-      {/* {data?.subscription?.length ? ( */}
-      <Pagination
-        onChange={handlePagination}
-        className="flex justify-end mt-4"
-        defaultCurrent={data?.pagination?.page}
-        defaultPageSize={8}
-        total={data?.pagination?.totalCount}
-        showSizeChanger={false}
-      />
-      {/* ) : (
+      {data?.subscription?.length && status === REQUEST_STATUS.SUCCEEDED ? (
+        <Pagination
+          onChange={handlePagination}
+          className="flex justify-end mt-4"
+          defaultCurrent={data?.pagination?.page}
+          defaultPageSize={8}
+          total={data?.pagination?.totalCount}
+          showSizeChanger={false}
+        />
+      ) : (
         ""
-      )} */}
+      )}
     </div>
   );
 };
