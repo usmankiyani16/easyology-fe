@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../../sass/modals.scss";
 import { Form, Select, Button, Input } from "antd";
 
-const Pay = ({ onFinish, showButton, showLabel, paymentType }: any) => {
+const Pay = ({ onFinish, showButton, showLabel, paymentType, checkNumber }: any) => {
   const [selectedOption, setSelectedOption] = useState(null);
   
   function handleSelect(value: any) {
@@ -41,13 +41,15 @@ const Pay = ({ onFinish, showButton, showLabel, paymentType }: any) => {
           <Select.Option value="cc">CC</Select.Option>
         </Select>
       </Form.Item>
-      {selectedOption === "check" && (
+      {(selectedOption === "check" || checkNumber) && (
         <div>
           <Form.Item
             label={<span className="_po_field_label">Check Number</span>}
             name="checkNumber"
             required
             tooltip="This is a required field"
+            initialValue={showLabel ? checkNumber : ''}
+            
             rules={[
               {
                 required: true,

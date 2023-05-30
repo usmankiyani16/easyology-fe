@@ -345,7 +345,7 @@ const CommonSubscription: React.FC<CommonSubscriptionType> = ({ edit }) => {
               showButton={true}
               showLabel={true}
               paymentType={data?.payments[0]?.paymentType}
-              // checkNumber= {data?.}
+              checkNumber= {data?.payments[0]?.paymentTypeDetails?.checkNumber}
             />
           </Col>
         </Row>
