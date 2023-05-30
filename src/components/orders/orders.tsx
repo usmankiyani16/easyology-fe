@@ -36,7 +36,7 @@ const Orders = () => {
 
          <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.CREATE_ORDER}>
           <div>
-            <Button className="_bg-primary-color _white-color _hover font-medium mt-4">
+            <Button className="_bg-primary-color _white-color _hover font-medium mt-4 _primary-button">
               Create an Order
             </Button>
           </div>

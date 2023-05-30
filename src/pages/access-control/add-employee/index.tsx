@@ -1,14 +1,12 @@
-import React from 'react'
-import AddEmployee from '../../../components/access-control/common-add-employee/common-add-employee'
+import React from "react";
+import AddEmployee from "../../../components/access-control/common-add-employee/common-add-employee";
 
 const AddEmployees = () => {
   return (
     <div>
-        <AddEmployee />
-
-      
+      <AddEmployee />
     </div>
-  )
-}
+  );
+};
 
-export default AddEmployees
+export default AddEmployees;

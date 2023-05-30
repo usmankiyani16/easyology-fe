@@ -5,7 +5,7 @@ import ReceiveableMockData from "./mock-data";
 import { Link } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../../../routes/route-constants";
 
-const AcountReceiveableCard:React.FC<any> = ({label1, label2}) => {
+const Cards:React.FC<any> = ({label1, label2}) => {
 
   return (
     <div>
@@ -79,4 +79,4 @@ const AcountReceiveableCard:React.FC<any> = ({label1, label2}) => {
   );
 };
 
-export default AcountReceiveableCard;
+export default Cards;

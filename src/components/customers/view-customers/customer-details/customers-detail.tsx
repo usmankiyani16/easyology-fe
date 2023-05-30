@@ -33,7 +33,7 @@ const CustomersDetail: React.FC<customersDetail> = ({customerData}) => {
             min={1}
             type="string"
             // disabled
-            value="Mart Store"
+            value={customerData?.storeName}
 
             // max={item?.variants?.stock?.totalQuantity}
             // value={item?.quantity}

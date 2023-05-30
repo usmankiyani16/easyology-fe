@@ -7,7 +7,7 @@ import RequireAuth from "../components/auth/RequireAuth";
 import Unauthorized from "../components/auth/unauthorized/unauthorized";
 import CashChecker from "../components/cash-checker/cash-checker";
 import DailyLedger from "../components/access-control/access-control";
-import MonthlyReports from "../components/monthly-reports/reports";
+import Reports from "../components/reports/reports";
 import Notification from "../components/notification/notification";
 import Payments from "../components/orders/orders";
 import AddPO from "../components/purchase-order/addpo";
@@ -62,22 +62,22 @@ const AddExpensesLazy = Loadable(lazy(() => import("../pages/add-expense/index")
 
 
 const MonthlyReportsLazy = Loadable(
-  lazy(() => import("../pages/monthly-reports/index"))
+  lazy(() => import("../pages/reports/index"))
 );
 const AcountsReceiveableLazy = Loadable(
-  lazy(() => import("../pages/monthly-reports/acount-receiveable/index"))
+  lazy(() => import("../pages/reports/acount-receiveable/index"))
 );
 const ViewAcountReceiveableLazy = Loadable(
-  lazy(() => import("../pages/monthly-reports/acount-receiveable/view-receiveable/index"))
+  lazy(() => import("../pages/reports/acount-receiveable/view-receiveable/index"))
 );
 const AcountsPayableLazy = Loadable(
-  lazy(() => import("../pages/monthly-reports/acount-payable/index"))
+  lazy(() => import("../pages/reports/acount-payable/index"))
 );
 const MonthlyReportLazy = Loadable(
-  lazy(() => import("../pages/monthly-reports/monthly-reports/index"))
+  lazy(() => import("../pages/reports/monthly-reports/index"))
 );
 const ViewMonthlyReportLazy = Loadable(
-  lazy(() => import("../pages/monthly-reports/view-monthly-reports/index"))
+  lazy(() => import("../pages/reports/view-monthly-reports/index"))
 );
 const AccessControlLazy = Loadable(
   lazy(() => import("../pages/access-control/index"))
@@ -246,7 +246,7 @@ export const routes: any = [
         ),
       },
       {
-        path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
+        path: ROUTE_CONSTANTS.REPORTS,
         element: (
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}

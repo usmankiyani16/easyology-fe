@@ -1,4 +1,4 @@
-const ReceiveableMockData = 
+const cardData = 
 
 [
   { customerId:'4563' , customerName: 'Ali', invoiceNo:'231B2' , paymentMethod:'Ach Pay', month: "Jan", totalInvoices: "250", totalAmount: "400" },
@@ -7,4 +7,4 @@ const ReceiveableMockData =
   { customerId:'1456' , customerName: 'Hasan', invoiceNo:'1288C' , paymentMethod:'CC' , month: "Dec", totalInvoices: "13", totalAmount: "3800" },
   {customerId:'0456' , customerName: 'Arslan', invoiceNo:'231B2' , paymentMethod:'Ach Pay' ,month: "May", totalInvoices: "20", totalAmount: "800" },
 ];
-export default ReceiveableMockData
+export default cardData

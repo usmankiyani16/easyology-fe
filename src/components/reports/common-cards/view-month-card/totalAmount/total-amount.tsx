@@ -1,6 +1,6 @@
 import React from "react";
 
-const TotalReceiveable = () => {
+const TotalAmount = () => {
   return (
     <div className="flex justify-around text-xl mt-4">
       <div>
@@ -15,4 +15,4 @@ const TotalReceiveable = () => {
   );
 };
 
-export default TotalReceiveable;
+export default TotalAmount;

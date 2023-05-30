@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { backButtonIcon } from "../../../assets/icons";
 import DateRange from "../../expenses/date-range/date-range";
-import AcountReceiveableCard from "./acount-receiveable-card/acount-receiveable-card";
-import TotalReceiveable from "./total-receiveable/total-receiveable";
+import Cards from "../common-cards/card/card";
 import { Pagination } from "antd";
 
-const AcountReceiveable = () => {
+const AcountPayable = () => {
   const navigate = useNavigate();
   return (
     <div>
@@ -16,7 +15,7 @@ const AcountReceiveable = () => {
           src={backButtonIcon}
           alt="back"
         />
-        <h1 className="font-lato  text-[2rem]">Acount Receiveable</h1>
+        <h1 className="font-lato  text-[2rem]">Acount Payable</h1>
       </div>
 
       <div>
@@ -24,7 +23,7 @@ const AcountReceiveable = () => {
       </div>
 
       <div>
-        <AcountReceiveableCard label1='Customer' label2='Invoice' />
+        <Cards label1="Vendor" label2="PO" />
       </div>
 
       <Pagination
@@ -39,4 +38,4 @@ const AcountReceiveable = () => {
   );
 };
 
-export default AcountReceiveable;
+export default AcountPayable;

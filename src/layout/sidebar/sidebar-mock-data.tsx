@@ -75,7 +75,7 @@ export const sidebarData = [
       <img className="w-7" src={ReportIcon} alt="ReportIcon" />
     ),
     label: "Reports",
-    path: ROUTE_CONSTANTS.MONTHLY_REPORTS,
+    path: ROUTE_CONSTANTS.REPORTS,
   },
   // {
   //   key: 9,

@@ -3,15 +3,14 @@ import { Button, Card } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
-import ReceiveableMockData from "../acount-receiveable-card/mock-data";
+import cardData from "../../card/mock-data";
 
-const ViewReceiveableCard: React.FC<any> = ({ receiveableData }) => {
+const MonthCard: React.FC<any> = ({ monthData }) => {
   const [applyBorder, setApplyBorder] = useState(false);
   const location = useLocation();
-  const datas = location.state;
+  const propData = location.state;
 
-  console.log(datas, 'view receiveable')
-
+  console.log(propData, "view receiveable");
 
   // console.log(cardData, "Card Data");
 
@@ -34,7 +33,7 @@ const ViewReceiveableCard: React.FC<any> = ({ receiveableData }) => {
   return (
     <div>
       <div className="flex flex-col gap-4 mt-3">
-        {ReceiveableMockData?.map((data: any) => (
+        {cardData?.map((data: any) => (
           <Card key={data?.key} className="_po-card">
             <div className="flex w-full justify-between grid grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1">
               <div
@@ -44,14 +43,14 @@ const ViewReceiveableCard: React.FC<any> = ({ receiveableData }) => {
               >
                 <div className="flex text-lg gap-4">
                   <span className="font-medium whitespace-nowrap">
-                  {datas?.label1} ID:
+                    {propData?.label1} ID:
                   </span>
                   <span className="font-semibold _primary-color">
                     #{data?.customerId}
                   </span>
                 </div>
                 <div className="flex text-lg gap-2 whitespace-nowrap">
-                  <span className="font-medium">{datas?.label1} Name:</span>
+                  <span className="font-medium">{propData?.label1} Name:</span>
                   <span className="font-medium captilize _label-grey _grey-color">
                     {data?.customerName}
                   </span>
@@ -64,7 +63,7 @@ const ViewReceiveableCard: React.FC<any> = ({ receiveableData }) => {
               >
                 <div className="flex text-lg gap-4">
                   <span className="font-medium whitespace-nowrap">
-                  {datas?.label2} No:
+                    {propData?.label2} No:
                   </span>
                   <span className="font-semibold _primary-color">
                     #{data?.invoiceNo}
@@ -73,20 +72,18 @@ const ViewReceiveableCard: React.FC<any> = ({ receiveableData }) => {
                 <div className="flex text-lg gap-2 whitespace-nowrap">
                   <span className="font-medium">Amount:</span>
                   <span className="font-medium captilize _label-grey _grey-color">
-                   $ {data?.totalAmount}
+                    $ {data?.totalAmount}
                   </span>
                 </div>
               </div>
               <div className="flex flex-col">
                 <div className="flex text-lg gap-4">
-                  <span className="font-medium _label-grey">Payment Method:</span>
-                  <span
-                    className='_grey-color'
-                  >
-                    {data?.paymentMethod}
+                  <span className="font-medium _label-grey">
+                    Payment Method:
                   </span>
+                  <span className="_grey-color">{data?.paymentMethod}</span>
                 </div>
-             </div>
+              </div>
             </div>
           </Card>
         ))}
@@ -95,4 +92,4 @@ const ViewReceiveableCard: React.FC<any> = ({ receiveableData }) => {
   );
 };
 
-export default ViewReceiveableCard;
+export default MonthCard;

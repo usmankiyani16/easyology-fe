@@ -13,7 +13,7 @@ export const ROUTE_CONSTANTS = {
   ACCESS_CONTROL: "access-control",
   ADD_EMPLOYEEE: "add-employee",
   EDIT_ACCESS: "edit-access",
-  MONTHLY_REPORTS: "monthly-reports",
+  REPORTS: "reports",
   VIEW_MONTHLY_REPORTS: "view-monthly-reports",
   ACOUNT_RECEIVEABLE: 'acount-receiveable',
   VIEW_ACOUNT_RECEIVEABLE: 'view-acount-receiveable',

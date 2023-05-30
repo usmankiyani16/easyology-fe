@@ -6,7 +6,7 @@ import * as XLSX from "xlsx";
 import { laptopImg } from "../../../assets/images";
 import Line from "../../../assets/images/dashboard/Line.png";
 import "../../../sass/modals.scss";
-import PartialPay from "../../purchase-order/partial-pay/partail-pay";
+import PartialPay from "../partial-pay/partail-pay";
 import { imageBaseUrl } from "../../../utils/constants";
 import { noImg } from "../../../assets/images";
 

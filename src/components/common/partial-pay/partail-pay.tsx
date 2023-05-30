@@ -4,7 +4,7 @@ import "../../../sass/modals.scss";
 import { Modal, Form, Select, Button, Input, Row, Col } from "antd";
 import { useAppDispatch } from "../../../store/store";
 import { getPOS, payPO } from "../../../store/po/po.slice";
-import Pay from "../../common/pay/pay";
+import Pay from "../pay/pay";
 
 const PartialPay: React.FC<any> = ({
   paymentModalOpen,

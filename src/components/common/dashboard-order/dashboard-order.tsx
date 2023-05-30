@@ -252,12 +252,12 @@ const DashboardOrder: React.FC<any> = ({
 
       {showOrderStatus && (
         <>
-          {(selectedOption === "Order by phone" ||
-            selectedOption === "Order in store") && (
+          {(selectedOption && selectedProducts?.length) ? (
             <div>
               <OrderStatus onChange={handleFormChange} />
             </div>
-          )}
+          ): ''}
+
         </>
       )}
 

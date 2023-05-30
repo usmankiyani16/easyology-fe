@@ -1,5 +1,5 @@
 import React from 'react'
-import AcountReceiveable from '../../../components/monthly-reports/acount-receiveable/acount-receiveable'
+import AcountReceiveable from '../../../components/reports/acount-receiveable/acount-receiveable'
 
 const AcountsReceiveable = () => {
   return (

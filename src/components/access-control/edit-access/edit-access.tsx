@@ -1,15 +1,12 @@
-import React from 'react'
-import AddEmployee from '../common-add-employee/common-add-employee'
-import CommonAddEmployee from '../common-add-employee/common-add-employee'
+import React from "react";
+import CommonAddEmployee from "../common-add-employee/common-add-employee";
 
 const EditAccess = () => {
   return (
     <div>
-      
-        <CommonAddEmployee edit={true}/>
-      
+      <CommonAddEmployee edit={true} />
     </div>
-  )
-}
+  );
+};
 
-export default EditAccess
+export default EditAccess;

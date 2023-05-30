@@ -1,6 +1,6 @@
 import React from "react";
 
-import MonthlyReports from "../../components/monthly-reports/reports";
+import MonthlyReports from "../../components/reports/reports";
 
 
 const MonthlyReportsPage = () => {

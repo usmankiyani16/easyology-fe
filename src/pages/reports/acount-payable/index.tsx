@@ -1,5 +1,5 @@
 import React from 'react'
-import AcountPayable from '../../../components/monthly-reports/acount-payable/acount-payable'
+import AcountPayable from '../../../components/reports/acount-payable/acount-payable'
 
 const AcountsReceiveable = () => {
   return (
