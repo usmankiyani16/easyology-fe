@@ -37,8 +37,6 @@ const DashboardOrder: React.FC<any> = ({
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState();
 
-  
-  
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
   );
@@ -139,9 +137,6 @@ const DashboardOrder: React.FC<any> = ({
       <div className="flex gap-3 justify-between ">
         <div>
           <h1 className="font-bold text-lg">Invoice # {invoiceNumber ?? ""}</h1>
-
-
-
         </div>
 
         {showDashboardHeader === true && (
@@ -220,46 +215,42 @@ const DashboardOrder: React.FC<any> = ({
         )}
       </div>
 
-      
       {/* {showOrderStatus && ( */}
-      
-      {(showDashboardHeader === true ) && (
-        
-            <div className="mt-4">
-              <div className="flex gap-8">
-              <h1>
-                Customer name:{" "}
-                <span className="font-semibold capitalize">
-                  {selectCustomer?.value ?? ""}
-                </span>
-               
-              </h1>
+
+      {showDashboardHeader === true && (
+        <div className="mt-4">
+          <div className="flex gap-8">
+            <h1>
+              Customer name:{" "}
+              <span className="font-semibold capitalize">
+                {selectCustomer?.value ?? ""}
+              </span>
+            </h1>
+            {showOrderStatus && (
               <h1>
                 Order Type:{" "}
                 <span className="font-semibold capitalize">
-                  {selectedOption ?? ''}
+                  {selectedOption ?? ""}
                 </span>
-               
               </h1>
-              </div>
+            )}
+          </div>
 
-              <h1>
-                Phone:{" "}
-                <span className="font-semibold">
-                  {selectCustomer?.mob ?? ""}
-                </span>
-              </h1>
-              <h1>
-                <span className="_primary-color font-semibold">
-                  Customer Type:{" "}
-                </span>
-                <span className="font-semibold capitalize">
-                  {selectCustomer?.type ?? ""}
-                </span>
-              </h1>
-            </div>
-          )}
-    
+          <h1>
+            Phone:{" "}
+            <span className="font-semibold">{selectCustomer?.mob ?? ""}</span>
+          </h1>
+          <h1>
+            <span className="_primary-color font-semibold">
+              Customer Type:{" "}
+            </span>
+            <span className="font-semibold capitalize">
+              {selectCustomer?.type ?? ""}
+            </span>
+          </h1>
+        </div>
+      )}
+
       {!showCards && (
         <div className="mt-7">
           <ItemCard />
@@ -268,18 +259,19 @@ const DashboardOrder: React.FC<any> = ({
 
       {showCards && (
         <div className="mt-7">
-          <ViewOrdersCard orderDetails={orderDetails} showScroll={true} />
+          <ViewOrdersCard orderDetails={orderDetails} showScroll={true} data=''/>
         </div>
       )}
 
       {showOrderStatus && (
         <>
-          {(selectedOption && selectedProducts?.length) ? (
+          {selectedOption && selectedProducts?.length ? (
             <div>
               <OrderStatus onChange={handleFormChange} />
             </div>
-          ): ''}
-
+          ) : (
+            ""
+          )}
         </>
       )}
 

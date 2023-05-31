@@ -1,4 +1,4 @@
-import { Button, DatePicker, Input } from "antd";
+import { Button, DatePicker, Input, Pagination } from "antd";
 import { useEffect } from "react";
 import OrderCard from "./orders-card/orders-card";
 import { SearchOutlined } from "@ant-design/icons";
@@ -71,6 +71,14 @@ const Orders = () => {
       <div>
         <OrderCard data={data}/>
       </div>
+      <Pagination
+          onChange={handlePagination}
+          className="flex justify-end"
+          defaultCurrent={1}
+          defaultPageSize={8}
+          total={data?.orders?.pagination?.totalCount}
+          showSizeChanger={false}
+      />
     </div>
   );
 };

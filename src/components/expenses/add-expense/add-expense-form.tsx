@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, DatePicker, Form, Input, Row, Col } from "antd";
-import Pay from "../../common/pay/pay";
+import Pay from "../../common/partial-pay/payment-method/payment-method";
 import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
 import { useAppDispatch } from "../../../store/store";
@@ -75,7 +75,10 @@ const AddExpenseForm = () => {
                   },
                 ]}
               >
-                <DatePicker className="w-64 h-[40px] _white-background rounded-[10px]" format="DD-MM-YYYY" />
+                <DatePicker
+                  className="w-64 h-[40px] _white-background rounded-[10px]"
+                  format="DD-MM-YYYY"
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -131,7 +134,7 @@ const AddExpenseForm = () => {
                   className="w-64 h-[40px] _white-background _input-border rounded-[10px]"
                   placeholder="Enter Expense Amount"
                   type="number"
-                  prefix='$'
+                  prefix="$"
                 />
               </Form.Item>
             </Col>
@@ -168,12 +171,11 @@ const AddExpenseForm = () => {
             </Col>
 
             <Col xs={10}>
-              <Pay showButton={true}/>
+              <Pay showButton={true} />
             </Col>
           </Row>
         </div>
         <div className="flex justify-around">
-          
           <Button htmlType="submit" className="_bg-primary-color _white-color">
             Save
           </Button>

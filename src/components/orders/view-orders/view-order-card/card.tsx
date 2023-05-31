@@ -4,8 +4,9 @@ import { Button, Card, InputNumber, Pagination } from "antd";
 interface ViewOrders {
   orderDetails: any;
   showScroll: any;
+  data:any
 }
-const ViewOrdersCard: React.FC<ViewOrders> = ({ orderDetails, showScroll }) => {
+const ViewOrdersCard: React.FC<ViewOrders> = ({ orderDetails, showScroll, data }) => {
   return (
     <div>
       <div

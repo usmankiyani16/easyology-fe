@@ -6,13 +6,14 @@ import ViewOrdersCard from "./card";
 
 interface ViewOrders {
   orderDetails: any;
+  data:any
 }
 
-const ViewOrderCard: React.FC<ViewOrders> = ({ orderDetails }) => {
+const ViewOrderCard: React.FC<ViewOrders> = ({ orderDetails,data }) => {
   return (
     <div>
       <div>
-        <ViewOrdersCard orderDetails={orderDetails} showScroll={false}/>
+        <ViewOrdersCard orderDetails={orderDetails} showScroll={false} data={data}/>
       </div>
 
       {orderDetails?.products?.length > 0 && (

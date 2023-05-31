@@ -3,12 +3,15 @@ import { Button, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { backButtonIcon } from "../../../assets/icons";
 import orderDetails from "../mock-data/view-orders";
+import { useLocation } from "react-router-dom";
 
 import ViewOrderCard from "./view-order-card/view-order-card";
 import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const ViewOrders = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state
   const searchProduct = (value: any) => {
     console.log(value);
   };
@@ -51,12 +54,12 @@ const ViewOrders = () => {
 
       <div className="xs:mt-4 sm:mt-0">
         <span>Customer Name:</span>
-        <span className="_grey-color"> Ali Raza</span>
+        <span className="_grey-color"> {`${data?.user?.firstName} ${data?.user?.lastName}`}</span>
       </div>
       <div className="flex w-full justify-between items-center grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
         <div>
           <span>Contact Number:</span>
-          <span className="_grey-color"> +9248338383</span>
+          <span className="_grey-color"> {data?.user?.phoneNumber}</span>
         </div>
 
         {/*  <div className='flex justify-between grid grid-cols-4'>
@@ -68,7 +71,7 @@ const ViewOrders = () => {
       </div>
 
       <div className="_view-order">
-        <ViewOrderCard orderDetails={orderDetails} />
+        <ViewOrderCard orderDetails={orderDetails} data={data} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../../sass/modals.scss";
+import "../../../../sass/modals.scss";
 import { Form, Select, Button, Input } from "antd";
 
 const Pay = ({ onFinish, showButton, showLabel, paymentType, checkNumber }: any) => {

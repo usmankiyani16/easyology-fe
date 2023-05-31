@@ -154,7 +154,7 @@ const OrderCard: React.FC<OrderTypes> = ({ data }) => {
 
               {/* -------- Grid 4 ------------ */}
 
-              <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ORDERS}>
+              <Link to={{pathname:ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ORDERS,}} state={data} >
                 <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">
                   <Button>View</Button>
                 </div>
@@ -163,14 +163,7 @@ const OrderCard: React.FC<OrderTypes> = ({ data }) => {
           </Card>
         ))}
       </div>
-      <Pagination
-        //   onChange={handlePagination}
-        className="flex justify-end"
-        defaultCurrent={1}
-        defaultPageSize={8}
-        total={2}
-        showSizeChanger={false}
-      />
+
     </div>
   );
 };

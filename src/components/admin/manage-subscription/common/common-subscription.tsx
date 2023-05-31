@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import "./common-subscription.scss";
 import { useState } from "react";
 import CommonModal from "./common-modal/common-modal";
-import Pay from "../../../common/pay/pay";
+import Pay from "../../../common/partial-pay/payment-method/payment-method";
 import { backButtonIcon } from "../../../../assets/icons";
 import { useNavigate } from "react-router-dom";
 import Submit from "../subscriptions-list/submit/submit";
