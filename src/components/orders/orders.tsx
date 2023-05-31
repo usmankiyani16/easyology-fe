@@ -33,8 +33,6 @@ const Orders = () => {
     console.log(value);
   };
 
-  
-
   return (
     <div>
       <div className="flex justify-between sm:items-center mt-3">
@@ -69,15 +67,15 @@ const Orders = () => {
       </div>
 
       <div>
-        <OrderCard data={data}/>
+        <OrderCard data={data} />
       </div>
       <Pagination
-          onChange={handlePagination}
-          className="flex justify-end"
-          defaultCurrent={1}
-          defaultPageSize={8}
-          total={data?.orders?.pagination?.totalCount}
-          showSizeChanger={false}
+        onChange={handlePagination}
+        className="flex justify-end"
+        defaultCurrent={1}
+        defaultPageSize={8}
+        total={data?.orders?.pagination?.totalCount}
+        showSizeChanger={false}
       />
     </div>
   );

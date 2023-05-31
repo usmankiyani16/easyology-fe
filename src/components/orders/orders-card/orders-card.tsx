@@ -76,9 +76,9 @@ const OrderCard: React.FC<OrderTypes> = ({ data }) => {
                   </span>
                   <span
                     className={`font-semibold capitalize ${
-                      data?.paymentStatus === "Partially Paid"
-                        ? "_primary-color"
-                        : "_success_color"
+                      data?.paymentStatus === "Paid"
+                        ? "_success_color"
+                        : "_primary-color"
                     } `}
                   >
                     {data?.paymentStatus}
