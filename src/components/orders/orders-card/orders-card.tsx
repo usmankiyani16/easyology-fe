@@ -122,7 +122,7 @@ const OrderCard: React.FC<OrderTypes> = ({ data }) => {
                         Expected Delivery Time :
                       </span>
                       <span className="whitespace-nowrap  text-lg _primary-color">
-                        {data?.expectedTime}
+                        {data?.deliveryTime}
                       </span>
                     </div>
                   </>
