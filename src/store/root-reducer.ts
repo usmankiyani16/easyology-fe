@@ -10,6 +10,7 @@ import orderSlice from "./order/order-slice";
 import customersSlice from "./customers/customers.slice";
 import expensesSlice from "./expenses/expenses.slice";
 import subscriptionSlice from "./admin/subscriptions/subscriptions-slice";
+import ordersSlice from "./orders/ordersSlice";
 const rootReducer = combineReducers({
   auth: authSlice,
   loader: loaderSlice,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   order: orderSlice,
   customers: customersSlice,
   expenses: expensesSlice,
+  orders: ordersSlice,
   subscriptions: subscriptionSlice,
   // Add your other feature slices here
 });

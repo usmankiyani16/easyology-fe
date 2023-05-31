@@ -4,9 +4,16 @@ import { Card, Button, Pagination } from "antd";
 import ordersData from "../mock-data/orders-data";
 import { Link, NavLink } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
+import dayjs from "dayjs";
 
-const OrderCard = () => {
+interface OrderTypes {
+  data: any;
+}
+
+const OrderCard: React.FC<OrderTypes> = ({ data }) => {
   const [applyBorder, setApplyBorder] = useState(false);
+
+  console.log(data?.orders?.orders, "ali");
 
   useEffect(() => {
     function handleResize() {
@@ -27,26 +34,28 @@ const OrderCard = () => {
   return (
     <div className="_order-card-wrap">
       <div className="flex flex-col gap-4 mt-3">
-        {ordersData?.map((data: any) => (
+        {data?.orders?.orders?.map((data: any) => (
           <Card>
             <div className="flex w-full justify-between items-center grid xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
               {/* -------- Grid 1 ------------ */}
               <div className="flex flex-col justify-between">
                 <div className="flex text-lg sm:gap-4">
-                  <span className="font-medium">Date:</span>
-                  <span className="_grey-color">{data?.date}</span>
+                  <span className="font-medium">Date: </span>
+                  <span className="_grey-color">
+                    {dayjs(data?.createdAt).format("MM-DD-YYYY")}
+                  </span>
                 </div>
                 <div className="flex text-lg sm:gap-4">
                   <span className="font-medium">Order ID:</span>
                   <span className="_primary-color font-semibold">
-                    # {data?.OrderId}
+                    # {data?.orderNumber}
                   </span>
                 </div>
 
                 <div className="flex text-lg gap-4 sm:gap-4">
                   <span className="font-medium">Order Type:</span>
                   <span className="_grey-color font-medium ">
-                    {data?.OrderType}
+                    {data?.orderCategory}
                   </span>
                 </div>
               </div>
@@ -57,22 +66,30 @@ const OrderCard = () => {
                   <span className="_black-color sm:whitespace-nowrap">
                     Customer Name:
                   </span>
-                  <span className="_grey-color font-semibold">
-                    {data?.customerName}
+                  <span className="_grey-color font-semibold capitalize">
+                    {`${data?.user?.firstName} ${data?.user?.lastName}`}
                   </span>
                 </div>
                 <div className="flex  text-lg sm:gap-4 sm:items-center">
                   <span className="_black-color sm:whitespace-nowrap">
                     Invoice Status:
                   </span>
-                  <span className="whitespace-nowrap  text-lg">
-                    {data?.InvoiceStatus}
+                  <span
+                    className={`font-semibold capitalize ${
+                      data?.paymentStatus === "Partially Paid"
+                        ? "_primary-color"
+                        : "_success_color"
+                    } `}
+                  >
+                    {data?.paymentStatus}
                   </span>
                 </div>
               </div>
               {/* -------- Grid 3 ------------ */}
               <div
-                className={`flex flex-col justify-center text-lg ${data?.orderStatus === "Completed"  && "sm:gap-0"} gap-4`}
+                className={`flex flex-col justify-center text-lg ${
+                  data?.orderStatus === "Completed" && "sm:gap-0"
+                } gap-4`}
               >
                 <div className="flex  text-lg sm:gap-4 sm:items-center">
                   <span className="_black-color sm:whitespace-nowrap">
@@ -83,9 +100,10 @@ const OrderCard = () => {
                   </span>
                 </div>
 
-                {/* -------------- Condions in Order Status ----------------  */}
+                {/* -------------- Conditons in Order Status ----------------  */}
 
-                {data?.orderStatus === "Pickup from Store" && (
+                {(data?.orderStatus === "Pickup from Store" ||
+                  data?.orderStatus === "Completed") && (
                   <>
                     <div className="flex  text-lg sm:gap-4 sm:items-center">
                       <span className="_black-color sm:whitespace-nowrap">
@@ -116,7 +134,7 @@ const OrderCard = () => {
                         Tracking#:
                       </span>
                       <span className="whitespace-nowrap  text-lg _primary-color font-semibold">
-                        {data?.trackingNo}
+                        {data?.trackingDetail?.trackingNo}
                       </span>
                     </div>
                     <div className="flex  text-lg sm:gap-4 sm:items-center">
@@ -124,7 +142,7 @@ const OrderCard = () => {
                         Clerk Name:
                       </span>
                       <span className="whitespace-nowrap text-lg _grey-color">
-                        {data?.clerkName}
+                        {data?.trackingDetail?.companyName}
                       </span>
                       <span className="whitespace-nowrap  text-lg _grey-color">
                         {data?.completedTime}
@@ -153,7 +171,6 @@ const OrderCard = () => {
         total={2}
         showSizeChanger={false}
       />
-
     </div>
   );
 };

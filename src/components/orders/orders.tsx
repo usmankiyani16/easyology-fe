@@ -1,14 +1,39 @@
 import { Button, DatePicker, Input } from "antd";
-import React from "react";
+import { useEffect } from "react";
 import OrderCard from "./orders-card/orders-card";
 import { SearchOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getOrders } from "../../store/orders/ordersSlice";
 
 const Orders = () => {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.orders);
+  console.log(data, "b");
+
+  const handlePagination = async (value: Number) => {
+    let queryParam: any = {};
+    if (value) {
+      queryParam = {
+        page: value,
+      };
+      dispatch(getOrders(queryParam));
+    }
+  };
+
+  useEffect(() => {
+    let queryParam = {
+      page: 1,
+    };
+    dispatch(getOrders(queryParam));
+  }, []);
+
   const searchProduct = (value: any) => {
     console.log(value);
   };
+
+  
 
   return (
     <div>
@@ -33,22 +58,19 @@ const Orders = () => {
             <DatePicker />
           </div>
 
-
-         <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.CREATE_ORDER}>
-          <div>
-            <Button className="_bg-primary-color _white-color _hover font-medium mt-4 _primary-button">
-              Create an Order
-            </Button>
-          </div>
+          <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.CREATE_ORDER}>
+            <div>
+              <Button className="_bg-primary-color _white-color _hover font-medium mt-4 _primary-button">
+                Create an Order
+              </Button>
+            </div>
           </Link>
         </div>
       </div>
 
       <div>
-        <OrderCard />
+        <OrderCard data={data}/>
       </div>
-
-      
     </div>
   );
 };

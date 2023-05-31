@@ -37,6 +37,8 @@ const DashboardOrder: React.FC<any> = ({
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState();
 
+  
+  
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
   );
@@ -138,31 +140,10 @@ const DashboardOrder: React.FC<any> = ({
         <div>
           <h1 className="font-bold text-lg">Invoice # {invoiceNumber ?? ""}</h1>
 
-          {showDashboardHeader === true && (
-            <div>
-              <h1>
-                Customer name:{" "}
-                <span className="font-semibold capitalize">
-                  {selectCustomer?.value ?? ""}
-                </span>
-              </h1>
-              <h1>
-                Phone:{" "}
-                <span className="font-semibold">
-                  {selectCustomer?.mob ?? ""}
-                </span>
-              </h1>
-              <h1>
-                <span className="_primary-color font-semibold">
-                  Customer Type:{" "}
-                </span>
-                <span className="font-semibold capitalize">
-                  {selectCustomer?.type ?? ""}
-                </span>
-              </h1>
-            </div>
-          )}
+
+
         </div>
+
         {showDashboardHeader === true && (
           <div className="flex items-center gap-3 self-start">
             <AutoComplete
@@ -238,6 +219,47 @@ const DashboardOrder: React.FC<any> = ({
           </div>
         )}
       </div>
+
+      
+      {/* {showOrderStatus && ( */}
+      
+      {(showDashboardHeader === true ) && (
+        
+            <div className="mt-4">
+              <div className="flex gap-8">
+              <h1>
+                Customer name:{" "}
+                <span className="font-semibold capitalize">
+                  {selectCustomer?.value ?? ""}
+                </span>
+               
+              </h1>
+              <h1>
+                Order Type:{" "}
+                <span className="font-semibold capitalize">
+                  {selectedOption ?? ''}
+                </span>
+               
+              </h1>
+              </div>
+
+              <h1>
+                Phone:{" "}
+                <span className="font-semibold">
+                  {selectCustomer?.mob ?? ""}
+                </span>
+              </h1>
+              <h1>
+                <span className="_primary-color font-semibold">
+                  Customer Type:{" "}
+                </span>
+                <span className="font-semibold capitalize">
+                  {selectCustomer?.type ?? ""}
+                </span>
+              </h1>
+            </div>
+          )}
+    
       {!showCards && (
         <div className="mt-7">
           <ItemCard />
