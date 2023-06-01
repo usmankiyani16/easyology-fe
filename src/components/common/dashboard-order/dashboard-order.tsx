@@ -25,10 +25,12 @@ const DashboardOrder: React.FC<any> = ({
   showFinalizeButton,
   showOperations,
   showCards,
+  data,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { holdInvoices } = useAppSelector((state) => state.order);
+  
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   // const [orderCategory, setOrderCategory] = useState<string>("store");
 
@@ -259,7 +261,7 @@ const DashboardOrder: React.FC<any> = ({
 
       {showCards && (
         <div className="mt-7">
-          <ViewOrdersCard orderDetails={orderDetails} showScroll={true} data=''/>
+          <ViewOrdersCard orderDetails={orderDetails} showScroll={true} data={data}/>
         </div>
       )}
 

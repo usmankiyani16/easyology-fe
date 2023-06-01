@@ -4,9 +4,13 @@ import { Button, Card, InputNumber, Pagination } from "antd";
 interface ViewOrders {
   orderDetails: any;
   showScroll: any;
-  data:any
+  data: any;
 }
-const ViewOrdersCard: React.FC<ViewOrders> = ({ orderDetails, showScroll, data }) => {
+const ViewOrdersCard: React.FC<ViewOrders> = ({
+  orderDetails,
+  showScroll,
+  data,
+}) => {
   return (
     <div>
       <div
@@ -27,18 +31,15 @@ const ViewOrdersCard: React.FC<ViewOrders> = ({ orderDetails, showScroll, data }
           </label>
         </div>
         <div className="">
-          {orderDetails?.products?.map((item: any, index: number) => (
-            <div
-              key={index}
-              className="p-2 _bg-white-color rounded w-full my-2 flex justify-between shadow-md"
-            >
+          {data?.products?.map((product: any, index: number) => (
+            <div className="p-2 _bg-white-color rounded w-full my-2 flex justify-between shadow-md">
               <div className=" w-2/4">
                 <div className="flex flex-col">
                   {/* <p className="_grey-color">{item?._id}</p> */}
 
                   <span className="ml-2">
                     Product Seriol No:{" "}
-                    <span className="_primary-color">{item?.seriolNo}</span>
+                    <span className="_primary-color">{product?.productId}</span>
                   </span>
                   <div className="flex items-center gap-3 ">
                     <img
@@ -47,21 +48,23 @@ const ViewOrdersCard: React.FC<ViewOrders> = ({ orderDetails, showScroll, data }
                       src={cart}
                       alt="img"
                     />
-                    <h1 className="font-semibold text-sm">{item?.name}</h1>
+                    <h1 className="font-semibold text-sm">{product?.name}</h1>
                   </div>
                 </div>
               </div>
               <div className="flex flex-col w-1/4  justify-center items-center mt-2 ">
-                <div className="_grey-color text-center">x{item?.quantity}</div>
+                <div className="_grey-color text-center">
+                  x{product?.quantity}
+                </div>
               </div>
               <div className="_price flex flex-col w-1/4 justify-center items-center mt-2  ">
-                <span className="">$ {(item?.price).toFixed(2)}</span>
+                <span className="">$ {product?.purchaseAmount}</span>
               </div>
               <div className=" flex justify-between items-center w-1/4 mt-2">
                 <div>
                   {/* <p className="_grey-color">$ 103.00</p> */}
                   <span className=" font-semibold _primary-color">
-                    $ {(item?.totalPrice).toFixed(2)}
+                    $ {data?.totalAmount}
                   </span>
                 </div>
               </div>

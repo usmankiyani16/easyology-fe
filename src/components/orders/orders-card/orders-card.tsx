@@ -154,7 +154,12 @@ const OrderCard: React.FC<OrderTypes> = ({ data }) => {
 
               {/* -------- Grid 4 ------------ */}
 
-              <Link to={{pathname:ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ORDERS,}} state={data} >
+              <Link
+                to={{
+                  pathname: ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ORDERS,
+                }}
+                state={data}
+              >
                 <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">
                   <Button>View</Button>
                 </div>
@@ -163,7 +168,6 @@ const OrderCard: React.FC<OrderTypes> = ({ data }) => {
           </Card>
         ))}
       </div>
-
     </div>
   );
 };

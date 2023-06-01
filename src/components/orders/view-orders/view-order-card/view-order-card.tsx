@@ -10,6 +10,7 @@ interface ViewOrders {
 }
 
 const ViewOrderCard: React.FC<ViewOrders> = ({ orderDetails,data }) => {
+  console.log(data, 'av')
   return (
     <div>
       <div>

@@ -40,8 +40,8 @@ const ViewOrders = () => {
           </div>
         </div>
 
-        {orderDetails?.products?.length > 0 && (
-          <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.CONVERT_TO_INVOICE}>
+        {data?.products?.length > 0 && (
+          <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.CONVERT_TO_INVOICE} state={data}>
             <div className="flex xs:justify-center">
               <Button className="_bg-primary-color _white-color _hover font-medium mt-4">
                 Convert to Invoice

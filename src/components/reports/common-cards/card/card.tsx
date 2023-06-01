@@ -12,7 +12,7 @@ const Cards:React.FC<any> = ({label1, label2}) => {
       <div className="_acount-reveiveable-card flex flex-col gap-4 mt-4">
         {ReceiveableMockData?.map((data: any) => (
           <Card key={data?._id} className="_access-control-card">
-            <div className="flex w-full justify-between items-center grid lg:gap-24 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
+            <div className="flex w-full justify-between items-center grid xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
               <div>
                 <div className="flex flex-col gap-4 justify-between">
                   <div className="flex text-lg gap-2">
