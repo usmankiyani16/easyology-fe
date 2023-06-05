@@ -6,11 +6,12 @@ import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { getExpenses } from "../../../store/expenses/expenses.slice";
 import { REQUEST_STATUS } from "../../../utils/constants";
 
-const DateRange = () => {
+const DateRange: React.FC<any> = ({ getData, status }) => {
   const dispatch = useAppDispatch();
   const [startMonth, setStartMonth] = useState<any>(null);
   const [endMonth, setEndMonth] = useState<any>(null);
-  const { data, status } = useAppSelector((state) => state.expenses);
+  const { data } = useAppSelector((state) => state.expenses);
+  // const { orders } = useAppSelector((state) => state.orders);
 
   let payload: any = {
     page: 1,
@@ -22,7 +23,7 @@ const DateRange = () => {
     payload.startDate = dayjs(startMonth).format("YYYY-MM-DD");
     payload.endDate = dayjs(dateValue).format("YYYY-MM-DD");
 
-    if (endMonth) dispatch(getExpenses(payload));
+    if (endMonth) getData(payload);
   };
 
   const handleEndDateChange = (dateValue: any) => {
@@ -30,12 +31,13 @@ const DateRange = () => {
     payload.startDate = dayjs(startMonth).format("YYYY-MM-DD");
     payload.endDate = dayjs(dateValue).format("YYYY-MM-DD");
 
-    if (startMonth) dispatch(getExpenses(payload));
+    if (startMonth) getData(payload);
   };
+
   const handleClearSelection = () => {
     setStartMonth(null);
     setEndMonth(null);
-    if (startMonth && endMonth) dispatch(getExpenses(payload));
+    if (startMonth && endMonth) getData(payload);
   };
 
   // Validating Dates
@@ -56,10 +58,9 @@ const DateRange = () => {
     return current.unix() > endMonth.unix();
   };
 
-  
   return (
     <div>
-      <div className="flex justify-center gap-12 items-center text-lg mt-4">
+      <div className="flex xs:flex-col sm:flex-row justify-center gap-12 items-center text-lg mt-4">
         <div>
           <label>Start Month: </label>
           <DatePicker

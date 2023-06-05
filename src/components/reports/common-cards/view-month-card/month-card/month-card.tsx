@@ -4,15 +4,32 @@ import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
 import cardData from "../../card/mock-data";
+import { getReportsReceviveable } from "../../../../../store/reports/reportsSlice";
+import { useAppDispatch, useAppSelector } from "../../../../../store/store";
 
 const MonthCard: React.FC<any> = ({ monthData }) => {
+  const { reportsReceiveable, status } = useAppSelector(
+    (state) => state.reports
+  );
+  const dispatch = useAppDispatch();
+
   const [applyBorder, setApplyBorder] = useState(false);
   const location = useLocation();
   const propData = location.state;
 
-  console.log(propData, "view receiveable");
+  console.log(reportsReceiveable, "view receiveable");
+  const month = propData?.month;
 
   // console.log(cardData, "Card Data");
+
+  useEffect(() => {
+    let payload = {
+      month,
+      page: 1,
+      perPage: 8,
+    };
+    dispatch(getReportsReceviveable(payload));
+  }, []);
 
   useEffect(() => {
     function handleResize() {

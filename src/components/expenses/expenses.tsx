@@ -1,8 +1,8 @@
 import { Button, Empty, Pagination } from "antd";
 import expenseIcon from "../../assets/images/dashboard/expense.png";
-import DateRange from "./date-range/date-range";
+import DateRange from "../common/date-range/date-range";
 import ExpenseCard from "./expense-card/expense-card";
-import './expenses.scss'
+import "./expenses.scss";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -14,6 +14,13 @@ import { REQUEST_STATUS } from "../../utils/constants";
 const Expenses = () => {
   const dispatch = useAppDispatch();
   const { data, status } = useAppSelector((state) => state.expenses);
+
+  
+  const getData = (value:any) => {
+    dispatch(getExpenses(value));
+  }
+
+  
 
   const handlePagination = (value: Number) => {
     let payload: any = {};
@@ -49,7 +56,7 @@ const Expenses = () => {
       </div>
 
       <div className="_date-ranges">
-        <DateRange />
+          <DateRange getData={getData} status={status}/>
       </div>
 
       <div className="_cards">

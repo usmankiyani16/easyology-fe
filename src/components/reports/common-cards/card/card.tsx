@@ -5,12 +5,12 @@ import ReceiveableMockData from "./mock-data";
 import { Link } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../../../routes/route-constants";
 
-const Cards:React.FC<any> = ({label1, label2}) => {
+const Cards:React.FC<any> = ({label1, label2, data}) => {
 
   return (
     <div>
       <div className="_acount-reveiveable-card flex flex-col gap-4 mt-4">
-        {ReceiveableMockData?.map((data: any) => (
+        {data?.map((data: any) => (
           <Card key={data?._id} className="_access-control-card">
             <div className="flex w-full justify-between items-center grid xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1">
               <div>
@@ -33,7 +33,7 @@ const Cards:React.FC<any> = ({label1, label2}) => {
                       Total no of {label2}:
                     </span>
                     <span className="_grey-color whitespace-nowrap ">
-                      {data?.totalInvoices}
+                      {data?.totalCount}
                     </span>
                   </div>
                 </div>
@@ -45,7 +45,7 @@ const Cards:React.FC<any> = ({label1, label2}) => {
                       Total Amount:
                     </span>
                     <span className="_grey-color whitespace-nowrap ">
-                      {data?.totalAmount}
+                     $ {data?.totalAmount}
                     </span>
                   </div>
                 </div>
@@ -57,7 +57,7 @@ const Cards:React.FC<any> = ({label1, label2}) => {
                     ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE,
                     
                 }}
-                state= {{ data, label1, label2 }}
+                state= {{ data, label1, label2}}
                
               >
               <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">

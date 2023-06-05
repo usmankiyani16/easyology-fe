@@ -11,8 +11,22 @@ export const getOrders = createAsyncThunk(
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
       let queryParam = "";
+      if (payload?.month) {
+        queryParam += `&month=${payload.month}`;
+      }
+      if (payload?.startDate) {
+        queryParam += `&startDate=${payload.startDate}`;
+      }
+      if (payload?.endDate) {
+        queryParam += `&endDate=${payload.endDate}`;
+      }
+
       if (payload?.page) {
         queryParam = `&page=${payload?.page}`;
+      }
+
+      if (payload?.search) {
+        queryParam += `&search=${payload.search}`;
       }
       const response = await getApi(
         `/order?storeId=${storeId}${queryParam}&perPage=8`
@@ -28,13 +42,11 @@ interface OrdersState {
   orders: any | null;
   error: string | null;
   status: string;
-
 }
 const initialState: OrdersState = {
-  orders:[],
+  orders: [],
   error: null,
   status: REQUEST_STATUS.IDLE,
- 
 };
 
 const ordersSlice = createSlice({
@@ -53,7 +65,7 @@ const ordersSlice = createSlice({
       .addCase(getOrders.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload?.error;
-      })
+      });
   },
 });
 

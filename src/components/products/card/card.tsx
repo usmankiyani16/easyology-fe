@@ -11,6 +11,7 @@ const CardComponent: React.FC<any> = ({ item }) => {
   const findOne = selectedProducts?.find(
     (prod: any) => prod?.variants?._id === item?.variants?._id
   );
+  console.log(item, "productssss");
 
   const image = imageBaseUrl + item?.image;
   const addToCart = () => {
@@ -25,26 +26,6 @@ const CardComponent: React.FC<any> = ({ item }) => {
         className="w-[160.69px] h-[107.74px] object-cover"
       />
       <div className="flex flex-col ">
-        {/*  <div className="flex justify-between mt-2 h-[80px]">
-          <div className="flex flex-col">
-            <span className="_productname">{item?.name}</span>
-            <span className="_productname">
-              {item?.variants?.options?.color}
-            </span>
-            <span className="_productname">
-              {item?.variants?.options?.size}
-            </span>
-            <span className="_productname">
-              {item?.variants?.stock?.totalQuantity}
-            </span>
-          </div>
-
-          <div className="flex items-end">
-            <span className="_productname _primary-color">{`$${item?.variants?.amount}`}</span>
-          </div>
-        </div>
- */}
-
         <div className="flex flex-col h-[80px] mt-2">
           <span className="_productname">{item?.name}</span>
           <span className="_productname">{item?.variants?.options?.color}</span>
@@ -58,7 +39,9 @@ const CardComponent: React.FC<any> = ({ item }) => {
             </span>
 
             <div className="flex items-end">
-              <span className="_productname _primary-color flex items-end">{`$${item?.variants?.amount}`}</span>
+              <span className="_productname _primary-color flex items-end">{`$${
+                item?.variants?.purchaseAmount ?? ""
+              }`}</span>
             </div>
           </div>
         </div>

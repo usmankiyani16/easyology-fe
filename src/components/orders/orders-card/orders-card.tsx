@@ -102,7 +102,7 @@ const OrderCard: React.FC<OrderTypes> = ({ data }) => {
 
                 {/* -------------- Conditons in Order Status ----------------  */}
 
-                {(data?.orderStatus === "Pickup from Store" ||
+                {(data?.orderStatus === "Pickup from store" ||
                   data?.orderStatus === "Completed") && (
                   <>
                     <div className="flex  text-lg sm:gap-4 sm:items-center">

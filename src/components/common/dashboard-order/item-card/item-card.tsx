@@ -15,7 +15,7 @@ import { imageBaseUrl } from "../../../../utils/constants";
 const ItemCard = () => {
   const { selectedProducts } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
-  
+
   const handleDelete = (index: number) => {
     dispatch(deleteSelectedProducts(index));
   };
@@ -55,7 +55,7 @@ const ItemCard = () => {
     }
   };
 
-  console.log(selectedProducts, 'products')
+  console.log(selectedProducts, "products");
   return (
     <div className="_item-card">
       <div className="w-full flex justify-between">
@@ -123,7 +123,7 @@ const ItemCard = () => {
             <div className="_price flex flex-col w-1/4 justify-center items-center mt-2  ">
               <InputNumber
                 onChange={(value) => handlePriceChange(index, value)}
-                value={item?.variants?.amount}
+                value={item?.variants?.purchaseAmount}
                 prefix="$"
               />
             </div>
@@ -131,7 +131,10 @@ const ItemCard = () => {
               <div>
                 {/* <p className="_grey-color">$ 103.00</p> */}
                 <p className=" font-semibold _primary-color">
-                  $ {(item?.variants?.amount * item?.quantity).toFixed(2)}
+                  ${" "}
+                  {(item?.variants?.purchaseAmount * item?.quantity).toFixed(
+                    2
+                  ) ?? ""}
                 </p>
               </div>
               <div

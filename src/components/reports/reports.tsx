@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import acountReceiveableIcon from "../../assets/icons/layout/acount-receiveable.png";
 import acountPayableIcon from "../../assets/icons/layout/acount-payable.png";
 import monthlyReportsIcon from "../../assets/icons/layout/monthly-reports.png";
@@ -7,11 +7,34 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../../routes/route-constants";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import { getReportsReceviveable } from "../../store/reports/reportsSlice";
 
-const MonthlyReports = () => {
+const Reports = () => {
+  // const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch();
-  // const {reports , status} = 
+  // const {reportsReceiveable , status} = useAppSelector((state) => state.reports);
+
+  // console.log(reportsReceiveable, "reports");
+
+ 
+  /* useEffect(() => {
+    let queryParam = {
+      page: 1,
+    };
+    dispatch(getReportsReceviveable(queryParam));
+  }, []); */
+
+   // const handlePagination = (value: Number) => {
+  //   let payload: any = {};
+  //   if (value) {
+  //     payload = {
+  //       page: Number(value),
+  //       perPage: 8,
+  //     };
+  //     dispatch(getReportsReceviveable(payload));
+  //   }
+  // };
+  // const {reports , status} =
   const [isClicked, setIsClicked] = useState(false);
 
   const handleCardClick = () => {
@@ -62,4 +85,4 @@ const MonthlyReports = () => {
   );
 };
 
-export default MonthlyReports;
+export default Reports;

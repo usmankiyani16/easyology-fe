@@ -1,12 +1,12 @@
 import React from "react";
 
-import MonthlyReports from "../../components/reports/reports";
+import Reports from "../../components/reports/reports";
 
 
 const MonthlyReportsPage = () => {
   return (
     <div>
-      <MonthlyReports />
+      <Reports />
     </div>
   );
 };

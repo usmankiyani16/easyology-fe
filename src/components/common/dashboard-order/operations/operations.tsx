@@ -183,7 +183,7 @@ const Operations: React.FC<any> = ({
             <div className="flex ">
               <label className="_primary-color w-9/12 ">Remaining Amount</label>
               <label className="w-3/12 whitespace-nowrap">
-                $ {total.toFixed(2)}
+                $ {total.toFixed(2) ?? ''}
               </label>
             </div>
           </div>

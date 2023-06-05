@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 
 const AllExpenses = () => {
   const { data, status } = useAppSelector((state) => state.expenses);
+
   const navigate = useNavigate();
 
   console.log(data, "expense ooooo");

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button, DatePicker, Input, Pagination } from "antd";
 import { useEffect } from "react";
 import OrderCard from "./orders-card/orders-card";
@@ -10,6 +11,8 @@ import { getOrders } from "../../store/orders/ordersSlice";
 const Orders = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.orders);
+  // const [isApiChange, setIsApiChange] = useState(false);
+
   console.log(data, "b");
 
   const handlePagination = async (value: Number) => {
@@ -29,9 +32,18 @@ const Orders = () => {
     dispatch(getOrders(queryParam));
   }, []);
 
-  const searchProduct = (value: any) => {
-    console.log(value);
+
+  const searchOrder = (event: any) => {
+    let name = event.target.value?.trim();
+    let payload: any = {};
+    if (name) {
+      payload.page = 1;
+      payload.perPage = 8;
+      payload.search = name;
+      dispatch(getOrders(payload));
+    } else dispatch(getOrders({}));
   };
+
 
   return (
     <div>
@@ -44,7 +56,7 @@ const Orders = () => {
               className="w-44 h-8"
               prefix={<SearchOutlined />}
               placeholder="Search Order"
-              onChange={(event) => searchProduct(event.target.value)}
+              onChange={searchOrder}
             />
           </div>
         </div>

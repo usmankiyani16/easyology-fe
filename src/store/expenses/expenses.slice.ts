@@ -28,7 +28,7 @@ export const getExpenses = createAsyncThunk(
       } else {
         queryParams += "&perPage=8";
       }
-      console.log("payload", payload, { queryParams });
+     
 
       const response = await getApi(
         `/expense?storeId=${storeId}${queryParams}`

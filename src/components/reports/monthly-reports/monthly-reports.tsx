@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { backButtonIcon } from "../../../assets/icons";
-import DateRange from "../../expenses/date-range/date-range";
+import DateRange from "../../common/date-range/date-range";
 import MonthlyReportCard from "./monthly-report-card/monthly-report-card";
 import { Pagination } from "antd";
 

@@ -43,7 +43,7 @@ const DashboardOrder: React.FC<any> = ({
     (state) => state.products
   );
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
-    return acc + product?.quantity * product?.variants?.amount;
+    return acc + product?.quantity * product?.variants?.purchaseAmount ;
   }, 0);
 
   const searchProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
