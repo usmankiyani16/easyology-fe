@@ -1,5 +1,5 @@
-import {useEffect} from 'react'
-import { useNavigate,useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { backButtonIcon } from "../../../assets/icons";
 import DateRange from "../../common/date-range/date-range";
 import Cards from "../common-cards/card/card";
@@ -8,30 +8,39 @@ import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { getReportsReceviveable } from "../../../store/reports/reportsSlice";
 
-
 const AcountReceiveable = () => {
   const navigate = useNavigate();
- /*  const location = useLocation()
+  /*  const location = useLocation()
   const data = location.state */
 
   const dispatch = useAppDispatch();
 
-  const {reportsReceiveable , status} = useAppSelector((state) => state.reports);
+  const { data, status } = useAppSelector(
+    (state) => state.reports
+  );
 
-  console.log(reportsReceiveable, "reports");
+  const handlePagination = (value: Number) => {
+    let payload: any = {};
+    if (value) {
+      payload = {
+        page: Number(value),
+        perPage: 8,
+      };
+      dispatch(getReportsReceviveable(payload));
+    }
+  };
   useEffect(() => {
-    let queryParam = {
+    let payload = {
       page: 1,
+      perPage: 8,
     };
-    dispatch(getReportsReceviveable(queryParam));
+    dispatch(getReportsReceviveable(payload));
   }, []);
 
-  const getData = (value:any) => {
+  const getData = (value: any) => {
     dispatch(getReportsReceviveable(value));
-  }
+  };
 
-
-  console.log(reportsReceiveable, 'reportsReceiveable')
   return (
     <div>
       <div className="flex items-center gap-4">
@@ -45,15 +54,25 @@ const AcountReceiveable = () => {
       </div>
 
       <div>
-        <DateRange getData={getData} status={status}/>
+        <DateRange
+          getData={getData}
+          status={status}
+          dataLength={data?.receivableInvoices?.length}
+        />
       </div>
 
       <div>
-        <Cards label1="Customer" label2="Invoice" data = {reportsReceiveable?.receivableInvoices}  />
-      </div> 
+        <Cards
+          label1="Customer"
+          label2="Invoice"
+          label3= "Receiveable"
+          data={data?.receivableInvoices}
+          status={status}
+        />
+      </div>
 
       <Pagination
-        //   onChange={handlePagination}
+        onChange={handlePagination}
         className="flex justify-end"
         defaultCurrent={1}
         defaultPageSize={8}

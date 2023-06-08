@@ -1,4 +1,4 @@
 export enum customerType {
-  wholeseller = "wholeseller",
+  wholesaler = "wholeseller",
   retailer = "retailer",
 }

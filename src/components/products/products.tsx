@@ -135,7 +135,7 @@ const Products = () => {
           ) : (
             ""
           )}
-          <div className="my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 sm:gap-x-24 ">
+          <div className="my-6  flex justify-around grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 gap-8 ">
             {products?.products?.map((item: any, index: number) => (
               <CardComponent key={index} item={item} />
             ))}

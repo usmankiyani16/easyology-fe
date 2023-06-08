@@ -16,7 +16,7 @@ export const ROUTE_CONSTANTS = {
   REPORTS: "reports",
   VIEW_MONTHLY_REPORTS: "view-monthly-reports",
   ACOUNT_RECEIVEABLE: 'acount-receiveable',
-  VIEW_ACOUNT_RECEIVEABLE: 'view-acount-receiveable',
+  VIEW_ACOUNT: 'view-acount',
   ACOUNT_PAYABLE: 'acount-payable',
   MONTHLY_REPORT: 'monthly-report',
   NOTIFICATION: "notification",

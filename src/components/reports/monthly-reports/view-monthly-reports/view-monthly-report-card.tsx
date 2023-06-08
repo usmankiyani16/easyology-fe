@@ -22,7 +22,7 @@ const ViewMonthlyReportCard: React.FC<any> = ({ monthlydata }) => {
   }, []);
   return (
     <div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mt-8">
         {/* {monthlydata?.map((data: any) => ( */}
         <Card className="_po-card">
           <div className="flex w-full justify-between grid grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1">

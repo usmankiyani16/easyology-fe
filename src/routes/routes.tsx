@@ -67,7 +67,7 @@ const MonthlyReportsLazy = Loadable(
 const AcountsReceiveableLazy = Loadable(
   lazy(() => import("../pages/reports/acount-receiveable/index"))
 );
-const ViewAcountReceiveableLazy = Loadable(
+const ViewAcountLazy = Loadable(
   lazy(() => import("../pages/reports/acount-receiveable/view-receiveable/index"))
 );
 const AcountsPayableLazy = Loadable(
@@ -277,12 +277,12 @@ export const routes: any = [
         ),
       },
       {
-        path: ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE,
+        path: ROUTE_CONSTANTS.VIEW_ACOUNT,
         element: (
           <RequireAuth
             allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
           >
-            <ViewAcountReceiveableLazy/>
+            <ViewAcountLazy/>
           </RequireAuth>
         ),
       },

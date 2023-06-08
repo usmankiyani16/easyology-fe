@@ -38,6 +38,30 @@ export const getOrders = createAsyncThunk(
   }
 );
 
+
+// ! Karna hai next day isey 
+
+export const createOrder = createAsyncThunk(
+  "orders/create",
+  async (payload: any, { rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoading(true));
+      const { data } = JSON.parse(localStorage.getItem("user") || "{}");
+      payload.userId = data?.userId;
+      payload.storeId = data?.storeId;
+      payload.customerId = data?.customerId;
+      const response = await postApi("/order/pos-order", payload);
+      Toast(response?.message);
+      return response;
+    } catch (error: any) {
+      Toast(error?.response?.data?.error, "error");
+      return rejectWithValue(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+);
+
 interface OrdersState {
   orders: any | null;
   error: string | null;
@@ -63,6 +87,16 @@ const ordersSlice = createSlice({
         state.orders = action?.payload?.data;
       })
       .addCase(getOrders.rejected, (state, action: any) => {
+        state.status = REQUEST_STATUS.FAILED;
+        state.error = action.payload?.error;
+      })
+      .addCase(createOrder.pending, (state, action) => {
+        state.status = REQUEST_STATUS.PENDING;
+      })
+      .addCase(createOrder.fulfilled, (state, action) => {
+        state.status = REQUEST_STATUS.SUCCEEDED;
+      })
+      .addCase(createOrder.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload?.error;
       });

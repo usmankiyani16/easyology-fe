@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Card } from "antd";
+import { Button, Card, Pagination } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
@@ -7,29 +7,34 @@ import cardData from "../../card/mock-data";
 import { getReportsReceviveable } from "../../../../../store/reports/reportsSlice";
 import { useAppDispatch, useAppSelector } from "../../../../../store/store";
 
-const MonthCard: React.FC<any> = ({ monthData }) => {
-  const { reportsReceiveable, status } = useAppSelector(
+const MonthCard: React.FC<any> = ({ month }) => {
+  const dispatch = useAppDispatch();
+  const { data , status } = useAppSelector(
     (state) => state.reports
   );
-  const dispatch = useAppDispatch();
 
+  
   const [applyBorder, setApplyBorder] = useState(false);
   const location = useLocation();
   const propData = location.state;
 
-  console.log(reportsReceiveable, "view receiveable");
-  const month = propData?.month;
+  // console.log(reportsReceiveable, "view receiveable");
+
+  console.log(month, "month");
 
   // console.log(cardData, "Card Data");
 
-  useEffect(() => {
-    let payload = {
-      month,
-      page: 1,
-      perPage: 8,
-    };
-    dispatch(getReportsReceviveable(payload));
-  }, []);
+  // const handlePagination = async (value: Number) => {
+  //   let payload: any = {};
+  //   if (value) {
+  //     payload = {
+  //       month,
+  //       page: value,
+  //       perPage: 8,
+  //     };
+  //     dispatch(getReportsReceviveable(payload));
+  //   }
+  // };
 
   useEffect(() => {
     function handleResize() {
@@ -105,6 +110,14 @@ const MonthCard: React.FC<any> = ({ monthData }) => {
           </Card>
         ))}
       </div>
+      <Pagination
+        // onChange={handlePagination}
+        className="flex justify-end"
+        defaultCurrent={1}
+        defaultPageSize={8}
+        total={2}
+        showSizeChanger={false}
+      />
     </div>
   );
 };

@@ -38,9 +38,9 @@ const MonthlyPieChart = () => {
     ],
   };
   return (
-    <div>
-      <div className="flex justify-end">
-        <Pie {...config} />
+    <div style={{  height: '330px' }}>
+      <div className="flex justify-end ">
+        <Pie {...config}  />
       </div>
     </div>
   );

@@ -7,13 +7,57 @@ import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import { useLocation, useNavigate } from "react-router-dom";
 import MonthCard from "../view-month-card/month-card/month-card";
 import TotalAmount from "../view-month-card/totalAmount/total-amount";
+import { useAppDispatch, useAppSelector } from "../../../../store/store";
+import {
+  getReportsPayable,
+  getReportsReceviveable,
+} from "../../../../store/reports/reportsSlice";
 
 const ViewMonthCard = () => {
+  const dispatch = useAppDispatch();
+  const { data, status } = useAppSelector((state) => state.reports);
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state;
+  const stateData = location.state;
+  const month = stateData?.data?.month;
 
-  console.log(data, "sen");
+  // ! Remaining Amount etc waali key values set krni hai abhi
+  let cardData;
+  if (stateData.pathname === "/acount-receiveable") {
+    cardData = data?.receivableInvoices?.map((data: any) => {
+      return {
+        id: data?.userDetail?.userNo,
+        name: data?.userDetail?.firstName + " " + data?.userDetail?.lastName,
+        number: data?.poNumber,
+        totalAmount: data?.totalAmount,
+        payMethod: data?.payments[0]?.paymentType,
+      };
+    });
+  }
+  if (stateData.pathname === "/acount-payable") {
+    cardData = data?.accountPayable?.map((data: any) => {
+      return {
+        id: data?.vendorId,
+        name: data?.vendorDetail?.name,
+        number: data?.poNumber,
+        amount: data?.totalAmount,
+        payMethod: data?.payments[0]?.paymentType,
+      };
+    });
+  }
+  console.log("cardDATA", cardData);
+  console.log("stateData", stateData);
+
+  useEffect(() => {
+    let payload = {
+      month,
+      page: 1,
+      perPage: 8,
+    };
+    dispatch(getReportsReceviveable(payload));
+    dispatch(getReportsPayable(payload));
+  }, [month]);
+  console.log(data, "receiveable");
 
   const pdfRef = useRef(null);
 
@@ -37,8 +81,7 @@ const ViewMonthCard = () => {
               alt="back"
             />
             <h1 className="font-lato xs:text-[1.8rem] sm:text-[2rem] whitespace-nowrap">
-              Month of{" "}
-              <span className="_primary-color">{data?.data?.month}</span>
+              Month of <span className="_primary-color">{month}</span>
             </h1>
           </div>
         </div>
@@ -71,21 +114,12 @@ const ViewMonthCard = () => {
       </div>
 
       <div>
-        <MonthCard monthData={data} />
+        <MonthCard month={month} cardData={cardData} />
       </div>
 
       <div>
-        <TotalAmount />
+        <TotalAmount stateData={stateData} />
       </div>
-
-      <Pagination
-        //   onChange={handlePagination}
-        className="flex justify-end"
-        defaultCurrent={1}
-        defaultPageSize={8}
-        total={2}
-        showSizeChanger={false}
-      />
     </div>
   );
 };

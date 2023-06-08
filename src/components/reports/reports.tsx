@@ -16,7 +16,6 @@ const Reports = () => {
 
   // console.log(reportsReceiveable, "reports");
 
- 
   /* useEffect(() => {
     let queryParam = {
       page: 1,
@@ -24,7 +23,7 @@ const Reports = () => {
     dispatch(getReportsReceviveable(queryParam));
   }, []); */
 
-   // const handlePagination = (value: Number) => {
+  // const handlePagination = (value: Number) => {
   //   let payload: any = {};
   //   if (value) {
   //     payload = {
@@ -46,7 +45,7 @@ const Reports = () => {
       <div className="flex items-center justify-between gap-4">
         <h1 className="font-lato  text-[2rem]">Reports</h1>
       </div>
-      <div className="flex xs:flex-col xs:items-center sm:flex-row sm:items-center sm:justify-around gap-4 mt-6">
+      <div className="flex xs:flex-col xs:items-center lg:flex-row sm:items-center sm:justify-around gap-4 mt-6">
         <Link to={ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.ACOUNT_RECEIVEABLE}>
           <Card
             className={`_po-card w-64 border-red-500 cursor-pointer ${

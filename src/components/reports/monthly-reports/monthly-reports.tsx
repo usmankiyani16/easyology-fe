@@ -3,6 +3,7 @@ import { backButtonIcon } from "../../../assets/icons";
 import DateRange from "../../common/date-range/date-range";
 import MonthlyReportCard from "./monthly-report-card/monthly-report-card";
 import { Pagination } from "antd";
+import MonthlyPieChart from "./monthly-pie-chart/monthly-pie-chart";
 
 const MonthlyReport = () => {
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ const MonthlyReport = () => {
 
       <div>
         <DateRange />
+      </div>
+
+      <div>
+        <MonthlyPieChart />
       </div>
 
       <div>

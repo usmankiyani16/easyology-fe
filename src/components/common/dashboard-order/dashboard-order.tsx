@@ -18,6 +18,7 @@ import {
 import OrderStatus from "./order-status/order-status";
 import ViewOrdersCard from "../../orders/view-orders/view-order-card/card";
 import orderDetails from "../../orders/mock-data/view-orders";
+import { getCustomers } from "../../../store/customers/customers.slice";
 
 const DashboardOrder: React.FC<any> = ({
   showOrderStatus,
@@ -41,7 +42,13 @@ const DashboardOrder: React.FC<any> = ({
 
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
+
   );
+  const {customers} = useAppSelector((state) => state.customers)
+
+  console.log(products, 'products')
+  console.log(customers , 'customer')
+
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
     return acc + product?.quantity * product?.variants?.purchaseAmount ;
   }, 0);
@@ -61,7 +68,6 @@ const DashboardOrder: React.FC<any> = ({
       dispatch(getProducts(queryParam));
     }
   };
-  let queryParamInvoices = "";
   useEffect(() => {
     let queryParamProducts = {
       nullProduct: "true",
@@ -76,11 +82,38 @@ const DashboardOrder: React.FC<any> = ({
     dispatch(getHoldInvoices(queryParamInvoices));
   }, [invoiceNumber]);
 
+  const searchCustomer = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let queryParam: any = {};
+    let name = event.target.value?.trim();
+    setSelectCustomerValue(event.target.value);
+    if (name) {
+      queryParam = {
+        name,
+        nullProduct: "true",
+        perPage: 3,
+      };
+      dispatch(getCustomers(queryParam));
+    } else {
+      dispatch(getCustomers(queryParam));
+    }
+  };
+  let queryParamInvoices = "";
+  useEffect(() => {
+    let queryParamCustomers = {
+      nullProduct: "true",
+      perPage: 3,
+    };
+    
+    dispatch(getCustomers(queryParamCustomers));
+
+  }, []);
+ 
+
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const customerOptions = [
+ /*  const customerOptions = [
     {
       _id: "9dc55d0012d14689b8a00940",
       name: "customer 1",
@@ -99,7 +132,7 @@ const DashboardOrder: React.FC<any> = ({
       mob: "0236373737",
       type: "wholeseller",
     },
-  ];
+  ]; */
   let productOptions = products?.products?.slice(0, 3);
   const filteredProductOptions = productOptions?.filter(
     (option: any) =>
@@ -107,6 +140,8 @@ const DashboardOrder: React.FC<any> = ({
         (selected: any) => selected?.variants?._id === option?.variants?._id
       )
   );
+  let customerOptions = customers?.customers?.slice(0, 3);
+
   const handleCustomerSelect = (option: any) => {
     setSelectCustomer(option);
   };
@@ -147,7 +182,7 @@ const DashboardOrder: React.FC<any> = ({
               onSelect={(value, option) => handleCustomerSelect(option)}
               options={customerOptions?.map((customer: any) => ({
                 ...customer,
-                value: customer?.name,
+                value: customer?.firstName + ' ' +  customer?.lastName ,
               }))}
               value={""}
             >
@@ -156,6 +191,7 @@ const DashboardOrder: React.FC<any> = ({
                 prefix={<SearchOutlined />}
                 placeholder="Search customer"
                 name="customer"
+                onChange={searchCustomer}
               />
             </AutoComplete>
             <AutoComplete
@@ -240,14 +276,14 @@ const DashboardOrder: React.FC<any> = ({
 
           <h1>
             Phone:{" "}
-            <span className="font-semibold">{selectCustomer?.mob ?? ""}</span>
+            <span className="font-semibold">{selectCustomer?.phoneNumber ?? ""}</span>
           </h1>
           <h1>
             <span className="_primary-color font-semibold">
               Customer Type:{" "}
             </span>
             <span className="font-semibold capitalize">
-              {selectCustomer?.type ?? ""}
+              {selectCustomer?.role ?? ""}
             </span>
           </h1>
         </div>

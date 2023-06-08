@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { getExpenses } from "../../../store/expenses/expenses.slice";
 import { REQUEST_STATUS } from "../../../utils/constants";
 
-const DateRange: React.FC<any> = ({ getData, status }) => {
+const DateRange: React.FC<any> = ({ getData, status , dataLength}) => {
   const dispatch = useAppDispatch();
   const [startMonth, setStartMonth] = useState<any>(null);
   const [endMonth, setEndMonth] = useState<any>(null);
@@ -65,7 +65,7 @@ const DateRange: React.FC<any> = ({ getData, status }) => {
           <label>Start Month: </label>
           <DatePicker
             disabled={
-              !data?.expenses?.length || status === REQUEST_STATUS.PENDING
+              !dataLength || status === REQUEST_STATUS.PENDING
             }
             value={startMonth}
             // onChange={setStartMonth}
@@ -79,7 +79,7 @@ const DateRange: React.FC<any> = ({ getData, status }) => {
           <label>End Month: </label>
           <DatePicker
             disabled={
-              !data?.expenses?.length || status === REQUEST_STATUS.PENDING
+              !dataLength || status === REQUEST_STATUS.PENDING
             }
             value={endMonth}
             onChange={(value) => handleEndDateChange(value)}

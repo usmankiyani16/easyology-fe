@@ -15,12 +15,9 @@ const Expenses = () => {
   const dispatch = useAppDispatch();
   const { data, status } = useAppSelector((state) => state.expenses);
 
-  
-  const getData = (value:any) => {
+  const getData = (value: any) => {
     dispatch(getExpenses(value));
-  }
-
-  
+  };
 
   const handlePagination = (value: Number) => {
     let payload: any = {};
@@ -56,7 +53,11 @@ const Expenses = () => {
       </div>
 
       <div className="_date-ranges">
-          <DateRange getData={getData} status={status}/>
+        <DateRange
+          getData={getData}
+          status={status}
+          dataLength={data?.expenses?.length}
+        />
       </div>
 
       <div className="_cards">

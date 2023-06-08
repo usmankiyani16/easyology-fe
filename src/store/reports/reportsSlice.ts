@@ -14,11 +14,24 @@ export const getReportsReceviveable = createAsyncThunk(
       if (payload?.month) {
         queryParam += `&month=${payload.month}`;
       }
-      if (payload?.page) {
-        queryParam = `&page=${payload?.page}`;
+
+      if (payload?.startDate) {
+        queryParam += `&startDate=${payload.startDate}`;
       }
+      if (payload?.endDate) {
+        queryParam += `&endDate=${payload.endDate}`;
+      }
+      if (payload?.page) {
+        queryParam += `&page=${payload?.page}`;
+      }
+      if (payload?.perPage) {
+        queryParam += `&perPage=${payload.perPage}`;
+      } else {
+        queryParam += "&perPage=8";
+      }
+
       const response = await getApi(
-        `/order/receivable-invoices?storeId=${storeId}${queryParam}&perPage=8`
+        `/order/receivable-invoices?storeId=${storeId}${queryParam}`
       );
       return response;
     } catch (error) {
@@ -34,11 +47,25 @@ export const getReportsPayable = createAsyncThunk(
       const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
       const storeId = data?.storeId;
       let queryParam = "";
+      if (payload?.month) {
+        queryParam += `&month=${payload.month}`;
+      }
+      if (payload?.startDate) {
+        queryParam += `&startDate=${payload.startDate}`;
+      }
+      if (payload?.endDate) {
+        queryParam += `&endDate=${payload.endDate}`;
+      }
       if (payload?.page) {
-        queryParam = `&page=${payload.page}`;
+        queryParam += `&page=${payload?.page}`;
+      }
+      if (payload?.perPage) {
+        queryParam += `&perPage=${payload.perPage}`;
+      } else {
+        queryParam += "&perPage=8";
       }
       const response = await getApi(
-        `/Vendor-Product/payable-invoices?storeId=${storeId}${queryParam}&perPage=8`
+        `/Vendor-Product/payable-invoices?storeId=${storeId}${queryParam}`
       );
       return response;
     } catch (error) {
@@ -47,31 +74,54 @@ export const getReportsPayable = createAsyncThunk(
   }
 );
 
-interface ReportsReceiveableState {
-  reportsReceiveable: any | null;
+export const getReportsMonthly = createAsyncThunk(
+  "reportsMonthly/get",
+  async (payload: any, { rejectWithValue }) => {
+    try {
+      const { data }: any = JSON.parse(localStorage.getItem("user") || "{}");
+      const storeId = data?.storeId;
+      let queryParam = "";
+      if (payload?.month) {
+        queryParam += `&month=${payload.month}`;
+      }
+      if (payload?.startDate) {
+        queryParam += `&startDate=${payload.startDate}`;
+      }
+      if (payload?.endDate) {
+        queryParam += `&endDate=${payload.endDate}`;
+      }
+      if (payload?.page) {
+        queryParam += `&page=${payload?.page}`;
+      }
+      if (payload?.perPage) {
+        queryParam += `&perPage=${payload.perPage}`;
+      } else {
+        queryParam += "&perPage=8";
+      }
+      const response = await getApi(
+        `/Vendor-Product/payable-invoices?storeId=${storeId}${queryParam}`
+      );
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+interface ReportsState {
+  data: any;
   error: string | null;
   status: string;
 }
-const receiveableInitialState: ReportsReceiveableState = {
-  reportsReceiveable: [],
-  error: null,
-  status: REQUEST_STATUS.IDLE,
-};
-interface ReportsPayableState {
-  reportsPayable: any | null;
-  error: string | null;
-  status: string;
-}
-
-const payableInitialStates: ReportsPayableState = {
-  reportsPayable: [],
+const initialState: ReportsState = {
+  data: [],
   error: null,
   status: REQUEST_STATUS.IDLE,
 };
 
-const reportsReceiveableSlice = createSlice({
-  name: "reportsReceiveable",
-  initialState: receiveableInitialState,
+const reportsSlice = createSlice({
+  name: "reports",
+  initialState,
 
   reducers: {},
   extraReducers: (builder) => {
@@ -81,35 +131,26 @@ const reportsReceiveableSlice = createSlice({
       })
       .addCase(getReportsReceviveable.fulfilled, (state, action) => {
         state.status = REQUEST_STATUS.SUCCEEDED;
-        state.reportsReceiveable = action?.payload?.data;
+        state.data = action?.payload?.data;
       })
       .addCase(getReportsReceviveable.rejected, (state, action: any) => {
+        state.status = REQUEST_STATUS.FAILED;
+        state.error = action.payload?.error;
+      })
+      .addCase(getReportsPayable.pending, (state, action) => {
+        state.status = REQUEST_STATUS.PENDING;
+      })
+      .addCase(getReportsPayable.fulfilled, (state, action) => {
+        state.status = REQUEST_STATUS.SUCCEEDED;
+        state.data = action?.payload?.data;
+      })
+      .addCase(getReportsPayable.rejected, (state, action: any) => {
         state.status = REQUEST_STATUS.FAILED;
         state.error = action.payload?.error;
       });
   },
 });
 
-const reportsPayableSlice = createSlice({
-  name: "reportsPayable",
-  initialState: payableInitialStates,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-    .addCase(getReportsReceviveable.pending, (state, action) => {
-      state.status = REQUEST_STATUS.PENDING;
-    })
-    .addCase(getReportsReceviveable.fulfilled, (state, action) => {
-      state.status = REQUEST_STATUS.SUCCEEDED;
-      state.reportsPayable = action?.payload?.data;
-    })
-    .addCase(getReportsReceviveable.rejected, (state, action: any) => {
-      state.status = REQUEST_STATUS.FAILED;
-      state.error = action.payload?.error;
-    });
-  },
-});
+export const {} = reportsSlice.actions;
 
-export const {} = reportsReceiveableSlice.actions;
-
-export default reportsReceiveableSlice.reducer;
+export default reportsSlice.reducer;

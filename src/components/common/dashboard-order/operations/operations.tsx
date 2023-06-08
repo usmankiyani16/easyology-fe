@@ -29,9 +29,9 @@ const Operations: React.FC<any> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [discount, setDiscount] = useState<number>(0);
   const taxRate = 0.025; // 2.5%
-  const salesTax =
-    selectCustomer?.type == customerType.wholeseller ? 0 : totalPrice * taxRate;
-  const salesTaxCount = selectCustomer?.type == customerType.retailer ? 2.5 : 0;
+  const salesTax =  selectCustomer?.role == customerType.retailer ?totalPrice * taxRate : 0;
+  const salesTaxCount = selectCustomer?.role == customerType.retailer ? 2.5 : 0;
+  
   const total = totalPrice + salesTax - discount;
   const disableButton = !selectedProducts?.length;
 

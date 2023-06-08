@@ -6,7 +6,7 @@ import { SearchOutlined } from "@ant-design/icons";
 const CheckboxGroup = Checkbox.Group;
 
 const dummyAddress: any = "House No A0-2737 Shaadbaagh town";
-const OrderStatus = ({ onChange, showOrderStatus }: any) => {
+const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedValues, setSelectedValues] = useState("10AM - 2PM");
@@ -20,9 +20,6 @@ const OrderStatus = ({ onChange, showOrderStatus }: any) => {
   //     console.log(values);
   //   };
 
-  const handleFormChange = (changedValues: any, allValues: any) => {
-    onChange(allValues);
-  };
 
   const handleSelect = (value: any) => {
     setSelectedOption(value);
@@ -75,7 +72,7 @@ const OrderStatus = ({ onChange, showOrderStatus }: any) => {
     form.resetFields();
     setSelectedOption(null)
 
-    window.location.href = '/orders';
+    // window.location.href = '/orders';
     
 
   };

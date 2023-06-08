@@ -71,9 +71,7 @@ const ViewMonthlyReport = () => {
         {/* </PDFDownloadLink> */}
       </div>
 
-     <div>
-      <MonthlyPieChart />
-      </div>
+   
 
       <div>
         {/* <ViewReceiveableCard receiveableData={data}/> */}

@@ -19,31 +19,59 @@ const CardComponent: React.FC<any> = ({ item }) => {
     dispatch(addSelectedProducts(product));
   };
   return (
-    <Card style={{ width: "11.688rem", height: "16.063rem" }}>
+
+    // <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2">
+    <Card style={{ width: "14.688rem", height: "19.063rem" }}>
       <img
         src={item?.image ? image : noImg}
         alt="laptop"
-        className="w-[160.69px] h-[107.74px] object-cover"
+        className="w-[190.69px] h-[107.74px] object-cover"
       />
       <div className="flex flex-col ">
-        <div className="flex flex-col h-[80px] mt-2">
-          <span className="_productname">{item?.name}</span>
-          <span className="_productname">{item?.variants?.options?.color}</span>
-          <span className="_productname">{item?.variants?.options?.size}</span>
+        <div className="flex flex-col h-[120px] mt-2">
+          <span className="_productname">
+            Name <span className="_success_color">{item?.name}</span>
+          </span> 
+          <span className="_productname">
+            {item?.variants?.options?.color && "Color"}{" "}
+            <span className="_success_color">{item?.variants?.options?.color}</span>{" "}
+          </span>
+          <span className="_productname">
+            {item?.variants?.options?.size && "Size"}{" "}
+            <span className="_success_color">
+              {item?.variants?.options?.size}
+            </span>{" "}
+          </span>
 
           {/* ${ (!item?.variants?.stock?.totalQuantity || !item?.variants?.options?.color || !item?.variants?.options?.size) && "h-[60px]"}  */}
 
           <div className={`flex justify-between`}>
             <span className="_productname">
-              {item?.variants?.stock?.totalQuantity}
-            </span>
+            {item?.variants?.stock?.totalQuantity && 'QTY'} <span className="_success_color"> {item?.variants?.stock?.totalQuantity}</span></span>
 
-            <div className="flex items-end">
+          
+          </div>
+          <div className="flex justify-between">
+              <span className="_productname">Purchase Amount</span>
               <span className="_productname _primary-color flex items-end">{`$${
                 item?.variants?.purchaseAmount ?? ""
               }`}</span>
+              
             </div>
-          </div>
+            <div className="flex justify-between">
+              <span className="_productname">WholeSale Amount</span>
+              <span className="_productname _primary-color flex items-end">{`$${
+                item?.variants?.purchaseAmount ?? ""
+              }`}</span>
+              
+            </div>
+            <div className="flex justify-between">
+              <span className="_productname">Retail Amount</span>
+              <span className="_productname _primary-color flex items-end">{`$${
+                item?.variants?.purchaseAmount ?? ""
+              }`}</span>
+              
+            </div>
         </div>
         <button
           onClick={addToCart}
@@ -57,6 +85,8 @@ const CardComponent: React.FC<any> = ({ item }) => {
         </button>
       </div>
     </Card>
+    // </div>
+
   );
 };
 
