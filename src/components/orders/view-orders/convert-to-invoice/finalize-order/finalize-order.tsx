@@ -1,12 +1,20 @@
 import React from "react";
 import cancelIcon from "../../../../../assets/icons/layout/cancel-icon.png";
 import { Modal, Form, Input, Button } from "antd";
-
-const FinalizeOrder: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
+import { useNavigate } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../../../routes/route-constants";
+const FinalizeOrder: React.FC<any> = ({
+  isModalOpen,
+  setIsModalOpen,
+  data,
+}) => {
+  const navigate = useNavigate();
   const handleSave = (values: any) => {
     console.log(values);
-    window.location.href = './orders'
+    navigate(ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.ORDERS);
   };
+
+  console.log("Finalize Data", data);
 
   return (
     <div>
@@ -30,12 +38,19 @@ const FinalizeOrder: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
           onFinish={handleSave}
         >
           <Form.Item
-            label="Add Tracking No"
+            label={
+              (data?.orderStatus === "Waiting to be delivered" &&
+                "ETA Of Delivery") ||
+              ((data?.orderStatus === "Waiting to be shipped" ||
+                data?.orderStatus === "Completed") &&
+                "Add Tracking No") ||
+              (data?.orderStatus === "Pickup from store" &&
+                "Name Of Pickup Person")
+            }
             name="trackingNo"
             required
             tooltip="This is a required field"
             validateStatus="error"
-
             rules={[
               {
                 required: true,
@@ -49,41 +64,55 @@ const FinalizeOrder: React.FC<any> = ({ isModalOpen, setIsModalOpen }) => {
             ]}
           >
             <Input
-              className="_input_username  h-[31px] "
+              className="_input_username h-[31px]"
               placeholder="Tracking No"
-              type="number"
+              type={
+                data?.orderStatus === "Waiting to be shipped" ||
+                data?.orderStatus === "Completed" ? "number"
+                  : 'string'
+              }
             />
           </Form.Item>
-          <Form.Item
-            label="Shipping Company"
-            name="shippingCompany"
-            required
-            tooltip="This is a required field"
-            validateStatus="error"
-            className="mt-8"
-            rules={[
-              {
-                required: true,
 
-                message: "Required Field",
-              },
-              /*  {
+          {data?.orderStatus !== "Pickup from store" && (
+            <Form.Item
+              label={
+                (data?.orderStatus === "Waiting to be delivered" &&
+                  "Delivered By") ||
+                ((data?.orderStatus === "Waiting to be shipped" ||
+                  data?.orderStatus === "Completed") &&
+                  "Shipping Company")
+              }
+              name="shippingCompany"
+              required
+              tooltip="This is a required field"
+              validateStatus="error"
+              className="mt-8"
+              rules={[
+                {
+                  required: true,
+
+                  message: "Required Field",
+                },
+                /*  {
                 pattern: new RegExp("^[a-zA-Z0-9\\s]+$"),
                 message: "Special characters not allowed",
               }, */
-            ]}
-          >
-            <Input
-              className="_input_username  h-[31px] "
-              placeholder="Company name"
-            />
-          </Form.Item>
+              ]}
+            >
+              <Input
+                className="_input_username  h-[31px] "
+                placeholder="Company name"
+                
+              />
+            </Form.Item>
+          )}
           <div className="flex justify-center m-auto _white-color">
             <Button
               className="w-32 _primary-button"
               type="primary"
               htmlType="submit"
-            // onClick={handleClick}
+              // onClick={handleClick}
             >
               Save
             </Button>

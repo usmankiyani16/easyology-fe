@@ -320,6 +320,7 @@ const DashboardOrder: React.FC<any> = ({
         onSave={handleSave}
         showOrderStatus={showOrderStatus}
         showFinalizeButton={showFinalizeButton}
+        data={data}
       />
 
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

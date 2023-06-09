@@ -20,6 +20,7 @@ const Operations: React.FC<any> = ({
   onSave,
   showOrderStatus,
   showFinalizeButton,
+  data,
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -164,7 +165,7 @@ const Operations: React.FC<any> = ({
             $ {salesTax.toFixed(2)}
           </label>
         </div>
-        {!showFinalizeButton ? (
+        {!showFinalizeButton || data?.orderStatus === "In Route" ? (
           <div className="flex ">
             <label className="_primary-color w-9/12 ">Total </label>
             <label className="w-3/12 whitespace-nowrap">
@@ -188,7 +189,6 @@ const Operations: React.FC<any> = ({
             </div>
           </div>
         )}
-
         {showOrderStatus && (
           <div className="m-auto _white-color">
             <Button
@@ -200,8 +200,7 @@ const Operations: React.FC<any> = ({
             </Button>
           </div>
         )}
-
-        {showFinalizeButton && (
+        {data?.orderStatus !== "In Route" && showFinalizeButton && (
           <div className="m-auto _white-color">
             <Button
               className="w-32 _primary-button"
@@ -244,6 +243,7 @@ const Operations: React.FC<any> = ({
         <FinalizeOrder
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
+          data={data}
         />
       )}
     </div>

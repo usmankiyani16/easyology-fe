@@ -10,11 +10,11 @@ const TotalAmount:React.FC<totalAmount> = ({stateData}) => {
     <div className="flex justify-around text-xl mt-4">
       <div>
         <span>Total Amount {stateData?.label3} </span>
-        <span className="_primary-color">$ 450</span>
+        <span className="_primary-color">$ {stateData?.data?.totalAmount}</span>
       </div>
       <div>
         <span>Total no of {stateData?.label2} </span>
-        <span className="_primary-color"> 6</span>
+        <span className="_primary-color"> {stateData?.data?.totalCount}</span>
       </div>
     </div>
   );

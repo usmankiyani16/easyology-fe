@@ -7,7 +7,7 @@ import cardData from "../../card/mock-data";
 import { getReportsReceviveable } from "../../../../../store/reports/reportsSlice";
 import { useAppDispatch, useAppSelector } from "../../../../../store/store";
 
-const MonthCard: React.FC<any> = ({ month }) => {
+const MonthCard: React.FC<any> = ({ month , cardData}) => {
   const dispatch = useAppDispatch();
   const { data , status } = useAppSelector(
     (state) => state.reports
@@ -68,13 +68,13 @@ const MonthCard: React.FC<any> = ({ month }) => {
                     {propData?.label1} ID:
                   </span>
                   <span className="font-semibold _primary-color">
-                    #{data?.customerId}
+                    #{data?.id}
                   </span>
                 </div>
                 <div className="flex text-lg gap-2 whitespace-nowrap">
                   <span className="font-medium">{propData?.label1} Name:</span>
                   <span className="font-medium captilize _label-grey _grey-color">
-                    {data?.customerName}
+                    {data?.name}
                   </span>
                 </div>
               </div>
@@ -88,13 +88,13 @@ const MonthCard: React.FC<any> = ({ month }) => {
                     {propData?.label2} No:
                   </span>
                   <span className="font-semibold _primary-color">
-                    #{data?.invoiceNo}
+                    #{data?.number}
                   </span>
                 </div>
                 <div className="flex text-lg gap-2 whitespace-nowrap">
                   <span className="font-medium">Amount:</span>
                   <span className="font-medium captilize _label-grey _grey-color">
-                    $ {data?.totalAmount}
+                    $ {data?.amount}
                   </span>
                 </div>
               </div>

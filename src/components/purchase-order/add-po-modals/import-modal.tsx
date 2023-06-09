@@ -29,6 +29,9 @@ const Importmodal: React.FC<any> = () => {
     dropdownStyle: { maxHeight: 140 },
   };
 
+  const fileUrl = "https://easyology-templates.s3.amazonaws.com/purchase-order.xlsx";
+  const fileName = "myExcelFile";
+
   return (
     <div>
       <Modal
@@ -89,7 +92,7 @@ const Importmodal: React.FC<any> = () => {
 
         {isVendorSelected && (
           <>
-            <ExportExcel excelData={Dummy_Add_PO} fileName={"Export Excel"} />
+            <ExportExcel/>
 
             <BulkUpload vendorId={vendorId} />
             {/* <UploadExcelTable /> */}
