@@ -14,6 +14,7 @@ import Spinner from "../common/spinner/spinner";
 
 const Customer = () => {
   const { customers, status } = useAppSelector((state) => state.customers);
+  console.log("customers" , customers)
   const [isApiChange, setIsApiChange] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();

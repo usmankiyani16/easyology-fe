@@ -10,6 +10,7 @@ import { getReportsReceviveable } from "../../../store/reports/reportsSlice";
 
 const AcountReceiveable = () => {
   const navigate = useNavigate();
+  const viewReceiveableRoute = ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE
   /*  const location = useLocation()
   const data = location.state */
 
@@ -68,6 +69,7 @@ const AcountReceiveable = () => {
           label3= "Receiveable"
           data={data?.receivableInvoices}
           status={status}
+          viewRoute={viewReceiveableRoute}
         />
       </div>
 

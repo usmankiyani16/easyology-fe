@@ -73,17 +73,9 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
       
     }
     console.log(values, "order");
-   
     form.resetFields();
     setSelectedOption(null)
-
     navigate(ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.ORDERS)
-
-
-
-    // window.location.href = '/orders';
-    
-
   };
 
   const onFinishFailed = (errorInfo: any) => {

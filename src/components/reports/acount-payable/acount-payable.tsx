@@ -6,12 +6,12 @@ import Cards from "../common-cards/card/card";
 import { Pagination } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { getReportsPayable } from "../../../store/reports/reportsSlice";
+import { ROUTE_CONSTANTS } from "../../../routes/route-constants";
 
 const AcountPayable = () => {
   const dispatch = useAppDispatch();
-
   const { data, status } = useAppSelector((state) => state.reports);
-
+  const viewPaybleRoute= ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ACOUNT_PAYABLE
   console.log(data, "payable");
 
   useEffect(() => {
@@ -53,6 +53,8 @@ const AcountPayable = () => {
           label2="PO"
           label3 = 'Payable'
           data={data?.accountPayable}
+          viewRoute={viewPaybleRoute}
+          status={status}
         />
       </div>
 

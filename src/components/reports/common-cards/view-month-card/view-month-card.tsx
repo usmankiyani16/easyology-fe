@@ -30,7 +30,7 @@ const ViewMonthCard = () => {
         name: data?.userDetail?.firstName + " " + data?.userDetail?.lastName,
         number: data?.orderNumber,
         amount: data?.remainingAmount,
-        payMethod: data?.payments[0]?.paymentType,
+        // payMethod: data?.payments[0]?.paymentType,
       };
     });
   }
@@ -41,7 +41,7 @@ const ViewMonthCard = () => {
         name: data?.vendorDetail?.name,
         number: data?.poNumber,
         amount: data?.remainingAmount,
-        payMethod: data?.payments[0]?.paymentType,
+        // payMethod: data?.payments[0]?.paymentType,
       };
     });
   }

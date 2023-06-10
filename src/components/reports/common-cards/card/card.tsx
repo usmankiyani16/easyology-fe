@@ -8,20 +8,9 @@ import { REQUEST_STATUS } from "../../../../utils/constants";
 import Spinner from "../../../common/spinner/spinner";
 import { useLocation } from "react-router-dom";
 
-const Cards: React.FC<any> = ({ label1, label2, label3, data, status }) => {
-  console.log(data, "bbu");
-
+const Cards: React.FC<any> = ({ label1, label2, label3, data, status , viewRoute}) => {
   const {pathname} = useLocation()
   console.log( 'PathName' ,pathname)
-
-  let targetPath = '';
-  if (pathname === "/acount-receiveable") {
-    targetPath = ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE;
-  } 
-  if (pathname === "/acount-payable") {
-    targetPath = ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ACOUNT_PAYABLE;
-  }
-
   return (
     <div>
       <div className="flex flex-col gap-4 mt-3">
@@ -29,7 +18,7 @@ const Cards: React.FC<any> = ({ label1, label2, label3, data, status }) => {
         {!data?.length && status === REQUEST_STATUS.SUCCEEDED ? (
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
-            description="No product available"
+            description="Nothing available"
           />
         ) : (
           status !== REQUEST_STATUS.PENDING &&
@@ -76,19 +65,14 @@ const Cards: React.FC<any> = ({ label1, label2, label3, data, status }) => {
 
                 <Link
                   to={{
-                    pathname:targetPath,
+                    pathname:viewRoute,
                  
                   }}
-                  state={{ data, label1, label2, label3 , pathname }}
+                  state={{ data, label1, label2, label3 , pathname}}
                   
                 >
                   <div className="flex xs:justify-center xs:mt-2 sm:justify-end items-center ">
-                    <Button
-                      onClick={() => {
-                        //   setSignleCustomerData(data);
-                        // console.log(data);
-                      }}
-                    >
+                    <Button>
                       View
                     </Button>
                   </div>
