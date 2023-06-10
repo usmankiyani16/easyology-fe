@@ -1,7 +1,4 @@
 import React, { useState, useRef } from "react";
-import unchecked from "../../../assets/icons/layout/unchecked.png";
-import tabler_maximize from "../../../assets/icons/layout/tabler_maximize.png";
-import Laptop from "../../../assets/images/dashboard/laptop.png";
 import "../../../sass/modals.scss";
 import { SearchOutlined } from "@ant-design/icons";
 import { Col, InputRef, Row, Select } from "antd";
