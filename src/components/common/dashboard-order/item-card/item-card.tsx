@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState, useEffect } from "react";
 import "./item-card.scss";
 import { DeleteFilled } from "@ant-design/icons";
 import { Button, InputNumber } from "antd";
@@ -12,7 +12,8 @@ import {
   incrementProduct,
 } from "../../../../store/products/products-slice";
 import { imageBaseUrl } from "../../../../utils/constants";
-const ItemCard = () => {
+const ItemCard = (props: any) => {
+  const { productItems } = props;
   const { selectedProducts } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
 
@@ -55,7 +56,15 @@ const ItemCard = () => {
     }
   };
 
-  console.log(selectedProducts, "products");
+
+
+
+
+  useEffect(() => {
+    productItems(selectedProducts);
+  }, [productItems, selectedProducts])
+
+
   return (
     <div className="_item-card">
       <div className="w-full flex justify-between">

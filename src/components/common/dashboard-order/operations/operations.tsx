@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./operations.scss";
-import { Button, InputNumber } from "antd";
+import { Button, Form, InputNumber } from "antd";
 import CashPay from "./cash-pay/cash-pay";
 import { useAppDispatch, useAppSelector } from "../../../../store/store";
 import {
@@ -12,6 +12,7 @@ import VoidInvoice from "./void-invoice/void-invoice";
 import { customerType } from "./interfaces/operations.interface";
 import { Toast } from "../../../common/toast/toast";
 import FinalizeOrder from "../../../orders/view-orders/convert-to-invoice/finalize-order/finalize-order";
+import dayjs from "dayjs";
 
 const Operations: React.FC<any> = ({
   totalPrice,
@@ -21,6 +22,8 @@ const Operations: React.FC<any> = ({
   showOrderStatus,
   showFinalizeButton,
   data,
+  form,
+  handlePaymentDetails
 }) => {
   const dispatch = useAppDispatch();
   const { invoiceNumber } = useAppSelector((state) => state.order);
@@ -30,9 +33,9 @@ const Operations: React.FC<any> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [discount, setDiscount] = useState<number>(0);
   const taxRate = 0.025; // 2.5%
-  const salesTax =  selectCustomer?.role == customerType.retailer ?totalPrice * taxRate : 0;
+  const salesTax = selectCustomer?.role == customerType.retailer ? totalPrice * taxRate : 0;
   const salesTaxCount = selectCustomer?.role == customerType.retailer ? 2.5 : 0;
-  
+
   const total = totalPrice + salesTax - discount;
   const disableButton = !selectedProducts?.length;
 
@@ -78,11 +81,19 @@ const Operations: React.FC<any> = ({
     }
   };
 
-  // Saving Data ONCLICK
 
-  const handleClick = () => {
-    onSave();
-  };
+
+  useEffect(() => {
+    handlePaymentDetails({
+      discount: discount,
+      subTotalAmount: totalPrice,
+      salesTax,
+      totalAmount: total,
+      paidAmount: total,
+      dueDate: dayjs().format('DD-MM-YYYY')
+    })
+  }, [discount, totalPrice, salesTax, total])
+
 
   return (
     <div className="_operations flex justify-between w-full mt-10">
@@ -190,15 +201,21 @@ const Operations: React.FC<any> = ({
           </div>
         )}
         {showOrderStatus && (
-          <div className="m-auto _white-color">
-            <Button
-              className="w-32 _primary-button"
-              type="primary"
-              onClick={handleClick}
-            >
-              Save
-            </Button>
-          </div>
+          <Form
+            layout="vertical"
+            autoComplete="off"
+            onFinish={onSave}
+            form={form}
+          >
+            <div className="m-auto _white-color">
+              <Button
+                className="w-32 _primary-button"
+                htmlType="submit"
+              >
+                Save
+              </Button>
+            </div>
+          </Form>
         )}
         {data?.orderStatus !== "In Route" && showFinalizeButton && (
           <div className="m-auto _white-color">
