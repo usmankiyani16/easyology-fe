@@ -9,8 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../store/store";
 
 const MonthCard: React.FC<any> = ({ month , cardData}) => {
   const dispatch = useAppDispatch();
-  const { data , status } = useAppSelector(
-    (state) => state.reports
+  const { data , status } = useAppSelector((state) => state.reports
   );
 
   

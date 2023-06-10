@@ -49,7 +49,7 @@ const ExpenseCard = () => {
         {!data?.expenses?.length && status === REQUEST_STATUS.SUCCEEDED ? (
           <Empty
             image={Empty.PRESENTED_IMAGE_SIMPLE}
-            description="No product available"
+            description="No Expenses available"
           />
         ) : (
           status !== REQUEST_STATUS.PENDING &&

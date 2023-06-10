@@ -39,7 +39,7 @@ const ViewOrdersCard: React.FC<ViewOrders> = ({
 
                   <span className="ml-2">
                     Product Seriol No:{" "}
-                    <span className="_primary-color">{product?.productId}</span>
+                    <span className="_primary-color">{product?.serialNumber}</span>
                   </span>
                   <div className="flex items-center gap-3 ">
                     <img

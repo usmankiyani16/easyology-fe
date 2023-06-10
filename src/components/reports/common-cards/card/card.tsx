@@ -14,6 +14,14 @@ const Cards: React.FC<any> = ({ label1, label2, label3, data, status }) => {
   const {pathname} = useLocation()
   console.log( 'PathName' ,pathname)
 
+  let targetPath = '';
+  if (pathname === "/acount-receiveable") {
+    targetPath = ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE;
+  } 
+  if (pathname === "/acount-payable") {
+    targetPath = ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.VIEW_ACOUNT_PAYABLE;
+  }
+
   return (
     <div>
       <div className="flex flex-col gap-4 mt-3">
@@ -68,9 +76,8 @@ const Cards: React.FC<any> = ({ label1, label2, label3, data, status }) => {
 
                 <Link
                   to={{
-                    pathname:
-                      ROUTE_CONSTANTS.SLASH +
-                      ROUTE_CONSTANTS.VIEW_ACOUNT,
+                    pathname:targetPath,
+                 
                   }}
                   state={{ data, label1, label2, label3 , pathname }}
                   

@@ -21,7 +21,7 @@ const ViewMonthCard = () => {
   const stateData = location.state;
   const month = stateData?.data?.month;
 
-  // ! Remaining Amount etc waali key values set krni hai abhi
+
   let cardData;
   if (stateData.pathname === "/acount-receiveable") {
     cardData = data?.receivableInvoices?.map((data: any) => {
@@ -34,7 +34,7 @@ const ViewMonthCard = () => {
       };
     });
   }
-  if (stateData.pathname === "/acount-payable") {
+  else if (stateData.pathname === "/acount-payable") {
     cardData = data?.accountPayable?.map((data: any) => {
       return {
         id: data?.vendorId,
@@ -44,6 +44,9 @@ const ViewMonthCard = () => {
         payMethod: data?.payments[0]?.paymentType,
       };
     });
+  }
+  else {
+    cardData= ''
   }
   console.log("cardDATA", cardData);
   console.log("stateData", stateData);

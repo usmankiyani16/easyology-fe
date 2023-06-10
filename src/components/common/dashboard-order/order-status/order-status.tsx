@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { Select, Form, Checkbox, Input, Button, Row, Col } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_CONSTANTS } from "../../../../routes/route-constants";
 
 
 const CheckboxGroup = Checkbox.Group;
 
 const dummyAddress: any = "House No A0-2737 Shaadbaagh town";
 const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
+  const navigate= useNavigate()
+
+
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedValues, setSelectedValues] = useState("10AM - 2PM");
@@ -71,6 +76,10 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
    
     form.resetFields();
     setSelectedOption(null)
+
+    navigate(ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.ORDERS)
+
+
 
     // window.location.href = '/orders';
     
