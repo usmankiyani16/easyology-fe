@@ -1,4 +1,4 @@
-import { AutoComplete, Button, Input, Select } from "antd";
+import { AutoComplete, Button, Form, Input, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import "./dashboard-order.scss";
 import { addCustomereIcon, scannerIcon } from "../../../assets/icons";
@@ -12,6 +12,7 @@ import {
   getProducts,
 } from "../../../store/products/products-slice";
 import {
+  addOrder,
   getHoldInvoices,
   getInvoiceNumber,
 } from "../../../store/order/order-slice";
@@ -29,28 +30,41 @@ const DashboardOrder: React.FC<any> = ({
   data,
 }) => {
   const dispatch = useAppDispatch();
+
+
+  const [form] = Form.useForm();
+
+
   const { invoiceNumber } = useAppSelector((state) => state.order);
   const { holdInvoices } = useAppSelector((state) => state.order);
-  
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [productItems, setProductItems] = useState<any>(null);
+  const [paymentDetails, setPaymentDetails] = useState<any>(null);
   // const [orderCategory, setOrderCategory] = useState<string>("store");
 
   const [selectCustomer, setSelectCustomer] = useState<any>({});
   const [selectCustomerValue, setSelectCustomerValue] = useState<any>(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<any>(null);
   const [selectedOption, setSelectedOption] = useState();
 
   const { products, selectedProducts } = useAppSelector(
     (state) => state.products
 
   );
-  const {customers} = useAppSelector((state) => state.customers)
+  const { customers } = useAppSelector((state) => state.customers)
 
-  console.log(products, 'products')
-  console.log(customers , 'customer')
+
+
+
+  const { data: localStorageData }: any = JSON.parse(localStorage.getItem("user") || "{}");
+
+
+
+
 
   const totalPrice = selectedProducts?.reduce((acc: any, product: any) => {
-    return acc + product?.quantity * product?.variants?.purchaseAmount ;
+    return acc + product?.quantity * product?.variants?.purchaseAmount;
   }, 0);
 
   const searchProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,36 +117,36 @@ const DashboardOrder: React.FC<any> = ({
       nullProduct: "true",
       perPage: 3,
     };
-    
+
     dispatch(getCustomers(queryParamCustomers));
 
   }, []);
- 
+
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
- /*  const customerOptions = [
-    {
-      _id: "9dc55d0012d14689b8a00940",
-      name: "customer 1",
-      mob: "02363500365",
-      type: "retailer",
-    },
-    {
-      _id: "9dc55d0012d14689b8a00940",
-      name: "customer 2",
-      mob: "02363453933",
-      type: "retailer",
-    },
-    {
-      _id: "9dc55d0012d14689b8a00940",
-      name: "retailer",
-      mob: "0236373737",
-      type: "wholeseller",
-    },
-  ]; */
+  /*  const customerOptions = [
+     {
+       _id: "9dc55d0012d14689b8a00940",
+       name: "customer 1",
+       mob: "02363500365",
+       type: "retailer",
+     },
+     {
+       _id: "9dc55d0012d14689b8a00940",
+       name: "customer 2",
+       mob: "02363453933",
+       type: "retailer",
+     },
+     {
+       _id: "9dc55d0012d14689b8a00940",
+       name: "retailer",
+       mob: "0236373737",
+       type: "wholeseller",
+     },
+   ]; */
   let productOptions = products?.products?.slice(0, 3);
   const filteredProductOptions = productOptions?.filter(
     (option: any) =>
@@ -153,22 +167,66 @@ const DashboardOrder: React.FC<any> = ({
     setSelectCustomerValue(null);
   };
 
-  // Handling data of Order Status
 
-  const handleFormChange: any = (newFormData: any) => {
+  // =============================== Handling data of Order Status ===============================
+
+  const handleOrderForm: any = (newFormData: any) => {
     setFormData(newFormData);
+    handleSaveOrderData(newFormData);
   };
 
-  // Saving Data on Save Button
 
-  const handleSave = () => {
+
+  // =============================== Saving Data on Save Button ===============================
+
+  const handleSaveOrderData = (newFormData?: any) => {
     // Perform save operation with formData
-    console.log(formData);
+
+    const newProductItems = productItems.map((obj: any) => ({
+      productId: obj._id,
+      variantId: obj.variants._id,
+      stockId: obj.variants.stock._id,
+      quantity: obj.quantity
+    }));
+
+
+    const postOrderPayload = {
+      storeId: localStorageData?.storeId,
+      userId: localStorageData?._id,
+      customerId: selectCustomer?._id,
+      orderCategory: "store",
+      orderStatus: newFormData?.customerType,
+      ...(newFormData?.customerType === "Pickup From Store" && { timeSlot: newFormData?.time }),
+      ...(newFormData?.customerType !== "Pickup From Store" && {
+        shippingDetails: {
+          address: newFormData?.address,
+          ...(newFormData?.city && { city: newFormData?.city }),
+          ...(newFormData?.state && { state: newFormData?.state }),
+          ...(newFormData?.zipCode && { zipCode: newFormData?.zipCode }),
+        },
+        paymentStatus: "Unpaid",
+        paymentDetails,
+        products: newProductItems,
+
+      })
+    }
+
+
+    console.log("order payload in dashboard  =========>", postOrderPayload);
+
+    dispatch(addOrder(postOrderPayload));
+
+
   };
 
   const handleSelect = (value: any) => {
     setSelectedOption(value);
   };
+
+
+
+
+
   return (
     <div className="_dashboard">
       <div className="flex gap-3 justify-between ">
@@ -182,7 +240,7 @@ const DashboardOrder: React.FC<any> = ({
               onSelect={(value, option) => handleCustomerSelect(option)}
               options={customerOptions?.map((customer: any) => ({
                 ...customer,
-                value: customer?.firstName + ' ' +  customer?.lastName ,
+                value: customer?.firstName + ' ' + customer?.lastName,
               }))}
               value={""}
             >
@@ -225,7 +283,7 @@ const DashboardOrder: React.FC<any> = ({
               placeholder="Select Order type"
               onChange={handleSelect}
               style={{ width: "200px" }}
-              //   prefix={SearchOutlined}
+            //   prefix={SearchOutlined}
             >
               <Select.Option value="Order by phone">
                 Order by phone
@@ -291,13 +349,13 @@ const DashboardOrder: React.FC<any> = ({
 
       {!showCards && (
         <div className="mt-7">
-          <ItemCard />
+          <ItemCard productItems={(items: any) => setProductItems(items)} />
         </div>
       )}
 
       {showCards && (
         <div className="mt-7">
-          <ViewOrdersCard orderDetails={orderDetails} showScroll={true} data={data}/>
+          <ViewOrdersCard orderDetails={orderDetails} showScroll={true} data={data} />
         </div>
       )}
 
@@ -305,7 +363,7 @@ const DashboardOrder: React.FC<any> = ({
         <>
           {selectedOption && selectedProducts?.length ? (
             <div>
-              <OrderStatus onChange={handleFormChange} />
+              <OrderStatus handleOrderForm={handleOrderForm} form={form} />
             </div>
           ) : (
             ""
@@ -317,10 +375,12 @@ const DashboardOrder: React.FC<any> = ({
         totalPrice={totalPrice}
         selectCustomer={selectCustomer}
         setSelectCustomer={setSelectCustomer}
-        onSave={handleSave}
+        onSave={handleSaveOrderData}
         showOrderStatus={showOrderStatus}
         showFinalizeButton={showFinalizeButton}
         data={data}
+        form={form}
+        handlePaymentDetails={(data: any) => setPaymentDetails(data)}
       />
 
       <OnHoldModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

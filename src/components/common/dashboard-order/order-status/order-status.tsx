@@ -1,96 +1,36 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Select, Form, Checkbox, Input, Button, Row, Col } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import { ROUTE_CONSTANTS } from "../../../../routes/route-constants";
-
-
-const CheckboxGroup = Checkbox.Group;
 
 const dummyAddress: any = "House No A0-2737 Shaadbaagh town";
-const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
-  const navigate= useNavigate()
 
+const OrderStatus = (props: any) => {
+  const { form, handleOrderForm } = props;
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOrderType, setSelectedOrderType] = useState(null);
 
-  const [selectedValues, setSelectedValues] = useState("10AM - 2PM");
+  const [selectedValues, setSelectedValues] = useState("");
   const [addressValues, setAddressValues] = useState("Store Address");
 
-  const [form] = Form.useForm();
-
-  // const [selectedOption, setSelectedOption] = useState("cash");
-
-  //   const onFinish = (values: any) => {
-  //     console.log(values);
-  //   };
-
-
-  const handleSelect = (value: any) => {
-    setSelectedOption(value);
-  };
-  const handleCheckboxChange = (checkedValue: any) => {
-    setSelectedValues(checkedValue);
-  };
-  const handleAddressChange = (checkedValue: any) => {
-    if (
-      selectedOption === "Waiting to be delivered" ||
-      selectedOption === "Waiting to be shipped"
-    ) {
-      setAddressValues(checkedValue);
-      if (checkedValue === "Store Address") {
-        form.setFieldsValue({
-          storeAddress: dummyAddress,
-          city: undefined,
-          state: undefined,
-          zipcode: undefined,
-        });
-      } else {
-        form.setFieldsValue({
-          storeAddress: undefined,
-          city: undefined,
-          state: undefined,
-          zipcode: undefined,
-        });
-      }
-    } else {
-      setAddressValues("");
-    }
-  };
-
   const onFinish = (values: any) => {
-    if (values.customerType === "Pickup from Store") {
-      values.timeStatus = selectedValues;
-    }
-    if (
-      values.customerType === "Waiting to be delivered" ||
-      values.customerType === "Waiting to be shipped"
-    ) {
-      values.storeAddressCheck = addressValues;
-      if (values.storeAddressCheck === "Store Address") {
-        values.storeAddress = dummyAddress;
-      }
-      
-    }
-    console.log(values, "order");
+    const orderFormValues = {
+      ...values,
+      ...(values.customerType === "Pickup from Store"
+        ? {
+            time: selectedValues,
+            address: dummyAddress,
+          }
+        : {
+            address: values.storeAddress ?? addressValues,
+          }),
+    };
+
+    handleOrderForm(orderFormValues);
+
     form.resetFields();
-    setSelectedOption(null)
-    navigate(ROUTE_CONSTANTS.SLASH + ROUTE_CONSTANTS.ORDERS)
-  };
+    setSelectedOrderType(null);
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // window.location.href = '/orders';
   };
-
-  // Form fields reset on changing selection
-  // useEffect(() => {
-  //   if (
-  //     selectedOption === "Waiting to be shipped" ||
-  //     selectedOption === "Waiting to be delivered"
-  //   ) {
-  //     form.resetFields();
-  //   }
-  // }, [selectedOption, form]);
 
   return (
     <div className="_order-wrap mt-4">
@@ -98,7 +38,6 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
         layout="vertical"
         autoComplete="off"
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         form={form}
       >
         <Row className="flex xs:flex-col md:flex-row">
@@ -126,41 +65,44 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
               <Select
                 className="_input_field"
                 placeholder="Select Order type"
-                onChange={handleSelect}
+                onChange={(value) => setSelectedOrderType(value)}
                 style={{ width: "200px" }}
-              >
-                <Select.Option value="Pickup from Store">
-                  Pickup from Store
-                </Select.Option>
-                <Select.Option value="Waiting to be delivered">
-                  Waiting to be delivered
-                </Select.Option>
-                <Select.Option value="Waiting to be shipped">
-                  Waiting to be shipped
-                </Select.Option>
-              </Select>
+                options={[
+                  {
+                    label: "Pickup from Store",
+                    value: "Pickup from Store",
+                  },
+                  {
+                    label: "Waiting to be delivered",
+                    value: "Waiting to be delivered",
+                  },
+                  {
+                    label: "Waiting to be shipped",
+                    value: "Waiting to be shipped",
+                  },
+                ]}
+              ></Select>
             </Form.Item>
 
             {/*---------------------- Pickup from Store Status Checked -------------------------- */}
 
-            {selectedOption === "Pickup from Store" && (
+            {selectedOrderType === "Pickup from Store" && (
               <div className="flex flex-col whitespace-nowrap">
                 <Checkbox
                   checked={selectedValues === "10AM - 2PM"}
-                  onChange={() => handleCheckboxChange("10AM - 2PM")}
-                  // className="ml-[8px]"
+                  onChange={() => setSelectedValues("10AM - 2PM")}
                 >
                   10AM - 2PM
                 </Checkbox>
                 <Checkbox
                   checked={selectedValues === "2PM - 4PM"}
-                  onChange={() => handleCheckboxChange("2PM - 4PM")}
+                  onChange={() => setSelectedValues("2PM - 4PM")}
                 >
                   2PM - 4PM
                 </Checkbox>
                 <Checkbox
                   checked={selectedValues === "4PM - 6PM"}
-                  onChange={() => handleCheckboxChange("4PM - 6PM")}
+                  onChange={() => setSelectedValues("4PM - 6PM")}
                 >
                   4PM - 6PM
                 </Checkbox>
@@ -169,22 +111,20 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
 
             {/*---------------------- Delivery Status Checked -------------------------- */}
 
-            {(selectedOption === "Waiting to be delivered" ||
-              selectedOption === "Waiting to be shipped") && (
+            {(selectedOrderType === "Waiting to be delivered" ||
+              selectedOrderType === "Waiting to be shipped") && (
               <div className="flex xs:flex-col md:flex-row gap-4">
                 <div>
                   <div className="flex gap-4 whitespace-nowrap">
                     <Checkbox
                       checked={addressValues === "Store Address"}
-                      onChange={() => handleAddressChange("Store Address")}
+                      onChange={() => setAddressValues("Store Address")}
                     >
                       Store Address
                     </Checkbox>
                     <Checkbox
                       checked={addressValues === "Add Different Address"}
-                      onChange={() =>
-                        handleAddressChange("Add Different Address")
-                      }
+                      onChange={() => setAddressValues("Add Different Address")}
                     >
                       Add Different Address
                     </Checkbox>
@@ -249,25 +189,25 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
                             <Select
                               className="_input_field h-[35px] md:200px"
                               placeholder="Select State"
-                              //   onChange={handleSelect}
-
                               //   prefix={SearchOutlined}
-                            >
-                              <Select.Option value="USA">USA</Select.Option>
-                              <Select.Option value="Waiting to be delivered">
-                                North Side
-                              </Select.Option>
-                              <Select.Option value="Waiting to be shipped">
-                                East Side
-                              </Select.Option>
-                            </Select>
+                              options={[
+                                {
+                                  label: "North Side",
+                                  value: "Waiting to be delivered",
+                                },
+                                {
+                                  label: "East Side",
+                                  value: "Waiting to be shipped",
+                                },
+                              ]}
+                            />
                           </Form.Item>
                           <Form.Item
                             className=""
                             label={
                               <span className="_po_field_label">Zip Code</span>
                             }
-                            name="zipcode"
+                            name="zipCode"
                           >
                             <Input
                               className="_input_field h-[35px]"
@@ -285,7 +225,7 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
           </Col>
         </Row>
 
-        <div className="flex justify-center mt-16">
+        {/* <div className="flex justify-center mt-16">
           <Form.Item>
             <Button
               type="primary"
@@ -295,7 +235,7 @@ const OrderStatus = ({ onSubmit, showOrderStatus }: any) => {
               Save
             </Button>
           </Form.Item>
-        </div>
+        </div> */}
       </Form>
     </div>
   );
