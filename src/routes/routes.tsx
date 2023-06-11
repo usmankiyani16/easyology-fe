@@ -248,77 +248,77 @@ export const routes: any = [
           </RequireAuth>
         ),
       },
-      {
-        path: ROUTE_CONSTANTS.REPORTS,
-        element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
-            <MonthlyReportsLazy />
-          </RequireAuth>
-        ),
-      },
-      {
-        path: ROUTE_CONSTANTS.VIEW_MONTHLY_REPORTS,
-        element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
-            <ViewMonthlyReportLazy />
-          </RequireAuth>
-        ),
-      },
-      {
+      // {
+      //   path: ROUTE_CONSTANTS.REPORTS,
+      //   element: (
+      //     <RequireAuth
+      //       allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+      //     >
+      //       <MonthlyReportsLazy />
+      //     </RequireAuth>
+      //   ),
+      // },
+      // {
+      //   path: ROUTE_CONSTANTS.VIEW_MONTHLY_REPORTS,
+      //   element: (
+      //     <RequireAuth
+      //       allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+      //     >
+      //       <ViewMonthlyReportLazy />
+      //     </RequireAuth>
+      //   ),
+      // },
+      // {
 
-        path: ROUTE_CONSTANTS.ACOUNT_RECEIVEABLE,
-        element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
-            <AcountsReceiveableLazy/>
-          </RequireAuth>
-        ),
-      },
-      {
-        path: ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE,
-        element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
-            <ViewAcountReceiveableLazy/>
-          </RequireAuth>
-        ),
-      },
-      {
-        path: ROUTE_CONSTANTS.VIEW_ACOUNT_PAYABLE,
-        element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
-            <ViewAcountPayableLazy/>
-          </RequireAuth>
-        ),
-      },
-      {
-        path: ROUTE_CONSTANTS.ACOUNT_PAYABLE,
-        element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
-            <AcountsPayableLazy />
-          </RequireAuth>
-        ),
-      },
-      {
-        path: ROUTE_CONSTANTS.MONTHLY_REPORT,
-        element: (
-          <RequireAuth
-            allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
-          >
-            <MonthlyReportLazy />
-          </RequireAuth>
-        ),
-      },
+      //   path: ROUTE_CONSTANTS.ACOUNT_RECEIVEABLE,
+      //   element: (
+      //     <RequireAuth
+      //       allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+      //     >
+      //       <AcountsReceiveableLazy/>
+      //     </RequireAuth>
+      //   ),
+      // },
+      // {
+      //   path: ROUTE_CONSTANTS.VIEW_ACOUNT_RECEIVEABLE,
+      //   element: (
+      //     <RequireAuth
+      //       allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+      //     >
+      //       <ViewAcountReceiveableLazy/>
+      //     </RequireAuth>
+      //   ),
+      // },
+      // {
+      //   path: ROUTE_CONSTANTS.VIEW_ACOUNT_PAYABLE,
+      //   element: (
+      //     <RequireAuth
+      //       allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+      //     >
+      //       <ViewAcountPayableLazy/>
+      //     </RequireAuth>
+      //   ),
+      // },
+      // {
+      //   path: ROUTE_CONSTANTS.ACOUNT_PAYABLE,
+      //   element: (
+      //     <RequireAuth
+      //       allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+      //     >
+      //       <AcountsPayableLazy />
+      //     </RequireAuth>
+      //   ),
+      // },
+      // {
+      //   path: ROUTE_CONSTANTS.MONTHLY_REPORT,
+      //   element: (
+      //     <RequireAuth
+      //       allowedRoles={[UserRole.USER, UserRole.ADMIN, "wholesaler"]}
+      //     >
+      //       <MonthlyReportLazy />
+      //     </RequireAuth>
+      //   ),
+      // },
       {
         path: ROUTE_CONSTANTS.NOTIFICATION,
         element: (
