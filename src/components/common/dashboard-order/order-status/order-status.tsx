@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Select, Form, Checkbox, Input, Button, Row, Col } from "antd";
+import { Select, Form, Checkbox, Input, Row, Col } from "antd";
 
 const dummyAddress: any = "House No A0-2737 Shaadbaagh town";
 
