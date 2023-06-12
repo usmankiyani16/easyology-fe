@@ -1,7 +1,7 @@
 {
   "name": "react-starter",
   "version": "0.1.0",
-  "private": true,
+  "homepage": ".",
   "dependencies": {
     "@ant-design/plots": "^1.2.5",
     "@react-pdf/renderer": "^3.1.9",
